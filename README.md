@@ -11,3 +11,6 @@ This application was created as part of a Capstone project (ECE 493) for the Com
 
 ## Creators
 Raghav Vamaraju, Aaron Plamondon, Kirsten Svidal
+
+## License
+This project utilizes the MIT license, as of February 26, 2017.
