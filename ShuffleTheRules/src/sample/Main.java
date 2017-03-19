@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -29,8 +30,8 @@ public class Main extends Application {
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         /* The main layout to organize GameCreation Mode window.*/
-        BorderPane borderPane = new BorderPane();
-        primaryStage.setScene(new Scene(borderPane, 1500,1000));
+        BorderPane rootBorderPane = new BorderPane();
+        primaryStage.setScene(new Scene(rootBorderPane, 1500,1000));
 
 
         /* Top BorderPane
@@ -60,7 +61,7 @@ public class Main extends Application {
 
         playMenu.getItems().addAll(hostMenuItem, joinMenuItem);
 
-        borderPane.setTop(applicationMenuBar);
+        rootBorderPane.setTop(applicationMenuBar);
 
 
         /* Centre BorderPane
@@ -71,22 +72,52 @@ public class Main extends Application {
         tabPane.setSide(Side.TOP);
         /* don't want users to be able to close tabs */
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        Tab tableTab = new Tab("Table");
-        Rectangle rightRectangle = new Rectangle(1500, 1000, Color.ALICEBLUE);
-        rightRectangle.setStroke(Color.BLACK);
-        tableTab.setContent(rightRectangle);
 
+
+        /* Table Tab */
+        Tab tableTab = new Tab("Table");
+        BorderPane tableTabBorderPane = new BorderPane();
+
+       ; /* center (main portion) will be a grid */
+        GridPane tableGridPane = new GridPane();
+        tableTabBorderPane.setCenter(tableGridPane);
+
+        /* right side will contain menus */
+        TitledPane pileSettingsMenu = new TitledPane("Pile Settings", new Button("Add Pile"));
+        TitledPane cardRestrictionSettingsMenu = new TitledPane("Card Restrictions", new Button("Change"));
+        TitledPane playerSettingsMenu = new TitledPane("Player Settings", new Button("Change"));
+        TitledPane generalSettingsMenu = new TitledPane("General Settings", new Button("Change"));
+
+        Accordion tableTabAccordian = new Accordion();
+        tableTabAccordian.getPanes().addAll(pileSettingsMenu, cardRestrictionSettingsMenu, playerSettingsMenu, generalSettingsMenu);
+
+        tableTabBorderPane.setRight(tableTabAccordian);
+        tableTab.setContent(tableTabBorderPane);
+
+
+
+        /* Editor Tab */
         Tab editorTab = new Tab("Editor");
-        Rectangle leftRectangle = new Rectangle(1500, 1000, Color.FIREBRICK);
-        leftRectangle.setStroke(Color.BLACK);
-        editorTab.setContent(leftRectangle);
+        BorderPane editorTabBorderPane = new BorderPane();
+
+         /* center (main portion) will be a grid */
+        GridPane editorGridPane = new GridPane();
+        editorTabBorderPane.setCenter(editorGridPane);
+
+        /* right side will contain menus */
+        TitledPane eventsMenu = new TitledPane("Events", new Button("Add Event"));
+        TitledPane actionsMenu = new TitledPane("Actions", new Button("Add Action"));
+
+        Accordion editorTabAccordian = new Accordion();
+        editorTabAccordian.getPanes().addAll(eventsMenu, actionsMenu);
+
+        editorTabBorderPane.setRight(editorTabAccordian);
+        editorTab.setContent(editorTabBorderPane);
 
         tabPane.getTabs().addAll(tableTab, editorTab);
-        borderPane.setCenter(tabPane);
-
-        borderPane.setCenter(tabPane);
 
 
+        rootBorderPane.setCenter(tabPane);
 
 
     }
