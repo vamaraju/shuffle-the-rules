@@ -40,6 +40,7 @@ public class Main extends Application {
         borderPane.setTop(topRectangle);
 
         /* Centre BorderPane
+        *
         * User will drag and drop objects into this area when in Game Creation Mode.
         * If Table Tab selected, the TableGrid will be displayed.  User will drag Piles into the area.
         * If Editor Tab selected, Game Rules (sequence of Events and Actions) will be displayed.  User
@@ -47,13 +48,16 @@ public class Main extends Application {
         GridPane grid = new GridPane();
         borderPane.setCenter(grid);
 
-        // Right BorderPane
-        /*
+
+        /* Right BorderPane
+        *
         * User will select and modify objects through lists and the interface in this area.
         * If Table Tab selected, lists of game objects and their settings will be displayed.
         * If Editor Tab selected, lists of game Events and Actions will be displayed. */
+
+        // Probably want VBox or Stack or Accordion with list or VBox inside
         Rectangle rightRectangle = new Rectangle(200, 1000, Color.ALICEBLUE);
-        rightRectangle.setStroke(Color.ALICEBLUE);
+        rightRectangle.setStroke(Color.BLACK);
         borderPane.setRight(rightRectangle);
 
 
