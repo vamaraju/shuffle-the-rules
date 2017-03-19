@@ -4,9 +4,7 @@ import model.GameActions.GameAction;
 
 import java.util.ArrayList;
 
-/**
- * Created by kirsten on 2017-03-18.
- */
+
 public interface GameEvent {
 
     /* TODO it complains when this isn't initialized. this may not be what we want*/
