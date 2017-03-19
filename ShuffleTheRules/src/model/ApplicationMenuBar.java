@@ -1,4 +1,5 @@
-import javafx.scene.control.MenuBar;
+package model;
+
 
 public class ApplicationMenuBar {
 

@@ -3,16 +3,15 @@ package sample;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import view.ApplicationMenuBarView;
 
 public class Main extends Application {
 
@@ -26,7 +25,7 @@ public class Main extends Application {
         primaryStage.setTitle("Shuffle the Rules");
         primaryStage.setResizable(false);
 
-        /* For now, going to do without the fxml files. Will make things nicer afterwards */
+        /* TODO For now, going to do without the fxml files. Will make things nicer afterwards */
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         /* The main layout to organize GameCreation Mode window.*/
@@ -36,32 +35,11 @@ public class Main extends Application {
 
         /* Top BorderPane
          *
-         * Will contain two drop down menu buttons - File and Play.
+         * Will contain a MenuBar with two drop down menu buttons - File and Play.
          * Will not change based on tab selected.*/
 
-        /* Menu Bar - has two menus - File and Play. */
-        MenuBar applicationMenuBar = new MenuBar();
-
-        final Menu fileMenu = new Menu("File");
-        final Menu playMenu = new Menu("Play");
-        applicationMenuBar.getMenus().addAll(fileMenu, playMenu);
-
-        /* File menu items */
-        MenuItem newMenuItem = new MenuItem("New Game File");
-        MenuItem loadMenuItem = new MenuItem("Load Game File");
-        MenuItem saveMenuItem = new MenuItem("Save Game File");
-        MenuItem validateMenuItem = new MenuItem("Validate Game File");
-        MenuItem exitMenuItem = new MenuItem("Exit");
-
-        fileMenu.getItems().addAll(newMenuItem, loadMenuItem, saveMenuItem, validateMenuItem, exitMenuItem);
-
-        /* Play meny items*/
-        MenuItem hostMenuItem = new MenuItem("Host Game");
-        MenuItem joinMenuItem = new MenuItem("Join Game");
-
-        playMenu.getItems().addAll(hostMenuItem, joinMenuItem);
-
-        rootBorderPane.setTop(applicationMenuBar);
+        ApplicationMenuBarView applicationMenuBarView = new ApplicationMenuBarView();
+        rootBorderPane.setTop(applicationMenuBarView.getMenuBar());
 
 
         /* Centre BorderPane
@@ -74,11 +52,11 @@ public class Main extends Application {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
 
-        /* Table Tab */
+        /* Table Tab ***********************************************/
         Tab tableTab = new Tab("Table");
         BorderPane tableTabBorderPane = new BorderPane();
 
-       ; /* center (main portion) will be a grid */
+        /* center (main portion) will be a grid */
         GridPane tableGridPane = new GridPane();
         tableTabBorderPane.setCenter(tableGridPane);
 
@@ -96,7 +74,7 @@ public class Main extends Application {
 
 
 
-        /* Editor Tab */
+        /* Editor Tab ************************************************/
         Tab editorTab = new Tab("Editor");
         BorderPane editorTabBorderPane = new BorderPane();
 
