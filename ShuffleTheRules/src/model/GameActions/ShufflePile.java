@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class ShufflePile implements GameAction {
     @Override
-    public void run(ArrayList<GameAction> actions) {
+    public void run() {
 
     }
 }

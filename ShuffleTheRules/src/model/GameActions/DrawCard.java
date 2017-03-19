@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class DrawCard implements GameAction {
     @Override
-    public void run(ArrayList<GameAction> actions) {
+    public void run() {
 
     }
 }

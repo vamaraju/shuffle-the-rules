@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class EndGame implements GameAction {
     @Override
-    public void run(ArrayList<GameAction> actions) {
+    public void run() {
 
     }
 }
