@@ -2,12 +2,11 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -66,24 +65,27 @@ public class Main extends Application {
 
         /* Centre BorderPane
         *
-        * User will drag and drop objects into this area when in Game Creation Mode.
-        * If Table Tab selected, the TableGrid will be displayed.  User will drag Piles into the area.
-        * If Editor Tab selected, Game Rules (sequence of Events and Actions) will be displayed.  User
-        * can drag Events and Actions into this area. */
-        GridPane grid = new GridPane();
-        borderPane.setCenter(grid);
-
-
-        /* Right BorderPane
-        *
-        * User will select and modify objects through lists and the interface in this area.
-        * If Table Tab selected, lists of game objects and their settings will be displayed.
-        * If Editor Tab selected, lists of game Events and Actions will be displayed. */
-
-        // Probably want VBox or Stack or Accordion with list or VBox inside
-        Rectangle rightRectangle = new Rectangle(200, 1000, Color.ALICEBLUE);
+        * Contains a tab pane which will switch between the Table View and Editor View*/
+        /* TabPane is a control*/
+        TabPane tabPane = new TabPane();
+        tabPane.setSide(Side.TOP);
+        /* don't want users to be able to close tabs */
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        Tab tableTab = new Tab("Table");
+        Rectangle rightRectangle = new Rectangle(1500, 1000, Color.ALICEBLUE);
         rightRectangle.setStroke(Color.BLACK);
-        borderPane.setRight(rightRectangle);
+        tableTab.setContent(rightRectangle);
+
+        Tab editorTab = new Tab("Editor");
+        Rectangle leftRectangle = new Rectangle(1500, 1000, Color.FIREBRICK);
+        leftRectangle.setStroke(Color.BLACK);
+        editorTab.setContent(leftRectangle);
+
+        tabPane.getTabs().addAll(tableTab, editorTab);
+        borderPane.setCenter(tabPane);
+
+        borderPane.setCenter(tabPane);
+
 
 
 
