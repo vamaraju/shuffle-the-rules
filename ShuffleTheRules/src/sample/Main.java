@@ -10,6 +10,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -39,26 +40,31 @@ public class Main extends Application {
          * Will contain two drop down menu buttons - File and Play.
          * Will not change based on tab selected.*/
 
-        // Menu Bar
-        /*
+        /* Menu Bar */
+        VBox menuBarBox = new VBox(20);
+
         MenuBar applicationMenuBar = new MenuBar();
 
         final Menu fileMenu = new Menu("File");
         final Menu playMenu = new Menu("Play");
         applicationMenuBar.getMenus().addAll(fileMenu, playMenu);
 
-        MenuItem loadMenuItem = new MenuItem("Load Game File");
         MenuItem newMenuItem = new MenuItem("New Game File");
+        MenuItem loadMenuItem = new MenuItem("Load Game File");
+        MenuItem saveMenuItem = new MenuItem("Save Game File");
         MenuItem validateMenuItem = new MenuItem("Validate Game File");
+        MenuItem exitMenuItem = new MenuItem("Exit");
+
+        fileMenu.getItems().addAll(newMenuItem, loadMenuItem, saveMenuItem, validateMenuItem, exitMenuItem);
 
         MenuItem hostMenuItem = new MenuItem("Host Game");
         MenuItem joinMenuItem = new MenuItem("Join Game");
-        */
+
+        playMenu.getItems().addAll(hostMenuItem, joinMenuItem);
 
 
-
-
-        //borderPane.setTop(applicationMenuBar);
+        menuBarBox.getChildren().addAll(applicationMenuBar);
+        borderPane.setTop(menuBarBox);
 
 
         /* Centre BorderPane
