@@ -1,12 +1,9 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -25,8 +22,6 @@ public class Main extends Application {
         primaryStage.setTitle("Shuffle the Rules");
         primaryStage.setResizable(false);
 
-        /* TODO For now, going to do without the fxml files. Will make things nicer afterwards */
-        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         /* The main layout to organize GameCreation Mode window.*/
         BorderPane rootBorderPane = new BorderPane();
