@@ -10,7 +10,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -25,30 +24,29 @@ public class Main extends Application {
     private void initialize(Stage primaryStage){
 
         primaryStage.setTitle("Shuffle the Rules");
+        primaryStage.setResizable(false);
+
         /* For now, going to do without the fxml files. Will make things nicer afterwards */
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
-        Group root = new Group();
-        primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 1500,1000));
-
-        /* create BorderPane */
+        /* The main layout to organize GameCreation Mode window.*/
         BorderPane borderPane = new BorderPane();
+        primaryStage.setScene(new Scene(borderPane, 1500,1000));
+
 
         /* Top BorderPane
          *
          * Will contain two drop down menu buttons - File and Play.
          * Will not change based on tab selected.*/
 
-        /* Menu Bar */
-        VBox menuBarBox = new VBox(20);
-
+        /* Menu Bar - has two menus - File and Play. */
         MenuBar applicationMenuBar = new MenuBar();
 
         final Menu fileMenu = new Menu("File");
         final Menu playMenu = new Menu("Play");
         applicationMenuBar.getMenus().addAll(fileMenu, playMenu);
 
+        /* File menu items */
         MenuItem newMenuItem = new MenuItem("New Game File");
         MenuItem loadMenuItem = new MenuItem("Load Game File");
         MenuItem saveMenuItem = new MenuItem("Save Game File");
@@ -57,14 +55,13 @@ public class Main extends Application {
 
         fileMenu.getItems().addAll(newMenuItem, loadMenuItem, saveMenuItem, validateMenuItem, exitMenuItem);
 
+        /* Play meny items*/
         MenuItem hostMenuItem = new MenuItem("Host Game");
         MenuItem joinMenuItem = new MenuItem("Join Game");
 
         playMenu.getItems().addAll(hostMenuItem, joinMenuItem);
 
-
-        menuBarBox.getChildren().addAll(applicationMenuBar);
-        borderPane.setTop(menuBarBox);
+        borderPane.setTop(applicationMenuBar);
 
 
         /* Centre BorderPane
@@ -89,7 +86,7 @@ public class Main extends Application {
         borderPane.setRight(rightRectangle);
 
 
-        root.getChildren().addAll(borderPane);
+
     }
 
     @Override
