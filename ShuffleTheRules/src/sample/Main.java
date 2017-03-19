@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -35,9 +38,28 @@ public class Main extends Application {
          *
          * Will contain two drop down menu buttons - File and Play.
          * Will not change based on tab selected.*/
-        Rectangle topRectangle = new Rectangle(1500, 40, Color.DARKSEAGREEN);
-        topRectangle.setStroke(Color.BLACK);
-        borderPane.setTop(topRectangle);
+
+        // Menu Bar
+        /*
+        MenuBar applicationMenuBar = new MenuBar();
+
+        final Menu fileMenu = new Menu("File");
+        final Menu playMenu = new Menu("Play");
+        applicationMenuBar.getMenus().addAll(fileMenu, playMenu);
+
+        MenuItem loadMenuItem = new MenuItem("Load Game File");
+        MenuItem newMenuItem = new MenuItem("New Game File");
+        MenuItem validateMenuItem = new MenuItem("Validate Game File");
+
+        MenuItem hostMenuItem = new MenuItem("Host Game");
+        MenuItem joinMenuItem = new MenuItem("Join Game");
+        */
+
+
+
+
+        //borderPane.setTop(applicationMenuBar);
+
 
         /* Centre BorderPane
         *
