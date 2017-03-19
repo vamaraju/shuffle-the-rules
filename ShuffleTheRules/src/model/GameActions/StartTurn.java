@@ -8,6 +8,6 @@ import java.util.ArrayList;
 public class StartTurn implements GameAction {
     @Override
     public void run(ArrayList<GameAction> actions) {
-        
+
     }
 }
