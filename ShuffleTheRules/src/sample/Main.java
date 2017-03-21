@@ -39,18 +39,7 @@ public class Main extends Application {
         ApplicationMenuBarView applicationMenuBarView = new ApplicationMenuBarView();
         rootBorderPane.setTop(applicationMenuBarView.getMenuBar());
 
-
         /* Centre BorderPane
-        *
-        * Contains a tab pane which will switch between the Table View and Editor View*/
-        //TabView tabView = new TabView();
-        //TableTabView tableTabView = new TableTabView();
-        //EditorTabView editorTabView = new EditorTabView();
-
-        //tabView.addTab(tableTabView.getTab());
-        //tabView.addTab(editorTabView.getTab());
-
-                /* Centre BorderPane
         *
         * Contains a tab pane which will switch between the Table View and Editor View*/
         /* TabPane is a control*/
@@ -100,14 +89,13 @@ public class Main extends Application {
         editorTabBorderPane.setRight(editorTabAccordian);
         editorTab.setContent(editorTabBorderPane);
 
-        tabPane.getTabs().addAll(tableTab, editorTab);
+        TableTabView ttv = new TableTabView();
+        EditorTabView etv = new EditorTabView();
 
+        //tabPane.getTabs().addAll(tableTab, editorTab);
+        tabPane.getTabs().addAll(ttv.getTab(),etv.getTab());
 
         rootBorderPane.setCenter(tabPane);
-
-
-        //rootBorderPane.setCenter(tabView.getTabPane());
-
     }
 
     @Override

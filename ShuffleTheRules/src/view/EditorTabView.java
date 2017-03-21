@@ -8,7 +8,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-public class EditorTabView {
+public class EditorTabView extends Tab{
     private Tab editorTab = new Tab("Editor");
 
     public EditorTabView(){

@@ -9,10 +9,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 public class TableTabView {
-    private Tab tableTab = new Tab("Table");;
+    private Tab tableTab;
 
     public TableTabView(){
-
+        tableTab = new Tab("Table");
         BorderPane tableTabBorderPane = new BorderPane();
 
         /* center (main portion) will be a grid */

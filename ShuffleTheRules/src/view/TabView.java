@@ -6,11 +6,11 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 
-public class TabView {
-    private TabPane tabPane;
+public class TabView{
+    private static TabPane tabPane;
 
     public TabView(){
-        TabPane tabPane = new TabPane();
+        tabPane = new TabPane();
         tabPane.setSide(Side.TOP);
         /* don't want users to be able to close tabs */
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -23,5 +23,8 @@ public class TabView {
         return this.tabPane;
     }
 
+    public void addTab(Tab tab){
+        tabPane.getTabs().add(tab);
+    }
 
 }
