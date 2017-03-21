@@ -12,7 +12,12 @@ import view.ApplicationMenuBarView;
 import view.EditorTabView;
 import view.TableTabView;
 
-
+/*
+* This class sets up the Game Creation Application window.
+* In Game Creation Mode, the ApplicationMenuBar will always be shown.
+* The TabPane will always be shown, but the content in the tabs themselves will
+* change dynamically.
+* */
 public class Main extends Application {
 
 
@@ -39,6 +44,7 @@ public class Main extends Application {
         ApplicationMenuBarView applicationMenuBarView = new ApplicationMenuBarView();
         rootBorderPane.setTop(applicationMenuBarView.getMenuBar());
 
+
         /* Centre BorderPane
         *
         * Contains a tab pane which will switch between the Table View and Editor View*/
@@ -47,7 +53,7 @@ public class Main extends Application {
         tabPane.setSide(Side.TOP);
         /* don't want users to be able to close tabs */
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        
+
         TableTabView tableTab = new TableTabView();
         EditorTabView editorTab = new EditorTabView();
 
