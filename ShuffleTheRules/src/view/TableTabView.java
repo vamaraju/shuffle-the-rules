@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 public class TableTabView {
     private Tab tableTab;
 
+    /* initialize the tab*/
     public TableTabView(){
         tableTab = new Tab("Table");
         BorderPane tableTabBorderPane = new BorderPane();
@@ -30,8 +31,12 @@ public class TableTabView {
 
         tableTabBorderPane.setRight(tableTabAccordian);
         tableTab.setContent(tableTabBorderPane);
+
     }
 
+    public void setTabCentrePane(){
+
+    }
     public Tab getTab(){
         return this.tableTab;
     }

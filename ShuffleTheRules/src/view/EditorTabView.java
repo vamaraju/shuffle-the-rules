@@ -13,9 +13,10 @@ public class EditorTabView extends Tab{
 
     public EditorTabView(){
 
+        editorTab = new Tab("Editor");
         BorderPane editorTabBorderPane = new BorderPane();
 
-        /* center (main portion) will be a grid */
+         /* center (main portion) will be a grid */
         GridPane editorGridPane = new GridPane();
         editorTabBorderPane.setCenter(editorGridPane);
 

@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 
 import view.ApplicationMenuBarView;
 import view.EditorTabView;
-import view.TabView;
 import view.TableTabView;
+
 
 public class Main extends Application {
 
@@ -47,53 +47,12 @@ public class Main extends Application {
         tabPane.setSide(Side.TOP);
         /* don't want users to be able to close tabs */
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        
+        TableTabView tableTab = new TableTabView();
+        EditorTabView editorTab = new EditorTabView();
 
+        tabPane.getTabs().addAll(tableTab.getTab(), editorTab.getTab());
 
-        /* Table Tab ***********************************************/
-        Tab tableTab = new Tab("Table");
-        BorderPane tableTabBorderPane = new BorderPane();
-
-        /* center (main portion) will be a grid */
-        GridPane tableGridPane = new GridPane();
-        tableTabBorderPane.setCenter(tableGridPane);
-
-        /* right side will contain menus */
-        TitledPane pileSettingsMenu = new TitledPane("Pile Settings", new Button("Add Pile"));
-        TitledPane cardRestrictionSettingsMenu = new TitledPane("Card Restrictions", new Button("Change"));
-        TitledPane playerSettingsMenu = new TitledPane("Player Settings", new Button("Change"));
-        TitledPane generalSettingsMenu = new TitledPane("General Settings", new Button("Change"));
-
-        Accordion tableTabAccordian = new Accordion();
-        tableTabAccordian.getPanes().addAll(pileSettingsMenu, cardRestrictionSettingsMenu, playerSettingsMenu, generalSettingsMenu);
-
-        tableTabBorderPane.setRight(tableTabAccordian);
-        tableTab.setContent(tableTabBorderPane);
-
-
-
-        /* Editor Tab ************************************************/
-        Tab editorTab = new Tab("Editor");
-        BorderPane editorTabBorderPane = new BorderPane();
-
-         /* center (main portion) will be a grid */
-        GridPane editorGridPane = new GridPane();
-        editorTabBorderPane.setCenter(editorGridPane);
-
-        /* right side will contain menus */
-        TitledPane eventsMenu = new TitledPane("Events", new Button("Add Event"));
-        TitledPane actionsMenu = new TitledPane("Actions", new Button("Add Action"));
-
-        Accordion editorTabAccordian = new Accordion();
-        editorTabAccordian.getPanes().addAll(eventsMenu, actionsMenu);
-
-        editorTabBorderPane.setRight(editorTabAccordian);
-        editorTab.setContent(editorTabBorderPane);
-
-        TableTabView ttv = new TableTabView();
-        EditorTabView etv = new EditorTabView();
-
-        //tabPane.getTabs().addAll(tableTab, editorTab);
-        tabPane.getTabs().addAll(ttv.getTab(),etv.getTab());
 
         rootBorderPane.setCenter(tabPane);
     }
@@ -103,4 +62,5 @@ public class Main extends Application {
         initialize(primaryStage);
         primaryStage.show();
     }
+
 }
