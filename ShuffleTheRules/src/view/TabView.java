@@ -7,6 +7,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 
 public class TabView {
+    private TabPane tabPane;
 
     public TabView(){
         TabPane tabPane = new TabPane();
@@ -15,4 +16,12 @@ public class TabView {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
     }
+
+
+
+    public TabPane getTabPane(){
+        return this.tabPane;
+    }
+
+
 }

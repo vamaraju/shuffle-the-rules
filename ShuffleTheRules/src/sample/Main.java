@@ -9,6 +9,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import view.ApplicationMenuBarView;
+import view.EditorTabView;
+import view.TabView;
+import view.TableTabView;
 
 public class Main extends Application {
 
@@ -38,6 +41,16 @@ public class Main extends Application {
 
 
         /* Centre BorderPane
+        *
+        * Contains a tab pane which will switch between the Table View and Editor View*/
+        //TabView tabView = new TabView();
+        //TableTabView tableTabView = new TableTabView();
+        //EditorTabView editorTabView = new EditorTabView();
+
+        //tabView.addTab(tableTabView.getTab());
+        //tabView.addTab(editorTabView.getTab());
+
+                /* Centre BorderPane
         *
         * Contains a tab pane which will switch between the Table View and Editor View*/
         /* TabPane is a control*/
@@ -92,6 +105,8 @@ public class Main extends Application {
 
         rootBorderPane.setCenter(tabPane);
 
+
+        //rootBorderPane.setCenter(tabView.getTabPane());
 
     }
 
