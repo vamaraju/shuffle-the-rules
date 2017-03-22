@@ -1,4 +1,4 @@
-package model;
+package model.Piles;
 
 
 public class Hand extends Pile{

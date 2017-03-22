@@ -1,4 +1,6 @@
-package model;
+package model.Piles;
+
+import model.Card;
 
 import java.util.ArrayList;
 
@@ -37,11 +39,11 @@ public class Pile {
     }
 
     public Card remove(int index){
-        return new Card();
+        return new Card(1,"K");
     }
 
     public Card remove(Card card){
-        return new Card();
+        return new Card(1,"K");
     }
 
     public int getMinPileSize(){
