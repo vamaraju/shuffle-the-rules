@@ -36,8 +36,6 @@ public class ApplicationMenuBarView {
         MenuItem hostMenuItem = new MenuItem("Host Game");
         MenuItem joinMenuItem = new MenuItem("Join Game");
 
-
-        hostMenuItem.setText("Asdasd");
         hostMenuItem.setOnAction(controller::newFile);
 
         playMenu.getItems().addAll(hostMenuItem, joinMenuItem);

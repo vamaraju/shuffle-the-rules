@@ -28,7 +28,7 @@ public class EditorTabController {
      *
      * @return An ArrayList of Game Event names (strings).
      */
-    public ArrayList<String> getGameEventList() {
+    public ArrayList<String> getEventList() {
         ArrayList<String> gameEventNames = new ArrayList<>();
 
         gameEventNames.add("onCardDrawn");
@@ -56,7 +56,7 @@ public class EditorTabController {
      *
      * @return An ArrayList of Game Actions names (strings).
      */
-    public ArrayList<String> getGameActionList() {
+    public ArrayList<String> getActionList() {
         ArrayList<String> gameActionNames = new ArrayList<>();
 
         gameActionNames.add("DealCard");
