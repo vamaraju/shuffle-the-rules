@@ -33,7 +33,8 @@ public class Main extends Application {
 
         /* The main layout to organize GameCreation Mode window.*/
         BorderPane rootBorderPane = new BorderPane();
-        primaryStage.setScene(new Scene(rootBorderPane, 1500,1000));
+        primaryStage.setScene(new Scene(rootBorderPane, 1000,600));
+        primaryStage.setResizable(true);
 
 
         /* Top BorderPane
