@@ -8,12 +8,12 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-public class TableTabView {
-    private Tab tableTab;
+public class TableTabView extends Tab{
+
 
     /* initialize the tab*/
     public TableTabView(){
-        tableTab = new Tab("Table");
+        this.setText("Table");
         BorderPane tableTabBorderPane = new BorderPane();
 
         /* center (main portion) will be a grid */
@@ -23,21 +23,18 @@ public class TableTabView {
         /* right side will contain menus */
         TitledPane pileSettingsMenu = new TitledPane("Pile Settings", new Button("Add Pile"));
         TitledPane cardRestrictionSettingsMenu = new TitledPane("Card Restrictions", new Button("Change"));
-        TitledPane playerSettingsMenu = new TitledPane("Player Settings", new Button("Change"));
-        TitledPane generalSettingsMenu = new TitledPane("General Settings", new Button("Change"));
+        TitledPane generalSettingsMenu = new TitledPane("General Game Settings", new Button("Change"));
 
         Accordion tableTabAccordian = new Accordion();
-        tableTabAccordian.getPanes().addAll(pileSettingsMenu, cardRestrictionSettingsMenu, playerSettingsMenu, generalSettingsMenu);
+        tableTabAccordian.getPanes().addAll(pileSettingsMenu, cardRestrictionSettingsMenu, generalSettingsMenu);
 
         tableTabBorderPane.setRight(tableTabAccordian);
-        tableTab.setContent(tableTabBorderPane);
+        this.setContent(tableTabBorderPane);
 
     }
 
     public void setTabCentrePane(){
 
     }
-    public Tab getTab(){
-        return this.tableTab;
-    }
+
 }

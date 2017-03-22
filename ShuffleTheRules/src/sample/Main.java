@@ -57,8 +57,8 @@ public class Main extends Application {
 
         TableTabView tableTab = new TableTabView();
         EditorTabView editorTab = new EditorTabView();
-
-        tabPane.getTabs().addAll(tableTab.getTab(), editorTab.getTab());
+        
+        tabPane.getTabs().addAll(tableTab, editorTab);
 
 
         rootBorderPane.setCenter(tabPane);
