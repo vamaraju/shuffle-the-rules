@@ -2,18 +2,21 @@ package view;
 
 import javafx.scene.control.*;
 import model.ApplicationMenuBar;
+import controller.ApplicationMenuBarController;
 
 public class ApplicationMenuBarView {
 
     /* GUI MenuBar*/
     private MenuBar menuBar;
 
-    /* ApplicationMenuBar Model*/
+    /* ApplicationMenuBar Controller*/
+    private ApplicationMenuBarController controller;
 
     /* initializing this class will create the application menu bar GUI element*/
     public ApplicationMenuBarView(){
 
         menuBar = new MenuBar();
+        controller = new ApplicationMenuBarController();
 
         /* Menu Bar - has two menus - File and Play. */
         final Menu fileMenu = new Menu("File");
@@ -32,6 +35,10 @@ public class ApplicationMenuBarView {
         /* Play menu items*/
         MenuItem hostMenuItem = new MenuItem("Host Game");
         MenuItem joinMenuItem = new MenuItem("Join Game");
+
+
+        hostMenuItem.setText("Asdasd");
+        hostMenuItem.setOnAction(controller::newFile);
 
         playMenu.getItems().addAll(hostMenuItem, joinMenuItem);
     }
