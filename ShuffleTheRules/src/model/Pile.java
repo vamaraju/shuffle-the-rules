@@ -28,6 +28,14 @@ public class Pile {
 
     };
 
+    public void view(){
+
+    }
+
+    public void swap(Pile pileToSwapWith, int cardIndexCurrentPile, int cardIndexSwapPile ){
+
+    }
+
     public Card remove(int index){
         return new Card();
     }
@@ -41,9 +49,7 @@ public class Pile {
     }
 
     /* TODO requries validation */
-    public void setMinPileSize(int minSize){
-        minPileSize = minSize;
-    }
+    public void setMinPileSize(int minSize){ minPileSize = minSize; }
 
     public int getMaxPileSize(){
         return maxPileSize;
