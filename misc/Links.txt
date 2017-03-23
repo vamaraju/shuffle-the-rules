@@ -1,0 +1,6 @@
+Drawing inside a ScrollPane (a Pane), and setting onMouse events:
+http://stackoverflow.com/questions/26222446/drawing-inside-a-scrollpane-in-javafx8
+
+Working with a Canvas:
+http://docs.oracle.com/javafx/2/canvas/jfxpub-canvas.htm
+
