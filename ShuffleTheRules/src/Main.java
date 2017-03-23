@@ -1,5 +1,3 @@
-package sample;
-
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
