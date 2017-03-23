@@ -21,9 +21,10 @@ public class TableTabView extends Tab{
         tableTabBorderPane.setCenter(tableGridPane);
 
         /* right side will contain menus */
-        TitledPane pileSettingsMenu = new TitledPane("Pile Settings", new Button("Add Pile"));
-        TitledPane cardRestrictionSettingsMenu = new TitledPane("Card Restrictions", new Button("Change"));
-        TitledPane generalSettingsMenu = new TitledPane("General Game Settings", new Button("Change"));
+
+        PileSettingsMenuView pileSettingsMenu = new PileSettingsMenuView();
+        CardRestrictionsMenuView cardRestrictionSettingsMenu = new CardRestrictionsMenuView();
+        GeneralSettingsMenuView generalSettingsMenu = new GeneralSettingsMenuView();
 
         Accordion tableTabAccordian = new Accordion();
         tableTabAccordian.getPanes().addAll(pileSettingsMenu, cardRestrictionSettingsMenu, generalSettingsMenu);
