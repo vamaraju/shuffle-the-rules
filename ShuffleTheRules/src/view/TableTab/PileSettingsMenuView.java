@@ -25,7 +25,7 @@ public class PileSettingsMenuView extends TitledPane{
         addNewPileLabel.setTextAlignment(TextAlignment.CENTER);
         addNewPileLabel.setUnderline(true);
 
-        Label updatePileLabel = new Label("Add New Pile");
+        Label updatePileLabel = new Label("Update Pile");
         updatePileLabel.setTextAlignment(TextAlignment.CENTER);
         updatePileLabel.setUnderline(true);
 

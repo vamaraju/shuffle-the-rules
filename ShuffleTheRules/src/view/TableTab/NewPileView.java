@@ -6,7 +6,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
-
+/*
+* TODO
+*   make look better - css or general font formatting/ spacing
+*   spacing for input boxes needs work
+*   text/input box alignment
+*   sceen size affects view of menu
+* */
 public class NewPileView extends VBox {
 
 
@@ -39,16 +45,33 @@ public class NewPileView extends VBox {
         maxNumCardsInput.setMaxSize(50, 20);
         maxNumCardsHBox.getChildren().addAll(maxNumCards, maxNumCardsInput);
 
-        pileCardCount.getChildren().addAll(minNumCardsHBox, maxNumCardsHBox);
+        pileCardCount.getChildren().addAll(numCards, minNumCardsHBox, maxNumCardsHBox);
 
+
+        /* Corrdinates - extract */
         Label gridCoordinates = new Label("Coordinates");
+        VBox pileCoordinates = new VBox();
+        /* x */
+        HBox xCoordHBox = new HBox(4);
         Label xCoord = new Label("x:");
+        TextField xCoordInput = new TextField();
+        xCoordInput.setMaxSize(50, 20);
+        xCoordHBox.getChildren().addAll(xCoord, xCoordInput);
+        /*y */
         Label yCoord = new Label("y:");
+        HBox yCoordHBox = new HBox(4);
+        TextField yCoordInput = new TextField();
+        yCoordInput.setMaxSize(50, 20);
+        yCoordHBox.getChildren().addAll(yCoord, yCoordInput);
+
+        pileCoordinates.getChildren().addAll(gridCoordinates, xCoordHBox, yCoordHBox);
+
         Label playerAssociation = new Label("Player Association");
         Label viewable = new Label("Viewable By:");
         Label orientation = new Label("Orientation");
+        /* TODO add anchor?*/
         Button addPileButton = new Button("Add Pile");
-        this.getChildren().addAll(nameHBox, type, numCards, pileCardCount, gridCoordinates, xCoord, yCoord, playerAssociation, viewable, orientation, addPileButton);
+        this.getChildren().addAll(nameHBox, type, numCards, pileCardCount, pileCoordinates, playerAssociation, viewable, orientation, addPileButton);
     }
 
 }
