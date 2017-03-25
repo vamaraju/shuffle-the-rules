@@ -13,12 +13,14 @@ import javafx.scene.control.Label;
 *   spacing for input boxes needs work
 *   text/input box alignment
 *   sceen size affects view of menu
+*   make things generic - ie. type menus
 * */
 public class NewPileView extends VBox {
 
 
     public NewPileView(){
-
+        this.setSpacing(2);
+        
         /* Name - extract */
         HBox nameHBox = new HBox(4);
         Label name = new Label("Name:");
@@ -30,7 +32,7 @@ public class NewPileView extends VBox {
         HBox typeHBox = new HBox(4);
         Label type = new Label("Type:");
         ChoiceBox typeChoiceInput = new ChoiceBox();
-        typeChoiceInput.getItems().addAll("Deck","Discard", "None");
+        typeChoiceInput.getItems().addAll("Hand", "Deck", "Discard", "None");
         typeHBox.getChildren().addAll(type, typeChoiceInput);
 
 
@@ -71,17 +73,27 @@ public class NewPileView extends VBox {
 
         pileCoordinates.getChildren().addAll(gridCoordinates, xCoordHBox, yCoordHBox);
 
+        /* Player Pile Association Settings */
         Label playerAssociation = new Label("Player Association");
 
+        /* Pile Viewable Settings */
+        HBox pileViewableHBox = new HBox(4);
+        Label viewableBy = new Label("Viewable By:");
 
-        Label viewable = new Label("Viewable By:");
+        ChoiceBox pileViewableChoiceInput = new ChoiceBox();
+        pileViewableChoiceInput.getItems().addAll("All", "None");
+        pileViewableHBox.getChildren().addAll(viewableBy, pileViewableChoiceInput);
 
-        
+        /* Pile Orientation Settings - for display purposes.  Will determine how top of Pile is displayed */
+        HBox cardOrientationHBox = new HBox(4);
+        Label orientation = new Label("Card Orientation");
+        ChoiceBox cardOrientationChoiceInput = new ChoiceBox();
+        cardOrientationChoiceInput.getItems().addAll("Face Up", "Face Down");
+        cardOrientationHBox.getChildren().addAll(orientation, cardOrientationChoiceInput);
 
-        Label orientation = new Label("Orientation");
         /* TODO add anchor?*/
         Button addPileButton = new Button("Add Pile");
-        this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, viewable, orientation, addPileButton);
+        this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, pileViewableHBox, cardOrientationHBox, addPileButton);
     }
 
 }
