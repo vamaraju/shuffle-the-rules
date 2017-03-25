@@ -1,6 +1,7 @@
 package view.TableTab;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -28,6 +29,10 @@ public class NewPileView extends VBox {
         /* Type - extract */
         HBox typeHBox = new HBox(4);
         Label type = new Label("Type:");
+        ChoiceBox typeChoiceInput = new ChoiceBox();
+        typeChoiceInput.getItems().addAll("Deck","Discard", "None");
+        typeHBox.getChildren().addAll(type, typeChoiceInput);
+
 
         /* max/min number Cards in Pile - extract */
         VBox pileCardCount = new VBox();
@@ -55,23 +60,28 @@ public class NewPileView extends VBox {
         HBox xCoordHBox = new HBox(4);
         Label xCoord = new Label("x:");
         TextField xCoordInput = new TextField();
-        xCoordInput.setMaxSize(50, 20);
+        xCoordInput.setMaxSize(30, 10);
         xCoordHBox.getChildren().addAll(xCoord, xCoordInput);
         /*y */
         Label yCoord = new Label("y:");
         HBox yCoordHBox = new HBox(4);
         TextField yCoordInput = new TextField();
-        yCoordInput.setMaxSize(50, 20);
+        yCoordInput.setMaxSize(30, 10);
         yCoordHBox.getChildren().addAll(yCoord, yCoordInput);
 
         pileCoordinates.getChildren().addAll(gridCoordinates, xCoordHBox, yCoordHBox);
 
         Label playerAssociation = new Label("Player Association");
+
+
         Label viewable = new Label("Viewable By:");
+
+        
+
         Label orientation = new Label("Orientation");
         /* TODO add anchor?*/
         Button addPileButton = new Button("Add Pile");
-        this.getChildren().addAll(nameHBox, type, numCards, pileCardCount, pileCoordinates, playerAssociation, viewable, orientation, addPileButton);
+        this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, viewable, orientation, addPileButton);
     }
 
 }
