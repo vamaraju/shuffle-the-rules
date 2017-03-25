@@ -33,7 +33,7 @@ public class PileSettingsMenuView extends TitledPane{
         NewPileView newPileView = new NewPileView();
         UpdatePileView updatePileView = new UpdatePileView();
 
-        VBox menuSeparator = new VBox();
+        VBox menuSeparator = new VBox(10);
         menuSeparator.getChildren().addAll(addNewPileLabel,newPileView, updatePileLabel, updatePileView);
 
         this.setContent(menuSeparator);

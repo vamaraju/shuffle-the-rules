@@ -20,9 +20,9 @@ public class NewPileView extends VBox {
 
     public NewPileView(){
         this.setSpacing(2);
-        
+
         /* Name - extract */
-        HBox nameHBox = new HBox(4);
+        HBox nameHBox = new HBox(5);
         Label name = new Label("Name:");
         TextField nameInput = new TextField();
         nameInput.setMaxSize(120, 20);
