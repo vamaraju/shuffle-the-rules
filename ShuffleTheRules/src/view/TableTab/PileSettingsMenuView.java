@@ -1,6 +1,7 @@
 package view.TableTab;
 
 
+import javafx.application.Application;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
@@ -16,14 +17,18 @@ public class PileSettingsMenuView extends TitledPane{
 
         /* Sub menu titles. Sub menu titles stand out compared
         *  to the text inside. */
+        // TODO maybe add in later. will look into where the resources are
+
 
 
         Label addNewPileLabel = new Label("Add New Pile");
         addNewPileLabel.setTextAlignment(TextAlignment.CENTER);
         addNewPileLabel.setUnderline(true);
+
         Label updatePileLabel = new Label("Add New Pile");
         updatePileLabel.setTextAlignment(TextAlignment.CENTER);
         updatePileLabel.setUnderline(true);
+
 
         NewPileView newPileView = new NewPileView();
         UpdatePileView updatePileView = new UpdatePileView();
