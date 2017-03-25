@@ -3,12 +3,11 @@ import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import view.ApplicationMenuBarView;
 import view.EditorTabView;
-import view.TableTabView;
+import view.TableTab.TableTabView;
 
 /*
 * This class sets up the Game Creation Application window.
