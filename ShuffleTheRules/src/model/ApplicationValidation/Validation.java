@@ -11,7 +11,7 @@ public class Validation {
     *  pass, will return true.  If any check fails, will return false.
     *  Results of the validation will be written to a file which the user can view
     *  to make the necessary changes to their file.*/
-    // TODO specify whether to write to bottom of screen or file?
+    // TODO specify whether to write to bottom of screen or file (as input arg)?
     public Boolean validate(){
         return false;
 
