@@ -25,7 +25,7 @@ public class TableTabView extends Tab{
         GeneralSettingsMenuView generalSettingsMenu = new GeneralSettingsMenuView();
 
         Accordion tableTabAccordian = new Accordion();
-        tableTabAccordian.getPanes().addAll(pileSettingsMenu, cardRestrictionSettingsMenu, generalSettingsMenu);
+        tableTabAccordian.getPanes().addAll(generalSettingsMenu, pileSettingsMenu, cardRestrictionSettingsMenu);
 
         tableTabBorderPane.setRight(tableTabAccordian);
         this.setContent(tableTabBorderPane);
