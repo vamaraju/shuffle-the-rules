@@ -1,6 +1,8 @@
 package model;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,8 +28,9 @@ public class CardSettings {
         }
     }
 
-    public Set<String> getCardList(){
-        return cardSettings.keySet();
+    public List<String> getCardList(){
+        List cardList = new ArrayList(cardSettings.keySet());
+        return cardList;
     }
 
     public void updateSuit(String card, String suit, int value){
