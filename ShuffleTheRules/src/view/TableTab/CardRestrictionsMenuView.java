@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +31,21 @@ public class CardRestrictionsMenuView extends TitledPane{
         availableCards.getItems().addAll(cardList);
         cardSelection.getChildren().addAll(selectCard, availableCards);
 
-        Canvas canvas = new Canvas(300, 250);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Canvas suitCanvas = new Canvas(100, 100);
+        GraphicsContext graphicsContext = suitCanvas.getGraphicsContext2D();
 
-
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.setStroke(Color.BLACK);
+        graphicsContext.setLineWidth(2);
+        /* club */
+        graphicsContext.fillOval(25,25,11,11);
+        graphicsContext.fillOval(20,34,11,11);
+        graphicsContext.fillOval(30,34,11,11);
+        graphicsContext.fillRect(28,33,6,20);
 
         drawCardSettingsDisplay();
 
-        cardRestrictionMenuContent.getChildren().addAll(cardSelection);
+        cardRestrictionMenuContent.getChildren().addAll(cardSelection, suitCanvas);
         this.setContent(cardRestrictionMenuContent);
     }
 
