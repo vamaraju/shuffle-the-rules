@@ -8,8 +8,12 @@ import javafx.scene.layout.GridPane;
 
 
 public class TableTabView extends Tab{
-    BorderPane tableTabBorderPane;
-
+    private BorderPane tableTabBorderPane;
+    private PileSettingsMenuView pileSettingsMenu;
+    private CardRestrictionsMenuView cardRestrictionSettingsMenu;
+    private GeneralSettingsMenuView generalSettingsMenu;
+    private Accordion tableTabAccordian;
+    private TableGridView tableGridView;
 
     public TableTabView(){
         initialize();
@@ -21,18 +25,19 @@ public class TableTabView extends Tab{
         tableTabBorderPane = new BorderPane();
 
         /* center (main portion) will be a grid */
-        GridPane tableGridPane = new GridPane();
-        tableTabBorderPane.setCenter(tableGridPane);
+        tableGridView = new TableGridView();
+        tableTabBorderPane.setCenter(tableGridView);
 
         /* right side will contain menus */
-        PileSettingsMenuView pileSettingsMenu = new PileSettingsMenuView();
-        CardRestrictionsMenuView cardRestrictionSettingsMenu = new CardRestrictionsMenuView();
-        GeneralSettingsMenuView generalSettingsMenu = new GeneralSettingsMenuView();
+        pileSettingsMenu = new PileSettingsMenuView();
+        cardRestrictionSettingsMenu = new CardRestrictionsMenuView();
+        generalSettingsMenu = new GeneralSettingsMenuView();
 
-        Accordion tableTabAccordian = new Accordion();
+        tableTabAccordian = new Accordion();
         tableTabAccordian.getPanes().addAll(generalSettingsMenu, pileSettingsMenu, cardRestrictionSettingsMenu);
 
         tableTabBorderPane.setRight(tableTabAccordian);
+
         this.setContent(tableTabBorderPane);
     }
 
