@@ -10,6 +10,7 @@ public class GameRule {
     protected String description;
     protected ArrayList<GameAction> postActions = new ArrayList<>();
     protected ArrayList<GameEvent> postEvents = new ArrayList<>();
+    protected GameRuleProperties properties = new GameRuleProperties();
 
     public GameRule() {
         this.name = "GameRule";
@@ -38,6 +39,10 @@ public class GameRule {
 
     public ArrayList<GameEvent> getPostEvents() {
         return this.postEvents;
+    }
+
+    public GameRuleProperties getProperties() {
+        return this.properties;
     }
 
 }
