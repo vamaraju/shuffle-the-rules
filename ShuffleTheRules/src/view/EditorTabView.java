@@ -6,12 +6,17 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 public class EditorTabView extends Tab {
 
     private EditorTabController controller;
     private BorderPane window;
-    private GridPane editorGrid;
+    private ScrollPane scrollPane;
+    private Pane drawingPane;
     private Accordion accordion;
     private TitledPane eventsPane;
     private TitledPane actionsPane;
@@ -24,12 +29,15 @@ public class EditorTabView extends Tab {
     private TextField eventIdTextField;
     private TextField actionIdTextField;
 
+    private Line curLine;
+
     public EditorTabView(){
 
         this.setText("Editor");
         controller = new EditorTabController(this);
         window = new BorderPane(); // Represents entire contents of editor tab
-        editorGrid = new GridPane(); // main (left/center) portion of editor window where rule tree appears
+        drawingPane = new Pane(); // main portion in which rule elements will appear (and be stored)
+        scrollPane = new ScrollPane(this.drawingPane); // the drawing pane of the window will sit within this
         accordion = new Accordion(); // right portion of editor window with accordion with Events and Actions tabs
         eventsPane = new TitledPane(); // "Events" tab on right-hand side in the accordion
         eventsGrid = new GridPane(); // Grid in the "Events" tab
@@ -42,14 +50,20 @@ public class EditorTabView extends Tab {
         eventComboBox = new ComboBox(); // Drop-down menu of Game Events
         actionComboBox = new ComboBox(); // Drop-down menu of Game Actions
 
-        window.setCenter(editorGrid);
+        window.setCenter(scrollPane);
         window.setRight(accordion);
         addEventButton.setOnAction(controller::onAddEventButtonClick);
         addActionButton.setOnAction(controller::onAddActionButtonClick);
+        drawingPane.setOnMousePressed(controller::drawingPaneOnMousePressed);
+        drawingPane.setOnMouseDragged(controller::drawingPaneOnMouseDragged);
+        drawingPane.setOnMouseReleased(controller::drawingPaneOnMouseReleased);
+
         initEventComboBox();
         initActionComboBox();
         initEventsGrid();
         initActionsGrid();
+        initEditorDrawingPane();
+        initEditorScrollPane();
 
         eventsPane.setText("Events");
         eventsPane.setContent(eventsGrid);
@@ -70,8 +84,12 @@ public class EditorTabView extends Tab {
         return this.window;
     }
 
-    public GridPane getEditorGrid() {
-        return this.editorGrid;
+    public ScrollPane getEditorScrollPane() {
+        return this.scrollPane;
+    }
+
+    public Pane getEditorDrawingPane() {
+        return this.drawingPane;
     }
 
     public TextField getEventIdTextField() {
@@ -84,6 +102,14 @@ public class EditorTabView extends Tab {
 
     public Accordion getAccordion() {
         return this.accordion;
+    }
+
+    public ComboBox getEventComboBox() {
+        return this.eventComboBox;
+    }
+
+    public ComboBox getActionComboBox() {
+        return this.actionComboBox;
     }
 
     public void initEventsGrid() {
@@ -118,5 +144,24 @@ public class EditorTabView extends Tab {
         this.actionComboBox.getItems().addAll(controller.getActionList());
         this.actionComboBox.setPromptText("Select a Game Action");
         this.actionComboBox.setEditable(false);
+    }
+
+    public void initEditorDrawingPane() {
+        this.drawingPane.setPrefSize(800, 800);
+        this.drawingPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        ScrollPane scrollPane = new ScrollPane(drawingPane);
+        scrollPane.setPrefSize(300, 300);
+        scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setStyle("-fx-focus-color: transparent;");
+    }
+
+    public void initEditorScrollPane() {
+        this.scrollPane.setPrefSize(300, 300);
+        this.scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        this.scrollPane.setFitToWidth(true);
+        this.scrollPane.setFitToHeight(true);
+        this.scrollPane.setStyle("-fx-focus-color: transparent;");
     }
 }
