@@ -1,15 +1,19 @@
 package view.TableTab;
 
 import controller.TableTab.CardRestrictionsMenuController;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CardRestrictionsMenuView extends TitledPane{
-    private List<String> cardList;
+    private List<String> cardList = new ArrayList<String>();
 
     public CardRestrictionsMenuView(){
         initialize();
@@ -20,11 +24,21 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         VBox cardRestrictionMenuContent = new VBox();
 
+        HBox cardSelection = new HBox(10);
         Label selectCard = new Label("Select Card");
         ChoiceBox availableCards = new ChoiceBox();
         availableCards.getItems().addAll(cardList);
+        cardSelection.getChildren().addAll(selectCard, availableCards);
+
+        Canvas canvas = new Canvas(300, 250);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+
 
         drawCardSettingsDisplay();
+
+        cardRestrictionMenuContent.getChildren().addAll(cardSelection);
+        this.setContent(cardRestrictionMenuContent);
     }
 
     public void drawCardSettingsDisplay(){
@@ -50,6 +64,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
     public void drawClub(){
         /* three circles and a rectangle. fill in with black*/
+
     }
 
     public void drawDiamond(){
