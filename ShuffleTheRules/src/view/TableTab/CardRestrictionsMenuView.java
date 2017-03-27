@@ -1,5 +1,6 @@
 package view.TableTab;
 
+import controller.CardRestrictionsMenuController;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -7,7 +8,7 @@ import javafx.scene.layout.VBox;
 import model.CardSettings;
 
 public class CardRestrictionsMenuView extends TitledPane{
-    controller = new EditorTabController(this);
+    CardRestrictionsMenuController controller = new CardRestrictionsMenuController(this);
 
     public CardRestrictionsMenuView(){
         initialize();
@@ -20,7 +21,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         Label selectCard = new Label("Select Card");
         ChoiceBox availableCards = new ChoiceBox();
-        availableCards.getItems().addAll(TableTabController.getCardList());
+        //availableCards.getItems().addAll(TableTabController.getCardList());
     }
 
     public void drawHeart(){
