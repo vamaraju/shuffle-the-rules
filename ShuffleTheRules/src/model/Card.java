@@ -1,11 +1,11 @@
 package model;
 
 public class Card {
-    int value;
-    String suit;
-    String cardFaceAssetLocation;
-    String cardBackAssetLocation;
-    String cardOrientation;
+    private int value;
+    private String suit;
+    private String cardFaceAssetLocation;
+    private String cardBackAssetLocation;
+    private String cardOrientation;
 
     public Card(int value, String suit){
         value = value;
@@ -34,5 +34,21 @@ public class Card {
 
     public void setCardOrientation(String cardOrientation) {
         this.cardOrientation = cardOrientation;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    public void setSuit(String suit) {
+        this.suit = suit;
     }
 }
