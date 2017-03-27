@@ -6,6 +6,9 @@ import model.GameSettings;
 import model.TableGrid;
 import view.TableTab.TableTabView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TableTabController {
     private CardSettings cardSettings;
     private TableGrid tableGrid;
@@ -19,5 +22,10 @@ public class TableTabController {
         gameSettings = gameSettingsModel;
 
 
+    }
+
+
+    public List<String> getCardList(){
+        return cardSettings.getCardList();
     }
 }
