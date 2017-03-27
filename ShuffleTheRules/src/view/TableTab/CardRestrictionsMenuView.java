@@ -9,6 +9,10 @@ import model.CardSettings;
 public class CardRestrictionsMenuView extends TitledPane{
 
     public CardRestrictionsMenuView(){
+        initialize();
+    }
+
+    public void initialize(){
         this.setText("Card Restrictions");
 
         VBox cardRestrictionMenuContent = new VBox();

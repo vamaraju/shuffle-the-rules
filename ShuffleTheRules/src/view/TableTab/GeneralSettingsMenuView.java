@@ -11,6 +11,12 @@ import javafx.scene.layout.VBox;
 public class GeneralSettingsMenuView extends TitledPane{
 
     public GeneralSettingsMenuView(){
+
+        initialize();
+
+    }
+
+    public void initialize(){
         this.setText("General Settings");
 
         VBox generalMenuContent = new VBox();
@@ -33,7 +39,5 @@ public class GeneralSettingsMenuView extends TitledPane{
 
         generalMenuContent.getChildren().addAll(players, minNumPlayersHBox, maxNumPlayersHBox);
         this.setContent(generalMenuContent);
-
-
     }
 }

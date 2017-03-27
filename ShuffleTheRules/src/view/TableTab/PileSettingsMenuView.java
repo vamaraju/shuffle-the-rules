@@ -12,7 +12,12 @@ import javafx.scene.text.TextAlignment;
 public class PileSettingsMenuView extends TitledPane{
 
     public PileSettingsMenuView(){
-        /* Menu title */
+        initialize();
+
+    }
+
+    public void initialize(){
+         /* Menu title */
         this.setText("Pile Settings");
 
         /* Sub menu titles. Sub menu titles stand out compared
@@ -37,6 +42,5 @@ public class PileSettingsMenuView extends TitledPane{
         pileMenuContent.getChildren().addAll(addNewPileLabel,newPileView, updatePileLabel, updatePileView);
 
         this.setContent(pileMenuContent);
-
     }
 }

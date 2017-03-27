@@ -1,9 +1,23 @@
 package controller;
 
 
-public class TableTabController {
+import model.CardSettings;
+import model.GameSettings;
+import model.TableGrid;
+import view.TableTab.TableTabView;
 
-    public TableTabController(){
+public class TableTabController {
+    private CardSettings cardSettings;
+    private TableGrid tableGrid;
+    private TableTabView tableTabView;
+    private GameSettings gameSettings;
+
+    public TableTabController(CardSettings cardSettingsModel, TableGrid tableGridModel, TableTabView tableTabView, GameSettings gameSettingsModel){
+        cardSettings = cardSettingsModel;
+        tableGrid = tableGridModel;
+        tableTabView = tableTabView;
+        gameSettings = gameSettingsModel;
+
 
     }
 }
