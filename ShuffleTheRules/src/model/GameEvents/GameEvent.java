@@ -1,16 +1,12 @@
 package model.GameEvents;
 
 import model.GameActions.GameAction;
+import model.GameRule;
 
 import java.util.ArrayList;
 
 
-public abstract class GameEvent {
-
-    protected String name;
-    protected String description;
-    protected ArrayList<GameAction> postActions = new ArrayList<>();
-    protected ArrayList<GameEvent> postEvents = new ArrayList<>();
+public abstract class GameEvent extends GameRule {
 
     public GameEvent() {
         this.name = "GameEvent";
@@ -21,27 +17,4 @@ public abstract class GameEvent {
     *  it will accept all our our Actions which implement GameAction */
     public abstract void run(ArrayList<GameAction> actions);
 
-    public String getName() {
-        return this.name;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public ArrayList<GameAction> getPostActions() {
-        return this.postActions;
-    }
-
-    public ArrayList<GameEvent> getPostEvents() {
-        return this.postEvents;
-    }
 }
