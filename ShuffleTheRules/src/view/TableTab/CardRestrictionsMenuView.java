@@ -31,21 +31,11 @@ public class CardRestrictionsMenuView extends TitledPane{
         availableCards.getItems().addAll(cardList);
         cardSelection.getChildren().addAll(selectCard, availableCards);
 
-        Canvas suitCanvas = new Canvas(100, 100);
-        GraphicsContext graphicsContext = suitCanvas.getGraphicsContext2D();
 
-        graphicsContext.setFill(Color.BLACK);
-        graphicsContext.setStroke(Color.BLACK);
-        graphicsContext.setLineWidth(2);
-        /* club */
-        graphicsContext.fillOval(25,25,11,11);
-        graphicsContext.fillOval(20,34,11,11);
-        graphicsContext.fillOval(30,34,11,11);
-        graphicsContext.fillRect(28,33,6,20);
 
         drawCardSettingsDisplay();
 
-        cardRestrictionMenuContent.getChildren().addAll(cardSelection, suitCanvas);
+        cardRestrictionMenuContent.getChildren().addAll(cardSelection);
         this.setContent(cardRestrictionMenuContent);
     }
 
@@ -72,6 +62,18 @@ public class CardRestrictionsMenuView extends TitledPane{
 
     public void drawClub(){
         /* three circles and a rectangle. fill in with black*/
+
+        Canvas suitCanvas = new Canvas(100, 100);
+        GraphicsContext graphicsContext = suitCanvas.getGraphicsContext2D();
+
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.setStroke(Color.BLACK);
+        graphicsContext.setLineWidth(2);
+        /* club */
+        graphicsContext.fillOval(25,25,11,11);
+        graphicsContext.fillOval(20,34,11,11);
+        graphicsContext.fillOval(30,34,11,11);
+        graphicsContext.fillRect(28,33,6,20);
 
     }
 
