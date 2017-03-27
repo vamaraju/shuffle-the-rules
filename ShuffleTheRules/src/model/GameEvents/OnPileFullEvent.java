@@ -5,11 +5,11 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onPlayerTurn extends GameEvent {
+public class OnPileFullEvent extends GameEvent {
 
-    public onPlayerTurn() {
-        this.name = "onPlayerTurn";
-        this.description = "A specific player's turn is starting.";
+    public OnPileFullEvent() {
+        this.name = "OnPileFullEvent";
+        this.description = "A specific pile is full.";
     }
 
     @Override

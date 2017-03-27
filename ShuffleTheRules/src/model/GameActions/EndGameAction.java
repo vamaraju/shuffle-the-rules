@@ -5,10 +5,10 @@ import java.util.ArrayList;
 /**
  * Created by kirsten on 2017-03-18.
  */
-public class EndGame extends GameAction {
+public class EndGameAction extends GameAction {
 
-    public EndGame() {
-        this.name = "EndGame";
+    public EndGameAction() {
+        this.name = "EndGameAction";
         this.description = "The game ends.";
     }
 

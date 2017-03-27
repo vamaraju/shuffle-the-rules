@@ -5,10 +5,10 @@ import java.util.ArrayList;
 /**
  * Created by kirsten on 2017-03-18.
  */
-public class SkipTurn extends GameAction {
+public class SkipTurnAction extends GameAction {
 
-    public SkipTurn() {
-        this.name = "SkipTurn";
+    public SkipTurnAction() {
+        this.name = "SkipTurnAction";
         this.description = "A turn is skipped.";
     }
 

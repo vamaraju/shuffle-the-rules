@@ -5,11 +5,11 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onTurnStart extends GameEvent {
+public class OnPileEmptyEvent extends GameEvent {
 
-    public onTurnStart() {
-        this.name = "onTurnStart";
-        this.description = "The turn is starting.";
+    public OnPileEmptyEvent() {
+        this.name = "OnPileEmptyEvent";
+        this.description = "A specific pile is empty.";
     }
 
     @Override

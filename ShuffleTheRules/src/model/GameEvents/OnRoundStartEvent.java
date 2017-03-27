@@ -5,11 +5,11 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onGameStart extends GameEvent {
+public class OnRoundStartEvent extends GameEvent {
 
-    public onGameStart() {
-        this.name = "onGameStart";
-        this.description = "The game is starting.";
+    public OnRoundStartEvent() {
+        this.name = "OnRoundStartEvent";
+        this.description = "The round is starting.";
     }
 
     @Override

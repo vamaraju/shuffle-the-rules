@@ -5,11 +5,11 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onPileFull extends GameEvent {
+public class OnHandFullEvent extends GameEvent {
 
-    public onPileFull() {
-        this.name = "onPileFull";
-        this.description = "A specific pile is full.";
+    public OnHandFullEvent() {
+        this.name = "OnHandFullEvent";
+        this.description = "A player's hand is full.";
     }
 
     @Override

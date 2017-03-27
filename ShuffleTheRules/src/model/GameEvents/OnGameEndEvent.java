@@ -5,11 +5,11 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onCardDrawn extends GameEvent {
+public class OnGameEndEvent extends GameEvent {
 
-    public onCardDrawn() {
-        this.name = "onCardDrawn";
-        this.description = "A specific card is drawn.";
+    public OnGameEndEvent() {
+        this.name = "OnGameEndEvent";
+        this.description = "The game is ending.";
     }
 
     @Override

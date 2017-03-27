@@ -5,11 +5,11 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onPileEmpty extends GameEvent {
+public class OnCardDrawnEvent extends GameEvent {
 
-    public onPileEmpty() {
-        this.name = "onPileEmpty";
-        this.description = "A specific pile is empty.";
+    public OnCardDrawnEvent() {
+        this.name = "OnCardDrawnEvent";
+        this.description = "A specific card is drawn.";
     }
 
     @Override

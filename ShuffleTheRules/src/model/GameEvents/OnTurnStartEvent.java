@@ -5,11 +5,11 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onGameEnd extends GameEvent {
+public class OnTurnStartEvent extends GameEvent {
 
-    public onGameEnd() {
-        this.name = "onGameEnd";
-        this.description = "The game is ending.";
+    public OnTurnStartEvent() {
+        this.name = "OnTurnStartEvent";
+        this.description = "The turn is starting.";
     }
 
     @Override

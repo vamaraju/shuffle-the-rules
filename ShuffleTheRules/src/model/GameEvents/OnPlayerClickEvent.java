@@ -5,10 +5,10 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onPlayerClick extends GameEvent {
+public class OnPlayerClickEvent extends GameEvent {
 
-    public onPlayerClick() {
-        this.name = "onPlayerClick";
+    public OnPlayerClickEvent() {
+        this.name = "OnPlayerClickEvent";
         this.description = "A specific player is clicked.";
     }
 

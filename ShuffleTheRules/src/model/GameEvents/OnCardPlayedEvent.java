@@ -5,10 +5,10 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onCardPlayed extends GameEvent {
+public class OnCardPlayedEvent extends GameEvent {
 
-    public onCardPlayed() {
-        this.name = "onCardPlayed";
+    public OnCardPlayedEvent() {
+        this.name = "OnCardPlayedEvent";
         this.description = "A specific card is played.";
     }
 

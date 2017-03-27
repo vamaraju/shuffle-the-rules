@@ -5,10 +5,10 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onPileClick extends GameEvent {
+public class OnPileClickEvent extends GameEvent {
 
-    public onPileClick() {
-        this.name = "onPileClick";
+    public OnPileClickEvent() {
+        this.name = "OnPileClickEvent";
         this.description = "A specific pile is clicked.";
     }
 

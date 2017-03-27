@@ -5,11 +5,11 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onHandFull extends GameEvent {
+public class OnGameStartEvent extends GameEvent {
 
-    public onHandFull() {
-        this.name = "onHandFull";
-        this.description = "A player's hand is full.";
+    public OnGameStartEvent() {
+        this.name = "OnGameStartEvent";
+        this.description = "The game is starting.";
     }
 
     @Override
