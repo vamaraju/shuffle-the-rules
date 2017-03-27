@@ -5,7 +5,7 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onPileFull implements GameEvent {
+public class onPileFull extends GameEvent {
     @Override
     public void run(ArrayList<GameAction> actions) {
 

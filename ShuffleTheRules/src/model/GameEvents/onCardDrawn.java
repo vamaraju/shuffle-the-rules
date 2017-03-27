@@ -5,7 +5,7 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public class onCardDrawn implements GameEvent {
+public class onCardDrawn extends GameEvent {
     @Override
     public void run(ArrayList<GameAction> actions) {
 
