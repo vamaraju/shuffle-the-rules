@@ -15,5 +15,7 @@ public class TableTabController {
         cardSettings = cardSettingsModel;
         tableGrid = tableGridModel;
         tableTabView = tableTabView;
+
+
     }
 }
