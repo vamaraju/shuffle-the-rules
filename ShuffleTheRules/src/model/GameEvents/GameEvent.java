@@ -5,13 +5,13 @@ import model.GameActions.GameAction;
 import java.util.ArrayList;
 
 
-public interface GameEvent {
+public abstract class GameEvent {
 
-    /* TODO it complains when this isn't initialized. this may not be what we want*/
-    //ArrayList<GameAction> gameActions = new ArrayList<GameAction>();
+    ArrayList<GameAction> postActions = new ArrayList<GameAction>();
+    ArrayList<GameEvent> postEvents = new ArrayList<GameEvent>();
 
     /* actions can contain any object that implements the GameAction interface,
     *  it will accept all our our Actions which implement GameAction */
-    public void run(ArrayList<GameAction> actions);
+    public abstract void run(ArrayList<GameAction> actions);
 
 }

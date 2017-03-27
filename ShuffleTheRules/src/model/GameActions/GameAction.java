@@ -1,11 +1,14 @@
 package model.GameActions;
 
+import model.GameEvents.GameEvent;
+
 import java.util.ArrayList;
 
-/**
- * Created by kirsten on 2017-03-18.
- */
-public interface GameAction {
+public abstract class GameAction {
+
+    ArrayList<GameAction> postActions = new ArrayList<GameAction>();
+    ArrayList<GameEvent> postEvents = new ArrayList<GameEvent>();
+
     /* Needs ArrayList argument */
-    public void run();
+    public abstract void run();
 }
