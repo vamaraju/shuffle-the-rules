@@ -26,21 +26,18 @@ public class PileSettingsMenuView extends TitledPane{
 
 
 
-        Label addNewPileLabel = new Label("Add New Pile");
-        addNewPileLabel.setTextAlignment(TextAlignment.CENTER);
-        addNewPileLabel.setUnderline(true);
-
-        Label updatePileLabel = new Label("Update Pile");
-        updatePileLabel.setTextAlignment(TextAlignment.CENTER);
-        updatePileLabel.setUnderline(true);
+        Label pileLabel = new Label("Add or Update a Pile");
+        pileLabel.setTextAlignment(TextAlignment.CENTER);
+        pileLabel.setUnderline(true);
 
 
-        NewPileView newPileView = new NewPileView();
-        UpdatePileView updatePileView = new UpdatePileView();
+        PileSettingsView pileSettingsView = new PileSettingsView();
 
         VBox pileMenuContent = new VBox(10);
-        pileMenuContent.getChildren().addAll(addNewPileLabel,newPileView, updatePileLabel, updatePileView);
+        pileMenuContent.getChildren().addAll(pileLabel,pileSettingsView);
 
         this.setContent(pileMenuContent);
+
+
     }
 }

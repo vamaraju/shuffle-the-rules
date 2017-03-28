@@ -4,6 +4,8 @@ package view.TableTab;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+/* ********************** TODO THIS FILE IS GOING TO BE DELETED **************************/
+
 
 public class UpdatePileView extends VBox {
 
@@ -24,3 +26,5 @@ public class UpdatePileView extends VBox {
         this.getChildren().addAll(name, type, numCards, minCards, maxCards, gridCoordinates, xCoord, yCoord, playerAssociation, viewable, orientation, updatePileButton);
     }
 }
+
+/* ********************** TODO THIS FILE IS GOING TO BE DELETED **************************/

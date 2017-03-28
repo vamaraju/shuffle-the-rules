@@ -15,10 +15,10 @@ import javafx.scene.control.Label;
 *   sceen size affects view of menu
 *   make things generic - ie. type menus
 * */
-public class NewPileView extends VBox {
+public class PileSettingsView extends VBox {
 
 
-    public NewPileView(){
+    public PileSettingsView(){
         this.setSpacing(2);
 
         /* Name - extract */
@@ -92,8 +92,12 @@ public class NewPileView extends VBox {
         cardOrientationHBox.getChildren().addAll(orientation, cardOrientationChoiceInput);
 
         /* TODO add anchor?*/
+        HBox addUpdateButtons = new HBox(20);
+        Button updatePileButton = new Button("Update Pile");
         Button addPileButton = new Button("Add Pile");
-        this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, pileViewableHBox, cardOrientationHBox, addPileButton);
+        addUpdateButtons.getChildren().addAll(updatePileButton, addPileButton);
+
+        this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, pileViewableHBox, cardOrientationHBox, addUpdateButtons);
     }
 
 }
