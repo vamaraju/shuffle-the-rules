@@ -10,6 +10,7 @@ import javafx.scene.control.LabelBuilder;
 import javafx.scene.text.TextAlignment;
 
 public class PileSettingsMenuView extends TitledPane{
+    private PileSettingsView pileSettingsView;
 
     public PileSettingsMenuView(){
         initialize();
@@ -30,8 +31,7 @@ public class PileSettingsMenuView extends TitledPane{
         pileLabel.setTextAlignment(TextAlignment.CENTER);
         pileLabel.setUnderline(true);
 
-
-        PileSettingsView pileSettingsView = new PileSettingsView();
+        pileSettingsView = new PileSettingsView();
 
         VBox pileMenuContent = new VBox(10);
         pileMenuContent.getChildren().addAll(pileLabel,pileSettingsView);
@@ -39,5 +39,9 @@ public class PileSettingsMenuView extends TitledPane{
         this.setContent(pileMenuContent);
 
 
+    }
+
+    public PileSettingsView getPileSettingsView() {
+        return pileSettingsView;
     }
 }

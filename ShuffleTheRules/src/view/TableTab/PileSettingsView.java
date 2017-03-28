@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
 /*
+* Class is responsible for drawing the settings in the Pile Settings Menu.
+* It is in a separate class to
 * TODO
 *   make look better - css or general font formatting/ spacing
 *   spacing for input boxes needs work
@@ -17,6 +19,21 @@ import javafx.scene.control.Label;
 * */
 public class PileSettingsView extends VBox {
 
+    private Button updatePileButton;
+    private Button addPileButton;
+
+    private TextField nameInput;
+    private ChoiceBox typeChoiceInput;
+    private TextField minNumCardsInput;
+    private TextField maxNumCardsInput;
+
+    private TextField xCoordInput;
+    private TextField yCoordInput;
+    /* TODO missing Pile Associations */
+    /* private pileAssociations */
+
+    private ChoiceBox pileViewableChoiceInput;
+    private ChoiceBox cardOrientationChoiceInput;
 
     public PileSettingsView(){
         this.setSpacing(2);
@@ -24,14 +41,14 @@ public class PileSettingsView extends VBox {
         /* Name - extract */
         HBox nameHBox = new HBox(5);
         Label name = new Label("Name:");
-        TextField nameInput = new TextField();
+        nameInput = new TextField();
         nameInput.setMaxSize(120, 20);
         nameHBox.getChildren().addAll(name, nameInput);
 
         /* Type - extract */
         HBox typeHBox = new HBox(4);
         Label type = new Label("Type:");
-        ChoiceBox typeChoiceInput = new ChoiceBox();
+        typeChoiceInput = new ChoiceBox();
         typeChoiceInput.getItems().addAll("Hand", "Deck", "Discard", "None");
         typeHBox.getChildren().addAll(type, typeChoiceInput);
 
@@ -42,13 +59,13 @@ public class PileSettingsView extends VBox {
         /* min */
         HBox minNumCardsHBox = new HBox(4);
         Label minNumCards = new Label("min:");
-        TextField minNumCardsInput = new TextField();
+        minNumCardsInput = new TextField();
         minNumCardsInput.setMaxSize(50, 20);
         minNumCardsHBox.getChildren().addAll(minNumCards, minNumCardsInput);
         /* max */
         HBox maxNumCardsHBox = new HBox(4);
         Label maxNumCards = new Label("max:");
-        TextField maxNumCardsInput = new TextField();
+        maxNumCardsInput = new TextField();
         maxNumCardsInput.setMaxSize(50, 20);
         maxNumCardsHBox.getChildren().addAll(maxNumCards, maxNumCardsInput);
 
@@ -61,13 +78,13 @@ public class PileSettingsView extends VBox {
         /* x */
         HBox xCoordHBox = new HBox(4);
         Label xCoord = new Label("x:");
-        TextField xCoordInput = new TextField();
+        xCoordInput = new TextField();
         xCoordInput.setMaxSize(30, 10);
         xCoordHBox.getChildren().addAll(xCoord, xCoordInput);
         /*y */
         Label yCoord = new Label("y:");
         HBox yCoordHBox = new HBox(4);
-        TextField yCoordInput = new TextField();
+        yCoordInput = new TextField();
         yCoordInput.setMaxSize(30, 10);
         yCoordHBox.getChildren().addAll(yCoord, yCoordInput);
 
@@ -80,24 +97,64 @@ public class PileSettingsView extends VBox {
         HBox pileViewableHBox = new HBox(4);
         Label viewableBy = new Label("Viewable By:");
 
-        ChoiceBox pileViewableChoiceInput = new ChoiceBox();
+        pileViewableChoiceInput = new ChoiceBox();
         pileViewableChoiceInput.getItems().addAll("All", "None");
         pileViewableHBox.getChildren().addAll(viewableBy, pileViewableChoiceInput);
 
         /* Pile Orientation Settings - for display purposes.  Will determine how top of Pile is displayed */
         HBox cardOrientationHBox = new HBox(4);
         Label orientation = new Label("Card Orientation");
-        ChoiceBox cardOrientationChoiceInput = new ChoiceBox();
+        cardOrientationChoiceInput = new ChoiceBox();
         cardOrientationChoiceInput.getItems().addAll("Face Up", "Face Down");
         cardOrientationHBox.getChildren().addAll(orientation, cardOrientationChoiceInput);
 
         /* TODO add anchor?*/
-        HBox addUpdateButtons = new HBox(20);
-        Button updatePileButton = new Button("Update Pile");
-        Button addPileButton = new Button("Add Pile");
-        addUpdateButtons.getChildren().addAll(updatePileButton, addPileButton);
+        HBox addUpdateButtonsHBox = new HBox(20);
+        updatePileButton = new Button("Update Pile");
+        addPileButton = new Button("Add Pile");
+        addUpdateButtonsHBox.getChildren().addAll(updatePileButton, addPileButton);
 
-        this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, pileViewableHBox, cardOrientationHBox, addUpdateButtons);
+        this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, pileViewableHBox, cardOrientationHBox, addUpdateButtonsHBox);
+    }
+
+    public Button getAddPileButton() {
+        return addPileButton;
+    }
+
+    public Button getUpdatePileButton() {
+        return updatePileButton;
+    }
+
+    public TextField getNameInput() {
+        return nameInput;
+    }
+
+    public ChoiceBox getTypeChoiceInput() {
+        return typeChoiceInput;
+    }
+
+    public TextField getMinNumCardsInput() {
+        return minNumCardsInput;
+    }
+
+    public TextField getMaxNumCardsInput() {
+        return maxNumCardsInput;
+    }
+
+    public TextField getxCoordInput() {
+        return xCoordInput;
+    }
+
+    public TextField getyCoordInput() {
+        return yCoordInput;
+    }
+
+    public ChoiceBox getPileViewableChoiceInput() {
+        return pileViewableChoiceInput;
+    }
+
+    public ChoiceBox getCardOrientationChoiceInput() {
+        return cardOrientationChoiceInput;
     }
 
 }

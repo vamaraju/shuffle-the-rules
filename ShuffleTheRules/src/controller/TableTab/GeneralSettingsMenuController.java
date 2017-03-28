@@ -13,5 +13,7 @@ public class GeneralSettingsMenuController {
         gameSettings = model;
     }
 
-    
+    public GeneralSettingsMenuView getGeneralSettingsMenuView() {
+        return generalSettingsMenuView;
+    }
 }
