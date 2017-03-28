@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 
 
 public class TableTabView extends Tab{
+
     private BorderPane tableTabBorderPane;
     private PileSettingsMenuView pileSettingsMenu;
     private CardRestrictionsMenuView cardRestrictionSettingsMenu;

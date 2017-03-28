@@ -16,7 +16,7 @@ public class CardSettings {
                diamond: num_diamonds*/
     Map<String,Map<String,Integer>> cardSettings;
 
-    private CardSettings(){
+    public CardSettings(){
         initialize();
     }
 

@@ -1,3 +1,4 @@
+import controller.TableTab.CardRestrictionsMenuController;
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -5,8 +6,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import model.CardSettings;
 import view.ApplicationMenuBarView;
 import view.EditorTabView;
+import view.TableTab.CardRestrictionsMenuView;
 import view.TableTab.TableTabView;
 
 /*
@@ -22,7 +25,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    private void initialize(Stage primaryStage){
+    private void initializeStage(Stage primaryStage){
 
         primaryStage.setTitle("Shuffle the Rules");
         primaryStage.setResizable(false);
@@ -61,10 +64,13 @@ public class Main extends Application {
         rootBorderPane.setCenter(tabPane);
     }
 
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        initialize(primaryStage);
+        initializeStage(primaryStage);
         primaryStage.show();
+
     }
 
 }

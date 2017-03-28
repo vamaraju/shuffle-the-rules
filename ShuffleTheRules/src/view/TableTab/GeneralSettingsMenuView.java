@@ -9,6 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class GeneralSettingsMenuView extends TitledPane{
+    private TextField minNumPlayersInput;
+    private TextField maxNumPlayersInput;
+
+
 
     public GeneralSettingsMenuView(){
 
@@ -26,18 +30,26 @@ public class GeneralSettingsMenuView extends TitledPane{
         /* min */
         HBox minNumPlayersHBox = new HBox(4);
         Label minNumPlayers = new Label("min:");
-        TextField minNumPlayersInput = new TextField();
+        minNumPlayersInput = new TextField();
         minNumPlayersInput.setMaxSize(50, 20);
         minNumPlayersHBox.getChildren().addAll(minNumPlayers, minNumPlayersInput);
 
         /* max */
         HBox maxNumPlayersHBox = new HBox(4);
         Label maxNumPlayers = new Label("max:");
-        TextField maxNumPlayersInput = new TextField();
+        maxNumPlayersInput = new TextField();
         maxNumPlayersInput.setMaxSize(50, 20);
         maxNumPlayersHBox.getChildren().addAll(maxNumPlayers, maxNumPlayersInput);
 
         generalMenuContent.getChildren().addAll(players, minNumPlayersHBox, maxNumPlayersHBox);
         this.setContent(generalMenuContent);
+    }
+
+    public TextField getMinNumPlayersInput() {
+        return minNumPlayersInput;
+    }
+
+    public TextField getMaxNumPlayersInput() {
+        return maxNumPlayersInput;
     }
 }

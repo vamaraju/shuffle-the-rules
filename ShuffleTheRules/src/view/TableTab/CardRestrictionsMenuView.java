@@ -15,9 +15,18 @@ import java.util.List;
 
 public class CardRestrictionsMenuView extends TitledPane{
     private List<String> cardList = new ArrayList<String>();
+    private ChoiceBox availableCards;
 
     public CardRestrictionsMenuView(){
         initialize();
+    }
+
+    public List<String> getCardList() {
+        return cardList;
+    }
+
+    public ChoiceBox getAvailableCards() {
+        return availableCards;
     }
 
     public void initialize(){
@@ -27,11 +36,9 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         HBox cardSelection = new HBox(10);
         Label selectCard = new Label("Select Card");
-        ChoiceBox availableCards = new ChoiceBox();
+        availableCards = new ChoiceBox();
         availableCards.getItems().addAll(cardList);
         cardSelection.getChildren().addAll(selectCard, availableCards);
-
-
 
         drawCardSettingsDisplay();
 
