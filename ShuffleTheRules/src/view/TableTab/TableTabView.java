@@ -43,5 +43,27 @@ public class TableTabView extends Tab{
     }
 
 
+    public BorderPane getTableTabBorderPane() {
+        return tableTabBorderPane;
+    }
 
+    public PileSettingsMenuView getPileSettingsMenu() {
+        return pileSettingsMenu;
+    }
+
+    public CardRestrictionsMenuView getCardRestrictionSettingsMenu() {
+        return cardRestrictionSettingsMenu;
+    }
+
+    public GeneralSettingsMenuView getGeneralSettingsMenu() {
+        return generalSettingsMenu;
+    }
+
+    public Accordion getTableTabAccordian() {
+        return tableTabAccordian;
+    }
+
+    public TableGridView getTableGridView() {
+        return tableGridView;
+    }
 }
