@@ -11,7 +11,7 @@ public class PileSettingsMenuController {
     private PileSettingsMenuView pileSettingsMenuView;
     private ArrayList<Pile> piles;
 
-    PileSettingsMenuController(PileSettingsMenuView view){
+    public PileSettingsMenuController(PileSettingsMenuView view){
         pileSettingsMenuView = view;
     }
 

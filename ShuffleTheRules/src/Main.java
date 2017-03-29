@@ -1,5 +1,6 @@
 import controller.TableTab.CardRestrictionsMenuController;
 import controller.TableTab.GeneralSettingsMenuController;
+import controller.TableTab.PileSettingsMenuController;
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -66,6 +67,7 @@ public class Main extends Application {
         rootBorderPane.setCenter(tabPane);
         CardRestrictionsMenuController cardRestrictionsMenuController = new CardRestrictionsMenuController(tableTab.getCardRestrictionSettingsMenu());
         GeneralSettingsMenuController generalSettingsMenuController = new GeneralSettingsMenuController(tableTab.getGeneralSettingsMenu());
+        PileSettingsMenuController pileSettingsMenuController = new PileSettingsMenuController(tableTab.getPileSettingsMenu());
     }
 
 
