@@ -14,6 +14,7 @@ public class CardRestrictionsMenuController {
     public CardRestrictionsMenuController(CardRestrictionsMenuView view, CardSettings cardSettingsModel){
         cardRestrictionsMenuView = view;
         cardSettings = cardSettingsModel;
+        updateCardList();
     }
 
     public List<String> getCardList(){

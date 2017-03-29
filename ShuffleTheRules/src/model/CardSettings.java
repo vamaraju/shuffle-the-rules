@@ -1,10 +1,7 @@
 package model;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /* TODO how will Joker be handled?*/
 /* TODO Error handling for methods */
@@ -21,10 +18,12 @@ public class CardSettings {
     }
 
     private void initialize(){
-        String initialDeck[] = {"Ace","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"};
+        cardSettings = new HashMap<>();
+        String initialDeck[] = {"Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"};
         for (String card: initialDeck) {
             /* Default values - deck with 52 cards */
-            updateAllSuits(card, 1, 1, 1, 1);
+            addCard(card);
+            //updateAllSuits(card, 1, 1, 1, 1);
         }
     }
 
@@ -32,10 +31,11 @@ public class CardSettings {
         List cardList = new ArrayList(cardSettings.keySet());
         return cardList;
     }
-
+    /* TO validation or try/catch? */
     public void updateSuit(String card, String suit, int value){
         cardSettings.get(card).put(suit,value);
     }
+
 
     public void updateAllSuits(String card, int heartValue, int spadeValue, int clubValue, int diamondValue){
         updateSuit(card, "heart", heartValue);
@@ -52,19 +52,31 @@ public class CardSettings {
         return getSuitCount(card,"heart") +  getSuitCount(card,"spade") + getSuitCount(card,"club") +  getSuitCount(card,"diamond");
     }
 
+/* TODO check that this clears the suits mappings and the card mappings */
     public void clearAllCardSettings(){
         String initialDeck[] = {"Ace","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"};
         for (String card: initialDeck) {
-            cardSettings.remove(card);
+            removeCard(card);
         }
         cardSettings.clear();
     }
 
+    /* TODO check that this clears the suits mappings and the card mappings */
     public void removeCard(String card){
         cardSettings.get(card).clear();
+        cardSettings.remove(card);
+    }
+
+    public void addSuit(String card, String suit, int value){
+        cardSettings.get(card).put(suit,value);
     }
 
     public void addCard(String card){
-        updateAllSuits(card, 1, 1, 1, 1);
+        Map<String,Integer> suitValueMappings = new HashMap<>();
+        suitValueMappings.put("heart",1);
+        suitValueMappings.put("spade",1);
+        suitValueMappings.put("club",1);
+        suitValueMappings.put("diamond",1);
+        cardSettings.put(card, suitValueMappings);
     }
 }

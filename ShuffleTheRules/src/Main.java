@@ -62,6 +62,8 @@ public class Main extends Application {
 
 
         rootBorderPane.setCenter(tabPane);
+        CardSettings cardSettings = new CardSettings();
+        CardRestrictionsMenuController cardRestrictionsMenuController = new CardRestrictionsMenuController(tableTab.getCardRestrictionSettingsMenu(), cardSettings);
     }
 
 
