@@ -6,7 +6,8 @@ public class GameSettings {
     int maxPlayers;
 
     public GameSettings(){
-
+        minPlayers = 1;
+        maxPlayers = 1;
     }
     /* TODO we may want to restrict this to ASC/DESC, or move to gameplay. doesn't make sense being in GameCreation with Player objects and no people present */
     public void changeTurnOrder(Player player){

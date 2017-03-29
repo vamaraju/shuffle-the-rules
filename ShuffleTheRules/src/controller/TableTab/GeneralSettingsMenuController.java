@@ -8,9 +8,9 @@ public class GeneralSettingsMenuController {
     private GeneralSettingsMenuView generalSettingsMenuView;
     private GameSettings gameSettings;
 
-    GeneralSettingsMenuController(GeneralSettingsMenuView view, GameSettings model){
+    public GeneralSettingsMenuController(GeneralSettingsMenuView view){
         generalSettingsMenuView = view;
-        gameSettings = model;
+        gameSettings = new GameSettings();
     }
 
     public GeneralSettingsMenuView getGeneralSettingsMenuView() {

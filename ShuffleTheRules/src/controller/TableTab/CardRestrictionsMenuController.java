@@ -11,10 +11,11 @@ public class CardRestrictionsMenuController {
     private CardRestrictionsMenuView cardRestrictionsMenuView;
     private CardSettings cardSettings;
 
-    public CardRestrictionsMenuController(CardRestrictionsMenuView view, CardSettings cardSettingsModel){
+    public CardRestrictionsMenuController(CardRestrictionsMenuView view){
         cardRestrictionsMenuView = view;
-        cardSettings = cardSettingsModel;
+        cardSettings = new CardSettings();
         updateCardList();
+        /* change to use observer/ observable */
     }
 
     public List<String> getCardList(){

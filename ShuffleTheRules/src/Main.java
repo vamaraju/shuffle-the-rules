@@ -1,4 +1,5 @@
 import controller.TableTab.CardRestrictionsMenuController;
+import controller.TableTab.GeneralSettingsMenuController;
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import model.CardSettings;
 import view.ApplicationMenuBarView;
 import view.EditorTabView;
 import view.TableTab.CardRestrictionsMenuView;
+import view.TableTab.GeneralSettingsMenuView;
 import view.TableTab.TableTabView;
 
 /*
@@ -62,8 +64,8 @@ public class Main extends Application {
 
 
         rootBorderPane.setCenter(tabPane);
-        CardSettings cardSettings = new CardSettings();
-        CardRestrictionsMenuController cardRestrictionsMenuController = new CardRestrictionsMenuController(tableTab.getCardRestrictionSettingsMenu(), cardSettings);
+        CardRestrictionsMenuController cardRestrictionsMenuController = new CardRestrictionsMenuController(tableTab.getCardRestrictionSettingsMenu());
+        GeneralSettingsMenuController generalSettingsMenuController = new GeneralSettingsMenuController(tableTab.getGeneralSettingsMenu());
     }
 
 

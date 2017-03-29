@@ -90,6 +90,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
     public void updateCardList(List<String> list){
         cardList = list;
+        /* should probably change to use a listener */
         this.availableCards.getItems().addAll(cardList);
     }
 }
