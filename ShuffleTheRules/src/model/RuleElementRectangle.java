@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -9,21 +11,27 @@ public class RuleElementRectangle extends Rectangle {
 
     private Text text;
     private GameRule gameRule;
+    private Paint borderColor;
+    private boolean clicked = false;
 
     public RuleElementRectangle() {
         super();
+        this.setListeners();
     }
 
     public RuleElementRectangle(double width, double height) {
         super(width, height);
+        this.setListeners();
     }
 
     public RuleElementRectangle(double x, double y, double width, double height) {
         super(x, y, width, height);
+        this.setListeners();
     }
 
     public RuleElementRectangle(double width, double height, Paint fill) {
         super(width, height, fill);
+        this.setListeners();
     }
 
 
@@ -49,6 +57,7 @@ public class RuleElementRectangle extends Rectangle {
         t.setY(y+(height-textHeight)/2);
 
         this.text = t;
+        this.setListeners();
     }
 
 
@@ -65,6 +74,7 @@ public class RuleElementRectangle extends Rectangle {
     public RuleElementRectangle(double x, double y, double width, double height, Text text) {
         super(x, y, width, height);
         this.text = text;
+        this.setListeners();
     }
 
 
@@ -87,12 +97,54 @@ public class RuleElementRectangle extends Rectangle {
         t.setX(x+20);
         double textHeight = t.getLayoutBounds().getHeight();
         double rectHeight = textHeight + 40;
-        t.setY(y+30);
+        t.setY(y+33);
 
         this.text = t;
 
         this.setWidth(rectWidth);
         this.setHeight(rectHeight);
+        this.setListeners();
+    }
+
+
+    /**
+     * Dynamically generates the rectangle width and height based on (to fit) the given text.
+     * Accepts a ruleType parameter that can be either "event" or "action", and sets the rectangle border accordingly.
+     *
+     * @param x Rectangle starting (top-left) x coordinate.
+     * @param y Rectangle starting (top-left) y coordinate.
+     * @param text Text that goes inside the rectangle.
+     * @param ruleType Either "event" or "action". Used to set the rectangle border color.
+     */
+    public RuleElementRectangle(double x, double y, String text, String ruleType) {
+        super(x, y, 150, 75);
+
+        Text t = new Text(text);
+        t.setFont(new Font(15));
+
+        double textWidth = t.getLayoutBounds().getWidth();
+        double rectWidth = textWidth + 40;
+        t.setWrappingWidth(rectWidth-20);
+        t.setX(x+20);
+        double textHeight = t.getLayoutBounds().getHeight();
+        double rectHeight = textHeight + 40;
+        t.setY(y+33);
+
+        this.text = t;
+
+        this.setWidth(rectWidth);
+        this.setHeight(rectHeight);
+
+        if (ruleType.equals("event")) {
+            this.setFill(Color.WHITE);
+            this.setStrokeWidth(2);
+            this.setStroke(Color.BLUE);
+        } else if (ruleType.equals("action")) {
+            this.setFill(Color.WHITE);
+            this.setStrokeWidth(2);
+            this.setStroke(Color.RED);
+        }
+        this.setListeners();
     }
 
 
@@ -176,5 +228,56 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void setGameRule(GameRule gameRule) {
         this.gameRule = gameRule;
+    }
+
+
+    /**
+     * Returns the value of this.clicked. True if the Rectangle is currently clicked (the border is a different color).
+     *
+     * @return Returns true if this Rectangle is currently clicked (this.clicked == true).
+     */
+    public boolean isClicked() {
+        return this.clicked;
+    }
+
+
+    /**
+     * Sets the value of this.clicked; i.e., whether this Rectangle is currently clicked or not.
+     * If it is clicked, the Rectangle border should be a different color.
+     */
+    public void setClicked(boolean clicked) {
+        this.clicked = clicked;
+    }
+
+
+    /**
+     * Listener for the mouse entering the rectangle. Changes the border color, but saves the old (original) one.
+     *
+     * @param e MouseEvent
+     */
+    public void onMouseEntered(MouseEvent e) {
+        this.borderColor = this.getStroke();
+        this.setStroke(Color.GREY);
+    }
+
+
+    /**
+     * Listener for the mouse exiting the rectangle. Changes the border color back to the original color.
+     *
+     * @param e MouseEvent
+     */
+    public void onMouseExited(MouseEvent e) {
+        this.setStroke(this.borderColor);
+    }
+
+
+    /**
+     * Sets listeners for this Rectangle.
+     */
+    public void setListeners() {
+        this.setOnMouseEntered(this::onMouseEntered);
+        this.setOnMouseExited(this::onMouseExited);
+        this.text.setOnMouseEntered(this::onMouseEntered);
+        this.text.setOnMouseExited(this::onMouseExited);
     }
 }

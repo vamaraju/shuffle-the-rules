@@ -1,8 +1,6 @@
 package controller;
 
 import javafx.event.Event;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -12,15 +10,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import model.GameActions.DealCardAction;
-import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
-import model.GameEvents.OnCardDrawnEvent;
-import model.GameRule;
+import model.GameEvents.OnGameStartEvent;
 import model.RuleElementRectangle;
-import org.w3c.dom.css.Rect;
 import view.EditorTabView;
 
 import java.lang.reflect.InvocationTargetException;
@@ -84,19 +77,16 @@ public class EditorTabController {
         return gameActionNames;
     }
 
-    public void onAddEventButtonClick(Event event){
+    public void onAddEventButtonClick(Event event) {
         Pane drawingPane = view.getEditorDrawingPane();
-        TextField eventIdTextField = view.getEventIdTextField();
+        TextField eventIdTextField = view.getEventNameTextField();
         ComboBox eventComboBox = view.getEventComboBox();
 
 //        Text t = new Text(150, 250, eventIdTextField.getText());
 //        t.setFont(new Font(15));
 //        t.setWrappingWidth(100);
 
-        RuleElementRectangle r = new RuleElementRectangle(100, 100, eventIdTextField.getText());
-        r.setFill(Color.WHITE);
-        r.setStrokeWidth(2);
-        r.setStroke(Color.BLACK);
+        RuleElementRectangle r = new RuleElementRectangle(100, 100, eventIdTextField.getText(), "event");
 
         String gameEventClassName = eventComboBox.getValue().toString();
         r.setGameRule(this.getGameEventFromName(gameEventClassName));
@@ -111,7 +101,7 @@ public class EditorTabController {
 
     public void onAddActionButtonClick(Event event){
         Pane drawingPane = view.getEditorDrawingPane();
-        TextField actionIdTextField = view.getActionIdTextField();
+        TextField actionIdTextField = view.getActionNameTextField();
 
         Rectangle r = new Rectangle(100, 200, 100, 50);
         r.setFill(Color.WHITE);
@@ -203,5 +193,20 @@ public class EditorTabController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void addOnGameStart(Pane drawingPane) {
+        RuleElementRectangle r = new RuleElementRectangle(160, 50, "OnGameStartEvent");
+        r.setFill(Color.WHITE);
+        r.setStrokeWidth(2);
+        r.setStroke(Color.BLUE);
+        r.setGameRule(new OnGameStartEvent());
+
+        drawingPane.getChildren().addAll(r, r.getTextObj());
+    }
+
+    public void onEventRectangleClicked(MouseEvent e) {
+        GridPane eventsGrid = view.getEventsGrid();
+
     }
 }
