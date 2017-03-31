@@ -14,7 +14,7 @@ public class PileValidation {
     * Pile Settings
     *
     * no empty fields
-    * name - unique
+
     * # cards: min, max must be non-negative integers; max must be >= min
     * coordinates - must be non-negative integers; pile must not currently exist there
     *
@@ -28,14 +28,26 @@ public class PileValidation {
     * player turn order?
     * */
 
+    /* Validate a list of Piles (BasicPiles and Hands) */
+    public Boolean validateMultiplePiles(ArrayList<Pile> piles){
+        return false;
+    }
+
+    /* Validate a Pile (BasicPile or Hand */
+    public Boolean validatePile(Pile pile){
+        return false;
+    }
 
 
     /* Piles must have unique names */
     public Boolean uniqueNameCheck(String newPileName, ArrayList<Pile> piles){
-
+        return false;
     }
-    
-    public Boolean maxMinCheck(int min, int max){
-        return min <= max;
+
+    /* min number of Cards in Pile must be <= max number of Cards */
+    public Boolean maxMinCheck(String min, String max){
+        int minInt = Integer.parseInt(min);
+        int maxInt = Integer.parseInt(max);
+        return minInt <= maxInt;
     }
 }

@@ -5,20 +5,26 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import model.Piles.BasicPile;
 import model.Piles.Pile;
+import model.Piles.PileInterface;
 import model.RuleElementRectangle;
 import view.TableTab.PileSettingsMenuView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class PileSettingsMenuController {
 
     private PileSettingsMenuView pileSettingsMenuView;
-    private ArrayList<Pile> basicPiles;
-    private ArrayList<Pile> hands;
+    /* will store BasicPiles and Hands */
+    private Map<String, PileInterface> piles;
+
 
     public PileSettingsMenuController(PileSettingsMenuView view){
+        piles = new HashMap<String, PileInterface>();
         pileSettingsMenuView = view;
         pileSettingsMenuView.getPileSettingsView().getAddPileButton().setOnAction(this::onAddPileButtonClick);
         pileSettingsMenuView.getPileSettingsView().getUpdatePileButton().setOnAction(this::onUpdatePileButtonClick);
@@ -32,8 +38,8 @@ public class PileSettingsMenuController {
         System.out.println("Add Pile pressed");
         /* Get input from view*/
         /* validate */
-        /* update model */
-        createNewPile();
+        /* create a Pile - Basic or Hand */
+
         /* update view */
     }
 
@@ -47,6 +53,11 @@ public class PileSettingsMenuController {
     }
 
     public void createNewPile(String type){
-        Pile pile = new Pile();
+
+    }
+
+    /* Access a specific Pile*/
+    public PileInterface getPile(String pileName){
+        return new BasicPile("placeholder",0,2);
     }
 }
