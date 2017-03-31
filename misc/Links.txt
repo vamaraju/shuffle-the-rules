@@ -4,3 +4,18 @@ http://stackoverflow.com/questions/26222446/drawing-inside-a-scrollpane-in-javaf
 Working with a Canvas:
 http://docs.oracle.com/javafx/2/canvas/jfxpub-canvas.htm
 
+Popups
+(scroll to comment with Ali Cheaito as author)
+http://stackoverflow.com/questions/8309981/how-to-create-and-show-common-dialog-error-warning-confirmation-in-javafx-2/28887273#28887273
+
+Dialog
+https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Dialog.html
+
+**Alert
+https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.html
+
+**TextInputDialog
+https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TextInputDialog.html
+
+ChoiceDialog
+https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ChoiceDialog.html
