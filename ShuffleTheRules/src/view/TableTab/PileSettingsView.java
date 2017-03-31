@@ -21,6 +21,7 @@ public class PileSettingsView extends VBox {
 
     private Button updatePileButton;
     private Button addPileButton;
+    private Button deletePileButton;
 
     private TextField nameInput;
     private ChoiceBox typeChoiceInput;
@@ -111,8 +112,11 @@ public class PileSettingsView extends VBox {
         /* TODO add anchor?*/
         HBox addUpdateButtonsHBox = new HBox(20);
         updatePileButton = new Button("Update Pile");
+        updatePileButton.setDisable(true);
         addPileButton = new Button("Add Pile");
-        addUpdateButtonsHBox.getChildren().addAll(updatePileButton, addPileButton);
+        deletePileButton = new Button("Delete Pile");
+        deletePileButton.setDisable(true);
+        addUpdateButtonsHBox.getChildren().addAll(updatePileButton, addPileButton, deletePileButton);
 
         this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, pileViewableHBox, cardOrientationHBox, addUpdateButtonsHBox);
 
@@ -126,6 +130,20 @@ public class PileSettingsView extends VBox {
     public Button getUpdatePileButton() {
         return updatePileButton;
     }
+
+    public Button getDeletePileButton() { return deletePileButton; }
+
+    public void enableAddPileButton(){ addPileButton.setDisable(false); }
+
+    public void disableAddPileButton(){ addPileButton.setDisable(true); }
+
+    public void enableUpdatePileButton(){ updatePileButton.setDisable(false); }
+
+    public void disableUpdatePileButton(){ updatePileButton.setDisable(true); }
+
+    public void enableDeletePileButton(){ deletePileButton.setDisable(false); }
+
+    public void disableDeletePileButton(){ deletePileButton.setDisable(true); }
 
     public TextField getNameInput() {
         return nameInput;
