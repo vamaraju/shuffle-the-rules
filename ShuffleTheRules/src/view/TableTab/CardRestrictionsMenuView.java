@@ -49,15 +49,26 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         /* suit count area */
 
-        VBox suitSettingsVBox = new VBox();
+        VBox suitSettingsVBox = new VBox(20);
         suitSettingsVBox.setStyle(greyLayoutBorder);
 
-        HBox heartHBox = new HBox();
-        HBox spadeHBox = new HBox();
-        HBox clubHBox = new HBox();
-        HBox diamondHBox = new HBox();
+        HBox heartHBox = new HBox(10);
+        heartCount = new TextField();
+        heartHBox.getChildren().addAll(heartImageView,heartCount);
 
+        HBox spadeHBox = new HBox(10);
+        spadeCount = new TextField();
+        spadeHBox.getChildren().addAll(spadeImageView, spadeCount);
 
+        HBox clubHBox = new HBox(10);
+        clubCount = new TextField();
+        clubHBox.getChildren().addAll(clubImageView, clubCount);
+
+        HBox diamondHBox = new HBox(10);
+        diamondCount = new TextField();
+        diamondHBox.getChildren().addAll(diamondImageView, diamondCount);
+
+        suitSettingsVBox.getChildren().addAll(heartHBox, spadeHBox, clubHBox, diamondHBox);
 
         cardRestrictionMenuContent.getChildren().addAll(cardSelection, suitSettingsVBox);
         this.setContent(cardRestrictionMenuContent);
