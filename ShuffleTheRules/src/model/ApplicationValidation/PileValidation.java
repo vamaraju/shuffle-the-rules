@@ -45,9 +45,7 @@ public class PileValidation {
     }
 
     /* min number of Cards in Pile must be <= max number of Cards */
-    public Boolean maxMinCheck(String min, String max){
-        int minInt = Integer.parseInt(min);
-        int maxInt = Integer.parseInt(max);
-        return minInt <= maxInt;
+    public Boolean maxMinCheck(int min, int max){
+        return min <= max;
     }
 }

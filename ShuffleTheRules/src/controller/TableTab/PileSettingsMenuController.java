@@ -60,4 +60,8 @@ public class PileSettingsMenuController {
     public PileInterface getPile(String pileName){
         return new BasicPile("placeholder",0,2);
     }
+
+    public void deletePile(String pileName){
+        
+    }
 }
