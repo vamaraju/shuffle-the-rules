@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,16 +24,12 @@ public class CardRestrictionsMenuView extends TitledPane{
         initialize();
     }
 
-    public List<String> getCardList() {
-        return cardList;
-    }
-
-    public ChoiceBox getAvailableCards() {
-        return availableCards;
-    }
     private Button updateButton;
 
-
+    private ImageView heartImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/heart.png").toExternalForm());
+    private ImageView spadeImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/spade.png").toExternalForm());
+    private ImageView clubImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/club.png").toExternalForm());
+    private ImageView diamondImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/diamond.png").toExternalForm());
 
     public void initialize(){
         this.setText("Card Restrictions");
@@ -53,20 +51,8 @@ public class CardRestrictionsMenuView extends TitledPane{
         cardSelection.getChildren().addAll(selectCard, availableCards);
 
         drawCardSettingsDisplay();
-        Canvas suitCanvas = new Canvas(60, 60);
-        GraphicsContext graphicsContext = suitCanvas.getGraphicsContext2D();
 
-        graphicsContext.setFill(Color.BLACK);
-        graphicsContext.setStroke(Color.BLACK);
-        graphicsContext.setLineWidth(2);
-        /* club */
-        graphicsContext.fillOval(19,13,20,20);
-        graphicsContext.fillOval(10,26,20,20);
-        graphicsContext.fillOval(30,26,20,20);
-
-        graphicsContext.fillRect(26,33,8,22);
-
-        cardRestrictionMenuContent.getChildren().addAll(cardSelection, suitCanvas);
+        cardRestrictionMenuContent.getChildren().addAll(cardSelection, heartImageView,spadeImageView, clubImageView, diamondImageView);
         this.setContent(cardRestrictionMenuContent);
     }
 
@@ -87,32 +73,6 @@ public class CardRestrictionsMenuView extends TitledPane{
         /* two diagonal lines, two circles. fill in with red*/
     }
 
-    public void drawSpade(){
-        /* two diagonal lines, two circles and a rectangle. fill in with black*/
-    }
-
-    public void drawClub(){
-        /* three circles and a rectangle. fill in with black*/
-
-        Canvas suitCanvas = new Canvas(100, 100);
-        GraphicsContext graphicsContext = suitCanvas.getGraphicsContext2D();
-
-        graphicsContext.setFill(Color.BLACK);
-        graphicsContext.setStroke(Color.BLACK);
-        graphicsContext.setLineWidth(2);
-        /* club */
-        graphicsContext.fillOval(19,13,20,20);
-        graphicsContext.fillOval(10,26,20,20);
-        graphicsContext.fillOval(30,26,20,20);
-
-        graphicsContext.fillRect(26,33,8,22);
-
-
-    }
-
-    public void drawDiamond(){
-        /* four diagonal lines. fill in with red*/
-    }
 
     public void updateCardList(List<String> list){
         cardList = list;
@@ -123,4 +83,20 @@ public class CardRestrictionsMenuView extends TitledPane{
     public Button getUpdateButton() {
         return updateButton;
     }
+
+
+    public List<String> getCardList() {
+        return cardList;
+    }
+
+    public ChoiceBox getAvailableCards() {
+        return availableCards;
+    }
+
+    public class CardSettingsDisplay{
+        
+    }
+
 }
+
+

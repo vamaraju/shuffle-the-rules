@@ -39,7 +39,7 @@ public class PileSettingsMenuController {
     public void onUpdatePileButtonClick(Event event){
         System.out.println("Update Pile pressed");
         /* Get input from view*/
-        
+
         /* validate */
         /* update model */
         /* update view */
