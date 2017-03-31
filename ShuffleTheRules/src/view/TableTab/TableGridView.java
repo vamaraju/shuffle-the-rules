@@ -1,6 +1,7 @@
 package view.TableTab;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -28,7 +29,7 @@ public class TableGridView extends VBox {
         Label blockSize = new Label("Block Size:");
         gridPropertiesBottom.getChildren().addAll(blockSize);
 
-        tableGridControls.getChildren().addAll(gridPropertiesTop, gridPropertiesBottom);
+        tableGridControls.getChildren().addAll(gridPropertiesTop, gridPropertiesBottom, new Separator());
 
         this.getChildren().addAll(tableGridControls);
     }

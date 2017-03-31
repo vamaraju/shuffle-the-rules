@@ -12,7 +12,7 @@ public class GeneralSettingsMenuView extends TitledPane{
     private TextField minNumPlayersInput;
     private TextField maxNumPlayersInput;
 
-
+    private Button updateButton;
 
     public GeneralSettingsMenuView(){
 
@@ -41,8 +41,16 @@ public class GeneralSettingsMenuView extends TitledPane{
         maxNumPlayersInput.setMaxSize(50, 20);
         maxNumPlayersHBox.getChildren().addAll(maxNumPlayers, maxNumPlayersInput);
 
-        generalMenuContent.getChildren().addAll(players, minNumPlayersHBox, maxNumPlayersHBox);
+        /* Purposely put in update because changing number of players could cause a lot of conflicts
+           if objects which are related to those players have been created */
+        updateButton = new Button("Update");
+
+        generalMenuContent.getChildren().addAll(players, minNumPlayersHBox, maxNumPlayersHBox, updateButton);
         this.setContent(generalMenuContent);
+    }
+
+    public Button getUpdateButton(){
+        return updateButton;
     }
 
     public TextField getMinNumPlayersInput() {
@@ -51,5 +59,13 @@ public class GeneralSettingsMenuView extends TitledPane{
 
     public TextField getMaxNumPlayersInput() {
         return maxNumPlayersInput;
+    }
+
+    public void setMinNumPlayersInput(TextField minNumPlayersInput) {
+        this.minNumPlayersInput = minNumPlayersInput;
+    }
+
+    public void setMaxNumPlayersInput(TextField maxNumPlayersInput) {
+        this.maxNumPlayersInput = maxNumPlayersInput;
     }
 }

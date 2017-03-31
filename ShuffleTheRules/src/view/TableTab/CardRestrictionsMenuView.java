@@ -81,8 +81,8 @@ public class CardRestrictionsMenuView extends TitledPane{
         diamondHBox.getChildren().addAll(diamondImageView, diamondCount);
 
         suitSettingsVBox.getChildren().addAll(heartHBox, spadeHBox, clubHBox, diamondHBox);
-
-        cardRestrictionMenuContent.getChildren().addAll(cardSelection, suitSettingsVBox);
+        updateButton = new Button("Update");
+        cardRestrictionMenuContent.getChildren().addAll(cardSelection, suitSettingsVBox, updateButton);
         this.setContent(cardRestrictionMenuContent);
     }
 
