@@ -3,6 +3,7 @@ package view.TableTab;
 import controller.TableTab.CardRestrictionsMenuController;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -28,6 +29,9 @@ public class CardRestrictionsMenuView extends TitledPane{
     public ChoiceBox getAvailableCards() {
         return availableCards;
     }
+    private Button updateButton;
+
+
 
     public void initialize(){
         this.setText("Card Restrictions");
@@ -114,5 +118,9 @@ public class CardRestrictionsMenuView extends TitledPane{
         cardList = list;
         /* should probably change to use a listener */
         this.availableCards.getItems().addAll(cardList);
+    }
+
+    public Button getUpdateButton() {
+        return updateButton;
     }
 }

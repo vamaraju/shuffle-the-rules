@@ -14,6 +14,7 @@ public class CardRestrictionsMenuController {
     public CardRestrictionsMenuController(CardRestrictionsMenuView view){
         cardRestrictionsMenuView = view;
         cardSettings = new CardSettings();
+        //cardRestrictionsMenuView.getUpdateButton().setOnAction();
         updateCardList();
         /* change to use observer/ observable */
     }

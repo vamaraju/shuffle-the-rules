@@ -19,6 +19,8 @@ public class PileSettingsMenuController {
 
     public PileSettingsMenuController(PileSettingsMenuView view){
         pileSettingsMenuView = view;
+        pileSettingsMenuView.getPileSettingsView().getAddPileButton().setOnAction(this::onAddPileButtonClick);
+        pileSettingsMenuView.getPileSettingsView().getUpdatePileButton().setOnAction(this::onUpdatePileButtonClick);
     }
 
     public PileSettingsMenuView getPileSettingsMenuView() {
@@ -27,5 +29,9 @@ public class PileSettingsMenuController {
 
     public void onAddPileButtonClick(Event event){
         System.out.println("Add Pile pressed");
+    }
+
+    public void onUpdatePileButtonClick(Event event){
+        System.out.println("Update Pile pressed");
     }
 }
