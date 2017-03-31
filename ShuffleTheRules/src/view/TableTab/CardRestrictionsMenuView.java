@@ -1,17 +1,10 @@
 package view.TableTab;
 
-import controller.TableTab.CardRestrictionsMenuController;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
+
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,18 +24,22 @@ public class CardRestrictionsMenuView extends TitledPane{
     private ImageView clubImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/club.png").toExternalForm());
     private ImageView diamondImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/diamond.png").toExternalForm());
 
+    /* http://stackoverflow.com/questions/33626858/add-border-around-vbox-in-javafx */
+    String greyLayoutBorder = "-fx-border-color: rgba(0,0,0,0.32);\n" +
+            "-fx-border-insets: 0;\n" +
+            "-fx-border-width: 1;\n" +
+            "-fx-border-style: solid;\n";
+
+    private TextField heartCount;
+    private TextField spadeCount;
+    private TextField clubCount;
+    private TextField diamondCount;
+
+
     public void initialize(){
         this.setText("Card Restrictions");
 
         VBox cardRestrictionMenuContent = new VBox();
-
-        String cssLayout = "-fx-border-color: rgba(0,0,0,0.32);\n" +
-                "-fx-border-insets: 0;\n" +
-                "-fx-border-width: 1;\n" +
-                "-fx-border-style: solid;\n";
-
-        VBox yourBox = new VBox();
-        cardRestrictionMenuContent.setStyle(cssLayout);
 
         HBox cardSelection = new HBox(10);
         Label selectCard = new Label("Select Card");
@@ -50,9 +47,19 @@ public class CardRestrictionsMenuView extends TitledPane{
         availableCards.getItems().addAll(cardList);
         cardSelection.getChildren().addAll(selectCard, availableCards);
 
-        drawCardSettingsDisplay();
+        /* suit count area */
 
-        cardRestrictionMenuContent.getChildren().addAll(cardSelection, heartImageView,spadeImageView, clubImageView, diamondImageView);
+        VBox suitSettingsVBox = new VBox();
+        suitSettingsVBox.setStyle(greyLayoutBorder);
+
+        HBox heartHBox = new HBox();
+        HBox spadeHBox = new HBox();
+        HBox clubHBox = new HBox();
+        HBox diamondHBox = new HBox();
+
+
+
+        cardRestrictionMenuContent.getChildren().addAll(cardSelection, suitSettingsVBox);
         this.setContent(cardRestrictionMenuContent);
     }
 
@@ -69,9 +76,6 @@ public class CardRestrictionsMenuView extends TitledPane{
         /* load settings for card chosen in ChoiceBox*/
     }
 
-    public void drawHeart(){
-        /* two diagonal lines, two circles. fill in with red*/
-    }
 
 
     public void updateCardList(List<String> list){
@@ -80,10 +84,7 @@ public class CardRestrictionsMenuView extends TitledPane{
         this.availableCards.getItems().addAll(cardList);
     }
 
-    public Button getUpdateButton() {
-        return updateButton;
-    }
-
+    public Button getUpdateButton() { return updateButton; }
 
     public List<String> getCardList() {
         return cardList;
@@ -93,10 +94,37 @@ public class CardRestrictionsMenuView extends TitledPane{
         return availableCards;
     }
 
-    public class CardSettingsDisplay{
-        
+    public TextField getHeartCount() {
+        return heartCount;
     }
 
+    public void setHeartCount(TextField heartCount) {
+        this.heartCount = heartCount;
+    }
+
+    public TextField getSpadeCount() {
+        return spadeCount;
+    }
+
+    public void setSpadeCount(TextField spadeCount) {
+        this.spadeCount = spadeCount;
+    }
+
+    public TextField getClubCount() {
+        return clubCount;
+    }
+
+    public void setClubCount(TextField clubCount) {
+        this.clubCount = clubCount;
+    }
+
+    public TextField getDiamondCount() {
+        return diamondCount;
+    }
+
+    public void setDiamondCount(TextField diamondCount) {
+        this.diamondCount = diamondCount;
+    }
 }
 
 
