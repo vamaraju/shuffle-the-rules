@@ -1,17 +1,10 @@
 package controller.TableTab;
 
 import javafx.event.Event;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import model.Piles.BasicPile;
 import model.Piles.Pile;
-import model.Piles.PileInterface;
-import model.RuleElementRectangle;
 import view.TableTab.PileSettingsMenuView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,11 +13,11 @@ public class PileSettingsMenuController {
 
     private PileSettingsMenuView pileSettingsMenuView;
     /* will store BasicPiles and Hands */
-    private Map<String, PileInterface> piles;
+    private Map<String, Pile> piles;
 
 
     public PileSettingsMenuController(PileSettingsMenuView view){
-        piles = new HashMap<String, PileInterface>();
+        piles = new HashMap<>();
         pileSettingsMenuView = view;
         pileSettingsMenuView.getPileSettingsView().getAddPileButton().setOnAction(this::onAddPileButtonClick);
         pileSettingsMenuView.getPileSettingsView().getUpdatePileButton().setOnAction(this::onUpdatePileButtonClick);
@@ -57,7 +50,7 @@ public class PileSettingsMenuController {
     }
 
     /* Access a specific Pile*/
-    public PileInterface getPile(String pileName){
+    public Pile getPile(String pileName){
         return new BasicPile("placeholder",0,2);
     }
 
