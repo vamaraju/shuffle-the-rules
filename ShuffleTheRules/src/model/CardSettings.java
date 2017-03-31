@@ -18,7 +18,7 @@ public class CardSettings {
     }
 
     private void initialize(){
-        cardSettings = new HashMap<>();
+        cardSettings = new LinkedHashMap<>();
         String initialDeck[] = {"Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"};
         for (String card: initialDeck) {
             /* Default values - deck with 52 cards */
@@ -72,7 +72,7 @@ public class CardSettings {
     }
 
     public void addCard(String card){
-        Map<String,Integer> suitValueMappings = new HashMap<>();
+        Map<String,Integer> suitValueMappings = new LinkedHashMap<>();
         suitValueMappings.put("heart",1);
         suitValueMappings.put("spade",1);
         suitValueMappings.put("club",1);
