@@ -34,6 +34,14 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         VBox cardRestrictionMenuContent = new VBox();
 
+        String cssLayout = "-fx-border-color: rgba(0,0,0,0.32);\n" +
+                "-fx-border-insets: 0;\n" +
+                "-fx-border-width: 1;\n" +
+                "-fx-border-style: solid;\n";
+
+        VBox yourBox = new VBox();
+        cardRestrictionMenuContent.setStyle(cssLayout);
+
         HBox cardSelection = new HBox(10);
         Label selectCard = new Label("Select Card");
         availableCards = new ChoiceBox();
@@ -41,8 +49,20 @@ public class CardRestrictionsMenuView extends TitledPane{
         cardSelection.getChildren().addAll(selectCard, availableCards);
 
         drawCardSettingsDisplay();
+        Canvas suitCanvas = new Canvas(60, 60);
+        GraphicsContext graphicsContext = suitCanvas.getGraphicsContext2D();
 
-        cardRestrictionMenuContent.getChildren().addAll(cardSelection);
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.setStroke(Color.BLACK);
+        graphicsContext.setLineWidth(2);
+        /* club */
+        graphicsContext.fillOval(19,13,20,20);
+        graphicsContext.fillOval(10,26,20,20);
+        graphicsContext.fillOval(30,26,20,20);
+
+        graphicsContext.fillRect(26,33,8,22);
+
+        cardRestrictionMenuContent.getChildren().addAll(cardSelection, suitCanvas);
         this.setContent(cardRestrictionMenuContent);
     }
 
@@ -77,10 +97,12 @@ public class CardRestrictionsMenuView extends TitledPane{
         graphicsContext.setStroke(Color.BLACK);
         graphicsContext.setLineWidth(2);
         /* club */
-        graphicsContext.fillOval(25,25,11,11);
-        graphicsContext.fillOval(20,34,11,11);
-        graphicsContext.fillOval(30,34,11,11);
-        graphicsContext.fillRect(28,33,6,20);
+        graphicsContext.fillOval(19,13,20,20);
+        graphicsContext.fillOval(10,26,20,20);
+        graphicsContext.fillOval(30,26,20,20);
+
+        graphicsContext.fillRect(26,33,8,22);
+
 
     }
 

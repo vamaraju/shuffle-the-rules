@@ -115,6 +115,8 @@ public class PileSettingsView extends VBox {
         addUpdateButtonsHBox.getChildren().addAll(updatePileButton, addPileButton);
 
         this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, pileViewableHBox, cardOrientationHBox, addUpdateButtonsHBox);
+
+
     }
 
     public Button getAddPileButton() {
