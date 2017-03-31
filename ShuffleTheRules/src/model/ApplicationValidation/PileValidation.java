@@ -1,6 +1,10 @@
 package model.ApplicationValidation;
 
 
+import model.Piles.Pile;
+
+import java.util.ArrayList;
+
 public class PileValidation {
     /*
     * ** COULD FIGURE OUT textbox validation if know CSS resource thing
@@ -23,4 +27,15 @@ public class PileValidation {
     * min, max # players must be non-negative integers; max >= min
     * player turn order?
     * */
+
+
+
+    /* Piles must have unique names */
+    public Boolean uniqueNameCheck(String newPileName, ArrayList<Pile> piles){
+
+    }
+    
+    public Boolean maxMinCheck(int min, int max){
+        return min <= max;
+    }
 }

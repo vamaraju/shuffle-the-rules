@@ -15,7 +15,8 @@ import java.util.ArrayList;
 public class PileSettingsMenuController {
 
     private PileSettingsMenuView pileSettingsMenuView;
-    private ArrayList<Pile> piles;
+    private ArrayList<Pile> basicPiles;
+    private ArrayList<Pile> hands;
 
     public PileSettingsMenuController(PileSettingsMenuView view){
         pileSettingsMenuView = view;
@@ -29,9 +30,23 @@ public class PileSettingsMenuController {
 
     public void onAddPileButtonClick(Event event){
         System.out.println("Add Pile pressed");
+        /* Get input from view*/
+        /* validate */
+        /* update model */
+        createNewPile();
+        /* update view */
     }
 
     public void onUpdatePileButtonClick(Event event){
         System.out.println("Update Pile pressed");
+        /* Get input from view*/
+        /* validate */
+        /* update model */
+        /* update view */
+        /* */
+    }
+
+    public void createNewPile(String type){
+        Pile pile = new Pile();
     }
 }
