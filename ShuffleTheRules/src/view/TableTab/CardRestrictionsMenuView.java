@@ -42,6 +42,7 @@ public class CardRestrictionsMenuView extends TitledPane{
         VBox cardRestrictionMenuContent = new VBox();
 
         HBox cardSelection = new HBox(10);
+
         Label selectCard = new Label("Select Card");
         availableCards = new ChoiceBox();
         availableCards.getItems().addAll(cardList);
@@ -50,22 +51,33 @@ public class CardRestrictionsMenuView extends TitledPane{
         /* suit count area */
 
         VBox suitSettingsVBox = new VBox(20);
-        suitSettingsVBox.setStyle(greyLayoutBorder);
 
         HBox heartHBox = new HBox(10);
         heartCount = new TextField();
+        heartImageView.setPreserveRatio(true);
+        heartImageView.setFitHeight(50);
+        heartImageView.setFitWidth(50);
         heartHBox.getChildren().addAll(heartImageView,heartCount);
 
         HBox spadeHBox = new HBox(10);
         spadeCount = new TextField();
+        spadeImageView.setPreserveRatio(true);
+        spadeImageView.setFitHeight(50);
+        spadeImageView.setFitWidth(50);
         spadeHBox.getChildren().addAll(spadeImageView, spadeCount);
 
         HBox clubHBox = new HBox(10);
         clubCount = new TextField();
+        clubImageView.setPreserveRatio(true);
+        clubImageView.setFitHeight(50);
+        clubImageView.setFitWidth(50);
         clubHBox.getChildren().addAll(clubImageView, clubCount);
 
         HBox diamondHBox = new HBox(10);
         diamondCount = new TextField();
+        diamondImageView.setPreserveRatio(true);
+        diamondImageView.setFitHeight(50);
+        diamondImageView.setFitWidth(50);
         diamondHBox.getChildren().addAll(diamondImageView, diamondCount);
 
         suitSettingsVBox.getChildren().addAll(heartHBox, spadeHBox, clubHBox, diamondHBox);
