@@ -11,4 +11,12 @@ public class Hand extends Pile {
     public void sort(){
 
     }
+
+    public int getHandID() {
+        return handID;
+    }
+
+    public void setHandID(int handID) {
+        this.handID = handID;
+    }
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class GeneralSettingsMenuView extends TitledPane{
     private TextField minNumPlayersInput;
@@ -53,19 +54,19 @@ public class GeneralSettingsMenuView extends TitledPane{
         return updateButton;
     }
 
-    public TextField getMinNumPlayersInput() {
-        return minNumPlayersInput;
+    public String getMinNumPlayersInput() {
+        return minNumPlayersInput.getText();
     }
 
-    public TextField getMaxNumPlayersInput() {
-        return maxNumPlayersInput;
+    public String getMaxNumPlayersInput() {
+        return maxNumPlayersInput.getText();
     }
 
-    public void setMinNumPlayersInput(TextField minNumPlayersInput) {
-        this.minNumPlayersInput = minNumPlayersInput;
+    public void setMinNumPlayersInput(String minNumPlayersInput) {
+        this.minNumPlayersInput.setText(minNumPlayersInput);
     }
 
-    public void setMaxNumPlayersInput(TextField maxNumPlayersInput) {
-        this.maxNumPlayersInput = maxNumPlayersInput;
+    public void setMaxNumPlayersInput(String maxNumPlayersInput) {
+        this.maxNumPlayersInput.setText(maxNumPlayersInput);
     }
 }

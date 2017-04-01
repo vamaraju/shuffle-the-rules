@@ -26,7 +26,7 @@ public class Player {
         this.playerID = playerID;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
