@@ -32,10 +32,22 @@ public class CardRestrictionsMenuController {
         System.out.println("Update pressed - Card Restrictions Menu ");
 
         /* Get input from view. convert counts from strings to ints */
+        String heartCount = cardRestrictionsMenuView.getHeartCount();
+        String spadeCount = cardRestrictionsMenuView.getSpadeCount();
+        String clubCount = cardRestrictionsMenuView.getClubCount();
+        String diamondCount = cardRestrictionsMenuView.getDiamondCount();
+
 
         /* validate */
         /* update model */
         /* update view */
         /* */
+    }
+
+    public void updateSuitCounts(String card){
+        cardRestrictionsMenuView.setHeartCount(Integer.toString(cardSettings.getSuitCount(card,"heart")));
+        cardRestrictionsMenuView.setSpadeCount(Integer.toString(cardSettings.getSuitCount(card,"spade")));
+        cardRestrictionsMenuView.setClubCount(Integer.toString(cardSettings.getSuitCount(card,"club")));
+        cardRestrictionsMenuView.setDiamondCount(Integer.toString(cardSettings.getSuitCount(card,"diamond")));
     }
 }
