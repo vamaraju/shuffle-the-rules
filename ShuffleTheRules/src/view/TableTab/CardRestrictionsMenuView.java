@@ -117,36 +117,37 @@ public class CardRestrictionsMenuView extends TitledPane{
         return availableCards;
     }
 
-    public TextField getHeartCount() {
-        return heartCount;
+
+    public String getHeartCount() {
+        return heartCount.getText();
     }
 
-    public void setHeartCount(TextField heartCount) {
-        this.heartCount = heartCount;
+    public void setHeartCount(String heartCount) {
+        this.heartCount.setText(heartCount);
     }
 
-    public TextField getSpadeCount() {
-        return spadeCount;
+    public String getSpadeCount() {
+        return spadeCount.getText();
     }
 
-    public void setSpadeCount(TextField spadeCount) {
-        this.spadeCount = spadeCount;
+    public void setSpadeCount(String spadeCount) {
+        this.spadeCount.setText(spadeCount);
     }
 
-    public TextField getClubCount() {
-        return clubCount;
+    public String getClubCount() {
+        return clubCount.getText();
     }
 
-    public void setClubCount(TextField clubCount) {
-        this.clubCount = clubCount;
+    public void setClubCount(String clubCount) {
+        this.clubCount.setText(clubCount);
     }
 
-    public TextField getDiamondCount() {
-        return diamondCount;
+    public String getDiamondCount() {
+        return diamondCount.getText();
     }
 
-    public void setDiamondCount(TextField diamondCount) {
-        this.diamondCount = diamondCount;
+    public void setDiamondCount(String diamondCount) {
+        this.diamondCount.setText(diamondCount);
     }
 }
 
