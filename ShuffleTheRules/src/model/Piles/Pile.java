@@ -22,12 +22,10 @@ public class Pile {
         minPileSize = minSize;
         maxPileSize = maxSize;
         startingNumberOfCards = 0;
-        //gridDimensionX
-        //gridDimensionY
 
     }
     public void add(Card card){
-
+        cardList.add(card);
     };
 
     public void view(){
@@ -39,11 +37,15 @@ public class Pile {
     }
 
     public Card remove(int index){
-        return new Card(1,"K");
+        Card removedCard = cardList.get(index);
+        cardList.remove(index);
+        return removedCard;
     }
 
     public Card remove(Card card){
-        return new Card(1,"K");
+        int removedCardIndex = cardList.indexOf(card);
+        Card removedCard = cardList.get(removedCardIndex);
+        return removedCard;
     }
 
     public int getMinPileSize(){
