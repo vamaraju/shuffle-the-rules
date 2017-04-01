@@ -5,6 +5,7 @@ public class GameSettingsValidation {
 
     /* checks:
     *   min, max both non-negative integers
+    *       test with character, decimal point
     *   min >= 0
     *   max >= min */
 

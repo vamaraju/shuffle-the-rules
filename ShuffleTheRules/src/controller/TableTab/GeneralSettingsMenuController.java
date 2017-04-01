@@ -42,9 +42,12 @@ public class GeneralSettingsMenuController {
 
             }catch (Exception e){
                 System.out.println("exception thrown.");
+                
             }
-        }
 
+        }
+        updateMinCount();
+        updateMaxCount();
         System.out.print("game settings min ");
         System.out.println(gameSettings.getMinPlayers());
         System.out.print("game settings max ");
