@@ -8,6 +8,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import model.RuleElementRectangle;
 
 public class EditorTabView extends Tab {
 
@@ -29,9 +31,18 @@ public class EditorTabView extends Tab {
     private TextField eventPreviousRuleTextField;
     private TextField actionPreviousRuleTextField;
 
+    private RuleElementRectangle clickedRectangle;
+
+    private Label clickedEventTypeHeader;
+    private Label clickedEventTypeValue;
+    private Label clickedEventNameHeader;
+    private Label clickedEventNameValue;
+    private Label clickedEventPreviousEventHeader;
+    private Label clickedEventPreviousEventValue;
+
     private Line curLine;
 
-    public EditorTabView(){
+    public EditorTabView() {
 
         this.setText("Editor");
         controller = new EditorTabController(this);
@@ -52,11 +63,18 @@ public class EditorTabView extends Tab {
         eventComboBox = new ComboBox(); // Drop-down menu of Game Events
         actionComboBox = new ComboBox(); // Drop-down menu of Game Actions
 
+        clickedEventTypeHeader = new Label("Event Type:");
+        clickedEventTypeValue = new Label();
+        clickedEventNameHeader = new Label("Event Name:");
+        clickedEventNameValue = new Label();
+        clickedEventPreviousEventHeader = new Label("Previous Rule:");
+        clickedEventPreviousEventValue = new Label();
+
         window.setCenter(scrollPane);
         window.setRight(accordion);
         addEventButton.setOnAction(controller::onAddEventButtonClick);
         addActionButton.setOnAction(controller::onAddActionButtonClick);
-        drawingPane.setOnMousePressed(controller::drawingPaneOnMousePressed);
+        //drawingPane.setOnMousePressed(controller::drawingPaneOnMousePressed);
         drawingPane.setOnMouseDragged(controller::drawingPaneOnMouseDragged);
         drawingPane.setOnMouseReleased(controller::drawingPaneOnMouseReleased);
         controller.addOnGameStart(drawingPane);
@@ -119,23 +137,62 @@ public class EditorTabView extends Tab {
         return this.eventsGrid;
     }
 
+    public Label getClickedEventTypeHeader() {
+        return clickedEventTypeHeader;
+    }
+
+    public Label getClickedEventTypeValue() {
+        return clickedEventTypeValue;
+    }
+
+    public Label getClickedEventNameHeader() {
+        return clickedEventNameHeader;
+    }
+
+    public Label getClickedEventNameValue() {
+        return clickedEventNameValue;
+    }
+
+    public Label getClickedEventPreviousEventHeader() {
+        return clickedEventPreviousEventHeader;
+    }
+
+    public Label getClickedEventPreviousEventValue() {
+        return clickedEventPreviousEventValue;
+    }
+
+    public RuleElementRectangle getClickedRectangle() {
+        return clickedRectangle;
+    }
+
+    public void setClickedRectangle(RuleElementRectangle clickedRectangle) {
+        this.clickedRectangle = clickedRectangle;
+    }
+
     public void initEventsGrid() {
         this.eventsGrid.setVgap(4);
         this.eventsGrid.setHgap(10);
         this.eventsGrid.setPadding(new Insets(5, 5, 5, 5));
 
-        eventNameTextField.setPromptText("Enter a Rule Name");
-        eventPreviousRuleTextField.setPromptText("Enter a Rule Name");
-        this.eventsGrid.addRow(0, eventComboBox, eventNameTextField);
-        this.eventsGrid.addRow(1, new Label("Previous Rule: "), eventPreviousRuleTextField);
-        this.eventsGrid.add(addEventButton, 0, 2);
-        this.eventsGrid.add(new Separator(), 0, 3);
-        Label l = new Label("sadda");
-        TextField t = new TextField();
-        this.eventsGrid.add(l, 0, 4);
-        this.eventsGrid.add(t, 0, 5);
-        l.setVisible(false);
-        t.setVisible(false);
+        eventNameTextField.setPromptText("Enter a Name");
+        eventPreviousRuleTextField.setPromptText("Enter the Previous Rule");
+        this.eventsGrid.addRow(0, new Label("Event Type: "), eventComboBox);
+        this.eventsGrid.addRow(1, new Label("Event Name: "), eventNameTextField);
+        this.eventsGrid.addRow(2, new Label("Previous Rule: "), eventPreviousRuleTextField);
+        this.eventsGrid.add(addEventButton, 0, 3);
+        this.eventsGrid.add(new Separator(), 0, 4);
+        this.eventsGrid.add(new Label("Clicked Event:"), 0, 5);
+
+        clickedEventTypeHeader.setVisible(false);
+        clickedEventNameHeader.setVisible(false);
+        clickedEventPreviousEventHeader.setVisible(false);
+        clickedEventTypeValue.setVisible(false);
+        clickedEventNameValue.setVisible(false);
+        clickedEventPreviousEventValue.setVisible(false);
+
+        this.eventsGrid.addRow(6, clickedEventTypeHeader, clickedEventTypeValue);
+        this.eventsGrid.addRow(7, clickedEventNameHeader, clickedEventNameValue);
+        this.eventsGrid.addRow(8, clickedEventPreviousEventHeader, clickedEventPreviousEventValue);
     }
 
     public void initActionsGrid() {

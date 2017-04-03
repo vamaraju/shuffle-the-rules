@@ -3,16 +3,21 @@ package model;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 public class RuleElementRectangle extends Rectangle {
 
-    private Text text;
+    private Text text = new Text("");
     private GameRule gameRule;
-    private Paint borderColor;
+    private Paint defaultBorderColor;
     private boolean clicked = false;
+    private ArrayList<RuleElementRectangle> postRules;
+    private ArrayList<Line> outLines;
 
     public RuleElementRectangle() {
         super();
@@ -222,12 +227,42 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
+     * Returns the name of the Game Rule (GameEvent or GameAction) associated with this rectangle.
+     *
+     * @return Game Rule name.
+     */
+    public String getGameRuleName() {
+        return this.gameRule.getName();
+    }
+
+
+    /**
      * Sets the Game Rule (GameEvent or GameAction) associated with this rectangle.
      *
      * @param gameRule String representing a game rule (event or action).
      */
     public void setGameRule(GameRule gameRule) {
         this.gameRule = gameRule;
+    }
+
+
+    /**
+     * Return the Color of this Rectangle's border/stroke.
+     *
+     * @return defaultBorderColor (color of this rectangle's border/stroke)
+     */
+    public Paint getDefaultBorderColor() {
+        return defaultBorderColor;
+    }
+
+
+    /**
+     * Set the Color of this Rectangle's border/stroke.
+     *
+     * @param defaultBorderColor Color to set the Rectangle border/stroke.
+     */
+    public void setDefaultBorderColor(Paint defaultBorderColor) {
+        this.defaultBorderColor = defaultBorderColor;
     }
 
 
@@ -256,8 +291,10 @@ public class RuleElementRectangle extends Rectangle {
      * @param e MouseEvent
      */
     public void onMouseEntered(MouseEvent e) {
-        this.borderColor = this.getStroke();
-        this.setStroke(Color.GREY);
+        if (!this.clicked) {
+            this.defaultBorderColor = this.getStroke();
+            this.setStroke(Color.GREY);
+        }
     }
 
 
@@ -267,8 +304,27 @@ public class RuleElementRectangle extends Rectangle {
      * @param e MouseEvent
      */
     public void onMouseExited(MouseEvent e) {
-        this.setStroke(this.borderColor);
+        if (!this.clicked) {
+            this.setStroke(this.defaultBorderColor);
+        }
     }
+
+
+    /**
+     * Resets the border (stroke) colcor of the rectangle to its default (original) one.
+     */
+    public void resetBorder() {
+        if (this.defaultBorderColor != null) {
+            this.setStroke(this.defaultBorderColor);
+        } else {
+            this.defaultBorderColor = this.getStroke();
+        }
+    }
+
+
+//    public boolean contains(double x, double y) {
+//        return
+//    }
 
 
     /**

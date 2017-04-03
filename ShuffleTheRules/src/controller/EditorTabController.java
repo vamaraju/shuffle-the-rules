@@ -1,7 +1,9 @@
 package controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -82,10 +84,6 @@ public class EditorTabController {
         TextField eventIdTextField = view.getEventNameTextField();
         ComboBox eventComboBox = view.getEventComboBox();
 
-//        Text t = new Text(150, 250, eventIdTextField.getText());
-//        t.setFont(new Font(15));
-//        t.setWrappingWidth(100);
-
         RuleElementRectangle r = new RuleElementRectangle(100, 100, eventIdTextField.getText(), "event");
 
         String gameEventClassName = eventComboBox.getValue().toString();
@@ -94,9 +92,8 @@ public class EditorTabController {
 
         drawingPane.getChildren().addAll(r, r.getTextObj());
 
-        r.setOnMousePressed(e -> {
-            System.out.println("pressed mouse");
-        });
+        r.setOnMouseClicked(this::onEventRectangleClicked);
+        r.getTextObj().setOnMouseClicked(this::onEventRectangleClicked);
     }
 
     public void onAddActionButtonClick(Event event){
@@ -114,25 +111,25 @@ public class EditorTabController {
         drawingPane.getChildren().add(s);
     }
 
-    public void drawingPaneOnMousePressed(MouseEvent event) {
-        Pane drawingPane = view.getEditorDrawingPane();
-
-        if (!event.isPrimaryButtonDown()) {
-            return;
-        }
-
-        Line curLine = new Line(
-                event.getX(), event.getY(),
-                event.getX(), event.getY()
-        );
-        drawingPane.getChildren().add(curLine);
-
-        Rectangle r = new Rectangle(event.getX(), event.getY(), 100, 50);
-        r.setFill(Color.WHITE);
-        r.setStrokeWidth(5);
-        r.setStroke(Color.BLACK);
-        //drawingPane.getChildren().add(r);
-    }
+//    public void drawingPaneOnMousePressed(MouseEvent event) {
+//        Pane drawingPane = view.getEditorDrawingPane();
+//
+//        if (!event.isPrimaryButtonDown()) {
+//            return;
+//        }
+//
+//        Line curLine = new Line(
+//                event.getX(), event.getY(),
+//                event.getX(), event.getY()
+//        );
+//        drawingPane.getChildren().add(curLine);
+//
+//        Rectangle r = new Rectangle(event.getX(), event.getY(), 100, 50);
+//        r.setFill(Color.WHITE);
+//        r.setStrokeWidth(5);
+//        r.setStroke(Color.BLACK);
+//        //drawingPane.getChildren().add(r);
+//    }
 
     public void drawingPaneOnMouseDragged(MouseEvent event) {
         if (!event.isPrimaryButtonDown()) {
@@ -196,17 +193,73 @@ public class EditorTabController {
     }
 
     public void addOnGameStart(Pane drawingPane) {
-        RuleElementRectangle r = new RuleElementRectangle(160, 50, "OnGameStartEvent");
+        RuleElementRectangle r = new RuleElementRectangle(160, 50, "Game Start");
         r.setFill(Color.WHITE);
         r.setStrokeWidth(2);
         r.setStroke(Color.BLUE);
         r.setGameRule(new OnGameStartEvent());
 
         drawingPane.getChildren().addAll(r, r.getTextObj());
+
+        r.setOnMouseClicked(this::onEventRectangleClicked);
+        r.getTextObj().setOnMouseClicked(this::onEventRectangleClicked);
     }
 
     public void onEventRectangleClicked(MouseEvent e) {
-        GridPane eventsGrid = view.getEventsGrid();
+        RuleElementRectangle r = this.findClickedRectangle(e.getX(), e.getY());
 
+        if (!r.isClicked()) { // the Rectangle has just been clicked. r.clicked needs to be set to true
+            if (view.getClickedRectangle() != null) {
+                rectangleUnclick(view.getClickedRectangle());
+            }
+            view.setClickedRectangle(r);
+            rectangleClick(r);
+        } else { // the Rectangle has just been un-clicked. r.clicked needs to be set to false
+            rectangleUnclick(r);
+            view.setClickedRectangle(null);
+        }
+    }
+
+    public void rectangleClick(RuleElementRectangle r) {
+        r.setClicked(true);
+        r.setStroke(Color.GREY);
+
+        view.getClickedEventTypeHeader().setVisible(true);
+        view.getClickedEventTypeValue().setVisible(true);
+        view.getClickedEventNameHeader().setVisible(true);
+        view.getClickedEventNameValue().setVisible(true);
+        view.getClickedEventPreviousEventHeader().setVisible(true);
+        view.getClickedEventPreviousEventValue().setVisible(true);
+
+        view.getClickedEventTypeValue().setText(r.getGameRuleName());
+        view.getClickedEventNameValue().setText(r.getText());
+        view.getClickedEventPreviousEventValue().setText("previous event");
+    }
+
+    public void rectangleUnclick(RuleElementRectangle r) {
+        r.setClicked(false);
+        r.setStroke(r.getDefaultBorderColor());
+
+        view.getClickedEventTypeHeader().setVisible(false);
+        view.getClickedEventTypeValue().setVisible(false);
+        view.getClickedEventNameHeader().setVisible(false);
+        view.getClickedEventNameValue().setVisible(false);
+        view.getClickedEventPreviousEventHeader().setVisible(false);
+        view.getClickedEventPreviousEventValue().setVisible(false);
+    }
+
+
+    public RuleElementRectangle findClickedRectangle(double x, double y) {
+        ObservableList drawingPaneChildren = view.getEditorDrawingPane().getChildren();
+        for (int i = drawingPaneChildren.size()-1; i >= 0; i--) {
+            Object o = drawingPaneChildren.get(i);
+            if (o instanceof Rectangle) {
+                RuleElementRectangle r = (RuleElementRectangle) o;
+                if (r.contains(x, y)) {
+                    return r;
+                }
+            }
+        }
+        return null;
     }
 }
