@@ -18,6 +18,7 @@ public class RuleElementRectangle extends Rectangle {
     private boolean clicked = false;
     private ArrayList<RuleElementRectangle> postRules;
     private ArrayList<Line> outLines;
+    private Line inLine;
 
     public RuleElementRectangle() {
         super();
@@ -282,6 +283,66 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void setClicked(boolean clicked) {
         this.clicked = clicked;
+    }
+
+
+    /**
+     * Returns this.postRules; an ArrayList of Rectangles that immediately proceed this Rectangle.
+     *
+     * @return ArrayList of Game Rules that immediately follow this Game Rule
+     */
+    public ArrayList<RuleElementRectangle> getPostRules() {
+        return this.postRules;
+    }
+
+
+    /**
+     * Sets this.postRules, given an ArrayList of Rectangles that immediately proceed this Rectangle.
+     *
+     * @param postRules ArrayList of Rectangles that immediately follow this Rectangle
+     */
+    public void setPostRules(ArrayList<RuleElementRectangle> postRules) {
+        this.postRules = postRules;
+    }
+
+
+    /**
+     * Returns an ArrayList of Lines that are exiting from this Rectangle.
+     *
+     * @return this.outLines; ArrayList of Lines that exit from this Rectangle
+     */
+    public ArrayList<Line> getOutLines() {
+        return this.outLines;
+    }
+
+
+    /**
+     * Sets this.outLines; an ArrayList of Lines that are exiting from this Rectangle.
+     *
+     * @param outLines An ArrayList of Lines that are exiting from this Rectangle.
+     */
+    public void setOutLines(ArrayList<Line> outLines) {
+        this.outLines = outLines;
+    }
+
+
+    /**
+     * Returns the Line that is entering this Rectangle.
+     *
+     * @return this.inLine; the Line that enters this Rectangle
+     */
+    public Line getInLine() {
+        return this.inLine;
+    }
+
+
+    /**
+     * Sets this.inLine; the Line that is entering this Rectangle.
+     *
+     * @param inLine The Line that enters this Rectangle
+     */
+    public void setInLine(Line inLine) {
+        this.inLine = inLine;
     }
 
 
