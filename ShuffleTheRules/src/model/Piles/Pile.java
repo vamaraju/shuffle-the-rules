@@ -2,9 +2,10 @@ package model.Piles;
 
 import model.Card;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pile {
+public class Pile implements Serializable {
 
     ArrayList<Card> cardList;
     int startingNumberOfCards;

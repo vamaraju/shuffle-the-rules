@@ -2,9 +2,11 @@ package model;
 
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameRule {
+public class GameRule implements Serializable {
 
     protected String name;
     protected String description;

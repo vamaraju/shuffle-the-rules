@@ -1,7 +1,9 @@
 package model;
 
 
-public class GameSettings {
+import java.io.Serializable;
+
+public class GameSettings implements Serializable {
     int minPlayers;
     int maxPlayers;
 

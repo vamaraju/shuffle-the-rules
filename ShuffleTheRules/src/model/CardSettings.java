@@ -1,11 +1,12 @@
 package model;
 
 
+import java.io.Serializable;
 import java.util.*;
 
 /* TODO how will Joker be handled?*/
 /* TODO Error handling for methods */
-public class CardSettings {
+public class CardSettings implements Serializable {
     /* stores all Card information:
        <value:<heart: num_hearts
                spade: num_spades

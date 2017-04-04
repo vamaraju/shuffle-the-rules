@@ -6,7 +6,7 @@ public class Serializer {
 
     }
 
-    public GameCreation deserialize(){
-        return new GameCreation();
-    }
+//    public GameCreation deserialize(){
+//        return new GameCreation();
+//    }
 }

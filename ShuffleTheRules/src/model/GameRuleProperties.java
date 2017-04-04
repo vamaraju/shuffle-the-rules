@@ -2,6 +2,7 @@ package model;
 
 import model.Piles.Pile;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * Basically, this class just stores information (specifics) about the particular rule by storing all the involved
  * objects.
  */
-public class GameRuleProperties {
+public class GameRuleProperties implements Serializable {
 
     private ArrayList<Pile> piles = new ArrayList<>();
     private ArrayList<Card> cards = new ArrayList<>();

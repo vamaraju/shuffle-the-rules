@@ -8,12 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import model.CardSettings;
 import view.ApplicationMenuBarView;
 import view.EditorTabView;
-import view.TableTab.CardRestrictionsMenuView;
-import view.TableTab.GeneralSettingsMenuView;
 import view.TableTab.TableTabView;
+
 
 /*
 * This class sets up the Game Creation Application window.

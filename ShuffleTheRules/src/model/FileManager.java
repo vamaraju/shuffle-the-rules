@@ -5,9 +5,9 @@ public class FileManager {
 
     String filepath;
 
-    public GameCreation loadFromFile(String filepath){
-        return new GameCreation();
-    }
+//    public GameCreation loadFromFile(String filepath){
+//        return new GameCreation();
+//    }
 
     public void saveToFile(GameCreation gameData){
 
