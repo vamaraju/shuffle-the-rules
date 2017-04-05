@@ -24,21 +24,23 @@ public class ApplicationMenuBarView {
         menuBar.getMenus().addAll(fileMenu, playMenu);
 
         /* File menu items */
-        MenuItem newMenuItem = new MenuItem("New Game File");
-        MenuItem loadMenuItem = new MenuItem("Load Game File");
-        MenuItem saveMenuItem = new MenuItem("Save Game File");
-        MenuItem validateMenuItem = new MenuItem("Validate Game File");
+        MenuItem newMenuItem = new MenuItem("New Game");
+        MenuItem saveMenuItem = new MenuItem("Save Game");
+        MenuItem loadMenuItem = new MenuItem("Load Game");
+        MenuItem validateMenuItem = new MenuItem("Validate Game");
         MenuItem exitMenuItem = new MenuItem("Exit");
 
-        fileMenu.getItems().addAll(newMenuItem, loadMenuItem, saveMenuItem, validateMenuItem, exitMenuItem);
+        fileMenu.getItems().addAll(newMenuItem, saveMenuItem, loadMenuItem, validateMenuItem, exitMenuItem);
 
         /* Play menu items*/
         MenuItem hostMenuItem = new MenuItem("Host Game");
         MenuItem joinMenuItem = new MenuItem("Join Game");
 
-        hostMenuItem.setOnAction(controller::newFile);
-
         playMenu.getItems().addAll(hostMenuItem, joinMenuItem);
+
+        newMenuItem.setOnAction(controller::onNewGameClick);
+        saveMenuItem.setOnAction(controller::onSaveGameClick);
+        loadMenuItem.setOnAction(controller::onLoadGameClick);
     }
 
     public void newFile(){

@@ -3,26 +3,66 @@ package controller;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.event.Event;
+import javafx.stage.FileChooser;
+import model.GameCreation;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
 
 public class ApplicationMenuBarController {
 
-
-    public void newFile(Event e){
-        // Dummy code for spawning a dialog box
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + "non_existent_file" + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.YES) {
-            //do stuff
+    /**
+     * Onclick listener for "New Game" menu button.
+     * Clears the current instance of GameCreation.
+     *
+     * @param e
+     */
+    public void onNewGameClick(Event e){
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Are you sure you wish to create a new game? This will clear all current game settings.", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("New Game");
+        alert.setHeaderText("Confirmation");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.YES){
+            GameCreation.resetInstance();
         }
     }
 
-    public void saveFile(){
 
+    /**
+     * Onclick listener for "Save Game" menu button.
+     * Saves (serializes) the current instance of GameCreation to a user-specified file.
+     *
+     * @param e
+     */
+    public void onSaveGameClick(Event e) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Game");
+        fileChooser.setInitialFileName("STRGame.str");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Shuffle The Rules Game Files", "*.str"));
+        File saveFile = fileChooser.showSaveDialog(null);
+
+        if (saveFile != null) {
+            GameCreation.serializeToFile(saveFile.getPath());
+        }
     }
 
-    public void loadFile(){
 
+    /**
+     * Onclick listener for "Load Game" menu button.
+     * Loads (de-serializes) an instance of GameCreation from a user-specified file and updates the GUI accordingly.
+     *
+     * @param e
+     */
+    public void onLoadGameClick(Event e) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load Game");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Shuffle The Rules Game Files", "*.str"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            GameCreation.deserializeFromFile(selectedFile.getPath());
+        }
     }
 
     public void validateFile(){

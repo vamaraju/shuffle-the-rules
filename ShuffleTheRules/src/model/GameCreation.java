@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.control.Alert;
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.Piles.Pile;
@@ -41,6 +42,14 @@ public class GameCreation implements Serializable {
 
 
     /**
+     * Resets/Clears the current instance of GameCreation to a new copy. Re-instantiates GameCreation.
+     */
+    public static void resetInstance() {
+        instance = new GameCreation();
+    }
+
+
+    /**
      * Static method to serialize (save) the current GameCreation instance to file.
      *
      * @param filename File name to which the current instance of GameCreation will be serialized.
@@ -72,6 +81,12 @@ public class GameCreation implements Serializable {
             GameCreation.instance = (GameCreation) oIn.readObject();
             oIn.close();
             fIn.close();
+        } catch (StreamCorruptedException e) {
+            String errorMsg = "The selected file is not a valid Shuffle The Rules game file: \n" + filename + "\nLoad aborted.";
+            Alert alert = new Alert(Alert.AlertType.WARNING, errorMsg);
+            alert.setTitle("Load Game Error");
+            alert.setHeaderText("Invalid Game File");
+            alert.showAndWait();
         } catch(IOException e) {
             System.out.println("Error while de-serializing GameCreation from file: " + filename);
             e.printStackTrace();
