@@ -26,6 +26,7 @@ public class EditorTabController {
 
     private EditorTabView view;
     private final double ROW_SEPARATION_DISTANCE = 130;
+    private final double COL_SEPARATION_DISTANCE = 40;
 
     public EditorTabController(EditorTabView view) {
         this.view = view;
@@ -320,7 +321,32 @@ public class EditorTabController {
 
 
     private void setRectXPlacement(RuleElementRectangle currentRect, RuleElementRectangle previousRect) {
-        currentRect.setCenterX(previousRect.getCenterX());
+        double currentRowY = previousRect.getY() + ROW_SEPARATION_DISTANCE;
+        ArrayList<RuleElementRectangle> currentRow = new ArrayList<>();
+
+        ObservableList drawingPaneChildren = view.getEditorDrawingPane().getChildren();
+        for (Object o : drawingPaneChildren) {
+            if (o instanceof Rectangle) {
+                RuleElementRectangle r = (RuleElementRectangle) o;
+                if (r.getY() == currentRowY) {
+                    currentRow.add(r);
+                }
+            }
+        }
+
+        double maxX = 0;
+        RuleElementRectangle maxXRect = previousRect;
+        if (currentRow.size() > 0) {
+            for (RuleElementRectangle rect : currentRow) {
+                if (rect.getX() > maxX) {
+                    maxX = rect.getX();
+                    maxXRect = rect;
+                }
+            }
+            currentRect.setX(maxXRect.getEndX() + COL_SEPARATION_DISTANCE, true);
+        } else {
+            currentRect.setCenterX(previousRect.getCenterX());
+        }
     }
 
 
