@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class EditorTabController {
 
     private EditorTabView view;
+    private final double ROW_SEPARATION_DISTANCE = 130;
 
     public EditorTabController(EditorTabView view) {
         this.view = view;
@@ -324,7 +325,7 @@ public class EditorTabController {
 
 
     private void setRectYPlacement(RuleElementRectangle currentRect, RuleElementRectangle previousRect) {
-        currentRect.setY(previousRect.getY() + 130, true);
+        currentRect.setY(previousRect.getY() + ROW_SEPARATION_DISTANCE, true);
     }
 
 
