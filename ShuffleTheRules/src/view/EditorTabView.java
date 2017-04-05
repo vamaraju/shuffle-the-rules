@@ -137,6 +137,14 @@ public class EditorTabView extends Tab {
         return this.eventsGrid;
     }
 
+    public TextField getEventPreviousRuleTextField() {
+        return eventPreviousRuleTextField;
+    }
+
+    public TextField getActionPreviousRuleTextField() {
+        return actionPreviousRuleTextField;
+    }
+
     public Label getClickedEventTypeHeader() {
         return clickedEventTypeHeader;
     }
@@ -176,6 +184,7 @@ public class EditorTabView extends Tab {
 
         eventNameTextField.setPromptText("Enter a Name");
         eventPreviousRuleTextField.setPromptText("Enter the Previous Rule");
+        eventPreviousRuleTextField.setText("Game Start");
         this.eventsGrid.addRow(0, new Label("Event Type: "), eventComboBox);
         this.eventsGrid.addRow(1, new Label("Event Name: "), eventNameTextField);
         this.eventsGrid.addRow(2, new Label("Previous Rule: "), eventPreviousRuleTextField);

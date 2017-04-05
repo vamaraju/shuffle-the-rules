@@ -16,8 +16,8 @@ public class RuleElementRectangle extends Rectangle {
     private GameRule gameRule;
     private Paint defaultBorderColor;
     private boolean clicked = false;
-    private ArrayList<RuleElementRectangle> postRules;
-    private ArrayList<Line> outLines;
+    private ArrayList<RuleElementRectangle> postRules = new ArrayList<>();
+    private ArrayList<Line> outLines = new ArrayList<>();
     private Line inLine;
 
     public RuleElementRectangle() {
@@ -100,10 +100,11 @@ public class RuleElementRectangle extends Rectangle {
         double textWidth = t.getLayoutBounds().getWidth();
         double rectWidth = textWidth + 40;
         t.setWrappingWidth(rectWidth-20);
-        t.setX(x+20);
         double textHeight = t.getLayoutBounds().getHeight();
         double rectHeight = textHeight + 40;
-        t.setY(y+33);
+
+        this.setX(x, true);
+        this.setY(y, true);
 
         this.text = t;
 
@@ -131,10 +132,11 @@ public class RuleElementRectangle extends Rectangle {
         double textWidth = t.getLayoutBounds().getWidth();
         double rectWidth = textWidth + 40;
         t.setWrappingWidth(rectWidth-20);
-        t.setX(x+20);
         double textHeight = t.getLayoutBounds().getHeight();
         double rectHeight = textHeight + 40;
-        t.setY(y+33);
+
+        this.setX(x, true);
+        this.setY(y, true);
 
         this.text = t;
 
@@ -151,6 +153,30 @@ public class RuleElementRectangle extends Rectangle {
             this.setStroke(Color.RED);
         }
         this.setListeners();
+    }
+
+
+    /**
+     * Sets the x-coordinate of the Rectangle and sets its text accordingly, if setText is provided (true).
+     *
+     * @param x The x-coordinate to which the Rectangle will be set and the text will be levelled with.
+     * @param setText Boolean that determines whether the Rectangle text position will be adjusted.
+     */
+    public void setX(double x, boolean setText) {
+        this.setX(x);
+        if (setText) {this.text.setX(x+20);}
+    }
+
+
+    /**
+     * Sets the y-coordinate of the Rectangle and sets its text accordingly, if setText is provided (true).
+     *
+     * @param y The y-coordinate to which the Rectangle will be set and the text will be levelled with.
+     * @param setText Boolean that determines whether the Rectangle text position will be adjusted.
+     */
+    public void setY(double y, boolean setText) {
+        this.setY(y);
+        if (setText) {this.text.setY(y+33);}
     }
 
 
@@ -173,6 +199,64 @@ public class RuleElementRectangle extends Rectangle {
      */
     public double getCenterY() {
         return this.getY()+(this.getHeight()/2);
+    }
+
+
+    /**
+     * Returns the x-coordinate of the end of the rectangle.
+     *
+     * @return End x-coordinate of rectangle.
+     */
+    public double getEndX() {
+        return this.getX()+(this.getWidth());
+    }
+
+
+    /**
+     * Returns the y-coordinate of the end of the rectangle.
+     *
+     * @return End y-coordinate of rectangle.
+     */
+    public double getEndY() {
+        return this.getY()+(this.getHeight());
+    }
+
+
+    /**
+     * Returns the x-coordinate of the Rectangle assuming its center at the specified value.
+     *
+     * @return The x-coordinate of the Rectangle given its center.
+     */
+    public double getXForCenter(double centerX) {
+        return centerX-(this.getWidth()/2);
+    }
+
+
+    /**
+     * Returns the y-coordinate of the Rectangle assuming its center at the specified value.
+     *
+     * @return The y-coordinate of the Rectangle given its center.
+     */
+    public double getYForCenter(double centerY) {
+        return centerY-(this.getHeight()/2);
+    }
+
+
+    /**
+     * Sets the x-coordinate of the center of the rectangle to the specified x value.
+     */
+    public void setCenterX(double centerX) {
+        double x = this.getXForCenter(centerX);
+        this.setX(x, true);
+    }
+
+
+    /**
+     * Sets the y-coordinate of the center of the rectangle to the specified y value.
+     */
+    public void setCenterY(double centerY) {
+        double y = this.getYForCenter(centerY);
+        this.setY(y, true);
     }
 
 
