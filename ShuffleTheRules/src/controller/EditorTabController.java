@@ -21,6 +21,7 @@ import view.EditorTabView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class EditorTabController {
 
@@ -129,6 +130,10 @@ public class EditorTabController {
             drawingPane.setMinWidth(r.getEndX()+100);
         }
 
+        if (r.getX() < drawingPane.getMaxWidth()+100) {
+            drawingPane.setMaxWidth(r.getX()-100);
+        }
+
         if (r.getEndY() > drawingPane.getMinHeight()-100) {
             drawingPane.setMinHeight(r.getEndY()+100);
         }
@@ -143,8 +148,8 @@ public class EditorTabController {
 
         Rectangle r = new Rectangle(100, 200, 100, 50);
         r.setFill(Color.WHITE);
-        r.setStrokeWidth(5);
-        r.setStroke(Color.BLACK);
+        r.setStrokeWidth(2);
+        r.setStroke(Color.RED);
 
         StackPane s = new StackPane();
         s.getChildren().addAll(r, new Text(actionIdTextField.getText()));
@@ -234,10 +239,7 @@ public class EditorTabController {
     }
 
     public void addOnGameStart(Pane drawingPane) {
-        RuleElementRectangle r = new RuleElementRectangle(160, 50, "Game Start");
-        r.setFill(Color.WHITE);
-        r.setStrokeWidth(2);
-        r.setStroke(Color.BLUE);
+        RuleElementRectangle r = new RuleElementRectangle(160, 50, "Game Start", "event");
         r.setGameRule(new OnGameStartEvent());
 
         drawingPane.getChildren().addAll(r, r.getTextObj());
@@ -335,16 +337,28 @@ public class EditorTabController {
         }
 
         double maxX = 0;
+        double minX = Double.POSITIVE_INFINITY;
         RuleElementRectangle maxXRect = previousRect;
+        RuleElementRectangle minXRect = previousRect;
         if (currentRow.size() > 0) {
             for (RuleElementRectangle rect : currentRow) {
                 if (rect.getX() > maxX) {
                     maxX = rect.getX();
                     maxXRect = rect;
                 }
+                if (rect.getX() < minX) {
+                    minX = rect.getX();
+                    minXRect = rect;
+                }
             }
-            currentRect.setX(maxXRect.getEndX() + COL_SEPARATION_DISTANCE, true);
-        } else {
+
+            if ((minXRect.getX() - currentRect.getWidth() - COL_SEPARATION_DISTANCE - 20 > 0) && (new Random().nextInt(10) < 5)) {
+                currentRect.setX(minXRect.getX() - currentRect.getWidth() - COL_SEPARATION_DISTANCE, true);
+            } else {
+                currentRect.setX(maxXRect.getEndX() + COL_SEPARATION_DISTANCE, true);
+            }
+
+        } else { // current row is empty
             currentRect.setCenterX(previousRect.getCenterX());
         }
     }

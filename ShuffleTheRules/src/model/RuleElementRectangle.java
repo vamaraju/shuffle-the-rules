@@ -56,13 +56,13 @@ public class RuleElementRectangle extends Rectangle {
         Text t = new Text(text);
         t.setFont(new Font(15));
         t.setWrappingWidth(width-20);
+        this.text = t;
 
         double textWidth = t.getLayoutBounds().getWidth();
         t.setX(x+(width-textWidth)/2);
         double textHeight = t.getLayoutBounds().getHeight();
         t.setY(y+(height-textHeight)/2);
 
-        this.text = t;
         this.setListeners();
     }
 
@@ -96,6 +96,7 @@ public class RuleElementRectangle extends Rectangle {
 
         Text t = new Text(text);
         t.setFont(new Font(15));
+        this.text = t;
 
         double textWidth = t.getLayoutBounds().getWidth();
         double rectWidth = textWidth + 40;
@@ -105,8 +106,6 @@ public class RuleElementRectangle extends Rectangle {
 
         this.setX(x, true);
         this.setY(y, true);
-
-        this.text = t;
 
         this.setWidth(rectWidth);
         this.setHeight(rectHeight);
@@ -128,6 +127,7 @@ public class RuleElementRectangle extends Rectangle {
 
         Text t = new Text(text);
         t.setFont(new Font(15));
+        this.text = t;
 
         double textWidth = t.getLayoutBounds().getWidth();
         double rectWidth = textWidth + 40;
@@ -138,18 +138,14 @@ public class RuleElementRectangle extends Rectangle {
         this.setX(x, true);
         this.setY(y, true);
 
-        this.text = t;
-
         this.setWidth(rectWidth);
         this.setHeight(rectHeight);
+        this.setFill(Color.WHITE);
+        this.setStrokeWidth(2);
 
         if (ruleType.equals("event")) {
-            this.setFill(Color.WHITE);
-            this.setStrokeWidth(2);
             this.setStroke(Color.BLUE);
         } else if (ruleType.equals("action")) {
-            this.setFill(Color.WHITE);
-            this.setStrokeWidth(2);
             this.setStroke(Color.RED);
         }
         this.setListeners();
@@ -177,6 +173,48 @@ public class RuleElementRectangle extends Rectangle {
     public void setY(double y, boolean setText) {
         this.setY(y);
         if (setText) {this.text.setY(y+33);}
+    }
+
+
+    /**
+     * Sets the x-coordinate of the Rectangle, its text, and lines, if setText and setLines are provided (true).
+     *
+     * @param x The x-coordinate to which the Rectangle will be set. The text will be centered inside this Rectangle
+     *          position, and the lines will be centered on its border.
+     * @param setText Boolean that determines whether the Rectangle text position will be adjusted.
+     * @param setLines Boolean that determines whether the Rectangle line positions will be adjusted.
+     */
+    public void setX(double x, boolean setText, boolean setLines) {
+        this.setX(x, setText);
+        if (this.inLine != null) {
+            this.inLine.setEndX(this.getCenterX());
+        }
+        if (this.outLines.size() > 0) {
+            for (Line l : this.outLines) {
+                l.setStartX(this.getCenterX());
+            }
+        }
+    }
+
+
+    /**
+     * Sets the y-coordinate of the Rectangle, its text, and lines, if setText and setLines are provided (true).
+     *
+     * @param y The y-coordinate to which the Rectangle will be set. The text will be centered inside this Rectangle
+     *          position, and the lines will be centered on its border.
+     * @param setText Boolean that determines whether the Rectangle text position will be adjusted.
+     * @param setLines Boolean that determines whether the Rectangle line positions will be adjusted.
+     */
+    public void setY(double y, boolean setText, boolean setLines) {
+        this.setY(y, setText);
+        if (this.inLine != null) {
+            this.inLine.setEndY(this.getY());
+        }
+        if (this.outLines.size() > 0) {
+            for (Line l : this.outLines) {
+                l.setStartY(this.getEndY());
+            }
+        }
     }
 
 

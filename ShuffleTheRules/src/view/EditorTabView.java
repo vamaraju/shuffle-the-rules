@@ -231,12 +231,6 @@ public class EditorTabView extends Tab {
     public void initEditorDrawingPane() {
         this.drawingPane.setPrefSize(800, 800);
         this.drawingPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        ScrollPane scrollPane = new ScrollPane(drawingPane);
-        scrollPane.setPrefSize(300, 300);
-        scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setStyle("-fx-focus-color: transparent;");
     }
 
     public void initEditorScrollPane() {
