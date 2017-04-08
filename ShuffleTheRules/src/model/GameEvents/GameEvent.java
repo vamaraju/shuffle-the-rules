@@ -14,8 +14,4 @@ public abstract class GameEvent extends GameRule implements Serializable {
         this.description = "A generic game event.";
     }
 
-    /* actions can contain any object that implements the GameAction interface,
-    *  it will accept all our our Actions which implement GameAction */
-    public abstract void run(Object... args);
-
 }

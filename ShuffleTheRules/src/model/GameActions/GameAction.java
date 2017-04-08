@@ -13,7 +13,4 @@ public abstract class GameAction extends GameRule implements Serializable {
         this.description = "A generic game action.";
     }
 
-    /* Needs ArrayList argument */
-    public abstract void run(Object... args);
-
 }
