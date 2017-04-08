@@ -9,6 +9,9 @@ public class Card implements Serializable, Comparable {
     private String cardBackAssetLocation;
     private String cardOrientation;
 
+    public Card() {
+    }
+
     public Card(int value, String suit){
         this.value = value;
         this.suit = suit;
