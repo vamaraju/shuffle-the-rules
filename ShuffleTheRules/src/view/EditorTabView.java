@@ -74,9 +74,7 @@ public class EditorTabView extends Tab {
         window.setRight(accordion);
         addEventButton.setOnAction(controller::onAddEventButtonClick);
         addActionButton.setOnAction(controller::onAddActionButtonClick);
-        //drawingPane.setOnMousePressed(controller::drawingPaneOnMousePressed);
         drawingPane.setOnMouseDragged(controller::drawingPaneOnMouseDragged);
-        drawingPane.setOnMouseReleased(controller::drawingPaneOnMouseReleased);
         controller.addOnGameStart(drawingPane);
 
         initEventComboBox();

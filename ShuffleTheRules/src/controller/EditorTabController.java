@@ -26,7 +26,7 @@ import java.util.Random;
 public class EditorTabController {
 
     private EditorTabView view;
-    private final double ROW_SEPARATION_DISTANCE = 130;
+    private final double ROW_SEPARATION_DISTANCE = 70;
     private final double COL_SEPARATION_DISTANCE = 40;
 
     public EditorTabController(EditorTabView view) {
@@ -119,24 +119,20 @@ public class EditorTabController {
         setRectXPlacement(r, previousRect);
         setRectYPlacement(r, previousRect);
 
-        r.setOnMouseClicked(this::onEventRectangleClicked);
-        r.getTextObj().setOnMouseClicked(this::onEventRectangleClicked);
-
         Line l = new Line(previousRect.getCenterX(), previousRect.getEndY(), r.getCenterX(), r.getY());
         previousRect.getOutLines().add(l);
-        r.setInLine(l);
+        r.getInLines().add(l);
 
         if (r.getEndX() > drawingPane.getMinWidth()-100) {
             drawingPane.setMinWidth(r.getEndX()+100);
         }
 
-        if (r.getX() < drawingPane.getMaxWidth()+100) {
-            drawingPane.setMaxWidth(r.getX()-100);
-        }
-
         if (r.getEndY() > drawingPane.getMinHeight()-100) {
             drawingPane.setMinHeight(r.getEndY()+100);
         }
+
+        r.setOnMouseClicked(this::onEventRectangleClicked);
+        r.getTextObj().setOnMouseClicked(this::onEventRectangleClicked);
 
         drawingPane.getChildren().addAll(r, r.getTextObj(), l);
     }
@@ -157,62 +153,9 @@ public class EditorTabController {
         drawingPane.getChildren().add(s);
     }
 
-//    public void drawingPaneOnMousePressed(MouseEvent event) {
-//        Pane drawingPane = view.getEditorDrawingPane();
-//
-//        if (!event.isPrimaryButtonDown()) {
-//            return;
-//        }
-//
-//        Line curLine = new Line(
-//                event.getX(), event.getY(),
-//                event.getX(), event.getY()
-//        );
-//        drawingPane.getChildren().add(curLine);
-//
-//        Rectangle r = new Rectangle(event.getX(), event.getY(), 100, 50);
-//        r.setFill(Color.WHITE);
-//        r.setStrokeWidth(5);
-//        r.setStroke(Color.BLACK);
-//        //drawingPane.getChildren().add(r);
-//    }
 
-    public void drawingPaneOnMouseDragged(MouseEvent event) {
-        if (!event.isPrimaryButtonDown()) {
-            return;
-        }
 
-        Line curLine = new Line();
-        Pane drawingPane = view.getEditorDrawingPane();
 
-        if (curLine == null) {
-            return;
-        }
-
-        curLine.setEndX(event.getX());
-        curLine.setEndY(event.getY());
-
-        double mx = Math.max(curLine.getStartX(), curLine.getEndX());
-        double my = Math.max(curLine.getStartY(), curLine.getEndY());
-
-        if (mx > drawingPane.getMinWidth()-100) {
-            drawingPane.setMinWidth(mx+100);
-        }
-
-        if (my > drawingPane.getMinHeight()-100) {
-            drawingPane.setMinHeight(my+100);
-        }
-    }
-
-    public void drawingPaneOnMouseReleased(MouseEvent event) {
-        Line curLine = null;
-        Pane drawingPane = view.getEditorDrawingPane();
-        for (int i = 0; i < drawingPane.getChildren().size(); i++) {
-            //System.out.println(drawingPane.getChildren().get(i));
-        }
-        System.out.println("Current Line:");
-        System.out.println(drawingPane.getChildren().get(drawingPane.getChildren().size()-1));
-    }
 
     private GameEvent getGameEventFromName(String gameEventClassName) {
         try {
@@ -247,6 +190,24 @@ public class EditorTabController {
         r.setOnMouseClicked(this::onEventRectangleClicked);
         r.getTextObj().setOnMouseClicked(this::onEventRectangleClicked);
     }
+
+
+    public void drawingPaneOnMouseDragged(MouseEvent e) {
+        Pane drawingPane = view.getEditorDrawingPane();
+
+        if (!e.isPrimaryButtonDown()) {
+            return;
+        }
+
+        if (e.getX() > drawingPane.getMinWidth()-100) {
+            drawingPane.setMinWidth(e.getX()+100);
+        }
+
+        if (e.getY() > drawingPane.getMinHeight()-100) {
+            drawingPane.setMinHeight(e.getY()+100);
+        }
+    }
+
 
     private void onEventRectangleClicked(MouseEvent e) {
         RuleElementRectangle r = this.findClickedRectangle(e.getX(), e.getY());
@@ -323,7 +284,7 @@ public class EditorTabController {
 
 
     private void setRectXPlacement(RuleElementRectangle currentRect, RuleElementRectangle previousRect) {
-        double currentRowY = previousRect.getY() + ROW_SEPARATION_DISTANCE;
+        double currentRowY = previousRect.getEndY() + ROW_SEPARATION_DISTANCE;
         ArrayList<RuleElementRectangle> currentRow = new ArrayList<>();
 
         ObservableList drawingPaneChildren = view.getEditorDrawingPane().getChildren();
@@ -353,9 +314,9 @@ public class EditorTabController {
             }
 
             if ((minXRect.getX() - currentRect.getWidth() - COL_SEPARATION_DISTANCE - 20 > 0) && (new Random().nextInt(10) < 5)) {
-                currentRect.setX(minXRect.getX() - currentRect.getWidth() - COL_SEPARATION_DISTANCE, true);
+                currentRect.setX(minXRect.getX() - currentRect.getWidth() - COL_SEPARATION_DISTANCE, true, true);
             } else {
-                currentRect.setX(maxXRect.getEndX() + COL_SEPARATION_DISTANCE, true);
+                currentRect.setX(maxXRect.getEndX() + COL_SEPARATION_DISTANCE, true, true);
             }
 
         } else { // current row is empty
@@ -365,7 +326,7 @@ public class EditorTabController {
 
 
     private void setRectYPlacement(RuleElementRectangle currentRect, RuleElementRectangle previousRect) {
-        currentRect.setY(previousRect.getY() + ROW_SEPARATION_DISTANCE, true);
+        currentRect.setY(previousRect.getEndY() + ROW_SEPARATION_DISTANCE, true, true);
     }
 
 

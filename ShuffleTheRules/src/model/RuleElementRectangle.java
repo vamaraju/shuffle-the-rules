@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -18,7 +19,10 @@ public class RuleElementRectangle extends Rectangle {
     private boolean clicked = false;
     private ArrayList<RuleElementRectangle> postRules = new ArrayList<>();
     private ArrayList<Line> outLines = new ArrayList<>();
-    private Line inLine;
+    private ArrayList<Line> inLines = new ArrayList<>();
+
+    private double dragStartX;
+    private double dragStartY;
 
     public RuleElementRectangle() {
         super();
@@ -186,8 +190,10 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void setX(double x, boolean setText, boolean setLines) {
         this.setX(x, setText);
-        if (this.inLine != null) {
-            this.inLine.setEndX(this.getCenterX());
+        if (this.inLines.size() > 0) {
+            for (Line l : this.inLines) {
+                l.setEndX(this.getCenterX());
+            }
         }
         if (this.outLines.size() > 0) {
             for (Line l : this.outLines) {
@@ -207,8 +213,10 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void setY(double y, boolean setText, boolean setLines) {
         this.setY(y, setText);
-        if (this.inLine != null) {
-            this.inLine.setEndY(this.getY());
+        if (this.inLines.size() > 0) {
+            for (Line l : this.inLines) {
+                l.setEndY(this.getY());
+            }
         }
         if (this.outLines.size() > 0) {
             for (Line l : this.outLines) {
@@ -449,22 +457,22 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Returns the Line that is entering this Rectangle.
+     * Returns an ArrayList of Lines that are entering this Rectangle.
      *
-     * @return this.inLine; the Line that enters this Rectangle
+     * @return this.inLines; ArrayList of Lines that enter this Rectangle
      */
-    public Line getInLine() {
-        return this.inLine;
+    public ArrayList<Line> getInLines() {
+        return this.inLines;
     }
 
 
     /**
-     * Sets this.inLine; the Line that is entering this Rectangle.
+     * Sets this.inLines; an ArrayList of Lines that are entering this Rectangle.
      *
-     * @param inLine The Line that enters this Rectangle
+     * @param inLines An ArrayList of Lines that are entering this Rectangle.
      */
-    public void setInLine(Line inLine) {
-        this.inLine = inLine;
+    public void setInLines(ArrayList<Line> inLines) {
+        this.inLines = inLines;
     }
 
 
@@ -494,7 +502,36 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Resets the border (stroke) colcor of the rectangle to its default (original) one.
+     * Listener for the mouse being pressed on this rectangle. Used to log the starting mouse-drag position.
+     *
+     * @param e MouseEvent
+     */
+    public void onMousePressed(MouseEvent e) {
+        this.dragStartX = e.getX();
+        this.dragStartY = e.getY();
+    }
+
+
+    /**
+     * Listener for the mouse being dragged (pressed and moved) while on this rectangle.
+     * Moves the Rectangle, text, and lines according to the drag movement.
+     *
+     * @param e MouseEvent
+     */
+    public void onMouseDragged(MouseEvent e) {
+        double offsetX = e.getX()-this.dragStartX;
+        double offsetY = e.getY()-this.dragStartY;
+
+        this.setX(this.getX()+offsetX > 0 ? this.getX()+offsetX : 0, true, true);
+        this.setY(this.getY()+offsetY > 0 ? this.getY()+offsetY : 0, true, true);
+
+        this.dragStartX = e.getX();
+        this.dragStartY = e.getY();
+    }
+
+
+    /**
+     * Resets the border (stroke) color of the rectangle to its default (original) one.
      */
     public void resetBorder() {
         if (this.defaultBorderColor != null) {
@@ -516,7 +553,11 @@ public class RuleElementRectangle extends Rectangle {
     public void setListeners() {
         this.setOnMouseEntered(this::onMouseEntered);
         this.setOnMouseExited(this::onMouseExited);
+        this.setOnMousePressed(this::onMousePressed);
+        this.setOnMouseDragged(this::onMouseDragged);
         this.text.setOnMouseEntered(this::onMouseEntered);
         this.text.setOnMouseExited(this::onMouseExited);
+        this.text.setOnMousePressed(this::onMousePressed);
+        this.text.setOnMouseDragged(this::onMouseDragged);
     }
 }
