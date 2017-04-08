@@ -8,6 +8,7 @@ import model.Piles.Pile;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -102,6 +103,10 @@ public class GameCreation implements Serializable {
         }
     }
 
+    /* ************************************************************************************************************
+    *   Events
+    *
+    * *********************************************************************************************************** */
 
     public ArrayList<GameEvent> getGameEvents() {
         return gameEvents;
@@ -113,6 +118,10 @@ public class GameCreation implements Serializable {
     }
 
 
+    /* ************************************************************************************************************
+    *   Actions
+    *
+    * *********************************************************************************************************** */
     public ArrayList<GameAction> getGameActions() {
         return gameActions;
     }
@@ -123,15 +132,27 @@ public class GameCreation implements Serializable {
     }
 
 
-    public HashMap<String, Pile> getPiles() {
+    /* ************************************************************************************************************
+    *   Piles
+    *
+    * ************************************************************************************************************ */
+    public HashMap<String, Pile> getPilesHashMap() {
         return piles;
     }
 
 
-    public void setPiles(HashMap<String, Pile> piles) {
+    public void setPilesHashMap(HashMap<String, Pile> piles) {
         this.piles = piles;
     }
 
+    public List<String> getNamesOfAvailablePiles(){
+        return new ArrayList<>(piles.keySet());
+    }
+
+    /* *************************************************************************************************************
+    *   Players
+    *
+    * ************************************************************************************************************* */
 
     public ArrayList<Player> getPlayers() {
         return players;
