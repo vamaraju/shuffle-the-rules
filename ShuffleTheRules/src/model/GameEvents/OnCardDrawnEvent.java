@@ -1,5 +1,6 @@
 package model.GameEvents;
 
+import model.Card;
 import model.GameActions.GameAction;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class OnCardDrawnEvent extends GameEvent {
     }
 
     @Override
-    public void run(ArrayList<GameAction> actions) {
+    public void run(Object... args) {
 
     }
 }

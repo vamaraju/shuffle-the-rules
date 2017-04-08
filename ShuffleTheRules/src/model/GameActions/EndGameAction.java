@@ -13,7 +13,7 @@ public class EndGameAction extends GameAction {
     }
 
     @Override
-    public void run() {
+    public void run(Object... obj) {
 
     }
 }

@@ -14,6 +14,6 @@ public abstract class GameAction extends GameRule implements Serializable {
     }
 
     /* Needs ArrayList argument */
-    public abstract void run();
+    public abstract void run(Object... args);
 
 }

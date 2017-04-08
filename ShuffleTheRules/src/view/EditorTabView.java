@@ -67,7 +67,7 @@ public class EditorTabView extends Tab {
         clickedEventTypeValue = new Label();
         clickedEventNameHeader = new Label("Event Name:");
         clickedEventNameValue = new Label();
-        clickedEventPreviousEventHeader = new Label("Previous Rule:");
+        clickedEventPreviousEventHeader = new Label("Previous Rule(s):");
         clickedEventPreviousEventValue = new Label();
 
         window.setCenter(scrollPane);
