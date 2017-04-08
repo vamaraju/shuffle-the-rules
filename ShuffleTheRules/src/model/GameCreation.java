@@ -29,6 +29,7 @@ public class GameCreation implements Serializable {
     private GameCreation() {
         /* initialize */
         cardSettings = new CardSettings();
+        gameSettings = new GameSettings();
     }
 
 

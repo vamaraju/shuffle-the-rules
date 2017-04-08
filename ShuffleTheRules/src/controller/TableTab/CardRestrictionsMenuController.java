@@ -11,7 +11,7 @@ import java.util.List;
 public class CardRestrictionsMenuController {
 
     private CardRestrictionsMenuView cardRestrictionsMenuView;
-    
+    private CardSettings cardSettings = GameCreation.getInstance().getCardSettings();
 
     public CardRestrictionsMenuController(CardRestrictionsMenuView view){
         cardRestrictionsMenuView = view;
@@ -22,11 +22,11 @@ public class CardRestrictionsMenuController {
     }
 
     public List<String> getCardList(){
-        return GameCreation.getInstance().getCardSettings().getCardList();
+        return cardSettings.getCardList();
     }
 
     public void updateCardList(){
-        cardRestrictionsMenuView.updateCardList(GameCreation.getInstance().getCardSettings().getCardList());
+        cardRestrictionsMenuView.updateCardList(cardSettings.getCardList());
     }
 
     public void onUpdateButtonClick(Event event){
@@ -46,9 +46,9 @@ public class CardRestrictionsMenuController {
     }
 
     public void updateSuitCounts(String card){
-        cardRestrictionsMenuView.setHeartCount(Integer.toString(GameCreation.getInstance().getCardSettings().getSuitCount(card,"heart")));
-        cardRestrictionsMenuView.setSpadeCount(Integer.toString(GameCreation.getInstance().getCardSettings().getSuitCount(card,"spade")));
-        cardRestrictionsMenuView.setClubCount(Integer.toString(GameCreation.getInstance().getCardSettings().getSuitCount(card,"club")));
-        cardRestrictionsMenuView.setDiamondCount(Integer.toString(GameCreation.getInstance().getCardSettings().getSuitCount(card,"diamond")));
+        cardRestrictionsMenuView.setHeartCount(Integer.toString(cardSettings.getSuitCount(card,"heart")));
+        cardRestrictionsMenuView.setSpadeCount(Integer.toString(cardSettings.getSuitCount(card,"spade")));
+        cardRestrictionsMenuView.setClubCount(Integer.toString(cardSettings.getSuitCount(card,"club")));
+        cardRestrictionsMenuView.setDiamondCount(Integer.toString(cardSettings.getSuitCount(card,"diamond")));
     }
 }

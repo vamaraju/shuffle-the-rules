@@ -2,6 +2,7 @@ package controller.TableTab;
 
 
 import javafx.event.Event;
+import model.GameCreation;
 import model.GameSettings;
 import view.TableTab.GeneralSettingsMenuView;
 
@@ -9,11 +10,10 @@ import java.awt.*;
 
 public class GeneralSettingsMenuController {
     private GeneralSettingsMenuView generalSettingsMenuView;
-    private GameSettings gameSettings;
+    private GameSettings gameSettings = GameCreation.getInstance().getGameSettings();
 
     public GeneralSettingsMenuController(GeneralSettingsMenuView view){
         generalSettingsMenuView = view;
-        gameSettings = new GameSettings();
         generalSettingsMenuView.getUpdateButton().setOnAction(this::onUpdateButtonClick);
         updateMinCount();
         updateMaxCount();
