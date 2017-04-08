@@ -122,6 +122,7 @@ public class GameCreation implements Serializable {
     *   Actions
     *
     * *********************************************************************************************************** */
+
     public ArrayList<GameAction> getGameActions() {
         return gameActions;
     }
@@ -136,17 +137,56 @@ public class GameCreation implements Serializable {
     *   Piles
     *
     * ************************************************************************************************************ */
+
     public HashMap<String, Pile> getPilesHashMap() {
         return piles;
     }
-
 
     public void setPilesHashMap(HashMap<String, Pile> piles) {
         this.piles = piles;
     }
 
-    public List<String> getNamesOfAvailablePiles(){
+    public List<String> getNamesOfAllPiles(){
         return new ArrayList<>(piles.keySet());
+    }
+    /*
+    public List<Pile> getAllPiles(){
+
+    }
+    */
+    public Pile getPileByName(String pileName){
+        if(piles.containsKey(pileName)) {
+            return piles.get(pileName);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The Pile " + pileName + "does not exist.");
+            alert.setTitle("Pile Missing Error");
+            alert.setHeaderText("Error - Pile does not exist");
+            alert.showAndWait();
+            return null;
+        }
+    }
+
+    public void addPile(Pile pile){
+        if(!piles.containsKey(pile.getPileName())) {
+            piles.put(pile.getPileName(), pile);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The Pile " + pile.getPileName() + "cannot be added because a pile with that name already exists. Please rename the pile.");
+            alert.setTitle("Pile Already Exists Error");
+            alert.setHeaderText("Error - Cannot Create Pile");
+            alert.showAndWait();
+        }
+    }
+
+    public void removePile(String pileName){
+        if (piles.containsKey(pileName)) {
+            piles.remove(pileName);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The Pile you are trying to remove does not exist.");
+            alert.setTitle("Pile Does Not Exist Error");
+            alert.setHeaderText("Error - Cannot Remove Pile");
+            alert.showAndWait();
+        }
+
     }
 
     /* *************************************************************************************************************
@@ -163,7 +203,10 @@ public class GameCreation implements Serializable {
         this.players = players;
     }
 
-
+    /* *************************************************************************************************************
+    *   CardSettings
+    *
+    * ************************************************************************************************************* */
     public CardSettings getCardSettings() {
         return cardSettings;
     }
@@ -173,6 +216,10 @@ public class GameCreation implements Serializable {
         this.cardSettings = cardSettings;
     }
 
+    /* *************************************************************************************************************
+    *   GameSettings
+    *
+    * ************************************************************************************************************* */
 
     public GameSettings getGameSettings() {
         return gameSettings;
