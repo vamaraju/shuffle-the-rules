@@ -1,6 +1,7 @@
 package controller.TableTab;
 
 import javafx.event.Event;
+import model.GameCreation;
 import model.Piles.BasicPile;
 import model.Piles.Pile;
 import view.TableTab.PileSettingsMenuView;
@@ -13,11 +14,10 @@ public class PileSettingsMenuController {
 
     private PileSettingsMenuView pileSettingsMenuView;
     /* will store BasicPiles and Hands */
-    private Map<String, Pile> piles;
+    private HashMap<String, Pile> piles = GameCreation.getInstance().getPiles();
 
 
     public PileSettingsMenuController(PileSettingsMenuView view){
-        piles = new HashMap<>();
         pileSettingsMenuView = view;
         pileSettingsMenuView.getPileSettingsView().getAddPileButton().setOnAction(this::onAddPileButtonClick);
         pileSettingsMenuView.getPileSettingsView().getUpdatePileButton().setOnAction(this::onUpdatePileButtonClick);

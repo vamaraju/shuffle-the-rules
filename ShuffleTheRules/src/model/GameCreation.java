@@ -7,6 +7,8 @@ import model.Piles.Pile;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Singleton that stores information regarding creation of the current game.
@@ -17,7 +19,8 @@ public class GameCreation implements Serializable {
 
     private ArrayList<GameEvent> gameEvents = new ArrayList<>();
     private ArrayList<GameAction> gameActions = new ArrayList<>();
-    private ArrayList<Pile> piles = new ArrayList<>();
+    //private ArrayList<Pile> piles = new ArrayList<>();
+    private HashMap<String, Pile> piles;
     private ArrayList<Player> players = new ArrayList<>();
     private CardSettings cardSettings;
     private GameSettings gameSettings;
@@ -30,6 +33,7 @@ public class GameCreation implements Serializable {
         /* initialize */
         cardSettings = new CardSettings();
         gameSettings = new GameSettings();
+        piles = new HashMap<>();
     }
 
 
@@ -119,12 +123,12 @@ public class GameCreation implements Serializable {
     }
 
 
-    public ArrayList<Pile> getPiles() {
+    public HashMap<String, Pile> getPiles() {
         return piles;
     }
 
 
-    public void setPiles(ArrayList<Pile> piles) {
+    public void setPiles(HashMap<String, Pile> piles) {
         this.piles = piles;
     }
 
