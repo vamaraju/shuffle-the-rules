@@ -3,6 +3,7 @@ package controller.TableTab;
 
 import javafx.event.Event;
 import model.CardSettings;
+import model.GameCreation;
 import view.TableTab.CardRestrictionsMenuView;
 
 import java.util.List;
@@ -10,22 +11,22 @@ import java.util.List;
 public class CardRestrictionsMenuController {
 
     private CardRestrictionsMenuView cardRestrictionsMenuView;
-    private CardSettings cardSettings;
+    
 
     public CardRestrictionsMenuController(CardRestrictionsMenuView view){
         cardRestrictionsMenuView = view;
-        cardSettings = new CardSettings();
+
         cardRestrictionsMenuView.getUpdateButton().setOnAction(this::onUpdateButtonClick);
         updateCardList();
         /* change to use observer/ observable */
     }
 
     public List<String> getCardList(){
-        return cardSettings.getCardList();
+        return GameCreation.getInstance().getCardSettings().getCardList();
     }
 
     public void updateCardList(){
-        cardRestrictionsMenuView.updateCardList(cardSettings.getCardList());
+        cardRestrictionsMenuView.updateCardList(GameCreation.getInstance().getCardSettings().getCardList());
     }
 
     public void onUpdateButtonClick(Event event){
@@ -45,9 +46,9 @@ public class CardRestrictionsMenuController {
     }
 
     public void updateSuitCounts(String card){
-        cardRestrictionsMenuView.setHeartCount(Integer.toString(cardSettings.getSuitCount(card,"heart")));
-        cardRestrictionsMenuView.setSpadeCount(Integer.toString(cardSettings.getSuitCount(card,"spade")));
-        cardRestrictionsMenuView.setClubCount(Integer.toString(cardSettings.getSuitCount(card,"club")));
-        cardRestrictionsMenuView.setDiamondCount(Integer.toString(cardSettings.getSuitCount(card,"diamond")));
+        cardRestrictionsMenuView.setHeartCount(Integer.toString(GameCreation.getInstance().getCardSettings().getSuitCount(card,"heart")));
+        cardRestrictionsMenuView.setSpadeCount(Integer.toString(GameCreation.getInstance().getCardSettings().getSuitCount(card,"spade")));
+        cardRestrictionsMenuView.setClubCount(Integer.toString(GameCreation.getInstance().getCardSettings().getSuitCount(card,"club")));
+        cardRestrictionsMenuView.setDiamondCount(Integer.toString(GameCreation.getInstance().getCardSettings().getSuitCount(card,"diamond")));
     }
 }

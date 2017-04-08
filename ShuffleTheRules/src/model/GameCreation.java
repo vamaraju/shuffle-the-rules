@@ -27,7 +27,8 @@ public class GameCreation implements Serializable {
      * Private constructor to block anyone from creating a new instance of this class.
      */
     private GameCreation() {
-
+        /* initialize */
+        cardSettings = new CardSettings();
     }
 
 
