@@ -13,7 +13,7 @@ public class OnPileEmptyEvent extends GameEvent {
     }
 
     @Override
-    public void run(ArrayList<GameAction> actions) {
+    public void run(Object... args) {
 
     }
 }

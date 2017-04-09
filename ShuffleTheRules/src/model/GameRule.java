@@ -6,7 +6,7 @@ import model.GameEvents.GameEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameRule implements Serializable {
+public abstract class GameRule implements Serializable {
 
     protected String name;
     protected String description;
@@ -18,6 +18,8 @@ public class GameRule implements Serializable {
         this.name = "GameRule";
         this.description = "A generic game rule.";
     }
+
+    public abstract void run(Object... args);
 
     public String getName() {
         return this.name;

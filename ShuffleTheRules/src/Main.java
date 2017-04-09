@@ -28,7 +28,7 @@ public class Main extends Application {
 
     private void initializeStage(Stage primaryStage){
 
-        primaryStage.setTitle("Shuffle the Rules");
+        primaryStage.setTitle("Shuffle The Rules");
         primaryStage.setResizable(false);
 
 

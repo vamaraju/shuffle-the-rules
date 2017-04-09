@@ -2,20 +2,23 @@ package model;
 
 import java.io.Serializable;
 
-public class Card implements Serializable {
+public class Card implements Serializable, Comparable {
     private int value;
     private String suit;
     private String cardFaceAssetLocation;
     private String cardBackAssetLocation;
     private String cardOrientation;
 
+    public Card() {
+    }
+
     public Card(int value, String suit){
-        value = value;
-        suit = suit;
+        this.value = value;
+        this.suit = suit;
     }
 
     public String getCardFaceAssetLocation() {
-        return cardFaceAssetLocation;
+        return this.cardFaceAssetLocation;
     }
 
     public void setCardFaceAssetLocation(String cardFaceAssetLocation) {
@@ -23,7 +26,7 @@ public class Card implements Serializable {
     }
 
     public String getCardBackAssetLocation() {
-        return cardBackAssetLocation;
+        return this.cardBackAssetLocation;
     }
 
     public void setCardBackAssetLocation(String cardBackAssetLocation) {
@@ -31,7 +34,7 @@ public class Card implements Serializable {
     }
 
     public String getCardOrientation() {
-        return cardOrientation;
+        return this.cardOrientation;
     }
 
     public void setCardOrientation(String cardOrientation) {
@@ -39,7 +42,7 @@ public class Card implements Serializable {
     }
 
     public int getValue() {
-        return value;
+        return this.value;
     }
 
     public void setValue(int value) {
@@ -47,10 +50,37 @@ public class Card implements Serializable {
     }
 
     public String getSuit() {
-        return suit;
+        return this.suit;
     }
 
     public void setSuit(String suit) {
         this.suit = suit;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.value + this.suit.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {return true;}
+        if (obj == null) {return false;}
+        if (!(obj instanceof Card)) {return false;}
+
+        Card otherCard = (Card) obj;
+        return ((this.getValue() == otherCard.getValue()) && (this.getSuit().equals(otherCard.getSuit())));
+    }
+
+    @Override
+    public int compareTo(Object obj) {
+        Card otherCard = (Card) obj;
+        if (this.getValue() < otherCard.getValue()) {
+            return -1;
+        } else if (this.getValue() > otherCard.getValue()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
