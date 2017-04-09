@@ -1,6 +1,5 @@
 package model;
 
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -21,6 +20,7 @@ public class RuleElementRectangle extends Rectangle {
     private ArrayList<RuleElementRectangle> postRules = new ArrayList<>();
     private ArrayList<Line> outLines = new ArrayList<>();
     private ArrayList<Line> inLines = new ArrayList<>();
+    private GameRuleType ruleType;
 
     private double dragStartX;
     private double dragStartY;
@@ -120,25 +120,29 @@ public class RuleElementRectangle extends Rectangle {
 
     /**
      * Dynamically generates the rectangle width and height based on (to fit) the given text.
-     * Accepts a ruleType parameter that can be either "event" or "action", and sets the rectangle border accordingly.
+     * Accepts a ruleType parameter (an event or action), and sets the rectangle border accordingly.
      *
      * @param x Rectangle starting (top-left) x coordinate.
      * @param y Rectangle starting (top-left) y coordinate.
      * @param text Text that goes inside the rectangle.
-     * @param ruleType Either "event" or "action". Used to set the rectangle border color.
+     * @param ruleType Either GameRuleType.EVENT or GameRuleType.ACTION. Used to set the rectangle border color.
      */
-    public RuleElementRectangle(double x, double y, String text, String ruleType) {
+    public RuleElementRectangle(double x, double y, String text, GameRuleType ruleType) {
         this(x, y, text);
+        this.ruleType = ruleType;
 
         this.setFill(Color.WHITE);
         this.setStrokeWidth(2);
 
-        if (ruleType.equals("event")) {
-            this.setStroke(Color.BLUE);
-            this.defaultBorderColor = Color.BLUE;
-        } else if (ruleType.equals("action")) {
-            this.setStroke(Color.RED);
-            this.defaultBorderColor = Color.RED;
+        switch (ruleType) {
+            case EVENT:
+                this.setStroke(Color.BLUE);
+                this.defaultBorderColor = Color.BLUE;
+                break;
+            case ACTION:
+                this.setStroke(Color.RED);
+                this.defaultBorderColor = Color.RED;
+                break;
         }
     }
 
@@ -177,14 +181,16 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void setX(double x, boolean setText, boolean setLines) {
         this.setX(x, setText);
-        if (this.inLines.size() > 0) {
-            for (Line l : this.inLines) {
-                l.setEndX(this.getCenterX());
+        if (setLines) {
+            if (this.inLines.size() > 0) {
+                for (Line l : this.inLines) {
+                    l.setEndX(this.getCenterX());
+                }
             }
-        }
-        if (this.outLines.size() > 0) {
-            for (Line l : this.outLines) {
-                l.setStartX(this.getCenterX());
+            if (this.outLines.size() > 0) {
+                for (Line l : this.outLines) {
+                    l.setStartX(this.getCenterX());
+                }
             }
         }
     }
@@ -200,14 +206,16 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void setY(double y, boolean setText, boolean setLines) {
         this.setY(y, setText);
-        if (this.inLines.size() > 0) {
-            for (Line l : this.inLines) {
-                l.setEndY(this.getY());
+        if (setLines) {
+            if (this.inLines.size() > 0) {
+                for (Line l : this.inLines) {
+                    l.setEndY(this.getY());
+                }
             }
-        }
-        if (this.outLines.size() > 0) {
-            for (Line l : this.outLines) {
-                l.setStartY(this.getEndY());
+            if (this.outLines.size() > 0) {
+                for (Line l : this.outLines) {
+                    l.setStartY(this.getEndY());
+                }
             }
         }
     }
@@ -500,6 +508,26 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void setInLines(ArrayList<Line> inLines) {
         this.inLines = inLines;
+    }
+
+
+    /**
+     * Returns the GameRuleType (ACTION or EVENT) associated with this rectangle.
+     *
+     * @return The type of game rule (event or action) that this rectangle represents.
+     */
+    public GameRuleType getRuleType() {
+        return this.ruleType;
+    }
+
+
+    /**
+     * Sets this.ruleType; the GameRuleType associated with this rectangle.
+     *
+     * @param ruleType The type of game rule (event or action) of this rectangle.
+     */
+    public void setRuleType(GameRuleType ruleType) {
+        this.ruleType = ruleType;
     }
 
 

@@ -7,18 +7,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import model.GameActions.*;
 import model.GameEvents.*;
 import model.GameRule;
+import model.GameRuleType;
 import model.RuleElementRectangle;
 import view.EditorTabView;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -92,7 +90,7 @@ public class EditorTabController {
      * @param e
      */
     public void onAddEventButtonClick(Event e) {
-        addButtonClick("event");
+        addButtonClick(GameRuleType.EVENT);
     }
 
 
@@ -103,32 +101,35 @@ public class EditorTabController {
      * @param e
      */
     public void onAddActionButtonClick(Event e){
-        addButtonClick("action");
+        addButtonClick(GameRuleType.ACTION);
     }
 
 
     /**
      * Logic for "Add Event" and "Add Action" button onclick listeners.
      *
-     * @param ruleType A string that is either "event" or "action", corresponding to the specific button click (rule).
+     * @param ruleType The GameRuleType (either EVENT or ACTION) corresponding to the specific button click.
      */
-    private void addButtonClick(String ruleType) {
+    private void addButtonClick(GameRuleType ruleType) {
         Pane drawingPane = view.getEditorDrawingPane();
         ComboBox comboBox = null;
         TextField nameTextField = null;
         TextField descriptionTextField = null;
         TextField previousRuleTextField = null;
 
-        if (ruleType.equals("event")) {
-            comboBox = view.getEventComboBox();
-            nameTextField = view.getEventNameTextField();
-            previousRuleTextField = view.getEventPreviousRuleTextField();
-            descriptionTextField = view.getEventDescriptionTextField();
-        } else if (ruleType.equals("action")) {
-            comboBox = view.getActionComboBox();
-            nameTextField = view.getActionNameTextField();
-            previousRuleTextField = view.getActionPreviousRuleTextField();
-            descriptionTextField = view.getActionDescriptionTextField();
+        switch (ruleType) {
+            case EVENT:
+                comboBox = view.getEventComboBox();
+                nameTextField = view.getEventNameTextField();
+                previousRuleTextField = view.getEventPreviousRuleTextField();
+                descriptionTextField = view.getEventDescriptionTextField();
+                break;
+            case ACTION:
+                comboBox = view.getActionComboBox();
+                nameTextField = view.getActionNameTextField();
+                previousRuleTextField = view.getActionPreviousRuleTextField();
+                descriptionTextField = view.getActionDescriptionTextField();
+                break;
         }
 
         String previousRuleName = previousRuleTextField.getText();
@@ -153,10 +154,13 @@ public class EditorTabController {
         }
 
         GameRule gameRule = null;
-        if (ruleType.equals("event")) {
-            gameRule = (GameEvent) comboBox.getValue();
-        } else if (ruleType.equals("action")) {
-            gameRule = (GameAction) comboBox.getValue();
+        switch (ruleType) {
+            case EVENT:
+                gameRule = (GameEvent) comboBox.getValue();
+                break;
+            case ACTION:
+                gameRule = (GameAction) comboBox.getValue();
+                break;
         }
 
         String ruleDescription = descriptionTextField.getText();
@@ -191,7 +195,7 @@ public class EditorTabController {
 
 
     public void addOnGameStart(Pane drawingPane) {
-        RuleElementRectangle r = new RuleElementRectangle(160, 50, "Game Start", "event");
+        RuleElementRectangle r = new RuleElementRectangle(160, 50, "Game Start", GameRuleType.EVENT);
         r.setGameRule(new OnGameStartEvent());
 
         drawingPane.getChildren().addAll(r, r.getTextObj());
@@ -385,29 +389,26 @@ public class EditorTabController {
     }
 
 
-    private void showRuleTypeNotSelectedErrorAlert(String ruleType) {
-        String ruleTypeCapitalized = ruleType.substring(0, 1).toUpperCase() + ruleType.substring(1);
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a game " + ruleType + " type from the drop-down box.");
-        alert.setTitle(ruleTypeCapitalized + " Type Error");
-        alert.setHeaderText(ruleTypeCapitalized + " Type Not Selected");
+    private void showRuleTypeNotSelectedErrorAlert(GameRuleType ruleType) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a Game " + ruleType.getName() + " type from the drop-down box.");
+        alert.setTitle(ruleType.getName() + " Type Error");
+        alert.setHeaderText(ruleType.getName() + " Type Not Selected");
         alert.showAndWait();
     }
 
 
-    private void showRuleNameEmptyErrorAlert(String ruleType) {
-        String ruleTypeCapitalized = ruleType.substring(0, 1).toUpperCase() + ruleType.substring(1);
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter an " + ruleType + " name in the text field.");
-        alert.setTitle(ruleTypeCapitalized + " Name Error");
-        alert.setHeaderText(ruleTypeCapitalized + " Name Is Missing");
+    private void showRuleNameEmptyErrorAlert(GameRuleType ruleType) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter an " + ruleType.getName() + " name in the text field.");
+        alert.setTitle(ruleType.getName() + " Name Error");
+        alert.setHeaderText(ruleType.getName() + " Name Is Missing");
         alert.showAndWait();
     }
 
 
-    private void showRuleNameExistsErrorAlert(String ruleType, String eventName) {
-        String ruleTypeCapitalized = ruleType.substring(0, 1).toUpperCase() + ruleType.substring(1);
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter a unique " + ruleType + " name in the text field. The specified name already exists in the rule tree: \n" + eventName);
-        alert.setTitle(ruleTypeCapitalized + " Name Error");
-        alert.setHeaderText(ruleTypeCapitalized + " Name Is A Duplicate");
+    private void showRuleNameExistsErrorAlert(GameRuleType ruleType, String eventName) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter a unique " + ruleType.getName() + " name in the text field. The specified name already exists in the rule tree: \n" + eventName);
+        alert.setTitle(ruleType.getName() + " Name Error");
+        alert.setHeaderText(ruleType.getName() + " Name Is A Duplicate");
         alert.showAndWait();
     }
 }

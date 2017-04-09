@@ -9,6 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import model.GameCreation;
+import model.GameRuleType;
 import model.RuleElementRectangle;
 
 import javax.xml.soap.Text;
@@ -101,8 +103,8 @@ public class EditorTabView extends Tab {
 
         initEventComboBox();
         initActionComboBox();
-        initGrid("Event");
-        initGrid("Action");
+        initGrid(GameRuleType.EVENT);
+        initGrid(GameRuleType.ACTION);
         initEditorDrawingPane();
         initEditorScrollPane();
 
@@ -118,7 +120,7 @@ public class EditorTabView extends Tab {
     }
 
 
-    private void initGrid(String ruleType) {
+    private void initGrid(GameRuleType ruleType) {
         GridPane grid = null;
         TextField nameTextField = null;
         TextField descriptionTextField = null;
@@ -132,32 +134,35 @@ public class EditorTabView extends Tab {
         Label clickedRuleNameValue = null;
         Label clickedPreviousRuleValue = null;
 
-        if (ruleType.equals("Event")) {
-            grid = this.eventsGrid;
-            nameTextField = this.eventNameTextField;
-            descriptionTextField = this.eventDescriptionTextField;
-            previousRuleTextField = this.eventPreviousRuleTextField;
-            comboBox = this.eventComboBox;
-            addButton = this.addEventButton;
-            clickedRuleTypeHeader = this.clickedEventTypeHeader;
-            clickedRuleNameHeader = this.clickedEventNameHeader;
-            clickedPreviousRuleHeader = this.clickedEventPreviousEventHeader;
-            clickedRuleTypeValue = this.clickedEventTypeValue;
-            clickedRuleNameValue = this.clickedEventNameValue;
-            clickedPreviousRuleValue = this.clickedEventPreviousEventValue;
-        } else if (ruleType.equals("Action")) {
-            grid = this.actionsGrid;
-            nameTextField = this.actionNameTextField;
-            descriptionTextField = this.actionDescriptionTextField;
-            previousRuleTextField = this.actionPreviousRuleTextField;
-            comboBox = this.actionComboBox;
-            addButton = this.addActionButton;
-            clickedRuleTypeHeader = this.clickedActionTypeHeader;
-            clickedRuleNameHeader = this.clickedActionNameHeader;
-            clickedPreviousRuleHeader = this.clickedActionPreviousActionHeader;
-            clickedRuleTypeValue = this.clickedActionTypeValue;
-            clickedRuleNameValue = this.clickedActionNameValue;
-            clickedPreviousRuleValue = this.clickedActionPreviousActionValue;
+        switch (ruleType) {
+            case EVENT:
+                grid = this.eventsGrid;
+                nameTextField = this.eventNameTextField;
+                descriptionTextField = this.eventDescriptionTextField;
+                previousRuleTextField = this.eventPreviousRuleTextField;
+                comboBox = this.eventComboBox;
+                addButton = this.addEventButton;
+                clickedRuleTypeHeader = this.clickedEventTypeHeader;
+                clickedRuleNameHeader = this.clickedEventNameHeader;
+                clickedPreviousRuleHeader = this.clickedEventPreviousEventHeader;
+                clickedRuleTypeValue = this.clickedEventTypeValue;
+                clickedRuleNameValue = this.clickedEventNameValue;
+                clickedPreviousRuleValue = this.clickedEventPreviousEventValue;
+                break;
+            case ACTION:
+                grid = this.actionsGrid;
+                nameTextField = this.actionNameTextField;
+                descriptionTextField = this.actionDescriptionTextField;
+                previousRuleTextField = this.actionPreviousRuleTextField;
+                comboBox = this.actionComboBox;
+                addButton = this.addActionButton;
+                clickedRuleTypeHeader = this.clickedActionTypeHeader;
+                clickedRuleNameHeader = this.clickedActionNameHeader;
+                clickedPreviousRuleHeader = this.clickedActionPreviousActionHeader;
+                clickedRuleTypeValue = this.clickedActionTypeValue;
+                clickedRuleNameValue = this.clickedActionNameValue;
+                clickedPreviousRuleValue = this.clickedActionPreviousActionValue;
+                break;
         }
 
         grid.setVgap(4);
