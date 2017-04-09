@@ -159,6 +159,7 @@ public class EditorTabController {
         RuleElementRectangle r = new RuleElementRectangle(0, 0, nameTextField.getText(), ruleType);
         r.setGameRule(gameRule);
         r.addPreRule(previousRect);
+        previousRect.addPostRule(r);
         setRectXPlacement(r, previousRect);
         setRectYPlacement(r, previousRect);
 
