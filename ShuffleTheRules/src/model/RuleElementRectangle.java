@@ -17,6 +17,7 @@ public class RuleElementRectangle extends Rectangle {
     private GameRule gameRule;
     private Paint defaultBorderColor;
     private boolean clicked = false;
+    private ArrayList<RuleElementRectangle> preRules = new ArrayList<>();
     private ArrayList<RuleElementRectangle> postRules = new ArrayList<>();
     private ArrayList<Line> outLines = new ArrayList<>();
     private ArrayList<Line> inLines = new ArrayList<>();
@@ -419,6 +420,36 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
+     * Returns this.preRules; an ArrayList of Rectangles that immediately precede this Rectangle.
+     *
+     * @return ArrayList of Game Rules that immediately precede this Game Rule
+     */
+    public ArrayList<RuleElementRectangle> getPreRules() {
+        return this.preRules;
+    }
+
+
+    /**
+     * Sets this.preRules, given an ArrayList of Rectangles that immediately precede this Rectangle.
+     *
+     * @param preRules ArrayList of Rectangles that immediately precede this Rectangle
+     */
+    public void setPreRules(ArrayList<RuleElementRectangle> preRules) {
+        this.preRules = preRules;
+    }
+
+
+    /**
+     * Adds a rectangle to the list of pre-rules - rules that immediately precede this rectangle in the rule tree.
+     *
+     * @param preRule A RuleElementRectangle that immediately precedes this rectangle in the rule tree.
+     */
+    public void addPreRule(RuleElementRectangle preRule) {
+        this.preRules.add(preRule);
+    }
+
+
+    /**
      * Returns this.postRules; an ArrayList of Rectangles that immediately proceed this Rectangle.
      *
      * @return ArrayList of Game Rules that immediately follow this Game Rule
@@ -435,6 +466,16 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void setPostRules(ArrayList<RuleElementRectangle> postRules) {
         this.postRules = postRules;
+    }
+
+
+    /**
+     * Adds a rectangle to the list of post-rules - rules that immediately proceed this rectangle in the rule tree.
+     *
+     * @param postRule A RuleElementRectangle that immediately proceeds this rectangle in the rule tree.
+     */
+    public void addPostRule(RuleElementRectangle postRule) {
+        this.postRules.add(postRule);
     }
 
 

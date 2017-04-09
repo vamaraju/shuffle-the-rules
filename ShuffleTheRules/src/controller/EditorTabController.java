@@ -158,6 +158,7 @@ public class EditorTabController {
 
         RuleElementRectangle r = new RuleElementRectangle(0, 0, nameTextField.getText(), ruleType);
         r.setGameRule(gameRule);
+        r.addPreRule(previousRect);
         setRectXPlacement(r, previousRect);
         setRectYPlacement(r, previousRect);
 
@@ -238,7 +239,7 @@ public class EditorTabController {
 
             view.getClickedEventTypeValue().setText(r.getGameRuleName());
             view.getClickedEventNameValue().setText(r.getText());
-            view.getClickedEventPreviousEventValue().setText("previous event");
+            view.getClickedEventPreviousEventValue().setText(getPreviousRuleText(r));
         } else if (r.getDefaultBorderColor() == Color.RED) { // rectangle is for an action
             view.getClickedActionTypeHeader().setVisible(true);
             view.getClickedActionTypeValue().setVisible(true);
@@ -249,7 +250,7 @@ public class EditorTabController {
 
             view.getClickedActionTypeValue().setText(r.getGameRuleName());
             view.getClickedActionNameValue().setText(r.getText());
-            view.getClickedActionPreviousEventValue().setText("previous action");
+            view.getClickedActionPreviousEventValue().setText(getPreviousRuleText(r));
         }
     }
 
@@ -303,6 +304,20 @@ public class EditorTabController {
             }
         }
         return null;
+    }
+
+
+    private String getPreviousRuleText(RuleElementRectangle r) {
+        String previousRulesStr = "";
+        if (r.getPreRules().size() > 0) {
+            for (RuleElementRectangle preRule : r.getPreRules()) {
+                previousRulesStr += preRule.getText() + ", ";
+            }
+            previousRulesStr = previousRulesStr.substring(0, previousRulesStr.length()-2);
+        } else {
+            previousRulesStr = "N/A";
+        }
+        return previousRulesStr;
     }
 
 
