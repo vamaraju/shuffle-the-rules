@@ -19,6 +19,9 @@ public class GameplayController {
         gameplayView.getEndTurnButton().setOnAction(this::onEndTurnButtonClick);
         gameplayView.getSortHandButton().setOnAction(this::onSortHandButtonClick);
 
+        addMessage(new GameplayMessage("Event", "onGameStart"));
+        addMessage(new GameplayMessage("Action", "Deal 5 cards"));
+        addMessage(new GameplayMessage("Turn", "Player 1 Turn Start"));
     }
 
 
