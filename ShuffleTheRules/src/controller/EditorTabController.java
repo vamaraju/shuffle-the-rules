@@ -116,16 +116,19 @@ public class EditorTabController {
         Pane drawingPane = view.getEditorDrawingPane();
         ComboBox comboBox = null;
         TextField nameTextField = null;
+        TextField descriptionTextField = null;
         TextField previousRuleTextField = null;
 
         if (ruleType.equals("event")) {
             comboBox = view.getEventComboBox();
             nameTextField = view.getEventNameTextField();
             previousRuleTextField = view.getEventPreviousRuleTextField();
+            descriptionTextField = view.getEventDescriptionTextField();
         } else if (ruleType.equals("action")) {
             comboBox = view.getActionComboBox();
             nameTextField = view.getActionNameTextField();
             previousRuleTextField = view.getActionPreviousRuleTextField();
+            descriptionTextField = view.getActionDescriptionTextField();
         }
 
         String previousRuleName = previousRuleTextField.getText();
@@ -154,6 +157,11 @@ public class EditorTabController {
             gameRule = (GameEvent) comboBox.getValue();
         } else if (ruleType.equals("action")) {
             gameRule = (GameAction) comboBox.getValue();
+        }
+
+        String ruleDescription = descriptionTextField.getText();
+        if (!(ruleDescription == null || ruleDescription.equals(""))) {
+            gameRule.setDescription(ruleDescription);
         }
 
         RuleElementRectangle r = new RuleElementRectangle(0, 0, nameTextField.getText(), ruleType);
@@ -246,12 +254,12 @@ public class EditorTabController {
             view.getClickedActionTypeValue().setVisible(true);
             view.getClickedActionNameHeader().setVisible(true);
             view.getClickedActionNameValue().setVisible(true);
-            view.getClickedActionPreviousEventHeader().setVisible(true);
-            view.getClickedActionPreviousEventValue().setVisible(true);
+            view.getClickedActionPreviousActionHeader().setVisible(true);
+            view.getClickedActionPreviousActionValue().setVisible(true);
 
             view.getClickedActionTypeValue().setText(r.getGameRuleName());
             view.getClickedActionNameValue().setText(r.getText());
-            view.getClickedActionPreviousEventValue().setText(getPreviousRuleText(r));
+            view.getClickedActionPreviousActionValue().setText(getPreviousRuleText(r));
         }
     }
 
@@ -272,8 +280,8 @@ public class EditorTabController {
             view.getClickedActionTypeValue().setVisible(false);
             view.getClickedActionNameHeader().setVisible(false);
             view.getClickedActionNameValue().setVisible(false);
-            view.getClickedActionPreviousEventHeader().setVisible(false);
-            view.getClickedActionPreviousEventValue().setVisible(false);
+            view.getClickedActionPreviousActionHeader().setVisible(false);
+            view.getClickedActionPreviousActionValue().setVisible(false);
         }
     }
 
