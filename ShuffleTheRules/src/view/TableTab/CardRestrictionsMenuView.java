@@ -54,6 +54,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         HBox heartHBox = new HBox(10);
         heartCount = new TextField();
+        heartCount.setMaxSize(50, 20);
         heartImageView.setPreserveRatio(true);
         heartImageView.setFitHeight(50);
         heartImageView.setFitWidth(50);
@@ -61,6 +62,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         HBox spadeHBox = new HBox(10);
         spadeCount = new TextField();
+        spadeCount.setMaxSize(50, 20);
         spadeImageView.setPreserveRatio(true);
         spadeImageView.setFitHeight(50);
         spadeImageView.setFitWidth(50);
@@ -68,6 +70,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         HBox clubHBox = new HBox(10);
         clubCount = new TextField();
+        clubCount.setMaxSize(50, 20);
         clubImageView.setPreserveRatio(true);
         clubImageView.setFitHeight(50);
         clubImageView.setFitWidth(50);
@@ -75,6 +78,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         HBox diamondHBox = new HBox(10);
         diamondCount = new TextField();
+        diamondCount.setMaxSize(50, 20);
         diamondImageView.setPreserveRatio(true);
         diamondImageView.setFitHeight(50);
         diamondImageView.setFitWidth(50);
