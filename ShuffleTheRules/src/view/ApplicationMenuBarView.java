@@ -35,11 +35,19 @@ public class ApplicationMenuBarView {
         MenuItem hostMenuItem = new MenuItem("Host Game");
         MenuItem joinMenuItem = new MenuItem("Join Game");
 
-        playMenu.getItems().addAll(hostMenuItem, joinMenuItem);
+        /* currently added for testing purposes. Will be removed */
+        /* TODO delete */
+        MenuItem gameplayTesting = new MenuItem("Gameplay Testing");
+
+        playMenu.getItems().addAll(hostMenuItem, joinMenuItem, gameplayTesting);
 
         newMenuItem.setOnAction(controller::onNewGameClick);
         saveMenuItem.setOnAction(controller::onSaveGameClick);
         loadMenuItem.setOnAction(controller::onLoadGameClick);
+
+        /* currently added for testing purposes. Will be removed */
+        /* TODO delete */
+        gameplayTesting.setOnAction(controller::onGameplayTestingClick);
     }
 
 

@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.event.Event;
@@ -81,4 +82,7 @@ public class ApplicationMenuBarController {
 
     }
 
+    public void onGameplayTestingClick(Event e) {
+
+    }
 }
