@@ -1,7 +1,6 @@
 package view;
 
 import javafx.scene.control.*;
-import model.ApplicationMenuBar;
 import controller.ApplicationMenuBarController;
 
 public class ApplicationMenuBarView {
@@ -43,33 +42,6 @@ public class ApplicationMenuBarView {
         loadMenuItem.setOnAction(controller::onLoadGameClick);
     }
 
-    public void newFile(){
-
-    }
-
-    public void saveFile(){
-
-    }
-
-    public void loadFile(){
-
-    }
-
-    public void validateFile(){
-
-    }
-
-    public void exit(){
-
-    }
-
-    public void hostGame(){
-
-    }
-
-    public void joinGame(){
-
-    }
 
     public MenuBar getMenuBar(){
         return this.menuBar;
