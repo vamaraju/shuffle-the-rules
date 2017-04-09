@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class Card implements Serializable, Comparable {
-    private int value;
+    private PlayingCard value;
     private Suit suit;
     private String cardFaceAssetLocation;
     private String cardBackAssetLocation;
@@ -12,7 +12,7 @@ public class Card implements Serializable, Comparable {
     public Card() {
     }
 
-    public Card(int value, Suit suit){
+    public Card(PlayingCard value, Suit suit){
         this.value = value;
         this.suit = suit;
     }
@@ -41,11 +41,11 @@ public class Card implements Serializable, Comparable {
         this.cardOrientation = cardOrientation;
     }
 
-    public int getValue() {
+    public PlayingCard getValue() {
         return this.value;
     }
 
-    public void setValue(int value) {
+    public void setValue(PlayingCard value) {
         this.value = value;
     }
 
@@ -59,7 +59,7 @@ public class Card implements Serializable, Comparable {
 
     @Override
     public int hashCode() {
-        return this.value + this.suit.hashCode();
+        return this.value.getValue() + this.suit.hashCode();
     }
 
     @Override
@@ -75,9 +75,9 @@ public class Card implements Serializable, Comparable {
     @Override
     public int compareTo(Object obj) {
         Card otherCard = (Card) obj;
-        if (this.getValue() < otherCard.getValue()) {
+        if (this.getValue().getValue() < otherCard.getValue().getValue()) {
             return -1;
-        } else if (this.getValue() > otherCard.getValue()) {
+        } else if (this.getValue().getValue() > otherCard.getValue().getValue()) {
             return 1;
         } else {
             return 0;
