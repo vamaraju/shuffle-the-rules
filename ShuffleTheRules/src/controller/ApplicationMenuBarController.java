@@ -1,10 +1,14 @@
 package controller;
 
+import javafx.event.ActionEvent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.event.Event;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.GameCreation;
+import view.Gameplay.GameplayView;
 
 import java.io.File;
 import java.io.IOException;
@@ -81,4 +85,11 @@ public class ApplicationMenuBarController {
 
     }
 
+    public void onGameplayTestingClick(Event e) {
+        Stage gameplayStage = new Stage();
+        gameplayStage.setTitle("Shuffle The Rules - Gameplay Mode");
+        GameplayView gameplayView = new GameplayView();
+        gameplayStage.setScene(new Scene(gameplayView, 1000,600));
+        gameplayStage.show();
+    }
 }
