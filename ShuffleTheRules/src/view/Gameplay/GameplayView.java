@@ -1,5 +1,6 @@
 package view.Gameplay;
 
+import controller.GameplayController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -19,6 +20,8 @@ public class GameplayView extends BorderPane {
     private Button sortHand = new Button("Sort Hand");
 
 
+    private GameplayMessageView gameplayMessageView;
+
     public GameplayView(){
         initialize();
     }
@@ -35,14 +38,8 @@ public class GameplayView extends BorderPane {
 
 
         /* right pane will be where text is displayed for Events and Actions */
-
-        ObservableList<GameplayMessage> descriptions = FXCollections.observableArrayList();
-        ListView<GameplayMessage> descriptionsListView = new ListView<GameplayMessage>(descriptions);
-        /* */
-        descriptions.add(new GameplayMessage("Event", "onGameStart"));
-        descriptions.add(new GameplayMessage("Action", "Deal 5 cards"));
-        descriptions.add(new GameplayMessage("Turn", "Player 1 Turn Start"));
-        this.setRight(descriptionsListView);
+        gameplayMessageView = new GameplayMessageView();
+        this.setRight(gameplayMessageView);
 
         /* bottom pane will be where hand and buttons are displayed */
 
@@ -57,5 +54,15 @@ public class GameplayView extends BorderPane {
         this.setBottom(handAndButtons);
     }
 
+    public Button getEndTurnButton() {
+        return endTurn;
+    }
 
+    public Button getSortHandButton() {
+        return sortHand;
+    }
+
+    public GameplayMessageView getGameplayMessageView(){
+        return this.gameplayMessageView;
+    }
 }

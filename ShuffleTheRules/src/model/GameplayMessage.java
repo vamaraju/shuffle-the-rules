@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import java.io.Serializable;
 
 public class GameplayMessage extends HBox implements Serializable {
+
     private String type;
     private String message;
 
