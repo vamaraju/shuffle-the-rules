@@ -40,6 +40,13 @@ public class EditorTabView extends Tab {
     private Label clickedEventPreviousEventHeader;
     private Label clickedEventPreviousEventValue;
 
+    private Label clickedActionTypeHeader;
+    private Label clickedActionTypeValue;
+    private Label clickedActionNameHeader;
+    private Label clickedActionNameValue;
+    private Label clickedActionPreviousEventHeader;
+    private Label clickedActionPreviousEventValue;
+
     private Line curLine;
 
     public EditorTabView() {
@@ -69,6 +76,13 @@ public class EditorTabView extends Tab {
         clickedEventNameValue = new Label();
         clickedEventPreviousEventHeader = new Label("Previous Rule(s):");
         clickedEventPreviousEventValue = new Label();
+
+        clickedActionTypeHeader = new Label("Action Type:");
+        clickedActionTypeValue = new Label();
+        clickedActionNameHeader = new Label("Action Name:");
+        clickedActionNameValue = new Label();
+        clickedActionPreviousEventHeader = new Label("Previous Rule(s):");
+        clickedActionPreviousEventValue = new Label();
 
         window.setCenter(scrollPane);
         window.setRight(accordion);
@@ -167,6 +181,30 @@ public class EditorTabView extends Tab {
         return clickedEventPreviousEventValue;
     }
 
+    public Label getClickedActionTypeHeader() {
+        return clickedActionTypeHeader;
+    }
+
+    public Label getClickedActionTypeValue() {
+        return clickedActionTypeValue;
+    }
+
+    public Label getClickedActionNameHeader() {
+        return clickedActionNameHeader;
+    }
+
+    public Label getClickedActionNameValue() {
+        return clickedActionNameValue;
+    }
+
+    public Label getClickedActionPreviousEventHeader() {
+        return clickedActionPreviousEventHeader;
+    }
+
+    public Label getClickedActionPreviousEventValue() {
+        return clickedActionPreviousEventValue;
+    }
+
     public RuleElementRectangle getClickedRectangle() {
         return clickedRectangle;
     }
@@ -207,11 +245,26 @@ public class EditorTabView extends Tab {
         this.actionsGrid.setHgap(10);
         this.actionsGrid.setPadding(new Insets(5, 5, 5, 5));
 
-        actionNameTextField.setPromptText("Enter a Rule Name");
-        this.actionsGrid.add(actionComboBox, 0, 0);
-        this.actionsGrid.add(new Label("Name: "), 1, 0);
-        this.actionsGrid.add(actionNameTextField, 2, 0);
-        this.actionsGrid.add(addActionButton, 3, 0);
+        actionNameTextField.setPromptText("Enter a Name");
+        actionPreviousRuleTextField.setPromptText("Enter the Previous Rule");
+        actionPreviousRuleTextField.setText("Game Start");
+        this.actionsGrid.addRow(0, new Label("Action Type: "), actionComboBox);
+        this.actionsGrid.addRow(1, new Label("Action Name: "), actionNameTextField);
+        this.actionsGrid.addRow(2, new Label("Previous Rule: "), actionPreviousRuleTextField);
+        this.actionsGrid.add(addActionButton, 0, 3);
+        this.actionsGrid.add(new Separator(), 0, 4);
+        this.actionsGrid.add(new Label("Clicked Action:"), 0, 5);
+
+        clickedActionTypeHeader.setVisible(false);
+        clickedActionNameHeader.setVisible(false);
+        clickedActionPreviousEventHeader.setVisible(false);
+        clickedActionTypeValue.setVisible(false);
+        clickedActionNameValue.setVisible(false);
+        clickedActionPreviousEventValue.setVisible(false);
+
+        this.actionsGrid.addRow(6, clickedActionTypeHeader, clickedActionTypeValue);
+        this.actionsGrid.addRow(7, clickedActionNameHeader, clickedActionNameValue);
+        this.actionsGrid.addRow(8, clickedActionPreviousEventHeader, clickedActionPreviousEventValue);
     }
 
     public void initEventComboBox() {

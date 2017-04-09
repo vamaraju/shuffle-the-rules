@@ -4,18 +4,18 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.GameEvents.OnGameStartEvent;
+import model.GameRule;
 import model.RuleElementRectangle;
 import view.EditorTabView;
 
@@ -86,36 +86,73 @@ public class EditorTabController {
     }
 
 
-    public void onAddEventButtonClick(Event event) {
-        Pane drawingPane = view.getEditorDrawingPane();
-        ComboBox eventComboBox = view.getEventComboBox();
-        TextField eventNameTextField = view.getEventNameTextField();
-        TextField eventPreviousRuleTextField = view.getEventPreviousRuleTextField();
+    /**
+     * Onclick listener for the "Add Event" button in the Editor tab, Events sub-tab.
+     * Adds a rectangle with text to the drawing pane, as well as any connecting lines to other rectangles.
+     *
+     * @param e
+     */
+    public void onAddEventButtonClick(Event e) {
+        addButtonClick("event");
+    }
 
-        String previousRuleName = eventPreviousRuleTextField.getText();
+
+    /**
+     * Onclick listener for the "Add Action" button in the Editor tab, Actions sub-tab.
+     * Adds a rectangle with text to the drawing pane, as well as any connecting lines to other rectangles.
+     *
+     * @param e
+     */
+    public void onAddActionButtonClick(Event e){
+        addButtonClick("action");
+    }
+
+
+    /**
+     * Logic for "Add Event" and "Add Action" button onclick listeners.
+     *
+     * @param ruleType A string that is either "event" or "action", corresponding to the specific button click (rule).
+     */
+    private void addButtonClick(String ruleType) {
+        Pane drawingPane = view.getEditorDrawingPane();
+        ComboBox comboBox = null;
+        TextField nameTextField = null;
+        TextField previousRuleTextField = null;
+
+        if (ruleType.equals("event")) {
+            comboBox = view.getEventComboBox();
+            nameTextField = view.getEventNameTextField();
+            previousRuleTextField = view.getEventPreviousRuleTextField();
+        } else if (ruleType.equals("action")) {
+            comboBox = view.getActionComboBox();
+            nameTextField = view.getActionNameTextField();
+            previousRuleTextField = view.getActionPreviousRuleTextField();
+        }
+
+        String previousRuleName = previousRuleTextField.getText();
         RuleElementRectangle previousRect = findRectangleByName(previousRuleName);
         if (previousRect == null) {
-            showPreviousRuleErrorAlert(previousRuleName);
+            showPreviousRuleNotFoundErrorAlert(previousRuleName);
             return;
         }
 
-        if (eventComboBox.getValue() == null) {
-            showEventTypeErrorAlert();
+        String ruleName = nameTextField.getText();
+        if (ruleName == null || ruleName.equals("")) {
+            showRuleNameEmptyErrorAlert(ruleType);
             return;
-        }
-        String gameEventClassName = eventComboBox.getValue().toString();
-
-        String eventName = eventNameTextField.getText();
-        if (eventName == null || eventName.equals("")) {
-            showEventNameEmptyErrorAlert();
-            return;
-        } else if (findRectangleByName(eventName) != null) {
-            showEventNameExistsErrorAlert(eventName);
+        } else if (findRectangleByName(ruleName) != null) {
+            showRuleNameExistsErrorAlert(ruleType, ruleName);
             return;
         }
 
-        RuleElementRectangle r = new RuleElementRectangle(0, 0, eventNameTextField.getText(), "event");
-        r.setGameRule(this.getGameEventFromName(gameEventClassName));
+        if (comboBox.getValue() == null) {
+            showRuleTypeNotSelectedErrorAlert(ruleType);
+            return;
+        }
+        String gameRuleClassName = comboBox.getValue().toString();
+
+        RuleElementRectangle r = new RuleElementRectangle(0, 0, nameTextField.getText(), ruleType);
+        r.setGameRule(this.getGameRuleFromName(ruleType, gameRuleClassName));
         setRectXPlacement(r, previousRect);
         setRectYPlacement(r, previousRect);
 
@@ -131,55 +168,44 @@ public class EditorTabController {
             drawingPane.setMinHeight(r.getEndY()+100);
         }
 
-        r.setOnMouseClicked(this::onEventRectangleClicked);
-        r.getTextObj().setOnMouseClicked(this::onEventRectangleClicked);
+        r.setOnMouseClicked(this::onRectangleClicked);
+        r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
 
         drawingPane.getChildren().addAll(r, r.getTextObj(), l);
     }
 
 
-    public void onAddActionButtonClick(Event event){
-        Pane drawingPane = view.getEditorDrawingPane();
-        TextField actionIdTextField = view.getActionNameTextField();
-
-        Rectangle r = new Rectangle(100, 200, 100, 50);
-        r.setFill(Color.WHITE);
-        r.setStrokeWidth(2);
-        r.setStroke(Color.RED);
-
-        StackPane s = new StackPane();
-        s.getChildren().addAll(r, new Text(actionIdTextField.getText()));
-
-        drawingPane.getChildren().add(s);
-    }
-
-
-
-
-
-    private GameEvent getGameEventFromName(String gameEventClassName) {
+    private GameRule getGameRuleFromName(String ruleType, String gameRuleClassName) {
         try {
-            Class gameEventClass = Class.forName("model.GameEvents." + gameEventClassName);
-            GameEvent gameEvent = (GameEvent) gameEventClass.getConstructor().newInstance();
-            return gameEvent;
+            Class gameRuleClass = null;
+            GameRule gameRule = null;
+            if (ruleType.equals("event")) {
+                gameRuleClass = Class.forName("model.GameEvents." + gameRuleClassName);
+                gameRule = (GameEvent) gameRuleClass.getConstructor().newInstance();
+            } else if (ruleType.equals("action")) {
+                gameRuleClass = Class.forName("model.GameActions." + gameRuleClassName);
+                gameRule = (GameAction) gameRuleClass.getConstructor().newInstance();
+            }
+            return gameRule;
         } catch (ClassNotFoundException e) {
-            System.out.println("Error converting combobox GameEvent name to a class: Class " + gameEventClassName + "not found.");
+            System.out.println("Error converting combobox GameEvent name to a class: Class " + gameRuleClassName + "not found.");
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
-            System.out.println("Error getting constructor for GameEvent: No constructor found for Class " + gameEventClassName);
+            System.out.println("Error getting constructor for GameEvent: No constructor found for Class " + gameRuleClassName);
             e.printStackTrace();
         } catch (InstantiationException e) {
-            System.out.println("Error creating instance of GameEvent: Instantiation failed for Class " + gameEventClassName);
+            System.out.println("Error creating instance of GameEvent: Instantiation failed for Class " + gameRuleClassName);
             e.printStackTrace();
         } catch (IllegalAccessException e) {
-            System.out.println("Error accessing instance of GameEvent: Instantiation failed for Class " + gameEventClassName);
+            System.out.println("Error accessing instance of GameEvent: Instantiation failed for Class " + gameRuleClassName);
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            System.out.println("Error invoking instance of GameEvent: Instantiation failed for Class " + gameEventClassName);
+            System.out.println("Error invoking instance of GameEvent: Instantiation failed for Class " + gameRuleClassName);
             e.printStackTrace();
         }
         return null;
     }
+
 
     public void addOnGameStart(Pane drawingPane) {
         RuleElementRectangle r = new RuleElementRectangle(160, 50, "Game Start", "event");
@@ -187,8 +213,8 @@ public class EditorTabController {
 
         drawingPane.getChildren().addAll(r, r.getTextObj());
 
-        r.setOnMouseClicked(this::onEventRectangleClicked);
-        r.getTextObj().setOnMouseClicked(this::onEventRectangleClicked);
+        r.setOnMouseClicked(this::onRectangleClicked);
+        r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
     }
 
 
@@ -209,7 +235,7 @@ public class EditorTabController {
     }
 
 
-    private void onEventRectangleClicked(MouseEvent e) {
+    private void onRectangleClicked(MouseEvent e) {
         RuleElementRectangle r = this.findClickedRectangle(e.getX(), e.getY());
 
         if (!r.isClicked()) { // the Rectangle has just been clicked. r.clicked needs to be set to true
@@ -224,32 +250,56 @@ public class EditorTabController {
         }
     }
 
+
     private void rectangleClick(RuleElementRectangle r) {
         r.setClicked(true);
         r.setStroke(Color.GREY);
 
-        view.getClickedEventTypeHeader().setVisible(true);
-        view.getClickedEventTypeValue().setVisible(true);
-        view.getClickedEventNameHeader().setVisible(true);
-        view.getClickedEventNameValue().setVisible(true);
-        view.getClickedEventPreviousEventHeader().setVisible(true);
-        view.getClickedEventPreviousEventValue().setVisible(true);
+        if (r.getDefaultBorderColor() == Color.BLUE) {  // rectangle is for an event
+            view.getClickedEventTypeHeader().setVisible(true);
+            view.getClickedEventTypeValue().setVisible(true);
+            view.getClickedEventNameHeader().setVisible(true);
+            view.getClickedEventNameValue().setVisible(true);
+            view.getClickedEventPreviousEventHeader().setVisible(true);
+            view.getClickedEventPreviousEventValue().setVisible(true);
 
-        view.getClickedEventTypeValue().setText(r.getGameRuleName());
-        view.getClickedEventNameValue().setText(r.getText());
-        view.getClickedEventPreviousEventValue().setText("previous event");
+            view.getClickedEventTypeValue().setText(r.getGameRuleName());
+            view.getClickedEventNameValue().setText(r.getText());
+            view.getClickedEventPreviousEventValue().setText("previous event");
+        } else if (r.getDefaultBorderColor() == Color.RED) { // rectangle is for an action
+            view.getClickedActionTypeHeader().setVisible(true);
+            view.getClickedActionTypeValue().setVisible(true);
+            view.getClickedActionNameHeader().setVisible(true);
+            view.getClickedActionNameValue().setVisible(true);
+            view.getClickedActionPreviousEventHeader().setVisible(true);
+            view.getClickedActionPreviousEventValue().setVisible(true);
+
+            view.getClickedActionTypeValue().setText(r.getGameRuleName());
+            view.getClickedActionNameValue().setText(r.getText());
+            view.getClickedActionPreviousEventValue().setText("previous action");
+        }
     }
+
 
     private void rectangleUnclick(RuleElementRectangle r) {
         r.setClicked(false);
         r.setStroke(r.getDefaultBorderColor());
 
-        view.getClickedEventTypeHeader().setVisible(false);
-        view.getClickedEventTypeValue().setVisible(false);
-        view.getClickedEventNameHeader().setVisible(false);
-        view.getClickedEventNameValue().setVisible(false);
-        view.getClickedEventPreviousEventHeader().setVisible(false);
-        view.getClickedEventPreviousEventValue().setVisible(false);
+        if (r.getDefaultBorderColor() == Color.BLUE) { // rectangle is for an event
+            view.getClickedEventTypeHeader().setVisible(false);
+            view.getClickedEventTypeValue().setVisible(false);
+            view.getClickedEventNameHeader().setVisible(false);
+            view.getClickedEventNameValue().setVisible(false);
+            view.getClickedEventPreviousEventHeader().setVisible(false);
+            view.getClickedEventPreviousEventValue().setVisible(false);
+        } else if (r.getDefaultBorderColor() == Color.RED) { // rectangle is for an action
+            view.getClickedActionTypeHeader().setVisible(false);
+            view.getClickedActionTypeValue().setVisible(false);
+            view.getClickedActionNameHeader().setVisible(false);
+            view.getClickedActionNameValue().setVisible(false);
+            view.getClickedActionPreviousEventHeader().setVisible(false);
+            view.getClickedActionPreviousEventValue().setVisible(false);
+        }
     }
 
 
@@ -330,7 +380,7 @@ public class EditorTabController {
     }
 
 
-    private void showPreviousRuleErrorAlert(String previousRuleName) {
+    private void showPreviousRuleNotFoundErrorAlert(String previousRuleName) {
         Alert alert = new Alert(Alert.AlertType.WARNING, "The specified previous rule name cannot be found in editor: \n" + previousRuleName + "\nPlease enter a previous rule name that already exists in the rule tree. Note that the names are case-sensitive.");
         alert.setTitle("Previous Rule Error");
         alert.setHeaderText("Previous Rule Not Found");
@@ -338,26 +388,29 @@ public class EditorTabController {
     }
 
 
-    private void showEventTypeErrorAlert() {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a game event type from the drop-down box.");
-        alert.setTitle("Event Type Error");
-        alert.setHeaderText("Event Type Not Selected");
+    private void showRuleTypeNotSelectedErrorAlert(String ruleType) {
+        String ruleTypeCapitalized = ruleType.substring(0, 1).toUpperCase() + ruleType.substring(1);
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a game " + ruleType + " type from the drop-down box.");
+        alert.setTitle(ruleTypeCapitalized + " Type Error");
+        alert.setHeaderText(ruleTypeCapitalized + " Type Not Selected");
         alert.showAndWait();
     }
 
 
-    private void showEventNameEmptyErrorAlert() {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter an event name in the text field.");
-        alert.setTitle("Event Name Error");
-        alert.setHeaderText("Event Name Is Missing");
+    private void showRuleNameEmptyErrorAlert(String ruleType) {
+        String ruleTypeCapitalized = ruleType.substring(0, 1).toUpperCase() + ruleType.substring(1);
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter an " + ruleType + " name in the text field.");
+        alert.setTitle(ruleTypeCapitalized + " Name Error");
+        alert.setHeaderText(ruleTypeCapitalized + " Name Is Missing");
         alert.showAndWait();
     }
 
 
-    private void showEventNameExistsErrorAlert(String eventName) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter a unique event name in the text field. The specified name already exists in the rule tree: \n" + eventName);
-        alert.setTitle("Event Name Error");
-        alert.setHeaderText("Event Name Is A Duplicate");
+    private void showRuleNameExistsErrorAlert(String ruleType, String eventName) {
+        String ruleTypeCapitalized = ruleType.substring(0, 1).toUpperCase() + ruleType.substring(1);
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter a unique " + ruleType + " name in the text field. The specified name already exists in the rule tree: \n" + eventName);
+        alert.setTitle(ruleTypeCapitalized + " Name Error");
+        alert.setHeaderText(ruleTypeCapitalized + " Name Is A Duplicate");
         alert.showAndWait();
     }
 }

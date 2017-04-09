@@ -149,8 +149,10 @@ public class RuleElementRectangle extends Rectangle {
 
         if (ruleType.equals("event")) {
             this.setStroke(Color.BLUE);
+            this.defaultBorderColor = Color.BLUE;
         } else if (ruleType.equals("action")) {
             this.setStroke(Color.RED);
+            this.defaultBorderColor = Color.RED;
         }
         this.setListeners();
     }
