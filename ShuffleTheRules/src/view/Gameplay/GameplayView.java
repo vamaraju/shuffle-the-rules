@@ -1,11 +1,16 @@
 package view.Gameplay;
 
+import controller.GameplayController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import model.GameplayMessage;
 import view.TableTab.TableGridView;
+
 
 
 public class GameplayView extends BorderPane {
@@ -14,6 +19,8 @@ public class GameplayView extends BorderPane {
     private Button endTurn = new Button("End Turn");
     private Button sortHand = new Button("Sort Hand");
 
+
+    private GameplayMessageView gameplayMessageView;
 
     public GameplayView(){
         initialize();
@@ -24,14 +31,15 @@ public class GameplayView extends BorderPane {
         /* top will be the menu bar */
 
         /* centre pane will be the table */
+        /* need to pass in TableGrid values*/
         TableGridView table = new TableGridView();
 
         this.setCenter(table);
 
 
         /* right pane will be where text is displayed for Events and Actions */
-
-
+        gameplayMessageView = new GameplayMessageView();
+        this.setRight(gameplayMessageView);
 
         /* bottom pane will be where hand and buttons are displayed */
 
@@ -43,7 +51,18 @@ public class GameplayView extends BorderPane {
         buttonsPane.add(sortHand,1,2,1,1);
 
         handAndButtons.getChildren().addAll(buttonsPane);
+        this.setBottom(handAndButtons);
     }
 
+    public Button getEndTurnButton() {
+        return endTurn;
+    }
 
+    public Button getSortHandButton() {
+        return sortHand;
+    }
+
+    public GameplayMessageView getGameplayMessageView(){
+        return this.gameplayMessageView;
+    }
 }
