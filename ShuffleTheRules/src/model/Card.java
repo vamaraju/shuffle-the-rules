@@ -7,14 +7,23 @@ public class Card implements Serializable, Comparable {
     private Suit suit;
     private String cardFaceAssetLocation;
     private String cardBackAssetLocation;
-    private String cardOrientation;
+    private CardOrientation orientation;
 
     public Card() {
+
     }
 
     public Card(PlayingCard value, Suit suit){
         this.value = value;
         this.suit = suit;
+
+        this.cardFaceAssetLocation = "assets/playing_cards/" + suit.getName().toLowerCase() + "/" + value.getName().toLowerCase() + ".png";
+        this.cardBackAssetLocation = "assets/playing_cards/back/blue.png";
+    }
+
+    public Card(PlayingCard value, Suit suit, CardOrientation orientation){
+        this(value, suit);
+        this.orientation = orientation;
     }
 
     public String getCardFaceAssetLocation() {
@@ -33,12 +42,12 @@ public class Card implements Serializable, Comparable {
         this.cardBackAssetLocation = cardBackAssetLocation;
     }
 
-    public String getCardOrientation() {
-        return this.cardOrientation;
+    public CardOrientation getOrientation() {
+        return this.orientation;
     }
 
-    public void setCardOrientation(String cardOrientation) {
-        this.cardOrientation = cardOrientation;
+    public void setOrientation(CardOrientation orientation) {
+        this.orientation = orientation;
     }
 
     public PlayingCard getValue() {

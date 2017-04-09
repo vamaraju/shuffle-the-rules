@@ -128,23 +128,8 @@ public class RuleElementRectangle extends Rectangle {
      * @param ruleType Either "event" or "action". Used to set the rectangle border color.
      */
     public RuleElementRectangle(double x, double y, String text, String ruleType) {
-        super(x, y, 150, 75);
+        this(x, y, text);
 
-        Text t = new Text(text);
-        t.setFont(new Font(15));
-        this.text = t;
-
-        double textWidth = t.getLayoutBounds().getWidth();
-        double rectWidth = textWidth + 40;
-        t.setWrappingWidth(rectWidth-20);
-        double textHeight = t.getLayoutBounds().getHeight();
-        double rectHeight = textHeight + 40;
-
-        this.setX(x, true);
-        this.setY(y, true);
-
-        this.setWidth(rectWidth);
-        this.setHeight(rectHeight);
         this.setFill(Color.WHITE);
         this.setStrokeWidth(2);
 
@@ -155,7 +140,6 @@ public class RuleElementRectangle extends Rectangle {
             this.setStroke(Color.RED);
             this.defaultBorderColor = Color.RED;
         }
-        this.setListeners();
     }
 
 

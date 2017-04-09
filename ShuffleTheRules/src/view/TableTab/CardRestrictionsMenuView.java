@@ -2,6 +2,7 @@ package view.TableTab;
 
 
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,10 +21,10 @@ public class CardRestrictionsMenuView extends TitledPane{
 
     private Button updateButton;
 
-    private ImageView heartImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/heart.png").toExternalForm());
-    private ImageView spadeImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/spade.png").toExternalForm());
-    private ImageView clubImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/club.png").toExternalForm());
-    private ImageView diamondImageView = new ImageView(getClass().getResource("../../assets/playing_cards/suits/diamond.png").toExternalForm());
+    private ImageView heartImageView = new ImageView(new Image("assets/playing_cards/suit/heart.png"));
+    private ImageView spadeImageView = new ImageView(new Image("assets/playing_cards/suit/spade.png"));
+    private ImageView clubImageView = new ImageView(new Image("assets/playing_cards/suit/club.png"));
+    private ImageView diamondImageView = new ImageView(new Image("assets/playing_cards/suit/diamond.png"));
 
     /* http://stackoverflow.com/questions/33626858/add-border-around-vbox-in-javafx */
     String greyLayoutBorder = "-fx-border-color: rgba(0,0,0,0.32);\n" +
