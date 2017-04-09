@@ -19,3 +19,6 @@ https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TextInputDialog
 
 ChoiceDialog
 https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ChoiceDialog.html
+
+SerializedEdgeDemo.java:
+https://gist.github.com/james-d/a7202039b00170256293
