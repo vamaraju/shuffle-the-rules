@@ -12,9 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import model.GameActions.GameAction;
-import model.GameEvents.GameEvent;
-import model.GameEvents.OnGameStartEvent;
+import model.GameActions.*;
+import model.GameEvents.*;
 import model.GameRule;
 import model.RuleElementRectangle;
 import view.EditorTabView;
@@ -40,26 +39,26 @@ public class EditorTabController {
      *
      * @return An ArrayList of Game Event names (strings).
      */
-    public ArrayList<String> getEventList() {
-        ArrayList<String> gameEventNames = new ArrayList<>();
+    public ArrayList<GameEvent> getEventList() {
+        ArrayList<GameEvent> gameEvents = new ArrayList<>();
 
-        gameEventNames.add("OnCardDrawnEvent");
-        gameEventNames.add("OnCardPlayedEvent");
-        gameEventNames.add("OnGameEndEvent");
-        gameEventNames.add("OnGameStartEvent");
-        gameEventNames.add("OnHandEmptyEvent");
-        gameEventNames.add("OnHandFullEvent");
-        gameEventNames.add("OnPileClickEvent");
-        gameEventNames.add("OnPileEmptyEvent");
-        gameEventNames.add("OnPileFullEvent");
-        gameEventNames.add("OnPlayerClickEvent");
-        gameEventNames.add("OnPlayerTurnEvent");
-        gameEventNames.add("OnRoundEndEvent");
-        gameEventNames.add("OnRoundStartEvent");
-        gameEventNames.add("OnTurnEndEvent");
-        gameEventNames.add("OnTurnStartEvent");
+        gameEvents.add(new OnCardDrawnEvent());
+        gameEvents.add(new OnCardPlayedEvent());
+        gameEvents.add(new OnGameEndEvent());
+        gameEvents.add(new OnGameStartEvent());
+        gameEvents.add(new OnHandEmptyEvent());
+        gameEvents.add(new OnHandFullEvent());
+        gameEvents.add(new OnPileClickEvent());
+        gameEvents.add(new OnPileEmptyEvent());
+        gameEvents.add(new OnPileFullEvent());
+        gameEvents.add(new OnPlayerClickEvent());
+        gameEvents.add(new OnPlayerTurnEvent());
+        gameEvents.add(new OnRoundEndEvent());
+        gameEvents.add(new OnRoundStartEvent());
+        gameEvents.add(new OnTurnEndEvent());
+        gameEvents.add(new OnTurnStartEvent());
 
-        return gameEventNames;
+        return gameEvents;
     }
 
 
@@ -69,20 +68,20 @@ public class EditorTabController {
      *
      * @return An ArrayList of Game Actions names (strings).
      */
-    public ArrayList<String> getActionList() {
-        ArrayList<String> gameActionNames = new ArrayList<>();
+    public ArrayList<GameAction> getActionList() {
+        ArrayList<GameAction> gameActions = new ArrayList<>();
 
-        gameActionNames.add("DealCardAction");
-        gameActionNames.add("DrawCardAction");
-        gameActionNames.add("EndGameAction");
-        gameActionNames.add("EndTurnAction");
-        gameActionNames.add("MoveCardAction");
-        gameActionNames.add("PlaceCardAction");
-        gameActionNames.add("ShufflePileAction");
-        gameActionNames.add("SkipTurnAction");
-        gameActionNames.add("StartTurnAction");
+        gameActions.add(new DealCardAction());
+        gameActions.add(new DrawCardAction());
+        gameActions.add(new EndGameAction());
+        gameActions.add(new EndTurnAction());
+        gameActions.add(new MoveCardAction());
+        gameActions.add(new PlaceCardAction());
+        gameActions.add(new ShufflePileAction());
+        gameActions.add(new SkipTurnAction());
+        gameActions.add(new StartTurnAction());
 
-        return gameActionNames;
+        return gameActions;
     }
 
 
@@ -149,10 +148,16 @@ public class EditorTabController {
             showRuleTypeNotSelectedErrorAlert(ruleType);
             return;
         }
-        String gameRuleClassName = comboBox.getValue().toString();
+
+        GameRule gameRule = null;
+        if (ruleType.equals("event")) {
+            gameRule = (GameEvent) comboBox.getValue();
+        } else if (ruleType.equals("action")) {
+            gameRule = (GameAction) comboBox.getValue();
+        }
 
         RuleElementRectangle r = new RuleElementRectangle(0, 0, nameTextField.getText(), ruleType);
-        r.setGameRule(this.getGameRuleFromName(ruleType, gameRuleClassName));
+        r.setGameRule(gameRule);
         setRectXPlacement(r, previousRect);
         setRectYPlacement(r, previousRect);
 
@@ -172,38 +177,6 @@ public class EditorTabController {
         r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
 
         drawingPane.getChildren().addAll(r, r.getTextObj(), l);
-    }
-
-
-    private GameRule getGameRuleFromName(String ruleType, String gameRuleClassName) {
-        try {
-            Class gameRuleClass = null;
-            GameRule gameRule = null;
-            if (ruleType.equals("event")) {
-                gameRuleClass = Class.forName("model.GameEvents." + gameRuleClassName);
-                gameRule = (GameEvent) gameRuleClass.getConstructor().newInstance();
-            } else if (ruleType.equals("action")) {
-                gameRuleClass = Class.forName("model.GameActions." + gameRuleClassName);
-                gameRule = (GameAction) gameRuleClass.getConstructor().newInstance();
-            }
-            return gameRule;
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error converting combobox GameEvent name to a class: Class " + gameRuleClassName + "not found.");
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            System.out.println("Error getting constructor for GameEvent: No constructor found for Class " + gameRuleClassName);
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            System.out.println("Error creating instance of GameEvent: Instantiation failed for Class " + gameRuleClassName);
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            System.out.println("Error accessing instance of GameEvent: Instantiation failed for Class " + gameRuleClassName);
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            System.out.println("Error invoking instance of GameEvent: Instantiation failed for Class " + gameRuleClassName);
-            e.printStackTrace();
-        }
-        return null;
     }
 
 

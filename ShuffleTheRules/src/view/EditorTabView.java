@@ -47,8 +47,6 @@ public class EditorTabView extends Tab {
     private Label clickedActionPreviousEventHeader;
     private Label clickedActionPreviousEventValue;
 
-    private Line curLine;
-
     public EditorTabView() {
 
         this.setText("Editor");

@@ -13,4 +13,8 @@ public abstract class GameAction extends GameRule implements Serializable {
         this.description = "A generic game action.";
     }
 
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

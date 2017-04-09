@@ -14,4 +14,9 @@ public abstract class GameEvent extends GameRule implements Serializable {
         this.description = "A generic game event.";
     }
 
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
 }
