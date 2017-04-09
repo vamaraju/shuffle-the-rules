@@ -2,9 +2,11 @@ package view.TableTab;
 
 
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 
 public class TableTabView extends Tab{
@@ -15,6 +17,7 @@ public class TableTabView extends Tab{
     private GeneralSettingsMenuView generalSettingsMenu;
     private Accordion tableTabAccordian;
     private TableGridView tableGridView;
+    private TableGridPropertiesView tableGridPropertiesView;
 
     public TableTabView(){
         initialize();
@@ -26,8 +29,13 @@ public class TableTabView extends Tab{
         tableTabBorderPane = new BorderPane();
 
         /* center (main portion) will be a grid */
+        VBox centrePaneVBox = new VBox();
+
         tableGridView = new TableGridView();
-        tableTabBorderPane.setCenter(tableGridView);
+        tableGridPropertiesView = new TableGridPropertiesView();
+
+        centrePaneVBox.getChildren().addAll(tableGridPropertiesView, new Separator(), tableGridView);
+        tableTabBorderPane.setCenter(centrePaneVBox);
 
         /* right side will contain menus */
         pileSettingsMenu = new PileSettingsMenuView();

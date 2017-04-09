@@ -1,9 +1,8 @@
+package view.TableTab;
+
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 /*
 * Used inside centre pane of TableTabView.
@@ -13,7 +12,7 @@ import javafx.scene.layout.VBox;
 * of low priority requirements.
 * */
 public class TableGridPropertiesView extends GridPane {
-    
+
     private Label height = new Label("Height:");
     private Label width = new Label("Width:");
     private Label showGrid = new Label("Hide/Show");
@@ -29,18 +28,23 @@ public class TableGridPropertiesView extends GridPane {
 
     public void initialize(){
 
+        this.setHgap(2);
+        this.setVgap(4);
+
         heightValue = new TextField();
-        heightValue.setMaxSize(20,50);
+        heightValue.setMaxSize(30,50);
+        this.add(height,1,1,1,1);
+        this.add(heightValue,2,1,1,1);
 
         widthValue = new TextField();
-        widthValue.setMaxSize(20,50);
+        widthValue.setMaxSize(30,50);
+        this.add(width,4,1,1,1);
+        this.add(widthValue,5,1,1,1);
 
         blockSizeValue = new TextField();
-        blockSize.setMaxSize(20,50);
-
-
-
-
+        blockSizeValue.setMaxSize(30,50);
+        this.add(blockSize,1,2,1,1);
+        this.add(blockSizeValue,2,2,1,1);
     }
 
     public TextField getHeightValue() {
@@ -67,12 +71,5 @@ public class TableGridPropertiesView extends GridPane {
         this.blockSizeValue = blockSizeValue;
     }
 
-    @Override
-    public String toString() {
-        return "TableGridPropertiesView{" +
-                "heightValue=" + heightValue +
-                ", widthValue=" + widthValue +
-                ", blockSizeValue=" + blockSizeValue +
-                '}';
-    }
+
 }
