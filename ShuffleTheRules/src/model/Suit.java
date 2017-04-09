@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public enum Suits implements Serializable {
+public enum Suit implements Serializable {
 
     CLUB(0, "Club"),
     DIAMOND(1, "Diamond"),
@@ -12,7 +12,7 @@ public enum Suits implements Serializable {
     private final int rank;
     private final String name;
 
-    private Suits(int rank, String name) {
+    private Suit(int rank, String name) {
         this.rank = rank;
         this.name = name;
     }

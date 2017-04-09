@@ -12,7 +12,7 @@ public class CardSettings implements Serializable {
                spade: num_spades
                club: num_clubs
                diamond: num_diamonds*/
-    Map<String,Map<String,Integer>> cardSettings;
+    Map<PlayingCard,Map<Suit,Integer>> cardSettings;
 
     public CardSettings(){
         initialize();
@@ -20,64 +20,62 @@ public class CardSettings implements Serializable {
 
     private void initialize(){
         cardSettings = new LinkedHashMap<>();
-        String initialDeck[] = {"Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"};
-        for (String card: initialDeck) {
+        for (PlayingCard card: PlayingCard.values()) {
             /* Default values - deck with 52 cards */
             addCard(card);
             //updateAllSuits(card, 1, 1, 1, 1);
         }
     }
 
-    public List<String> getCardList(){
+    public List<PlayingCard> getCardList(){
         List cardList = new ArrayList(cardSettings.keySet());
         return cardList;
     }
     /* TO validation or try/catch? */
-    public void updateSuit(String card, String suit, int value){
+    public void updateSuit(PlayingCard card, Suit suit, int value){
         cardSettings.get(card).put(suit,value);
     }
 
 
-    public void updateAllSuits(String card, int heartValue, int spadeValue, int clubValue, int diamondValue){
-        updateSuit(card, "heart", heartValue);
-        updateSuit(card, "spade", spadeValue);
-        updateSuit(card, "club", clubValue);
-        updateSuit(card, "diamond", diamondValue);
+    public void updateAllSuits(PlayingCard card, int heartValue, int spadeValue, int clubValue, int diamondValue){
+        updateSuit(card, Suit.HEART, heartValue);
+        updateSuit(card, Suit.SPADE, spadeValue);
+        updateSuit(card, Suit.CLUB, clubValue);
+        updateSuit(card, Suit.DIAMOND, diamondValue);
     }
 
-    public int getSuitCount(String card, String suit){
+    public int getSuitCount(PlayingCard card, Suit suit){
         return cardSettings.get(card).get(suit);
     }
 
-    public int getTotalSuitCount(String card){
-        return getSuitCount(card,"heart") +  getSuitCount(card,"spade") + getSuitCount(card,"club") +  getSuitCount(card,"diamond");
+    public int getTotalSuitCount(PlayingCard card){
+        return getSuitCount(card, Suit.HEART) +  getSuitCount(card, Suit.SPADE) + getSuitCount(card, Suit.CLUB) +  getSuitCount(card, Suit.DIAMOND);
     }
 
 /* TODO check that this clears the suits mappings and the card mappings */
     public void clearAllCardSettings(){
-        String initialDeck[] = {"Ace","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"};
-        for (String card: initialDeck) {
+        for (PlayingCard card: PlayingCard.values()) {
             removeCard(card);
         }
         cardSettings.clear();
     }
 
     /* TODO check that this clears the suits mappings and the card mappings */
-    public void removeCard(String card){
+    public void removeCard(PlayingCard card){
         cardSettings.get(card).clear();
         cardSettings.remove(card);
     }
 
-    public void addSuit(String card, String suit, int value){
+    public void addSuit(PlayingCard card, Suit suit, int value){
         cardSettings.get(card).put(suit,value);
     }
 
-    public void addCard(String card){
-        Map<String,Integer> suitValueMappings = new LinkedHashMap<>();
-        suitValueMappings.put("heart",1);
-        suitValueMappings.put("spade",1);
-        suitValueMappings.put("club",1);
-        suitValueMappings.put("diamond",1);
+    public void addCard(PlayingCard card){
+        Map<Suit,Integer> suitValueMappings = new LinkedHashMap<>();
+        suitValueMappings.put(Suit.HEART,1);
+        suitValueMappings.put(Suit.SPADE,1);
+        suitValueMappings.put(Suit.CLUB,1);
+        suitValueMappings.put(Suit.DIAMOND,1);
         cardSettings.put(card, suitValueMappings);
     }
 }

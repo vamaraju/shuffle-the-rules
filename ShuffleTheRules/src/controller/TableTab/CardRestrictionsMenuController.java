@@ -4,6 +4,8 @@ package controller.TableTab;
 import javafx.event.Event;
 import model.CardSettings;
 import model.GameCreation;
+import model.PlayingCard;
+import model.Suit;
 import view.TableTab.CardRestrictionsMenuView;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class CardRestrictionsMenuController {
         /* change to use observer/ observable */
     }
 
-    public List<String> getCardList(){
+    public List<PlayingCard> getCardList(){
         return cardSettings.getCardList();
     }
 
@@ -45,10 +47,10 @@ public class CardRestrictionsMenuController {
         /* */
     }
 
-    public void updateSuitCounts(String card){
-        cardRestrictionsMenuView.setHeartCount(Integer.toString(cardSettings.getSuitCount(card,"heart")));
-        cardRestrictionsMenuView.setSpadeCount(Integer.toString(cardSettings.getSuitCount(card,"spade")));
-        cardRestrictionsMenuView.setClubCount(Integer.toString(cardSettings.getSuitCount(card,"club")));
-        cardRestrictionsMenuView.setDiamondCount(Integer.toString(cardSettings.getSuitCount(card,"diamond")));
+    public void updateSuitCounts(PlayingCard card){
+        cardRestrictionsMenuView.setHeartCount(Integer.toString(cardSettings.getSuitCount(card, Suit.HEART)));
+        cardRestrictionsMenuView.setSpadeCount(Integer.toString(cardSettings.getSuitCount(card, Suit.SPADE)));
+        cardRestrictionsMenuView.setClubCount(Integer.toString(cardSettings.getSuitCount(card, Suit.CLUB)));
+        cardRestrictionsMenuView.setDiamondCount(Integer.toString(cardSettings.getSuitCount(card, Suit.DIAMOND)));
     }
 }

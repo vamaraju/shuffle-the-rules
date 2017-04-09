@@ -2,8 +2,9 @@ package model;
 
 import java.io.Serializable;
 
-public enum Cards implements Serializable {
+public enum PlayingCard implements Serializable {
 
+    ACE(1, "Ace"),
     TWO(2, "Two"),
     THREE(3, "Three"),
     FOUR(4, "Four"),
@@ -15,13 +16,12 @@ public enum Cards implements Serializable {
     TEN(10, "Ten"),
     JACK(11, "Jack"),
     QUEEN(12, "Queen"),
-    KING(13, "King"),
-    ACE(14, "Ace");
+    KING(13, "King");
 
     private final int value;
     private final String name;
 
-    private Cards(int value, String name) {
+    private PlayingCard(int value, String name) {
         this.value = value;
         this.name = name;
     }

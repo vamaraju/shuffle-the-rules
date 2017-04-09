@@ -5,12 +5,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.PlayingCard;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CardRestrictionsMenuView extends TitledPane{
-    private List<String> cardList = new ArrayList<String>();
+    private List<PlayingCard> cardList = new ArrayList<>();
     private ChoiceBox availableCards;
 
     public CardRestrictionsMenuView(){
@@ -105,7 +106,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
 
 
-    public void updateCardList(List<String> list){
+    public void updateCardList(List<PlayingCard> list){
         cardList = list;
         /* should probably change to use a listener */
         this.availableCards.getItems().addAll(cardList);
@@ -113,7 +114,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
     public Button getUpdateButton() { return updateButton; }
 
-    public List<String> getCardList() {
+    public List<PlayingCard> getCardList() {
         return cardList;
     }
 
