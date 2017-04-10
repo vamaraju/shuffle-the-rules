@@ -7,26 +7,27 @@ import java.util.ArrayList;
 
 public class Pile implements Serializable {
 
-    ArrayList<Card> cardList;
-    int startingNumberOfCards;
-    int gridDimensionX;    /* TODO add get/set? */
-    int gridDimensionY;    /* TODO add get/set? */
+    private ArrayList<Card> cards;
+    private int startingNumberOfCards;
+    private int gridDimensionX;    /* TODO add get/set? */
+    private int gridDimensionY;    /* TODO add get/set? */
     /* TODO rename to name?*/
-    String pileName;
-    int minPileSize;
-    int maxPileSize;
+    private String name;
+    private int minSize;
+    private int maxSize;
+    private boolean clicked;
 
     /* TODO add dimensions, startingNumberOfCards to constructor input args? */
     public Pile(String name, int minSize, int maxSize){
-        cardList = new ArrayList<Card>();
-        pileName = name;
-        minPileSize = minSize;
-        maxPileSize = maxSize;
+        cards = new ArrayList<Card>();
+        this.name = name;
+        this.minSize = minSize;
+        this.maxSize = maxSize;
         startingNumberOfCards = 0;
 
     }
     public void add(Card card){
-        cardList.add(card);
+        cards.add(card);
     };
 
     public void view(){
@@ -38,39 +39,39 @@ public class Pile implements Serializable {
     }
 
     public Card remove(int index){
-        Card removedCard = cardList.get(index);
-        cardList.remove(index);
+        Card removedCard = cards.get(index);
+        cards.remove(index);
         return removedCard;
     }
 
     public Card remove(Card card){
-        int removedCardIndex = cardList.indexOf(card);
-        Card removedCard = cardList.get(removedCardIndex);
+        int removedCardIndex = cards.indexOf(card);
+        Card removedCard = cards.get(removedCardIndex);
         return removedCard;
     }
 
-    public int getMinPileSize(){
-        return minPileSize;
+    public int getMinSize(){
+        return minSize;
     }
 
     /* TODO requries validation */
-    public void setMinPileSize(int minSize){ minPileSize = minSize; }
+    public void setMinSize(int minSize){ this.minSize = minSize; }
 
-    public int getMaxPileSize(){
-        return maxPileSize;
+    public int getMaxSize(){
+        return maxSize;
     }
 
     /* TODO requries validation */
-    public void setMaxPileSize(int maxSize){
-        maxPileSize = maxSize;
+    public void setMaxSize(int maxSize){
+        this.maxSize = maxSize;
     }
 
-    public ArrayList<Card> getCardList() {
-        return cardList;
+    public ArrayList<Card> getCards() {
+        return cards;
     }
 
-    public void setCardList(ArrayList<Card> cardList) {
-        this.cardList = cardList;
+    public void setCards(ArrayList<Card> cards) {
+        this.cards = cards;
     }
 
     public int getStartingNumberOfCards() {
@@ -97,12 +98,27 @@ public class Pile implements Serializable {
         this.gridDimensionY = gridDimensionY;
     }
 
-    public String getPileName() {
-        return pileName;
+    public String getName() {
+        return name;
     }
 
-    public void setPileName(String pileName) {
-        this.pileName = pileName;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public boolean isClicked() {
+        return clicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        this.clicked = clicked;
+    }
+
+    public boolean isEmpty() {
+        return this.cards.isEmpty();
+    }
+
+    public boolean isFull() {
+        return this.cards.size() == this.maxSize;
+    }
 }

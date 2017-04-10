@@ -1,9 +1,7 @@
 package model;
 
 import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import model.GameActions.GameAction;
@@ -11,7 +9,6 @@ import model.GameEvents.GameEvent;
 import model.Piles.Pile;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -174,10 +171,10 @@ public class GameCreation implements Serializable {
     }
 
     public void addPile(Pile pile){
-        if(!piles.containsKey(pile.getPileName())) {
-            piles.put(pile.getPileName(), pile);
+        if(!piles.containsKey(pile.getName())) {
+            piles.put(pile.getName(), pile);
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING, "The Pile " + pile.getPileName() + "cannot be added because a pile with that name already exists. Please rename the pile.");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The Pile " + pile.getName() + "cannot be added because a pile with that name already exists. Please rename the pile.");
             alert.setTitle("Pile Already Exists Error");
             alert.setHeaderText("Error - Cannot Create Pile");
             alert.showAndWait();

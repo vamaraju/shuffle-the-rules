@@ -7,6 +7,7 @@ public class Player implements Serializable {
     private int playerID;
     private boolean status;
     private int turnOrder;
+    private boolean clicked;
 
     public Player(){
 
@@ -34,6 +35,14 @@ public class Player implements Serializable {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public boolean isClicked() {
+        return clicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        this.clicked = clicked;
     }
 
     public int getTurnOrder() {

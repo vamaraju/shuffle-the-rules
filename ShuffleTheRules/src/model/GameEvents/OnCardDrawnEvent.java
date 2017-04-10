@@ -11,11 +11,12 @@ public class OnCardDrawnEvent extends GameEvent {
     private Card expectedCard;
 
     public OnCardDrawnEvent() {
-        this.initializeSuperFields();
+        this.name = "OnCardDrawnEvent";
+        this.description = "A specific card is drawn.";
     }
 
     public OnCardDrawnEvent(Card expectedCard) {
-        this.initializeSuperFields();
+        this();
         this.expectedCard = expectedCard;
     }
 
@@ -39,8 +40,4 @@ public class OnCardDrawnEvent extends GameEvent {
         this.expectedCard = expectedCard;
     }
 
-    private void initializeSuperFields() {
-        this.name = "OnCardDrawnEvent";
-        this.description = "A specific card is drawn.";
-    }
 }
