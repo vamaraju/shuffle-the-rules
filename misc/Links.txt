@@ -22,3 +22,6 @@ https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ChoiceDialog.ht
 
 SerializedEdgeDemo.java:
 https://gist.github.com/james-d/a7202039b00170256293
+
+Custom serialization example:
+http://stackoverflow.com/questions/7290777/java-custom-serialization

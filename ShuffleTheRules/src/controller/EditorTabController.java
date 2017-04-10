@@ -43,7 +43,6 @@ public class EditorTabController {
         gameEvents.add(new OnCardDrawnEvent());
         gameEvents.add(new OnCardPlayedEvent());
         gameEvents.add(new OnGameEndEvent());
-        gameEvents.add(new OnGameStartEvent());
         gameEvents.add(new OnHandEmptyEvent());
         gameEvents.add(new OnHandFullEvent());
         gameEvents.add(new OnPileClickEvent());
@@ -242,27 +241,33 @@ public class EditorTabController {
         r.setClicked(true);
         r.setStroke(Color.GREY);
 
-        if (r.getDefaultBorderColor() == Color.BLUE) {  // rectangle is for an event
+        if (r.getRuleType() == GameRuleType.EVENT) {  // rectangle is for an event
             view.getClickedEventTypeHeader().setVisible(true);
             view.getClickedEventTypeValue().setVisible(true);
             view.getClickedEventNameHeader().setVisible(true);
             view.getClickedEventNameValue().setVisible(true);
+            view.getClickedEventDescriptionHeader().setVisible(true);
+            view.getClickedEventDescriptionValue().setVisible(true);
             view.getClickedEventPreviousEventHeader().setVisible(true);
             view.getClickedEventPreviousEventValue().setVisible(true);
 
             view.getClickedEventTypeValue().setText(r.getGameRuleName());
             view.getClickedEventNameValue().setText(r.getText());
+            view.getClickedEventDescriptionValue().setText(r.getGameRule().getDescription());
             view.getClickedEventPreviousEventValue().setText(getPreviousRuleText(r));
-        } else if (r.getDefaultBorderColor() == Color.RED) { // rectangle is for an action
+        } else if (r.getRuleType() == GameRuleType.ACTION) { // rectangle is for an action
             view.getClickedActionTypeHeader().setVisible(true);
             view.getClickedActionTypeValue().setVisible(true);
             view.getClickedActionNameHeader().setVisible(true);
             view.getClickedActionNameValue().setVisible(true);
+            view.getClickedActionDescriptionHeader().setVisible(true);
+            view.getClickedActionDescriptionValue().setVisible(true);
             view.getClickedActionPreviousActionHeader().setVisible(true);
             view.getClickedActionPreviousActionValue().setVisible(true);
 
             view.getClickedActionTypeValue().setText(r.getGameRuleName());
             view.getClickedActionNameValue().setText(r.getText());
+            view.getClickedActionDescriptionValue().setText(r.getGameRule().getDescription());
             view.getClickedActionPreviousActionValue().setText(getPreviousRuleText(r));
         }
     }
@@ -277,6 +282,8 @@ public class EditorTabController {
             view.getClickedEventTypeValue().setVisible(false);
             view.getClickedEventNameHeader().setVisible(false);
             view.getClickedEventNameValue().setVisible(false);
+            view.getClickedEventDescriptionHeader().setVisible(false);
+            view.getClickedEventDescriptionValue().setVisible(false);
             view.getClickedEventPreviousEventHeader().setVisible(false);
             view.getClickedEventPreviousEventValue().setVisible(false);
         } else if (r.getDefaultBorderColor() == Color.RED) { // rectangle is for an action
@@ -284,6 +291,8 @@ public class EditorTabController {
             view.getClickedActionTypeValue().setVisible(false);
             view.getClickedActionNameHeader().setVisible(false);
             view.getClickedActionNameValue().setVisible(false);
+            view.getClickedActionDescriptionHeader().setVisible(false);
+            view.getClickedActionDescriptionValue().setVisible(false);
             view.getClickedActionPreviousActionHeader().setVisible(false);
             view.getClickedActionPreviousActionValue().setVisible(false);
         }

@@ -45,6 +45,8 @@ public class EditorTabView extends Tab {
     private Label clickedEventTypeValue;
     private Label clickedEventNameHeader;
     private Label clickedEventNameValue;
+    private Label clickedEventDescriptionHeader;
+    private Label clickedEventDescriptionValue;
     private Label clickedEventPreviousEventHeader;
     private Label clickedEventPreviousEventValue;
 
@@ -52,6 +54,8 @@ public class EditorTabView extends Tab {
     private Label clickedActionTypeValue;
     private Label clickedActionNameHeader;
     private Label clickedActionNameValue;
+    private Label clickedActionDescriptionHeader;
+    private Label clickedActionDescriptionValue;
     private Label clickedActionPreviousActionHeader;
     private Label clickedActionPreviousActionValue;
 
@@ -84,6 +88,8 @@ public class EditorTabView extends Tab {
         clickedEventTypeValue = new Label();
         clickedEventNameHeader = new Label("Event Name:");
         clickedEventNameValue = new Label();
+        clickedEventDescriptionHeader = new Label("Event Description:");
+        clickedEventDescriptionValue = new Label();
         clickedEventPreviousEventHeader = new Label("Previous Rule(s):");
         clickedEventPreviousEventValue = new Label();
 
@@ -91,6 +97,8 @@ public class EditorTabView extends Tab {
         clickedActionTypeValue = new Label();
         clickedActionNameHeader = new Label("Action Name:");
         clickedActionNameValue = new Label();
+        clickedActionDescriptionHeader = new Label("Action Description:");
+        clickedActionDescriptionValue = new Label();
         clickedActionPreviousActionHeader = new Label("Previous Rule(s):");
         clickedActionPreviousActionValue = new Label();
 
@@ -129,6 +137,8 @@ public class EditorTabView extends Tab {
         Button addButton = null;
         Label clickedRuleTypeHeader = null;
         Label clickedRuleNameHeader = null;
+        Label clickedRuleDescriptionHeader = null;
+        Label clickedRuleDescriptionValue = null;
         Label clickedPreviousRuleHeader = null;
         Label clickedRuleTypeValue = null;
         Label clickedRuleNameValue = null;
@@ -144,9 +154,11 @@ public class EditorTabView extends Tab {
                 addButton = this.addEventButton;
                 clickedRuleTypeHeader = this.clickedEventTypeHeader;
                 clickedRuleNameHeader = this.clickedEventNameHeader;
+                clickedRuleDescriptionHeader = this.clickedEventDescriptionHeader;
                 clickedPreviousRuleHeader = this.clickedEventPreviousEventHeader;
                 clickedRuleTypeValue = this.clickedEventTypeValue;
                 clickedRuleNameValue = this.clickedEventNameValue;
+                clickedRuleDescriptionValue = this.clickedEventDescriptionValue;
                 clickedPreviousRuleValue = this.clickedEventPreviousEventValue;
                 break;
             case ACTION:
@@ -158,9 +170,11 @@ public class EditorTabView extends Tab {
                 addButton = this.addActionButton;
                 clickedRuleTypeHeader = this.clickedActionTypeHeader;
                 clickedRuleNameHeader = this.clickedActionNameHeader;
+                clickedRuleDescriptionHeader = this.clickedActionDescriptionHeader;
                 clickedPreviousRuleHeader = this.clickedActionPreviousActionHeader;
                 clickedRuleTypeValue = this.clickedActionTypeValue;
                 clickedRuleNameValue = this.clickedActionNameValue;
+                clickedRuleDescriptionValue = this.clickedActionDescriptionValue;
                 clickedPreviousRuleValue = this.clickedActionPreviousActionValue;
                 break;
         }
@@ -182,13 +196,16 @@ public class EditorTabView extends Tab {
         grid.add(new Label("Clicked " + ruleType + ":"), 0, 6);
         grid.addRow(7, clickedRuleTypeHeader, clickedRuleTypeValue);
         grid.addRow(8, clickedRuleNameHeader, clickedRuleNameValue);
-        grid.addRow(9, clickedPreviousRuleHeader, clickedPreviousRuleValue);
+        grid.addRow(9, clickedRuleDescriptionHeader, clickedRuleDescriptionValue);
+        grid.addRow(10, clickedPreviousRuleHeader, clickedPreviousRuleValue);
 
         clickedRuleTypeHeader.setVisible(false);
         clickedRuleNameHeader.setVisible(false);
+        clickedRuleDescriptionHeader.setVisible(false);
         clickedPreviousRuleHeader.setVisible(false);
         clickedRuleTypeValue.setVisible(false);
         clickedRuleNameValue.setVisible(false);
+        clickedRuleDescriptionValue.setVisible(false);
         clickedPreviousRuleValue.setVisible(false);
     }
 
@@ -233,6 +250,11 @@ public class EditorTabView extends Tab {
 
     public Pane getEditorDrawingPane() {
         return this.drawingPane;
+    }
+
+    public void setEditorDrawingPane(Pane drawingPane) {
+        this.drawingPane = drawingPane;
+        this.scrollPane.setContent(this.drawingPane);
     }
 
     public TextField getEventNameTextField() {
@@ -291,6 +313,14 @@ public class EditorTabView extends Tab {
         return clickedEventNameValue;
     }
 
+    public Label getClickedEventDescriptionHeader() {
+        return clickedEventDescriptionHeader;
+    }
+
+    public Label getClickedEventDescriptionValue() {
+        return clickedEventDescriptionValue;
+    }
+
     public Label getClickedEventPreviousEventHeader() {
         return clickedEventPreviousEventHeader;
     }
@@ -313,6 +343,14 @@ public class EditorTabView extends Tab {
 
     public Label getClickedActionNameValue() {
         return clickedActionNameValue;
+    }
+
+    public Label getClickedActionDescriptionHeader() {
+        return clickedActionDescriptionHeader;
+    }
+
+    public Label getClickedActionDescriptionValue() {
+        return clickedActionDescriptionValue;
     }
 
     public Label getClickedActionPreviousActionHeader() {

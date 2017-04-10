@@ -8,18 +8,22 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RuleElementRectangle extends Rectangle {
+public class RuleElementRectangle extends Rectangle implements Serializable {
 
-    private Text text = new Text("");
+    private transient Text text = new Text("");
     private GameRule gameRule;
-    private Paint defaultBorderColor;
+    private transient Paint defaultBorderColor;
     private boolean clicked = false;
-    private ArrayList<RuleElementRectangle> preRules = new ArrayList<>();
-    private ArrayList<RuleElementRectangle> postRules = new ArrayList<>();
-    private ArrayList<Line> outLines = new ArrayList<>();
-    private ArrayList<Line> inLines = new ArrayList<>();
+    private transient ArrayList<RuleElementRectangle> preRules = new ArrayList<>();
+    private transient ArrayList<RuleElementRectangle> postRules = new ArrayList<>();
+    private transient ArrayList<Line> outLines = new ArrayList<>();
+    private transient ArrayList<Line> inLines = new ArrayList<>();
     private GameRuleType ruleType;
 
     private double dragStartX;
@@ -144,6 +148,69 @@ public class RuleElementRectangle extends Rectangle {
                 this.defaultBorderColor = Color.RED;
                 break;
         }
+    }
+
+
+    /**
+     * Constructs the rectangle from the given blueprint.
+     *
+     * @param blueprint A RuleElementRectangleBlueprint that will be used to construct this rectangle.
+     */
+    public RuleElementRectangle(RuleElementRectangleBlueprint blueprint) {
+        this();
+        this.constructFromBlueprint(blueprint);
+    }
+
+
+    /**
+     * Constructs (sets the fields) of this rectangle given its blueprint.
+     *
+     * @param blueprint A RuleElementRectangleBlueprint that will be used to set all the fields of this rectangle.
+     */
+    public void constructFromBlueprint(RuleElementRectangleBlueprint blueprint) {
+        this.setWidth(blueprint.getWidth());
+        this.setHeight(blueprint.getHeight());
+        this.setGameRule(blueprint.getGameRule());
+        this.setRuleType(blueprint.getRuleType());
+        this.setDefaultBorderColor(Color.valueOf(blueprint.getDefaultBorderColor()));
+
+        Text t = new Text(blueprint.getText());
+        t.setFont(new Font(15));
+        this.text = t;
+        t.setWrappingWidth(blueprint.getWidth()-20);
+
+        this.setX(blueprint.getX(), true);
+        this.setY(blueprint.getY(), true);
+
+        this.setFill(Color.WHITE);
+        this.setStrokeWidth(2);
+
+        switch (this.ruleType) {
+            case EVENT:
+                this.setStroke(Color.BLUE);
+                break;
+            case ACTION:
+                this.setStroke(Color.RED);
+                break;
+        }
+
+        for (RuleElementRectangleBlueprint preRuleBlueprint : blueprint.getPreRules()) {
+            this.preRules.add(new RuleElementRectangle(preRuleBlueprint));
+        }
+
+        for (RuleElementRectangleBlueprint postRuleBlueprint : blueprint.getPostRules()) {
+            this.postRules.add(new RuleElementRectangle(postRuleBlueprint));
+        }
+
+        for (Connector inConnector : blueprint.getInLines()) {
+            this.inLines.add(new Line(inConnector.getStartX(), inConnector.getStartY(), inConnector.getEndX(), inConnector.getEndY()));
+        }
+
+        for (Connector outConnector : blueprint.getOutLines()) {
+            this.outLines.add(new Line(outConnector.getStartX(), outConnector.getStartY(), outConnector.getEndX(), outConnector.getEndY()));
+        }
+
+        this.setListeners();
     }
 
 
@@ -538,7 +605,9 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void onMouseEntered(MouseEvent e) {
         if (!this.clicked) {
-            this.defaultBorderColor = this.getStroke();
+            if (this.defaultBorderColor == null) {
+                this.defaultBorderColor = this.getStroke();
+            }
             this.setStroke(Color.GREY);
         }
     }
@@ -597,9 +666,27 @@ public class RuleElementRectangle extends Rectangle {
     }
 
 
-//    public boolean contains(double x, double y) {
-//        return
-//    }
+    @Override
+    public int hashCode() {
+        return super.hashCode() + this.text.hashCode();
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {return true;}
+        if (obj == null) {return false;}
+        if (!(obj instanceof RuleElementRectangle)) {return false;}
+
+        RuleElementRectangle otherRect = (RuleElementRectangle) obj;
+        return (this.getX() == otherRect.getX()) &&
+                (this.getY() == otherRect.getY()) &&
+                (this.getWidth() == otherRect.getWidth()) &&
+                (this.getHeight() == otherRect.getHeight()) &&
+                (this.getText().equals(otherRect.getText())) &&
+                (this.getRuleType() == otherRect.getRuleType()) &&
+                (this.getGameRuleName().equals(otherRect.getGameRuleName()));
+    }
 
 
     /**
@@ -614,5 +701,36 @@ public class RuleElementRectangle extends Rectangle {
         this.text.setOnMouseExited(this::onMouseExited);
         this.text.setOnMousePressed(this::onMousePressed);
         this.text.setOnMouseDragged(this::onMouseDragged);
+    }
+
+
+    /**
+     * Custom implementation of serializing the output of this object.
+     * Creates and writes a RuleElementRectangleBlueprint the matches this RuleElementRectangle.
+     *
+     * @param out
+     * @throws IOException
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+
+        RuleElementRectangleBlueprint blueprint = new RuleElementRectangleBlueprint(this);
+        out.writeObject(blueprint);
+    }
+
+
+    /**
+     * Custom implementation of de-serializing the input of this object.
+     * Reads and unpacks a RuleElementRectangleBlueprint that will be used to recreate the RuleElementRectangle.
+     *
+     * @param in
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
+    private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
+        in.defaultReadObject();
+
+        RuleElementRectangleBlueprint blueprint = (RuleElementRectangleBlueprint) in.readObject();
+        constructFromBlueprint(blueprint);
     }
 }

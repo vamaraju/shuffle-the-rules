@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import model.GameCreation;
+import model.GameView;
 import view.ApplicationMenuBarView;
 import view.EditorTabView;
 import view.TableTab.TableTabView;
@@ -58,9 +60,10 @@ public class Main extends Application {
 
         TableTabView tableTab = new TableTabView();
         EditorTabView editorTab = new EditorTabView();
+        GameView.getInstance().setEditorTab(editorTab);
+        GameView.getInstance().setTableTab(tableTab);
         
         tabPane.getTabs().addAll(tableTab, editorTab);
-
 
         rootBorderPane.setCenter(tabPane);
         CardRestrictionsMenuController cardRestrictionsMenuController = new CardRestrictionsMenuController(tableTab.getCardRestrictionSettingsMenu());

@@ -1,15 +1,20 @@
 package model;
 
+import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.Pane;
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.Piles.Pile;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Singleton that stores information regarding creation of the current game.
@@ -26,6 +31,7 @@ public class GameCreation implements Serializable {
     private CardSettings cardSettings;
     private GameSettings gameSettings;
 
+    private transient ArrayList<RuleElementRectangleBlueprint> rectangleBlueprints = new ArrayList<>();
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -85,7 +91,8 @@ public class GameCreation implements Serializable {
         try {
             FileInputStream fIn = new FileInputStream(filename);
             ObjectInputStream oIn = new ObjectInputStream(fIn);
-            GameCreation.instance = (GameCreation) oIn.readObject();
+            GameCreation g = (GameCreation) oIn.readObject();
+            GameCreation.instance = g;
             oIn.close();
             fIn.close();
         } catch (StreamCorruptedException e) {
@@ -229,4 +236,38 @@ public class GameCreation implements Serializable {
     public void setGameSettings(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
     }
+
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+
+        Pane drawingPane = GameView.getInstance().getEditorTab().getEditorDrawingPane();
+        for (Node child : drawingPane.getChildren()) {
+            if (child instanceof RuleElementRectangle) {
+                this.rectangleBlueprints.add(new RuleElementRectangleBlueprint((RuleElementRectangle)child));
+            }
+        }
+
+        out.writeObject(this.rectangleBlueprints);
+    }
+
+
+    private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
+        in.defaultReadObject();
+
+        this.rectangleBlueprints = (ArrayList<RuleElementRectangleBlueprint>) in.readObject();
+        Pane drawingPane = new Pane();
+
+        for (RuleElementRectangleBlueprint rectangleBlueprint : this.rectangleBlueprints) {
+            RuleElementRectangle r = new RuleElementRectangle(rectangleBlueprint);
+            drawingPane.getChildren().add(r);
+            drawingPane.getChildren().add(r.getTextObj());
+            for (Line l : r.getOutLines()) {
+                drawingPane.getChildren().add(l);
+            }
+        }
+
+        GameView.getInstance().getEditorTab().setEditorDrawingPane(drawingPane);
+    }
+
 }
