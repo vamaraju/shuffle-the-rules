@@ -238,9 +238,39 @@ public class GameCreation implements Serializable {
     }
 
 
+    private void updateRectangleAssociations(ArrayList<RuleElementRectangle> rectangles) {
+        updateRectangleAssociations(rectangles, rectangles.get(0));
+    }
+
+    private void updateRectangleAssociations(ArrayList<RuleElementRectangle> rectangles, RuleElementRectangle currentRect) {
+        for (int i = 0; i < currentRect.getPostRules().size(); i++) {
+            for (RuleElementRectangle rect : rectangles) {
+                if (currentRect.getPostRules().get(i).equals(rect)) {currentRect.getPostRules().set(i, rect); break;}
+            }
+            RuleElementRectangle postRule = currentRect.getPostRules().get(i);
+            updateLineAssociations(currentRect, postRule);
+            updateRectangleAssociations(rectangles, postRule);
+        }
+    }
+
+    private void updateLineAssociations(RuleElementRectangle currentRect, RuleElementRectangle postRule) {
+        for (Line outLine : currentRect.getOutLines()) {
+            for (int i = 0; i < postRule.getInLines().size(); i++) {
+                if (equalLines(outLine, postRule.getInLines().get(i))) {
+                    postRule.getInLines().set(i, outLine);
+                }
+            }
+        }
+    }
+
+    private boolean equalLines(Line l1, Line l2) {
+        return (l1.getStartX() == l2.getStartX()) && (l1.getStartY() == l2.getStartY()) && (l1.getEndX() == l2.getEndX()) && (l1.getEndY() == l2.getEndY());
+    }
+
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
 
+        this.rectangleBlueprints = new ArrayList<>();
         Pane drawingPane = GameView.getInstance().getEditorTab().getEditorDrawingPane();
         for (Node child : drawingPane.getChildren()) {
             if (child instanceof RuleElementRectangle) {
@@ -257,16 +287,28 @@ public class GameCreation implements Serializable {
 
         this.rectangleBlueprints = (ArrayList<RuleElementRectangleBlueprint>) in.readObject();
         Pane drawingPane = new Pane();
+        drawingPane.setOnMouseDragged(GameView.getInstance().getEditorTab().getController()::drawingPaneOnMouseDragged);
 
+        ArrayList<RuleElementRectangle> rectangles = new ArrayList<>();
         for (RuleElementRectangleBlueprint rectangleBlueprint : this.rectangleBlueprints) {
             RuleElementRectangle r = new RuleElementRectangle(rectangleBlueprint);
+            if (r.getGameRuleName().equals("OnGameStartEvent")) {
+                rectangles.add(0, r);
+            } else {
+                rectangles.add(r);
+            }
+
             drawingPane.getChildren().add(r);
             drawingPane.getChildren().add(r.getTextObj());
             for (Line l : r.getOutLines()) {
                 drawingPane.getChildren().add(l);
             }
+
+            r.setOnMouseClicked(GameView.getInstance().getEditorTab().getController()::onRectangleClicked);
+            r.getTextObj().setOnMouseClicked(GameView.getInstance().getEditorTab().getController()::onRectangleClicked);
         }
 
+        updateRectangleAssociations(rectangles);
         GameView.getInstance().getEditorTab().setEditorDrawingPane(drawingPane);
     }
 

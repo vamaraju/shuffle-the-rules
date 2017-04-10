@@ -221,7 +221,7 @@ public class EditorTabController {
     }
 
 
-    private void onRectangleClicked(MouseEvent e) {
+    public void onRectangleClicked(MouseEvent e) {
         RuleElementRectangle r = this.findClickedRectangle(e.getX(), e.getY());
 
         if (!r.isClicked()) { // the Rectangle has just been clicked. r.clicked needs to be set to true
@@ -277,7 +277,7 @@ public class EditorTabController {
         r.setClicked(false);
         r.setStroke(r.getDefaultBorderColor());
 
-        if (r.getDefaultBorderColor() == Color.BLUE) { // rectangle is for an event
+        if (r.getRuleType() == GameRuleType.EVENT) { // rectangle is for an event
             view.getClickedEventTypeHeader().setVisible(false);
             view.getClickedEventTypeValue().setVisible(false);
             view.getClickedEventNameHeader().setVisible(false);
@@ -286,7 +286,7 @@ public class EditorTabController {
             view.getClickedEventDescriptionValue().setVisible(false);
             view.getClickedEventPreviousEventHeader().setVisible(false);
             view.getClickedEventPreviousEventValue().setVisible(false);
-        } else if (r.getDefaultBorderColor() == Color.RED) { // rectangle is for an action
+        } else if (r.getRuleType() == GameRuleType.ACTION) { // rectangle is for an action
             view.getClickedActionTypeHeader().setVisible(false);
             view.getClickedActionTypeValue().setVisible(false);
             view.getClickedActionNameHeader().setVisible(false);

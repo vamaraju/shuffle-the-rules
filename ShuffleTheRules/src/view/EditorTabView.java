@@ -244,6 +244,10 @@ public class EditorTabView extends Tab {
         return this.window;
     }
 
+    public EditorTabController getController() {
+        return controller;
+    }
+
     public ScrollPane getEditorScrollPane() {
         return this.scrollPane;
     }
