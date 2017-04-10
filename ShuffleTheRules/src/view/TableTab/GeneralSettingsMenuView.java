@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -22,31 +23,39 @@ public class GeneralSettingsMenuView extends TitledPane{
     }
 
     public void initialize(){
+
         this.setText("General Settings");
 
-        VBox generalMenuContent = new VBox();
+        /* organize fields in GridPane */
+        GridPane generalMenuContent = new GridPane();
+        generalMenuContent.setHgap(2);
+        generalMenuContent.setVgap(4);
 
         Label players = new Label("Number of Players");
+        generalMenuContent.add(players,1,1,4,1);
 
         /* min */
-        HBox minNumPlayersHBox = new HBox(4);
         Label minNumPlayers = new Label("min:");
         minNumPlayersInput = new TextField();
         minNumPlayersInput.setMaxSize(50, 20);
-        minNumPlayersHBox.getChildren().addAll(minNumPlayers, minNumPlayersInput);
+
+        generalMenuContent.add(minNumPlayers,2,2,1,1);
+        generalMenuContent.add(minNumPlayersInput,3,2,1,1);
 
         /* max */
-        HBox maxNumPlayersHBox = new HBox(4);
+
         Label maxNumPlayers = new Label("max:");
         maxNumPlayersInput = new TextField();
         maxNumPlayersInput.setMaxSize(50, 20);
-        maxNumPlayersHBox.getChildren().addAll(maxNumPlayers, maxNumPlayersInput);
+
+        generalMenuContent.add(maxNumPlayers,2,3,1,1);
+        generalMenuContent.add(maxNumPlayersInput,3,3,1,1);
 
         /* Purposely put in update because changing number of players could cause a lot of conflicts
            if objects which are related to those players have been created */
         updateButton = new Button("Update");
+        generalMenuContent.add(updateButton,1,4,2,1);
 
-        generalMenuContent.getChildren().addAll(players, minNumPlayersHBox, maxNumPlayersHBox, updateButton);
         this.setContent(generalMenuContent);
     }
 
