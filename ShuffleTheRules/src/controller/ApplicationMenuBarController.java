@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.GameCreation;
+import model.GameView;
 import view.Gameplay.GameplayView;
 
 import java.io.File;
@@ -25,10 +26,11 @@ public class ApplicationMenuBarController {
     public void onNewGameClick(Event e){
         Alert alert = new Alert(Alert.AlertType.WARNING, "Are you sure you wish to create a new game? This will clear all current game settings.", ButtonType.YES, ButtonType.NO);
         alert.setTitle("New Game");
-        alert.setHeaderText("Confirmation");
+        alert.setHeaderText("New Game Confirmation");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.YES){
             GameCreation.resetInstance();
+            GameView.getInstance().getEditorTab().clearEditorDrawingPane();
         }
     }
 

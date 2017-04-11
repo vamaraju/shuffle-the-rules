@@ -261,6 +261,11 @@ public class EditorTabView extends Tab {
         this.scrollPane.setContent(this.drawingPane);
     }
 
+    public void clearEditorDrawingPane() {
+        this.drawingPane.getChildren().clear();
+        controller.addOnGameStart(this.drawingPane);
+    }
+
     public TextField getEventNameTextField() {
         return this.eventNameTextField;
     }
