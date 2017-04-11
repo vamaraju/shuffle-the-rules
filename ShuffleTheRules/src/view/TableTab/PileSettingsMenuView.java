@@ -19,10 +19,6 @@ public class PileSettingsMenuView extends TitledPane{
          /* Menu title */
         this.setText("Pile Settings");
 
-        /* Sub menu titles. Sub menu titles stand out compared
-        *  to the text inside. */
-        // TODO maybe add in later. will look into where the resources are
-
 
 
         Label pileLabel = new Label("Add or Update a Pile");

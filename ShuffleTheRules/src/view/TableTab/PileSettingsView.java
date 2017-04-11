@@ -3,6 +3,7 @@ package view.TableTab;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
@@ -17,7 +18,7 @@ import javafx.scene.control.Label;
 *   sceen size affects view of menu
 *   make things generic - ie. type menus
 * */
-public class PileSettingsView extends VBox {
+public class PileSettingsView extends GridPane {
 
     private Button updatePileButton;
     private Button addPileButton;
@@ -37,59 +38,70 @@ public class PileSettingsView extends VBox {
     private ChoiceBox cardOrientationChoiceInput;
 
     public PileSettingsView(){
-        this.setSpacing(2);
+
+        this.setHgap(2);
+        this.setVgap(4);
 
         /* Name - extract */
-        HBox nameHBox = new HBox(5);
         Label name = new Label("Name:");
         nameInput = new TextField();
         nameInput.setMaxSize(120, 20);
-        nameHBox.getChildren().addAll(name, nameInput);
+
+        this.add(name,1,1,1,1);
+        this.add(nameInput,2,1,1,1);
+
 
         /* Type - extract */
-        HBox typeHBox = new HBox(4);
         Label type = new Label("Type:");
         typeChoiceInput = new ChoiceBox();
-        typeChoiceInput.getItems().addAll("Hand", "Deck", "Discard", "None");
-        typeHBox.getChildren().addAll(type, typeChoiceInput);
+        typeChoiceInput.getItems().addAll("Hand", "Deck", "Discard");
+
+        this.add(type,1,2,1,1);
+        this.add(typeChoiceInput,2,2,1,1);
 
 
         /* max/min number Cards in Pile - extract */
-        VBox pileCardCount = new VBox();
         Label numCards = new Label("Number Cards");
+        this.add(numCards,1,4,2,2);
+
         /* min */
-        HBox minNumCardsHBox = new HBox(4);
         Label minNumCards = new Label("min:");
         minNumCardsInput = new TextField();
         minNumCardsInput.setMaxSize(50, 20);
-        minNumCardsHBox.getChildren().addAll(minNumCards, minNumCardsInput);
+
+        this.add(minNumCards,1,6,1,1);
+        this.add(minNumCardsInput,2,6,1,1);
+
         /* max */
-        HBox maxNumCardsHBox = new HBox(4);
         Label maxNumCards = new Label("max:");
         maxNumCardsInput = new TextField();
         maxNumCardsInput.setMaxSize(50, 20);
-        maxNumCardsHBox.getChildren().addAll(maxNumCards, maxNumCardsInput);
 
-        pileCardCount.getChildren().addAll(numCards, minNumCardsHBox, maxNumCardsHBox);
+        this.add(maxNumCards,1,7,1,1);
+        this.add(maxNumCardsInput,2,7,1,1);
 
 
         /* Corrdinates - extract */
         Label gridCoordinates = new Label("Coordinates");
-        VBox pileCoordinates = new VBox();
+        this.add(gridCoordinates,1,8,2,2);
+
         /* x */
-        HBox xCoordHBox = new HBox(4);
+
         Label xCoord = new Label("x:");
         xCoordInput = new TextField();
         xCoordInput.setMaxSize(30, 10);
-        xCoordHBox.getChildren().addAll(xCoord, xCoordInput);
+
+        this.add(xCoord,1,10,1,1);
+        this.add(xCoordInput,2,10,1,1);
+
         /*y */
         Label yCoord = new Label("y:");
-        HBox yCoordHBox = new HBox(4);
         yCoordInput = new TextField();
         yCoordInput.setMaxSize(30, 10);
-        yCoordHBox.getChildren().addAll(yCoord, yCoordInput);
 
-        pileCoordinates.getChildren().addAll(gridCoordinates, xCoordHBox, yCoordHBox);
+        this.add(yCoord,1,11,1,1);
+
+
 
         /* Player Pile Association Settings */
         Label playerAssociation = new Label("Player Association");
@@ -118,7 +130,6 @@ public class PileSettingsView extends VBox {
         deletePileButton.setDisable(true);
         addUpdateButtonsHBox.getChildren().addAll(updatePileButton, addPileButton, deletePileButton);
 
-        this.getChildren().addAll(nameHBox, typeHBox, pileCardCount, pileCoordinates, playerAssociation, pileViewableHBox, cardOrientationHBox, addUpdateButtonsHBox);
 
 
     }
