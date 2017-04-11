@@ -54,7 +54,7 @@ public class GeneralSettingsMenuView extends TitledPane{
         /* Purposely put in update because changing number of players could cause a lot of conflicts
            if objects which are related to those players have been created */
         updateButton = new Button("Update");
-        generalMenuContent.add(updateButton,1,4,2,1);
+        generalMenuContent.add(updateButton,1,5,2,2);
 
         this.setContent(generalMenuContent);
     }

@@ -4,6 +4,7 @@ package view.TableTab;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.PlayingCard;
@@ -41,54 +42,62 @@ public class CardRestrictionsMenuView extends TitledPane{
     public void initialize(){
         this.setText("Card Restrictions");
 
-        VBox cardRestrictionMenuContent = new VBox();
 
-        HBox cardSelection = new HBox(10);
+        GridPane cardRestrictionMenuContent = new GridPane();
+        cardRestrictionMenuContent.setHgap(2);
+        cardRestrictionMenuContent.setVgap(4);
 
         Label selectCard = new Label("Select Card");
         availableCards = new ChoiceBox();
         availableCards.getItems().addAll(cardList);
-        cardSelection.getChildren().addAll(selectCard, availableCards);
+
+        cardRestrictionMenuContent.add(selectCard,1,1,2,1);
+        cardRestrictionMenuContent.add(availableCards,3,1,2,1);
 
         /* suit count area */
 
-        VBox suitSettingsVBox = new VBox(20);
-
-        HBox heartHBox = new HBox(10);
+        /* heart */
         heartCount = new TextField();
         heartCount.setMaxSize(50, 20);
         heartImageView.setPreserveRatio(true);
         heartImageView.setFitHeight(50);
         heartImageView.setFitWidth(50);
-        heartHBox.getChildren().addAll(heartImageView,heartCount);
 
-        HBox spadeHBox = new HBox(10);
+    cardRestrictionMenuContent.add(heartImageView,1,2,1,1);
+    cardRestrictionMenuContent.add(heartCount,2,2,1,1);
+
+        /* spade */
         spadeCount = new TextField();
         spadeCount.setMaxSize(50, 20);
         spadeImageView.setPreserveRatio(true);
         spadeImageView.setFitHeight(50);
         spadeImageView.setFitWidth(50);
-        spadeHBox.getChildren().addAll(spadeImageView, spadeCount);
 
-        HBox clubHBox = new HBox(10);
+        cardRestrictionMenuContent.add(spadeImageView,1,3,1,1);
+        cardRestrictionMenuContent.add(spadeCount,2,3,1,1);
+
+        /* club */
         clubCount = new TextField();
         clubCount.setMaxSize(50, 20);
         clubImageView.setPreserveRatio(true);
         clubImageView.setFitHeight(50);
         clubImageView.setFitWidth(50);
-        clubHBox.getChildren().addAll(clubImageView, clubCount);
 
-        HBox diamondHBox = new HBox(10);
+        cardRestrictionMenuContent.add(clubImageView,1,4,1,1);
+        cardRestrictionMenuContent.add(clubCount,2,4,1,1);
+
+        /* diamond */
         diamondCount = new TextField();
         diamondCount.setMaxSize(50, 20);
         diamondImageView.setPreserveRatio(true);
         diamondImageView.setFitHeight(50);
         diamondImageView.setFitWidth(50);
-        diamondHBox.getChildren().addAll(diamondImageView, diamondCount);
 
-        suitSettingsVBox.getChildren().addAll(heartHBox, spadeHBox, clubHBox, diamondHBox);
+        cardRestrictionMenuContent.add(diamondImageView,1,5,1,1);
+        cardRestrictionMenuContent.add(diamondCount,2,5,1,1);
+
         updateButton = new Button("Update");
-        cardRestrictionMenuContent.getChildren().addAll(cardSelection, suitSettingsVBox, updateButton);
+        cardRestrictionMenuContent.add(updateButton,1,7,2,2);
         this.setContent(cardRestrictionMenuContent);
     }
 
