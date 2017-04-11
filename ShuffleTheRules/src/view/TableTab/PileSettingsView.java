@@ -89,7 +89,7 @@ public class PileSettingsView extends GridPane {
 
         Label xCoord = new Label("x:");
         xCoordInput = new TextField();
-        xCoordInput.setMaxSize(30, 10);
+        xCoordInput.setMaxSize(50, 20);
 
         this.add(xCoord,1,10,1,1);
         this.add(xCoordInput,2,10,1,1);
@@ -97,41 +97,43 @@ public class PileSettingsView extends GridPane {
         /*y */
         Label yCoord = new Label("y:");
         yCoordInput = new TextField();
-        yCoordInput.setMaxSize(30, 10);
+        yCoordInput.setMaxSize(50, 20);
 
         this.add(yCoord,1,11,1,1);
-
-
+        this.add(yCoordInput,2,11,1,1);
 
         /* Player Pile Association Settings */
         Label playerAssociation = new Label("Player Association");
+        this.add(playerAssociation,1,12,1,1);
 
         /* Pile Viewable Settings */
-        HBox pileViewableHBox = new HBox(4);
         Label viewableBy = new Label("Viewable By:");
-
         pileViewableChoiceInput = new ChoiceBox();
         pileViewableChoiceInput.getItems().addAll("All", "None");
-        pileViewableHBox.getChildren().addAll(viewableBy, pileViewableChoiceInput);
+        this.add(viewableBy,1,13,1,1);
+        this.add(pileViewableChoiceInput,2,13,1,1);
+
 
         /* Pile Orientation Settings - for display purposes.  Will determine how top of Pile is displayed */
-        HBox cardOrientationHBox = new HBox(4);
         Label orientation = new Label("Card Orientation");
         cardOrientationChoiceInput = new ChoiceBox();
         cardOrientationChoiceInput.getItems().addAll("Face Up", "Face Down");
-        cardOrientationHBox.getChildren().addAll(orientation, cardOrientationChoiceInput);
 
-        /* TODO add anchor?*/
-        HBox addUpdateButtonsHBox = new HBox(20);
+        this.add(orientation,1,14,1,1);
+        this.add(cardOrientationChoiceInput,2,14,1,1);
+
+
         updatePileButton = new Button("Update Pile");
         updatePileButton.setDisable(true);
+        this.add(updatePileButton,1,15,1,2);
+
         addPileButton = new Button("Add Pile");
+        addPileButton.setPrefWidth(100);
+        this.add(addPileButton,2,15,1,2);
+
         deletePileButton = new Button("Delete Pile");
         deletePileButton.setDisable(true);
-        addUpdateButtonsHBox.getChildren().addAll(updatePileButton, addPileButton, deletePileButton);
-
-
-
+        this.add(deletePileButton,3,15,1,2);
     }
 
     public Button getAddPileButton() {

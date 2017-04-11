@@ -32,17 +32,17 @@ public class TableGridPropertiesView extends GridPane {
         this.setVgap(4);
 
         heightValue = new TextField();
-        heightValue.setMaxSize(30,50);
+        heightValue.setMaxSize(50,20);
         this.add(height,1,1,1,1);
         this.add(heightValue,2,1,1,1);
 
         widthValue = new TextField();
-        widthValue.setMaxSize(30,50);
+        widthValue.setMaxSize(50,20);
         this.add(width,4,1,1,1);
         this.add(widthValue,5,1,1,1);
 
         blockSizeValue = new TextField();
-        blockSizeValue.setMaxSize(30,50);
+        blockSizeValue.setMaxSize(50,20);
         this.add(blockSize,1,2,1,1);
         this.add(blockSizeValue,2,2,1,1);
     }
