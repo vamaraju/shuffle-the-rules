@@ -242,6 +242,9 @@ public class EditorTabController {
         r.setStroke(Color.GREY);
 
         if (r.getRuleType() == GameRuleType.EVENT) {  // rectangle is for an event
+            view.getActionsPane().setExpanded(false);
+            view.getEventsPane().setExpanded(true);
+
             view.getClickedEventTypeHeader().setVisible(true);
             view.getClickedEventTypeValue().setVisible(true);
             view.getClickedEventNameHeader().setVisible(true);
@@ -256,6 +259,9 @@ public class EditorTabController {
             view.getClickedEventDescriptionValue().setText(r.getGameRule().getDescription());
             view.getClickedEventPreviousEventValue().setText(getPreviousRuleText(r));
         } else if (r.getRuleType() == GameRuleType.ACTION) { // rectangle is for an action
+            view.getEventsPane().setExpanded(false);
+            view.getActionsPane().setExpanded(true);
+
             view.getClickedActionTypeHeader().setVisible(true);
             view.getClickedActionTypeValue().setVisible(true);
             view.getClickedActionNameHeader().setVisible(true);

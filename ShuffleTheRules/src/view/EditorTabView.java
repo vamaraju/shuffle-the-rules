@@ -273,6 +273,14 @@ public class EditorTabView extends Tab {
         return this.accordion;
     }
 
+    public TitledPane getEventsPane() {
+        return eventsPane;
+    }
+
+    public TitledPane getActionsPane() {
+        return actionsPane;
+    }
+
     public ComboBox getEventComboBox() {
         return this.eventComboBox;
     }
