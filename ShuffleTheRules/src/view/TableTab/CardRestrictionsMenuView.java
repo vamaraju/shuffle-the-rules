@@ -2,6 +2,10 @@ package view.TableTab;
 
 
 import controller.TableTab.CardRestrictionsMenuController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,11 +34,6 @@ public class CardRestrictionsMenuView extends TitledPane{
     private ImageView clubImageView = new ImageView(new Image("assets/playing_cards/suit/club.png"));
     private ImageView diamondImageView = new ImageView(new Image("assets/playing_cards/suit/diamond.png"));
 
-    /* http://stackoverflow.com/questions/33626858/add-border-around-vbox-in-javafx */
-    String greyLayoutBorder = "-fx-border-color: rgba(0,0,0,0.32);\n" +
-            "-fx-border-insets: 0;\n" +
-            "-fx-border-width: 1;\n" +
-            "-fx-border-style: solid;\n";
 
     private TextField heartCount;
     private TextField spadeCount;
@@ -53,8 +52,7 @@ public class CardRestrictionsMenuView extends TitledPane{
         cardRestrictionMenuContent.setVgap(4);
 
         Label selectCard = new Label("Select Card");
-        availableCards = new ChoiceBox();
-        availableCards.getItems().addAll(PlayingCard.values());
+        availableCards = new ChoiceBox(FXCollections.observableArrayList(PlayingCard.values()));
 
         cardRestrictionMenuContent.add(selectCard,1,1,2,1);
         cardRestrictionMenuContent.add(availableCards,3,1,2,1);
@@ -106,6 +104,14 @@ public class CardRestrictionsMenuView extends TitledPane{
         this.setContent(cardRestrictionMenuContent);
 
         this.updateButton.setOnAction(controller::onUpdateButtonClick);
+
+        availableCards.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                /* update suit counts based on card selected */
+                controller.updateDisplayedSuitCounts();
+            }
+        });
     }
 
     public void drawCardSettingsDisplay(){
