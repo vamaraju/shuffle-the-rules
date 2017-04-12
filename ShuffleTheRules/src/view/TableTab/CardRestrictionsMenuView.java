@@ -1,6 +1,7 @@
 package view.TableTab;
 
 
+import controller.TableTab.CardRestrictionsMenuController;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardRestrictionsMenuView extends TitledPane{
-    private List<PlayingCard> cardList = new ArrayList<>();
+
+    private CardRestrictionsMenuController controller;
+
     private ChoiceBox availableCards;
 
     public CardRestrictionsMenuView(){
@@ -40,6 +43,8 @@ public class CardRestrictionsMenuView extends TitledPane{
 
 
     public void initialize(){
+
+        this.controller = new CardRestrictionsMenuController(this);
         this.setText("Card Restrictions");
 
 
@@ -49,7 +54,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         Label selectCard = new Label("Select Card");
         availableCards = new ChoiceBox();
-        availableCards.getItems().addAll(cardList);
+        availableCards.getItems().addAll(PlayingCard.values());
 
         cardRestrictionMenuContent.add(selectCard,1,1,2,1);
         cardRestrictionMenuContent.add(availableCards,3,1,2,1);
@@ -63,8 +68,8 @@ public class CardRestrictionsMenuView extends TitledPane{
         heartImageView.setFitHeight(50);
         heartImageView.setFitWidth(50);
 
-    cardRestrictionMenuContent.add(heartImageView,1,2,1,1);
-    cardRestrictionMenuContent.add(heartCount,2,2,1,1);
+        cardRestrictionMenuContent.add(heartImageView,1,2,1,1);
+        cardRestrictionMenuContent.add(heartCount,2,2,1,1);
 
         /* spade */
         spadeCount = new TextField();
@@ -99,6 +104,8 @@ public class CardRestrictionsMenuView extends TitledPane{
         updateButton = new Button("Update");
         cardRestrictionMenuContent.add(updateButton,1,7,2,2);
         this.setContent(cardRestrictionMenuContent);
+
+        this.updateButton.setOnAction(controller::onUpdateButtonClick);
     }
 
     public void drawCardSettingsDisplay(){
@@ -114,19 +121,7 @@ public class CardRestrictionsMenuView extends TitledPane{
         /* load settings for card chosen in ChoiceBox*/
     }
 
-
-
-    public void updateCardList(List<PlayingCard> list){
-        cardList = list;
-        /* should probably change to use a listener */
-        this.availableCards.getItems().addAll(cardList);
-    }
-
     public Button getUpdateButton() { return updateButton; }
-
-    public List<PlayingCard> getCardList() {
-        return cardList;
-    }
 
     public ChoiceBox getAvailableCards() {
         return availableCards;

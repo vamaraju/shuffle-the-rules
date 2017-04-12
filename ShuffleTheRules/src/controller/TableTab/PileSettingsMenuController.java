@@ -19,10 +19,7 @@ public class PileSettingsMenuController {
 
 
     public PileSettingsMenuController(PileSettingsMenuView view){
-        pileSettingsMenuView = view;
-        pileSettingsMenuView.getPileSettingsView().getAddPileButton().setOnAction(this::onAddPileButtonClick);
-        pileSettingsMenuView.getPileSettingsView().getUpdatePileButton().setOnAction(this::onUpdatePileButtonClick);
-
+        this.pileSettingsMenuView = view;
     }
 
     public PileSettingsMenuView getPileSettingsMenuView() {

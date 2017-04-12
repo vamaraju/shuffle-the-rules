@@ -27,10 +27,6 @@ public class CardSettings implements Serializable {
         }
     }
 
-    public List<PlayingCard> getCardList(){
-        List cardList = new ArrayList(cardSettings.keySet());
-        return cardList;
-    }
     /* TO validation or try/catch? */
     public void updateSuit(PlayingCard card, Suit suit, int value){
         cardSettings.get(card).put(suit,value);

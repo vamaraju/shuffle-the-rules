@@ -4,6 +4,9 @@ import javafx.scene.shape.Line;
 
 import java.io.Serializable;
 
+/**
+ * Serializable version of a JavaFX Line. Lines are converted to Connectors upon serialization.
+ */
 public class Connector implements Serializable {
 
     private double startX;

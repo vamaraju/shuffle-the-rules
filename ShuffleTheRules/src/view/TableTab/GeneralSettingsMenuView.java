@@ -1,6 +1,7 @@
 package view.TableTab;
 
 
+import controller.TableTab.GeneralSettingsMenuController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,19 +12,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class GeneralSettingsMenuView extends TitledPane{
+
+    private GeneralSettingsMenuController controller;
+
     private TextField minNumPlayersInput;
     private TextField maxNumPlayersInput;
 
     private Button updateButton;
 
     public GeneralSettingsMenuView(){
-
         initialize();
-
     }
 
     public void initialize(){
 
+        this.controller = new GeneralSettingsMenuController(this);
         this.setText("General Settings");
 
         /* organize fields in GridPane */
@@ -57,6 +60,7 @@ public class GeneralSettingsMenuView extends TitledPane{
         generalMenuContent.add(updateButton,1,5,2,2);
 
         this.setContent(generalMenuContent);
+        this.updateButton.setOnAction(controller::onUpdateButtonClick);
     }
 
     public Button getUpdateButton(){
