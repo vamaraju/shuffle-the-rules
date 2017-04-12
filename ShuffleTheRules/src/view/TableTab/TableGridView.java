@@ -1,9 +1,14 @@
 package view.TableTab;
 
+
+import javafx.scene.layout.GridPane;
+
+
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
+
 
 
 public class TableGridView extends GridPane {

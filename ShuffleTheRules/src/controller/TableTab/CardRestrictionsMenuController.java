@@ -1,6 +1,8 @@
 package controller.TableTab;
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import model.CardSettings;
 import model.GameCreation;
@@ -18,7 +20,6 @@ public class CardRestrictionsMenuController {
     public CardRestrictionsMenuController(CardRestrictionsMenuView view){
         cardRestrictionsMenuView = view;
 
-        /* change to use observer/ observable */
     }
 
     public void onUpdateButtonClick(Event event){
@@ -30,7 +31,8 @@ public class CardRestrictionsMenuController {
         String clubCount = cardRestrictionsMenuView.getClubCount();
         String diamondCount = cardRestrictionsMenuView.getDiamondCount();
 
-
+        PlayingCard selectedCard = (PlayingCard) cardRestrictionsMenuView.getAvailableCards().getValue();
+        System.out.println("card "+ selectedCard.getClass());
         /* validate */
         /* update model */
         /* update view */
@@ -42,5 +44,14 @@ public class CardRestrictionsMenuController {
         cardRestrictionsMenuView.setSpadeCount(Integer.toString(cardSettings.getSuitCount(card, Suit.SPADE)));
         cardRestrictionsMenuView.setClubCount(Integer.toString(cardSettings.getSuitCount(card, Suit.CLUB)));
         cardRestrictionsMenuView.setDiamondCount(Integer.toString(cardSettings.getSuitCount(card, Suit.DIAMOND)));
+    }
+
+    public void updateDisplayedSuitCounts(){
+            PlayingCard selectedCard = (PlayingCard) cardRestrictionsMenuView.getAvailableCards().getValue();
+            System.out.println("card " + selectedCard);
+            cardRestrictionsMenuView.setHeartCount(Integer.toString(cardSettings.getSuitCount(selectedCard,Suit.HEART)));
+            cardRestrictionsMenuView.setSpadeCount(Integer.toString(cardSettings.getSuitCount(selectedCard,Suit.SPADE)));
+            cardRestrictionsMenuView.setClubCount(Integer.toString(cardSettings.getSuitCount(selectedCard,Suit.CLUB)));
+            cardRestrictionsMenuView.setDiamondCount(Integer.toString(cardSettings.getSuitCount(selectedCard,Suit.DIAMOND)));
     }
 }
