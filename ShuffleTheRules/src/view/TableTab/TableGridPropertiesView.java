@@ -25,6 +25,11 @@ public class TableGridPropertiesView extends GridPane {
     private CheckBox gridHideCheckBox = new CheckBox();
     private Button updateButton = new Button("Update Grid");
 
+    private String gridWidthKey = "gridWidth";
+    private String gridHeightKey = "gridHeight";
+    private String gridCellWidthKey = "gridCellWidth";
+    private String gridHide = "gridHide";
+
     public TableGridPropertiesView() {
         initialize();
     }
@@ -33,14 +38,14 @@ public class TableGridPropertiesView extends GridPane {
         this.setHgap(10);
         this.setVgap(10);
 
-        labels.put("gridWidth", new Label("Grid Width (x):"));
-        labels.put("gridHeight", new Label("Grid Height (y):"));
-        labels.put("gridBlockSize", new Label("Grid Block Size:"));
-        labels.put("gridHide", new Label("Hide Grid:"));
+        labels.put(gridWidthKey, new Label("Grid Width (x):"));
+        labels.put(gridHeightKey, new Label("Grid Height (y):"));
+        labels.put(gridCellWidthKey, new Label("Grid Cell Width:"));
+        labels.put(gridHide, new Label("Hide Grid:"));
 
-        textFields.put("gridWidth", new TextField());
-        textFields.put("gridHeight", new TextField());
-        textFields.put("gridBlockSize", new TextField());
+        textFields.put(gridWidthKey, new TextField("5"));
+        textFields.put(gridHeightKey, new TextField("5"));
+        textFields.put(gridCellWidthKey, new TextField("70"));
 
         int i = 1;
         for (String key : textFields.keySet()) {
@@ -50,7 +55,7 @@ public class TableGridPropertiesView extends GridPane {
             i += 2;
         }
 
-        this.add(labels.get("gridHide"), i++, 1);
+        this.add(labels.get(gridHide), i++, 1);
         this.add(gridHideCheckBox, i++, 1);
         this.add(updateButton, i++, 1);
     }
@@ -71,4 +76,15 @@ public class TableGridPropertiesView extends GridPane {
         return updateButton;
     }
 
+    public String getGridWidthTextFieldValue() {
+        return textFields.get(gridWidthKey).getText();
+    }
+
+    public String getGridHeightTextFieldValue() {
+        return textFields.get(gridHeightKey).getText();
+    }
+
+    public String getGridCellWidthTextFieldValue() {
+        return textFields.get(gridCellWidthKey).getText();
+    }
 }

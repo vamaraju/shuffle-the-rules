@@ -2,7 +2,11 @@ package controller.TableTab;
 
 
 import javafx.event.ActionEvent;
+import view.TableTab.TableGridElement;
+import view.TableTab.TableGridView;
 import view.TableTab.TableTabView;
+
+import java.util.ArrayList;
 
 
 public class TableTabController {
@@ -22,7 +26,26 @@ public class TableTabController {
     }
 
     public void onGridUpdateButtonClick(ActionEvent e) {
-        //int gridWidth = view.getGridTextField("gridWidth").getText();
+        int gridWidth = view.getGridWidthSetting();
+        int gridHeight = view.getGridHeightSetting();
+        double gridCellWidth = view.getGridCellWidthSetting();
+        ArrayList<TableGridElement> currentPiles = view.getGridCurrentPiles();
+
+        TableGridView tableGridView = view.getTableGridView();
+        tableGridView.getChildren().clear();
+        tableGridView.setNumCols(gridWidth);
+        tableGridView.setNumRows(gridHeight);
+        tableGridView.setCellWidth(gridCellWidth);
+        tableGridView.setCellHeight(gridCellWidth*1.45);
+        tableGridView.initGrid();
+
+        for (TableGridElement pile : currentPiles) {
+            if ((pile.getX() <= gridWidth) && (pile.getY() <= gridHeight)) {
+                tableGridView.set(pile, pile.getX(), pile.getY());
+            } else {
+                currentPiles.remove(pile);
+            }
+        }
     }
 
 }

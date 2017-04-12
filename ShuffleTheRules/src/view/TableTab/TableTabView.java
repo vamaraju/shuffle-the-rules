@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -92,8 +93,32 @@ public class TableTabView extends Tab {
         return tableGridPropertiesView.getTextFields().get(textFieldName);
     }
 
-    public TextField getGridWidthSetting(String textFieldName) {
-        return tableGridPropertiesView.getTextFields().get(textFieldName);
+    public int getGridWidthSetting() {
+        String gridWidthStr = tableGridPropertiesView.getGridWidthTextFieldValue();
+        if ((gridWidthStr != null) && (gridWidthStr != "") && (gridWidthStr.matches("[0-9]*"))) {
+            return Integer.parseInt(gridWidthStr);
+        }
+        return tableGridView.getNumCols();
+    }
+
+    public int getGridHeightSetting() {
+        String gridHeightStr = tableGridPropertiesView.getGridHeightTextFieldValue();
+        if ((gridHeightStr != null) && (gridHeightStr != "") && (gridHeightStr.matches("[0-9]*"))) {
+            return Integer.parseInt(gridHeightStr);
+        }
+        return tableGridView.getNumRows();
+    }
+
+    public double getGridCellWidthSetting() {
+        String gridCellWidthStr = tableGridPropertiesView.getGridCellWidthTextFieldValue();
+        if ((gridCellWidthStr != null) && (gridCellWidthStr != "") && (gridCellWidthStr.matches("[0-9]*"))) {
+            return Double.parseDouble(gridCellWidthStr);
+        }
+        return tableGridView.getCellWidth();
+    }
+
+    public ArrayList<TableGridElement> getGridCurrentPiles() {
+        return tableGridView.getCurrentPiles();
     }
 
     public PileSettingsMenuView getPileSettingsMenu() {

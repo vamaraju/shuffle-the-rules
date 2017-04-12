@@ -10,8 +10,6 @@ public class TableGridElement extends Pane {
 
     private int x;
     private int y;
-    private double width;
-    private double height;
     private Pile pile;
     private CardOrientation orientation;
 
@@ -27,11 +25,11 @@ public class TableGridElement extends Pane {
     public TableGridElement(int x, int y, double width, double height) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.setWidth(width);
+        this.setHeight(height);
     }
 
-    public boolean atPosition(int x, int y) {
+    public boolean isPosition(int x, int y) {
         return (this.x == x) && (this.y == y);
     }
 
@@ -40,10 +38,47 @@ public class TableGridElement extends Pane {
         this.orientation = orientation;
 
         ImageView im = new ImageView(new Image(orientation.getAssetLocation()));
-        im.setFitHeight(height);
-        im.setFitWidth(width);
+        im.setFitHeight(this.getHeight());
+        im.setFitWidth(this.getWidth());
 
         this.getChildren().clear();
         this.getChildren().add(im);
+    }
+
+    public boolean hasPile() {
+        return (pile != null);
+    }
+
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Pile getPile() {
+        return pile;
+    }
+
+    public void setPile(Pile pile) {
+        this.pile = pile;
+    }
+
+    public CardOrientation getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(CardOrientation orientation) {
+        this.orientation = orientation;
     }
 }
