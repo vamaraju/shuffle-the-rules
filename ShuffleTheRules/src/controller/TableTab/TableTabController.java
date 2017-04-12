@@ -2,10 +2,6 @@ package controller.TableTab;
 
 
 import javafx.event.ActionEvent;
-import model.CardSettings;
-import model.GameCreation;
-import model.GameSettings;
-import model.TableGrid;
 import view.TableTab.TableTabView;
 
 

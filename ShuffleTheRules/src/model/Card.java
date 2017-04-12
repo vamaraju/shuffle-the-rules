@@ -17,7 +17,7 @@ public class Card implements Serializable, Comparable {
         this.value = value;
         this.suit = suit;
 
-        this.cardFaceAssetLocation = "assets/playing_cards/" + suit.getName().toLowerCase() + "/" + value.getName().toLowerCase() + ".png";
+        this.cardFaceAssetLocation = suit.getCardAssetLocation() + value.getName().toLowerCase() + ".png";
         this.cardBackAssetLocation = "assets/playing_cards/back/blue.png";
     }
 

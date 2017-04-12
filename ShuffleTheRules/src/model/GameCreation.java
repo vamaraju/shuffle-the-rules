@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.Piles.Pile;
+import view.RuleElementRectangle;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
 package model;
 
 import javafx.scene.shape.Line;
+import view.RuleElementRectangle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
