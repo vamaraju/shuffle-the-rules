@@ -66,9 +66,6 @@ public class Main extends Application {
         tabPane.getTabs().addAll(tableTab, editorTab);
 
         rootBorderPane.setCenter(tabPane);
-        CardRestrictionsMenuController cardRestrictionsMenuController = new CardRestrictionsMenuController(tableTab.getCardRestrictionSettingsMenu());
-        GeneralSettingsMenuController generalSettingsMenuController = new GeneralSettingsMenuController(tableTab.getGeneralSettingsMenu());
-        PileSettingsMenuController pileSettingsMenuController = new PileSettingsMenuController(tableTab.getPileSettingsMenu());
     }
 
 

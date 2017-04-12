@@ -1,6 +1,7 @@
 package controller.TableTab;
 
 
+import javafx.event.ActionEvent;
 import model.CardSettings;
 import model.GameCreation;
 import model.GameSettings;
@@ -10,20 +11,18 @@ import view.TableTab.TableTabView;
 
 public class TableTabController {
 
-    private TableGrid tableGrid;
-    private TableTabView tableTabView;
-    private GameSettings gameSettings;
-    private GameCreation gameCreation;
+    private TableTabView view;
 
-    public TableTabController(CardSettings cardSettingsModel, TableGrid tableGridModel, TableTabView tableTabView, GameSettings gameSettingsModel){
-
-        tableGrid = tableGridModel;
-        tableTabView = tableTabView;
-        gameSettings = gameSettingsModel;
-
-
+    public TableTabController(TableTabView view){
+        this.view = view;
     }
 
-
+    public void onHideGridCheckboxClick(ActionEvent e) {
+        if (view.getHideGridCheckBox().isSelected()) {
+            view.getTableGridView().disableGridLines();
+        } else {
+            view.getTableGridView().enableGridLines();
+        }
+    }
 
 }

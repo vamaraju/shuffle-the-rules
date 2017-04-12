@@ -18,17 +18,7 @@ public class CardRestrictionsMenuController {
     public CardRestrictionsMenuController(CardRestrictionsMenuView view){
         cardRestrictionsMenuView = view;
 
-        cardRestrictionsMenuView.getUpdateButton().setOnAction(this::onUpdateButtonClick);
-        updateCardList();
         /* change to use observer/ observable */
-    }
-
-    public List<PlayingCard> getCardList(){
-        return cardSettings.getCardList();
-    }
-
-    public void updateCardList(){
-        cardRestrictionsMenuView.updateCardList(cardSettings.getCardList());
     }
 
     public void onUpdateButtonClick(Event event){

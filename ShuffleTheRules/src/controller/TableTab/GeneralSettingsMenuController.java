@@ -14,9 +14,6 @@ public class GeneralSettingsMenuController {
 
     public GeneralSettingsMenuController(GeneralSettingsMenuView view){
         generalSettingsMenuView = view;
-        generalSettingsMenuView.getUpdateButton().setOnAction(this::onUpdateButtonClick);
-        updateMinCount();
-        updateMaxCount();
     }
 
     public GeneralSettingsMenuView getGeneralSettingsMenuView() {
@@ -46,8 +43,7 @@ public class GeneralSettingsMenuController {
             }
 
         }
-        updateMinCount();
-        updateMaxCount();
+
         System.out.print("game settings min ");
         System.out.println(gameSettings.getMinPlayers());
         System.out.print("game settings max ");
@@ -55,11 +51,5 @@ public class GeneralSettingsMenuController {
 
     }
 
-    public void updateMinCount(){
-        getGeneralSettingsMenuView().setMinNumPlayersInput(Integer.toString(gameSettings.getMinPlayers()));
-    }
 
-    public void updateMaxCount(){
-        getGeneralSettingsMenuView().setMaxNumPlayersInput(Integer.toString(gameSettings.getMaxPlayers()));
-    }
 }

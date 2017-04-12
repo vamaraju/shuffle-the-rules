@@ -5,6 +5,9 @@ import javafx.scene.shape.Line;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Serializable version of a JavaFX Rectangle. RuleElementRectangles are converted to this upon serialization.
+ */
 public class RuleElementRectangleBlueprint implements Serializable {
 
     private double x;
