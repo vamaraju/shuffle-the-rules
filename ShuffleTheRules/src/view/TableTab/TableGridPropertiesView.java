@@ -1,9 +1,14 @@
 package view.TableTab;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /*
 * Used inside centre pane of TableTabView.
@@ -14,74 +19,56 @@ import javafx.scene.layout.GridPane;
 * */
 public class TableGridPropertiesView extends GridPane {
 
-    private Label width = new Label("Grid Width (x):");
-    private Label height = new Label("Grid Height (y):");
-    private Label blockSize = new Label("Grid Block Size:");
-    private Label hideGrid = new Label("Hide Grid:");
+    private HashMap<String, Label> labels = new LinkedHashMap<>();
+    private HashMap<String, TextField> textFields = new LinkedHashMap<>();
 
-    private TextField heightTextField;
-    private TextField widthTextField;
-    private TextField blockSizeTextField;
-    private CheckBox hideGridCheckBox;
+    private CheckBox gridHideCheckBox = new CheckBox();
+    private Button updateButton = new Button("Update Grid");
 
-    public TableGridPropertiesView(){
+    public TableGridPropertiesView() {
         initialize();
     }
 
-    public void initialize(){
+    private void initialize(){
         this.setHgap(10);
         this.setVgap(10);
 
-        widthTextField = new TextField();
-        widthTextField.setMaxSize(50,20);
-        this.add(width,1,1);
-        this.add(widthTextField,2,1);
+        labels.put("gridWidth", new Label("Grid Width (x):"));
+        labels.put("gridHeight", new Label("Grid Height (y):"));
+        labels.put("gridBlockSize", new Label("Grid Block Size:"));
+        labels.put("gridHide", new Label("Hide Grid:"));
 
-        heightTextField = new TextField();
-        heightTextField.setMaxSize(50,20);
-        this.add(height,3,1);
-        this.add(heightTextField,4,1);
+        textFields.put("gridWidth", new TextField());
+        textFields.put("gridHeight", new TextField());
+        textFields.put("gridBlockSize", new TextField());
 
-        blockSizeTextField = new TextField();
-        blockSizeTextField.setMaxSize(50,20);
-        this.add(blockSize,5,1);
-        this.add(blockSizeTextField,6,1);
+        int i = 1;
+        for (String key : textFields.keySet()) {
+            textFields.get(key).setMaxSize(50,20);
+            this.add(labels.get(key), i, 1);
+            this.add(textFields.get(key), i+1, 1);
+            i += 2;
+        }
 
-        hideGridCheckBox = new CheckBox();
-        this.add(hideGrid,7,1);
-        this.add(hideGridCheckBox,8,1);
+        this.add(labels.get("gridHide"), i++, 1);
+        this.add(gridHideCheckBox, i++, 1);
+        this.add(updateButton, i++, 1);
     }
 
-
-    public TextField getHeightTextField() {
-        return this.heightTextField;
+    public CheckBox getGridHideCheckBox() {
+        return gridHideCheckBox;
     }
 
-    public void setHeightTextField(TextField heightTextField) {
-        this.heightTextField = heightTextField;
+    public HashMap<String, Label> getLabels() {
+        return labels;
     }
 
-    public TextField getWidthTextField() {
-        return this.widthTextField;
+    public HashMap<String, TextField> getTextFields() {
+        return textFields;
     }
 
-    public void setWidthTextField(TextField widthTextField) {
-        this.widthTextField = widthTextField;
+    public Button getUpdateButton() {
+        return updateButton;
     }
 
-    public TextField getBlockSizeTextField() {
-        return this.blockSizeTextField;
-    }
-
-    public void setBlockSizeTextField(TextField blockSizeTextField) {
-        this.blockSizeTextField = blockSizeTextField;
-    }
-
-    public CheckBox getHideGridCheckBox() {
-        return hideGridCheckBox;
-    }
-
-    public void setHideGridCheckBox(CheckBox hideGridCheckBox) {
-        this.hideGridCheckBox = hideGridCheckBox;
-    }
 }

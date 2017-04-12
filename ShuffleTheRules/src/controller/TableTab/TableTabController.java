@@ -17,12 +17,16 @@ public class TableTabController {
         this.view = view;
     }
 
-    public void onHideGridCheckboxClick(ActionEvent e) {
-        if (view.getHideGridCheckBox().isSelected()) {
+    public void onGridHideCheckboxClick(ActionEvent e) {
+        if (view.getGridHideCheckBox().isSelected()) {
             view.getTableGridView().disableGridLines();
         } else {
             view.getTableGridView().enableGridLines();
         }
+    }
+
+    public void onGridUpdateButtonClick(ActionEvent e) {
+        //int gridWidth = view.getGridTextField("gridWidth").getText();
     }
 
 }
