@@ -14,7 +14,7 @@ import model.GameActions.*;
 import model.GameEvents.*;
 import model.GameRule;
 import model.GameRuleType;
-import model.RuleElementRectangle;
+import view.RuleElementRectangle;
 import view.EditorTabView;
 
 import java.util.ArrayList;

@@ -7,13 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import model.GameCreation;
 import model.GameRuleType;
-import model.RuleElementRectangle;
-
-import javax.xml.soap.Text;
 
 public class EditorTabView extends Tab {
 
