@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+import java.util.HashMap;
+
 
 public class TableTabView extends Tab {
 
@@ -27,7 +29,7 @@ public class TableTabView extends Tab {
     }
 
     public void initialize(){
-        this.controller = new TableTabController(this);
+        controller = new TableTabController(this);
 
         this.setText("Table");
         tableTabBorderPane = new BorderPane();
@@ -38,10 +40,10 @@ public class TableTabView extends Tab {
         tableGridPropertiesView = new TableGridPropertiesView();
         tableGridView = new TableGridView();
 
-        this.tableGridScrollPane = new ScrollPane(tableGridView);
-        this.tableGridScrollPane.setFitToWidth(true);
-        this.tableGridScrollPane.setFitToHeight(true);
-        this.tableGridScrollPane.setStyle("-fx-focus-color: transparent;");
+        tableGridScrollPane = new ScrollPane(tableGridView);
+        tableGridScrollPane.setFitToWidth(true);
+        tableGridScrollPane.setFitToHeight(true);
+        tableGridScrollPane.setStyle("-fx-focus-color: transparent;");
 
         centrePaneVBox.getChildren().addAll(tableGridPropertiesView, new Separator(), this.tableGridScrollPane);
         tableTabBorderPane.setCenter(centrePaneVBox);
@@ -57,7 +59,9 @@ public class TableTabView extends Tab {
         tableTabBorderPane.setRight(tableTabAccordian);
 
         this.setContent(tableTabBorderPane);
-        this.getHideGridCheckBox().setOnAction(controller::onHideGridCheckboxClick);
+
+        getGridHideCheckBox().setOnAction(controller::onGridHideCheckboxClick);
+        getGridUpdateButton().setOnAction(controller::onGridUpdateButtonClick);
     }
 
     public BorderPane getTableTabBorderPane() {
@@ -72,8 +76,24 @@ public class TableTabView extends Tab {
         return this.tableGridView.getChildren();
     }
 
-    public CheckBox getHideGridCheckBox() {
-        return this.tableGridPropertiesView.getHideGridCheckBox();
+    public CheckBox getGridHideCheckBox() {
+        return tableGridPropertiesView.getGridHideCheckBox();
+    }
+
+    public Button getGridUpdateButton() {
+        return tableGridPropertiesView.getUpdateButton();
+    }
+
+    public HashMap<String, TextField> getGridTextFields() {
+        return tableGridPropertiesView.getTextFields();
+    }
+
+    public TextField getGridTextField(String textFieldName) {
+        return tableGridPropertiesView.getTextFields().get(textFieldName);
+    }
+
+    public TextField getGridWidthSetting(String textFieldName) {
+        return tableGridPropertiesView.getTextFields().get(textFieldName);
     }
 
     public PileSettingsMenuView getPileSettingsMenu() {
