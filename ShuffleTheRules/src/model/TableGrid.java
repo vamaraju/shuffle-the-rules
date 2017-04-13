@@ -1,58 +1,60 @@
 package model;
 
+import java.io.Serializable;
 
-import java.util.ArrayList;
+public class TableGrid implements Serializable {
 
-public class TableGrid {
+    private int numRows;
+    private int numCols;
+    private double cellWidth;
+    private double cellHeight;
 
-    int gridDimensionX;
-    int getGridDimensionY;
-    float gridScaleFactor;
-    Boolean showGridlines;
-    ArrayList gridValues;
-
-
-    public TableGrid(){
+    public TableGrid() {
 
     }
 
-    public int getGridDimensionX() {
-        return gridDimensionX;
+    public TableGrid(int numCols, int numRows) {
+        this.numCols = numCols;
+        this.numRows = numRows;
     }
 
-    public void setGridDimensionX(int gridDimensionX) {
-        this.gridDimensionX = gridDimensionX;
+    public TableGrid(int numCols, int numRows, double cellWidth) {
+        this.numCols = numCols;
+        this.numRows = numRows;
+        this.cellWidth = cellWidth;
+        this.cellHeight = cellWidth*PlayingCard.ASPECT_RATIO;
     }
 
-    public int getGetGridDimensionY() {
-        return getGridDimensionY;
+    public int getNumRows() {
+        return numRows;
     }
 
-    public void setGetGridDimensionY(int getGridDimensionY) {
-        this.getGridDimensionY = getGridDimensionY;
+    public void setNumRows(int numRows) {
+        this.numRows = numRows;
     }
 
-    public float getGridScaleFactor() {
-        return gridScaleFactor;
+    public int getNumCols() {
+        return numCols;
     }
 
-    public void setGridScaleFactor(float gridScaleFactor) {
-        this.gridScaleFactor = gridScaleFactor;
+    public void setNumCols(int numCols) {
+        this.numCols = numCols;
     }
 
-    public Boolean getShowGridlines() {
-        return showGridlines;
+    public double getCellWidth() {
+        return cellWidth;
     }
 
-    public void setShowGridlines(Boolean showGridlines) {
-        this.showGridlines = showGridlines;
+    public void setCellWidth(double cellWidth) {
+        this.cellWidth = cellWidth;
     }
 
-    public ArrayList getGridValues() {
-        return gridValues;
+    public double getCellHeight() {
+        return cellHeight;
     }
 
-    public void setGridValues(ArrayList gridValues) {
-        this.gridValues = gridValues;
+    public void setCellHeight(double cellHeight) {
+        this.cellHeight = cellHeight;
     }
+
 }

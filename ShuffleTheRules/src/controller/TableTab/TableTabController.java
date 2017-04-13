@@ -2,6 +2,7 @@ package controller.TableTab;
 
 
 import javafx.event.ActionEvent;
+import model.PlayingCard;
 import view.TableTab.TableGridElement;
 import view.TableTab.TableGridView;
 import view.TableTab.TableTabView;
@@ -32,12 +33,7 @@ public class TableTabController {
         ArrayList<TableGridElement> currentPiles = view.getGridCurrentPiles();
 
         TableGridView tableGridView = view.getTableGridView();
-        tableGridView.getChildren().clear();
-        tableGridView.setNumCols(gridWidth);
-        tableGridView.setNumRows(gridHeight);
-        tableGridView.setCellWidth(gridCellWidth);
-        tableGridView.setCellHeight(gridCellWidth*1.45);
-        tableGridView.initGrid();
+        tableGridView.initGrid(gridWidth, gridHeight, gridCellWidth);
 
         for (TableGridElement pile : currentPiles) {
             if ((pile.getX() <= gridWidth) && (pile.getY() <= gridHeight)) {

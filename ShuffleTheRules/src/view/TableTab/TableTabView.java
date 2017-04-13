@@ -98,7 +98,7 @@ public class TableTabView extends Tab {
         if ((gridWidthStr != null) && (gridWidthStr != "") && (gridWidthStr.matches("[0-9]*"))) {
             return Integer.parseInt(gridWidthStr);
         }
-        return tableGridView.getNumCols();
+        return tableGridView.getTableGrid().getNumCols();
     }
 
     public int getGridHeightSetting() {
@@ -106,7 +106,7 @@ public class TableTabView extends Tab {
         if ((gridHeightStr != null) && (gridHeightStr != "") && (gridHeightStr.matches("[0-9]*"))) {
             return Integer.parseInt(gridHeightStr);
         }
-        return tableGridView.getNumRows();
+        return tableGridView.getTableGrid().getNumRows();
     }
 
     public double getGridCellWidthSetting() {
@@ -114,7 +114,7 @@ public class TableTabView extends Tab {
         if ((gridCellWidthStr != null) && (gridCellWidthStr != "") && (gridCellWidthStr.matches("[0-9]*"))) {
             return Double.parseDouble(gridCellWidthStr);
         }
-        return tableGridView.getCellWidth();
+        return tableGridView.getTableGrid().getCellWidth();
     }
 
     public ArrayList<TableGridElement> getGridCurrentPiles() {

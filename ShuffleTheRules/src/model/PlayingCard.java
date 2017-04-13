@@ -18,6 +18,8 @@ public enum PlayingCard implements Serializable {
     QUEEN(12, "Queen"),
     KING(13, "King");
 
+    public static final double ASPECT_RATIO = 726.0/500.0;
+
     private final int value;
     private final String name;
 
