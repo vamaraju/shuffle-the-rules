@@ -6,6 +6,7 @@ import javafx.scene.layout.GridPane;
 
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import model.PlayingCard;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class TableGridView extends GridPane {
     private int numRows = 5;
     private int numCols = 5;
     private double cellWidth = 70;
-    private double cellHeight = cellWidth*1.45;
+    private double cellHeight = cellWidth*PlayingCard.ASPECT_RATIO;
     private ArrayList<TableGridElement> currentPiles = new ArrayList<>();
 
     public TableGridView() {

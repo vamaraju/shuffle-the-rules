@@ -2,6 +2,7 @@ package controller.TableTab;
 
 
 import javafx.event.ActionEvent;
+import model.PlayingCard;
 import view.TableTab.TableGridElement;
 import view.TableTab.TableGridView;
 import view.TableTab.TableTabView;
@@ -36,7 +37,7 @@ public class TableTabController {
         tableGridView.setNumCols(gridWidth);
         tableGridView.setNumRows(gridHeight);
         tableGridView.setCellWidth(gridCellWidth);
-        tableGridView.setCellHeight(gridCellWidth*1.45);
+        tableGridView.setCellHeight(gridCellWidth*PlayingCard.ASPECT_RATIO);
         tableGridView.initGrid();
 
         for (TableGridElement pile : currentPiles) {
