@@ -40,14 +40,11 @@ public class CardRestrictionsMenuController {
     }
 
     public void updateSuitCounts(ObservableValue observable, Object oldValue, Object newValue){
-//        cardRestrictionsMenuView.setHeartCount(Integer.toString(cardSettings.getSuitCount(card, Suit.HEART)));
-//        cardRestrictionsMenuView.setSpadeCount(Integer.toString(cardSettings.getSuitCount(card, Suit.SPADE)));
-//        cardRestrictionsMenuView.setClubCount(Integer.toString(cardSettings.getSuitCount(card, Suit.CLUB)));
-//        cardRestrictionsMenuView.setDiamondCount(Integer.toString(cardSettings.getSuitCount(card, Suit.DIAMOND)));
+
     }
 
-    public void updateDisplayedSuitCounts(ObservableValue observable, Object oldValue, Object newValue){
-            PlayingCard selectedCard = (PlayingCard) cardRestrictionsMenuView.getAvailableCards().getValue();
+    public void updateDisplayedSuitCounts(ObservableValue observable, PlayingCard previousCard, PlayingCard selectedCard){
+
             System.out.println("card " + selectedCard);
             cardRestrictionsMenuView.setHeartCount(Integer.toString(cardSettings.getSuitCount(selectedCard,Suit.HEART)));
             cardRestrictionsMenuView.setSpadeCount(Integer.toString(cardSettings.getSuitCount(selectedCard,Suit.SPADE)));

@@ -16,8 +16,8 @@ import view.TableTab.TableGridView;
 public class GameplayView extends BorderPane {
 
 
-    private Button endTurn = new Button("End Turn");
-    private Button sortHand = new Button("Sort Hand");
+    private Button endTurnButton = new Button("End Turn");
+    private Button sortHandButton = new Button("Sort Hand");
 
 
     private GameplayMessageView gameplayMessageView;
@@ -48,19 +48,23 @@ public class GameplayView extends BorderPane {
 
 
         GridPane buttonsPane = new GridPane();
-        buttonsPane.add(endTurn,1,1,1,1);
-        buttonsPane.add(sortHand,1,2,1,1);
+        buttonsPane.add(endTurnButton,2,1,2,2);
+        buttonsPane.add(sortHandButton,2,3,2,2);
+
+        /* buttons will be disabled unless condition satisified */
+        endTurnButton.setDisable(true);
+        sortHandButton.setDisable(true);
 
         handAndButtons.getChildren().addAll(buttonsPane);
         this.setBottom(handAndButtons);
     }
 
     public Button getEndTurnButton() {
-        return endTurn;
+        return endTurnButton;
     }
 
     public Button getSortHandButton() {
-        return sortHand;
+        return sortHandButton;
     }
 
     public GameplayMessageView getGameplayMessageView(){
