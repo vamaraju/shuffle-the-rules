@@ -25,7 +25,7 @@ public class GeneralSettingsMenuController {
         /* Get input */
         String minText = generalSettingsMenuView.getMinNumPlayersInput();
         String maxText = generalSettingsMenuView.getMaxNumPlayersInput();
-         /* validate */
+        /* validate */
         if (!minText.isEmpty() && !maxText.isEmpty()){
             try{
                 int min = Integer.parseInt(minText);
@@ -38,7 +38,7 @@ public class GeneralSettingsMenuController {
 
 
             }catch (Exception e){
-                System.out.println("exception thrown.");
+                System.out.println("exception thrown while trying to parse min and max values in General Settings into integers.");
                 
             }
 

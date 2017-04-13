@@ -105,7 +105,7 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         this.updateButton.setOnAction(controller::onUpdateButtonClick);
 
-        availableCards.getSelectionModel().selectedItemProperty().addListener(controller::updateDisplayedSuitCounts);
+        availableCards.getSelectionModel().selectedItemProperty().addListener(controller::changeDisplayedSuitCounts);
 
 
     }
