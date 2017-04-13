@@ -105,13 +105,22 @@ public class CardRestrictionsMenuView extends TitledPane{
 
         this.updateButton.setOnAction(controller::onUpdateButtonClick);
 
-        availableCards.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                /* update suit counts based on card selected */
-                controller.updateDisplayedSuitCounts();
-            }
-        });
+//        availableCards.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+//                /* update suit counts based on card selected */
+//                controller.updateDisplayedSuitCounts();
+//            }
+//        });
+
+
+        availableCards.getSelectionModel().selectedItemProperty().addListener(controller::updateSuitCounts);
+
+
+//        availableCards.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//            controller.updateDisplayedSuitCounts();
+//        });
+
     }
 
     public void drawCardSettingsDisplay(){
