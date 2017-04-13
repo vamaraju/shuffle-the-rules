@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import model.PlayingCard;
+import model.TableGrid;
 
 import java.util.ArrayList;
 
@@ -16,38 +17,39 @@ public class TableGridView extends GridPane {
 
     private final String enableGridCSS = "-fx-background-color: black, green; -fx-background-insets: 0, 0 1 1 0;";
     private final String disableGridCSS = "-fx-background-color: green;";
+    private final String enableBackgroundImageCSS = "-fx-background-image: url('assets/background/green.jpg')";
 
-    private int numRows = 5;
-    private int numCols = 5;
-    private double cellWidth = 70;
-    private double cellHeight = cellWidth*PlayingCard.ASPECT_RATIO;
+    private TableGrid tableGrid;
     private ArrayList<TableGridElement> currentPiles = new ArrayList<>();
 
     public TableGridView() {
-        initialize();
-    }
-
-    public void initialize() {
         this.setStyle("-fx-background-color: white; -fx-padding: 10;");
-        initGrid();
+        resetGrid();
     }
 
-    public void initGrid() {
+    public void resetGrid() {
+        initGrid(5, 5, 70);
+    }
+
+    public void initGrid(int numCols, int numRows, double cellWidth) {
+        this.tableGrid = new TableGrid(numCols, numRows, cellWidth);
+
         this.getColumnConstraints().clear();
-        for (int i = 0; i < numCols; i++) {
-            ColumnConstraints column = new ColumnConstraints(cellWidth);
+        for (int i = 0; i < tableGrid.getNumCols(); i++) {
+            ColumnConstraints column = new ColumnConstraints(tableGrid.getCellWidth());
             this.getColumnConstraints().add(column);
         }
 
         this.getRowConstraints().clear();
-        for (int i = 0; i < numRows; i++) {
-            RowConstraints row = new RowConstraints(cellHeight);
+        for (int i = 0; i < tableGrid.getNumRows(); i++) {
+            RowConstraints row = new RowConstraints(tableGrid.getCellHeight());
             this.getRowConstraints().add(row);
         }
 
-        for (int i = 0; i < numCols; i++) {
-            for (int j = 0; j < numRows; j++) {
-                TableGridElement gridElement = new TableGridElement(i, j, cellWidth, cellHeight);
+        this.getChildren().clear();
+        for (int i = 0; i < tableGrid.getNumCols(); i++) {
+            for (int j = 0; j < tableGrid.getNumRows(); j++) {
+                TableGridElement gridElement = new TableGridElement(i, j, tableGrid.getCellWidth(), tableGrid.getCellHeight());
                 gridElement.setStyle(enableGridCSS);
                 this.add(gridElement, i, j);
             }
@@ -63,6 +65,12 @@ public class TableGridView extends GridPane {
     public void disableGridLines() {
         for (Node n : this.getChildren()) {
             n.setStyle(disableGridCSS);
+        }
+    }
+
+    public void enableBackgroundImage() {
+        for (Node n : this.getChildren()) {
+            n.setStyle(enableBackgroundImageCSS);
         }
     }
 
@@ -90,36 +98,11 @@ public class TableGridView extends GridPane {
         return currentPiles;
     }
 
-
-    public int getNumRows() {
-        return numRows;
+    public TableGrid getTableGrid() {
+        return tableGrid;
     }
 
-    public void setNumRows(int numRows) {
-        this.numRows = numRows;
-    }
-
-    public int getNumCols() {
-        return numCols;
-    }
-
-    public void setNumCols(int numCols) {
-        this.numCols = numCols;
-    }
-
-    public double getCellHeight() {
-        return cellHeight;
-    }
-
-    public void setCellHeight(double cellHeight) {
-        this.cellHeight = cellHeight;
-    }
-
-    public double getCellWidth() {
-        return cellWidth;
-    }
-
-    public void setCellWidth(double cellWidth) {
-        this.cellWidth = cellWidth;
+    public void setTableGrid(TableGrid tableGrid) {
+        this.tableGrid = tableGrid;
     }
 }

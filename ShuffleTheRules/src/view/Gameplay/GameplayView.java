@@ -33,6 +33,7 @@ public class GameplayView extends BorderPane {
         /* centre pane will be the table */
         /* need to pass in TableGrid values*/
         TableGridView table = new TableGridView();
+        table.enableBackgroundImage();
 
         this.setCenter(table);
 
