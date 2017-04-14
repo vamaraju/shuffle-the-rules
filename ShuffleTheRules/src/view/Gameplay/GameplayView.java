@@ -55,11 +55,11 @@ public class GameplayView extends BorderPane {
         buttonsPane.add(endGameButton,2,5,2,2);
 
         /* buttons will be disabled unless condition satisified */
-        endTurnButton.setDisable(true);
-        sortHandButton.setDisable(true);
+        //endTurnButton.setDisable(true);
+        //sortHandButton.setDisable(true);
 
         selectedPileAndButtons.setHgrow(selectedPileView, Priority.ALWAYS);
-        selectedPileAndButtons.setMaxHeight(200);
+        selectedPileAndButtons.setMaxHeight(300);
         selectedPileAndButtons.getChildren().addAll(selectedPileView, new Separator(Orientation.VERTICAL), buttonsPane);
 
         this.setBottom(selectedPileAndButtons);

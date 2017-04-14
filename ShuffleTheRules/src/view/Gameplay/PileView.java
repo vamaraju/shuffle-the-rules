@@ -7,16 +7,14 @@ package view.Gameplay;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 import model.*;
+import model.Piles.Pile;
 
 
 public class PileView extends ListView<Card> {
@@ -26,6 +24,7 @@ public class PileView extends ListView<Card> {
     /* set the view to be horizontal or vertical */
     public PileView(Orientation orientation){
         items = FXCollections.observableArrayList();
+        this.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         items.add(new Card(PlayingCard.ACE, Suit.HEART));
         items.add(new Card(PlayingCard.ACE, Suit.SPADE));
         items.add(new Card(PlayingCard.FOUR, Suit.HEART));
@@ -67,7 +66,13 @@ public class PileView extends ListView<Card> {
                 cardImage.setFitHeight(350);
 
                 setGraphic(cardImage);
+                this.setTooltip(new Tooltip("Value: " + item.getValue().toString() + " Suit: " +item.getSuit()));
             }
         }
+    }
+
+    public void showPile(Pile pile){
+        /* change the displayed Pile (Cards displayed) */
+
     }
 }
