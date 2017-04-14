@@ -32,6 +32,12 @@ public class PileView extends ListView<Card> {
         items.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
         items.add(new Card(PlayingCard.THREE, Suit.HEART));
         items.add(new Card(PlayingCard.TEN, Suit.SPADE));
+        items.add(new Card(PlayingCard.ACE, Suit.HEART));
+        items.add(new Card(PlayingCard.ACE, Suit.SPADE));
+        items.add(new Card(PlayingCard.FOUR, Suit.HEART));
+        items.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
+        items.add(new Card(PlayingCard.THREE, Suit.HEART));
+        items.add(new Card(PlayingCard.TEN, Suit.SPADE));
 
         this.setItems(items);
         this.setOrientation(orientation);
@@ -57,8 +63,9 @@ public class PileView extends ListView<Card> {
                     cardImage = new ImageView(new Image(item.getCardBackAssetLocation()));
                 }
                 cardImage.setPreserveRatio(true);
-                cardImage.setFitWidth(this.getHeight());
-                cardImage.setFitHeight(this.getWidth());
+                cardImage.setFitWidth(150);
+                cardImage.setFitHeight(350);
+
                 setGraphic(cardImage);
             }
         }
