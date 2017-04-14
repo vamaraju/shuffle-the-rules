@@ -249,7 +249,7 @@ public class EditorTabController {
 
     private void rectangleClick(RuleElementRectangle r) {
         r.setClicked(true);
-        r.setStroke(Color.GREY);
+        r.setStroke(Color.GAINSBORO);
 
         if (r.getRuleType() == GameRuleType.EVENT) {  // rectangle is for an event
             view.getActionsPane().setExpanded(false);

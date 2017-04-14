@@ -610,7 +610,7 @@ public class RuleElementRectangle extends Rectangle {
             if (this.defaultBorderColor == null) {
                 this.defaultBorderColor = this.getStroke();
             }
-            this.setStroke(Color.GREY);
+            this.setStroke(Color.GAINSBORO);
         }
     }
 
