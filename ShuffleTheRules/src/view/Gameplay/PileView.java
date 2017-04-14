@@ -4,6 +4,7 @@
 package view.Gameplay;
 
 
+import controller.PileViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
@@ -16,27 +17,34 @@ import model.Piles.Pile;
 public class PileView extends ListView<Card> {
 
     private ObservableList<Card> items;
+    private PileViewController pileViewController;
 
     /* set the view to be horizontal or vertical */
     public PileView(Orientation orientation){
         items = FXCollections.observableArrayList();
-        this.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        items.add(new Card(PlayingCard.ACE, Suit.HEART));
-        items.add(new Card(PlayingCard.ACE, Suit.SPADE));
-        items.add(new Card(PlayingCard.FOUR, Suit.HEART));
-        items.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
-        items.add(new Card(PlayingCard.THREE, Suit.HEART));
-        items.add(new Card(PlayingCard.TEN, Suit.SPADE));
-        items.add(new Card(PlayingCard.ACE, Suit.HEART));
-        items.add(new Card(PlayingCard.ACE, Suit.SPADE));
-        items.add(new Card(PlayingCard.FOUR, Suit.HEART));
-        items.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
-        items.add(new Card(PlayingCard.THREE, Suit.HEART));
-        items.add(new Card(PlayingCard.TEN, Suit.SPADE));
-
         this.setItems(items);
+
+        this.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         this.setOrientation(orientation);
+
+        pileViewController = new PileViewController(this);
+        this.getSelectionModel().selectedItemProperty().addListener(pileViewController::changeDisplayedSuitCounts);
+
+        /* for easy testing. Sorry, will be deleted! */
+        items.add(new Card(PlayingCard.ACE, Suit.HEART));
+        items.add(new Card(PlayingCard.ACE, Suit.SPADE));
+        items.add(new Card(PlayingCard.FOUR, Suit.HEART));
+        items.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
+        items.add(new Card(PlayingCard.THREE, Suit.HEART));
+        items.add(new Card(PlayingCard.TEN, Suit.SPADE));
+        items.add(new Card(PlayingCard.ACE, Suit.HEART));
+        items.add(new Card(PlayingCard.ACE, Suit.SPADE));
+        items.add(new Card(PlayingCard.FOUR, Suit.HEART));
+        items.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
+        items.add(new Card(PlayingCard.THREE, Suit.HEART));
+        items.add(new Card(PlayingCard.TEN, Suit.SPADE));
+
+
 
         this.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             @Override
@@ -45,7 +53,7 @@ public class PileView extends ListView<Card> {
             }
         });
 
-
+        System.out.println(this.getSelectionModel().getSelectedItem());
 
     }
 
