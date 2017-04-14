@@ -1,3 +1,6 @@
+/*
+* Requirements mandating inclusion:
+* */
 package view.Gameplay;
 
 
@@ -7,9 +10,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.ListView;
 import model.GameplayMessage;
 
-/*
-* Requirements mandating inclusion:
-* */
+
 public class PileView extends ListView {
 
     private ObservableList<GameplayMessage> items;

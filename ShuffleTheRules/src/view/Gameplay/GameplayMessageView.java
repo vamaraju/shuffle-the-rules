@@ -1,3 +1,6 @@
+/*
+* Requirements mandating inclusion:
+* */
 package view.Gameplay;
 
 import javafx.collections.FXCollections;
@@ -5,9 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import model.GameplayMessage;
 
-/*
-* Requirements mandating inclusion:
-* */
+
 public class GameplayMessageView extends ListView{
 
     private ObservableList<GameplayMessage> gameplayMessages;

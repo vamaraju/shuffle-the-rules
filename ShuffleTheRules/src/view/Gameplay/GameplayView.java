@@ -1,3 +1,6 @@
+/*
+* Requirements mandating inclusion:
+* */
 package view.Gameplay;
 
 
@@ -9,9 +12,7 @@ import javafx.scene.layout.HBox;
 import view.TableTab.TableGridView;
 
 
-/*
-* Requirements mandating inclusion:
-* */
+
 public class GameplayView extends BorderPane {
 
 
