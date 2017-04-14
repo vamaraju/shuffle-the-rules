@@ -18,10 +18,6 @@ public class GeneralSettingsMenuController {
         generalSettingsMenuView = view;
     }
 
-    public GeneralSettingsMenuView getGeneralSettingsMenuView() {
-        return generalSettingsMenuView;
-    }
-
     public void onUpdateButtonClick(Event event){
         System.out.println("Update pressed - General Settings Menu");
         /* Get input */
