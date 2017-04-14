@@ -11,17 +11,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-public class GeneralSettingsMenuView extends TitledPane{
+
+public class GeneralSettingsMenuView extends TitledPane {
 
     private GeneralSettingsMenuController controller;
 
-    private TextField minNumPlayersInput;
-    private TextField maxNumPlayersInput;
+    private HashMap<String, Label> labels = new LinkedHashMap<>();
+    private HashMap<String, TextField> textFields = new LinkedHashMap<>();
 
-    private Button updateButton;
+    private Button updateButton = new Button("Update");
 
-    public GeneralSettingsMenuView(){
+    private String numPlayersHeaderKey = "playersHeader";
+    private String minPlayersKey = "minPlayers";
+    private String maxPlayersKey = "maxPlayers";
+
+    public GeneralSettingsMenuView() {
         initialize();
     }
 
@@ -35,30 +42,24 @@ public class GeneralSettingsMenuView extends TitledPane{
         generalMenuContent.setHgap(2);
         generalMenuContent.setVgap(4);
 
-        Label players = new Label("Number of Players");
-        generalMenuContent.add(players,1,1,4,1);
+        labels.put(numPlayersHeaderKey, new Label("Number of Players"));
+        labels.put(minPlayersKey, new Label("Min:"));
+        labels.put(maxPlayersKey, new Label("Max:"));
 
-        /* min */
-        Label minNumPlayers = new Label("min:");
-        minNumPlayersInput = new TextField();
-        minNumPlayersInput.setMaxSize(50, 20);
+        textFields.put(minPlayersKey, new TextField());
+        textFields.put(maxPlayersKey, new TextField());
 
-        generalMenuContent.add(minNumPlayers,2,2,1,1);
-        generalMenuContent.add(minNumPlayersInput,3,2,1,1);
+        generalMenuContent.add(labels.get(numPlayersHeaderKey), 0, 0);
 
-        /* max */
+        int i = 1;
+        for (String key : textFields.keySet()) {
+            textFields.get(key).setMaxSize(50,20);
+            generalMenuContent.add(labels.get(key), 0, i);
+            generalMenuContent.add(textFields.get(key), 1, i);
+            i++;
+        }
 
-        Label maxNumPlayers = new Label("max:");
-        maxNumPlayersInput = new TextField();
-        maxNumPlayersInput.setMaxSize(50, 20);
-
-        generalMenuContent.add(maxNumPlayers,2,3,1,1);
-        generalMenuContent.add(maxNumPlayersInput,3,3,1,1);
-
-        /* Purposely put in update because changing number of players could cause a lot of conflicts
-           if objects which are related to those players have been created */
-        updateButton = new Button("Update");
-        generalMenuContent.add(updateButton,1,5,2,2);
+        generalMenuContent.add(updateButton, 0, i++);
 
         this.setContent(generalMenuContent);
         this.updateButton.setOnAction(controller::onUpdateButtonClick);
@@ -68,19 +69,19 @@ public class GeneralSettingsMenuView extends TitledPane{
         return updateButton;
     }
 
-    public String getMinNumPlayersInput() {
-        return minNumPlayersInput.getText();
+    public HashMap<String, Label> getLabels() {
+        return labels;
     }
 
-    public String getMaxNumPlayersInput() {
-        return maxNumPlayersInput.getText();
+    public HashMap<String, TextField> getTextFields() {
+        return textFields;
     }
 
-    public void setMinNumPlayersInput(String minNumPlayersInput) {
-        this.minNumPlayersInput.setText(minNumPlayersInput);
+    public String getMinPlayersTextFieldValue() {
+        return textFields.get(minPlayersKey).getText();
     }
 
-    public void setMaxNumPlayersInput(String maxNumPlayersInput) {
-        this.maxNumPlayersInput.setText(maxNumPlayersInput);
+    public String getMaxPlayersTextFieldValue() {
+        return textFields.get(maxPlayersKey).getText();
     }
 }
