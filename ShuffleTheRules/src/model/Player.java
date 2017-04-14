@@ -3,14 +3,18 @@
 * */
 package model;
 
+import model.Piles.Hand;
+
 import java.io.Serializable;
 
 public class Player implements Serializable {
     private int handId;
+    private Hand hand;
     private int playerID;
     private boolean status;
-    private int turnOrder;
+    private int playerNum;
     private boolean clicked;
+    private boolean skipFlag = false;
 
     public Player(){
 
@@ -22,6 +26,14 @@ public class Player implements Serializable {
 
     public void setHandId(int handId) {
         this.handId = handId;
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public void setHand(Hand hand) {
+        this.hand = hand;
     }
 
     public int getPlayerID() {
@@ -48,11 +60,19 @@ public class Player implements Serializable {
         this.clicked = clicked;
     }
 
-    public int getTurnOrder() {
-        return turnOrder;
+    public int getPlayerNum() {
+        return playerNum;
     }
 
-    public void setTurnOrder(int turnOrder) {
-        this.turnOrder = turnOrder;
+    public void setPlayerNum(int playerNum) {
+        this.playerNum = playerNum;
+    }
+
+    public boolean isSkipFlag() {
+        return skipFlag;
+    }
+
+    public void setSkipFlag(boolean skipFlag) {
+        this.skipFlag = skipFlag;
     }
 }
