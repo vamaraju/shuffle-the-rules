@@ -6,6 +6,7 @@ package controller;
 
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -13,11 +14,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import model.GameActions.*;
 import model.GameEvents.*;
 import model.GameRule;
 import model.GameRuleType;
+import view.RuleElementLine;
 import view.RuleElementRectangle;
 import view.EditorTabView;
 
@@ -178,7 +181,7 @@ public class EditorTabController {
         setRectXPlacement(r, previousRect);
         setRectYPlacement(r, previousRect);
 
-        Line l = new Line(previousRect.getCenterX(), previousRect.getEndY(), r.getCenterX(), r.getY());
+        RuleElementLine l = new RuleElementLine(previousRect.getCenterX(), previousRect.getEndY(), r.getCenterX(), r.getY());
         previousRect.getOutLines().add(l);
         r.getInLines().add(l);
 
@@ -193,7 +196,7 @@ public class EditorTabController {
         r.setOnMouseClicked(this::onRectangleClicked);
         r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
 
-        drawingPane.getChildren().addAll(r, r.getTextObj(), l);
+        drawingPane.getChildren().addAll(r, r.getTextObj(), l, l.getArrowhead());
     }
 
 

@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.Piles.Pile;
+import view.RuleElementLine;
 import view.RuleElementRectangle;
 
 import java.io.*;
@@ -23,6 +24,7 @@ public class GameCreation implements Serializable {
 
     private ArrayList<GameEvent> gameEvents = new ArrayList<>();
     private ArrayList<GameAction> gameActions = new ArrayList<>();
+    //private ArrayList<Pile> piles = new ArrayList<>();
     private HashMap<String, Pile> piles;
     private ArrayList<Player> players = new ArrayList<>();
     private CardSettings cardSettings;
@@ -265,7 +267,7 @@ public class GameCreation implements Serializable {
     }
 
     private void updateLineAssociations(RuleElementRectangle currentRect, RuleElementRectangle postRule) {
-        for (Line outLine : currentRect.getOutLines()) {
+        for (RuleElementLine outLine : currentRect.getOutLines()) {
             for (int i = 0; i < postRule.getInLines().size(); i++) {
                 if (equalLines(outLine, postRule.getInLines().get(i))) {
                     postRule.getInLines().set(i, outLine);
@@ -274,7 +276,7 @@ public class GameCreation implements Serializable {
         }
     }
 
-    private boolean equalLines(Line l1, Line l2) {
+    private boolean equalLines(RuleElementLine l1, RuleElementLine l2) {
         return (l1.getStartX() == l2.getStartX()) && (l1.getStartY() == l2.getStartY()) && (l1.getEndX() == l2.getEndX()) && (l1.getEndY() == l2.getEndY());
     }
 
@@ -311,8 +313,9 @@ public class GameCreation implements Serializable {
 
             drawingPane.getChildren().add(r);
             drawingPane.getChildren().add(r.getTextObj());
-            for (Line l : r.getOutLines()) {
+            for (RuleElementLine l : r.getOutLines()) {
                 drawingPane.getChildren().add(l);
+                drawingPane.getChildren().add(l.getArrowhead());
             }
 
             r.setOnMouseClicked(GameView.getInstance().getEditorTab().getController()::onRectangleClicked);

@@ -6,13 +6,12 @@ package view;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import model.Connector;
 import model.GameRule;
 import model.GameRuleType;
+import model.RuleElementLineBlueprint;
 import model.RuleElementRectangleBlueprint;
 
 import java.util.ArrayList;
@@ -25,8 +24,8 @@ public class RuleElementRectangle extends Rectangle {
     private boolean clicked = false;
     private ArrayList<RuleElementRectangle> preRules = new ArrayList<>();
     private ArrayList<RuleElementRectangle> postRules = new ArrayList<>();
-    private ArrayList<Line> outLines = new ArrayList<>();
-    private ArrayList<Line> inLines = new ArrayList<>();
+    private ArrayList<RuleElementLine> outLines = new ArrayList<>();
+    private ArrayList<RuleElementLine> inLines = new ArrayList<>();
     private GameRuleType ruleType;
 
     private double dragStartX;
@@ -205,12 +204,12 @@ public class RuleElementRectangle extends Rectangle {
             this.postRules.add(new RuleElementRectangle(postRuleBlueprint));
         }
 
-        for (Connector inConnector : blueprint.getInLines()) {
-            this.inLines.add(new Line(inConnector.getStartX(), inConnector.getStartY(), inConnector.getEndX(), inConnector.getEndY()));
+        for (RuleElementLineBlueprint inLineBlueprint : blueprint.getInLines()) {
+            this.inLines.add(new RuleElementLine(inLineBlueprint));
         }
 
-        for (Connector outConnector : blueprint.getOutLines()) {
-            this.outLines.add(new Line(outConnector.getStartX(), outConnector.getStartY(), outConnector.getEndX(), outConnector.getEndY()));
+        for (RuleElementLineBlueprint outLineBlueprint : blueprint.getOutLines()) {
+            this.outLines.add(new RuleElementLine(outLineBlueprint));
         }
 
         this.setListeners();
@@ -253,12 +252,12 @@ public class RuleElementRectangle extends Rectangle {
         this.setX(x, setText);
         if (setLines) {
             if (this.inLines.size() > 0) {
-                for (Line l : this.inLines) {
-                    l.setEndX(this.getCenterX());
+                for (RuleElementLine l : this.inLines) {
+                    l.setEndX(this.getCenterX(), true);
                 }
             }
             if (this.outLines.size() > 0) {
-                for (Line l : this.outLines) {
+                for (RuleElementLine l : this.outLines) {
                     l.setStartX(this.getCenterX());
                 }
             }
@@ -278,12 +277,12 @@ public class RuleElementRectangle extends Rectangle {
         this.setY(y, setText);
         if (setLines) {
             if (this.inLines.size() > 0) {
-                for (Line l : this.inLines) {
-                    l.setEndY(this.getY());
+                for (RuleElementLine l : this.inLines) {
+                    l.setEndY(this.getY(), true);
                 }
             }
             if (this.outLines.size() > 0) {
-                for (Line l : this.outLines) {
+                for (RuleElementLine l : this.outLines) {
                     l.setStartY(this.getEndY());
                 }
             }
@@ -546,7 +545,7 @@ public class RuleElementRectangle extends Rectangle {
      *
      * @return this.outLines; ArrayList of Lines that exit from this Rectangle
      */
-    public ArrayList<Line> getOutLines() {
+    public ArrayList<RuleElementLine> getOutLines() {
         return this.outLines;
     }
 
@@ -556,7 +555,7 @@ public class RuleElementRectangle extends Rectangle {
      *
      * @param outLines An ArrayList of Lines that are exiting from this Rectangle.
      */
-    public void setOutLines(ArrayList<Line> outLines) {
+    public void setOutLines(ArrayList<RuleElementLine> outLines) {
         this.outLines = outLines;
     }
 
@@ -566,7 +565,7 @@ public class RuleElementRectangle extends Rectangle {
      *
      * @return this.inLines; ArrayList of Lines that enter this Rectangle
      */
-    public ArrayList<Line> getInLines() {
+    public ArrayList<RuleElementLine> getInLines() {
         return this.inLines;
     }
 
@@ -576,7 +575,7 @@ public class RuleElementRectangle extends Rectangle {
      *
      * @param inLines An ArrayList of Lines that are entering this Rectangle.
      */
-    public void setInLines(ArrayList<Line> inLines) {
+    public void setInLines(ArrayList<RuleElementLine> inLines) {
         this.inLines = inLines;
     }
 

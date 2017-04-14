@@ -4,6 +4,7 @@
 package model;
 
 import javafx.scene.shape.Line;
+import view.RuleElementLine;
 import view.RuleElementRectangle;
 
 import java.io.Serializable;
@@ -25,8 +26,8 @@ public class RuleElementRectangleBlueprint implements Serializable {
     private String defaultBorderColor;
     private ArrayList<RuleElementRectangleBlueprint> preRules = new ArrayList<>();
     private ArrayList<RuleElementRectangleBlueprint> postRules = new ArrayList<>();
-    private ArrayList<Connector> inLines = new ArrayList<>();
-    private ArrayList<Connector> outLines = new ArrayList<>();
+    private ArrayList<RuleElementLineBlueprint> inLines = new ArrayList<>();
+    private ArrayList<RuleElementLineBlueprint> outLines = new ArrayList<>();
 
     public RuleElementRectangleBlueprint() {
 
@@ -50,12 +51,12 @@ public class RuleElementRectangleBlueprint implements Serializable {
             this.postRules.add(new RuleElementRectangleBlueprint(postRule.getX(), postRule.getY(), postRule.getWidth(), postRule.getHeight(), postRule.getText(), postRule.getGameRule(), postRule.getRuleType()));
         }
 
-        for (Line inLine : r.getInLines()) {
-            this.inLines.add(new Connector(inLine));
+        for (RuleElementLine inLine : r.getInLines()) {
+            this.inLines.add(new RuleElementLineBlueprint(inLine));
         }
 
-        for (Line outLine : r.getOutLines()) {
-            this.outLines.add(new Connector(outLine));
+        for (RuleElementLine outLine : r.getOutLines()) {
+            this.outLines.add(new RuleElementLineBlueprint(outLine));
         }
     }
 
@@ -142,19 +143,19 @@ public class RuleElementRectangleBlueprint implements Serializable {
         this.postRules = postRules;
     }
 
-    public ArrayList<Connector> getOutLines() {
+    public ArrayList<RuleElementLineBlueprint> getOutLines() {
         return outLines;
     }
 
-    public void setOutLines(ArrayList<Connector> outLines) {
+    public void setOutLines(ArrayList<RuleElementLineBlueprint> outLines) {
         this.outLines = outLines;
     }
 
-    public ArrayList<Connector> getInLines() {
+    public ArrayList<RuleElementLineBlueprint> getInLines() {
         return inLines;
     }
 
-    public void setInLines(ArrayList<Connector> inLines) {
+    public void setInLines(ArrayList<RuleElementLineBlueprint> inLines) {
         this.inLines = inLines;
     }
 
