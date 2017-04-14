@@ -5,21 +5,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Pane;
 import model.GameplayMessage;
 
-public class PileView extends Pane {
+/*
+* Requirements mandating inclusion:
+* */
+public class PileView extends ListView {
 
-    private ObservableList<GameplayMessage> items = FXCollections.observableArrayList();
-    private ListView<GameplayMessage> listView;
+    private ObservableList<GameplayMessage> items;
 
     /* set the view to be horizontal or vertical */
     public PileView(Orientation orientation){
         items = FXCollections.observableArrayList();
-        listView = new ListView<>(items);
-        listView.setOrientation(orientation);
+        this.setItems(items);
+        this.setOrientation(orientation);
 
-        this.getChildren().addAll(listView);
 
     }
 }

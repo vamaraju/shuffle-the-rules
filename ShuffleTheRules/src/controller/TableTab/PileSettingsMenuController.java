@@ -1,3 +1,7 @@
+/*
+* Requirements mandating inclusion:
+* */
+
 package controller.TableTab;
 
 import javafx.event.Event;
@@ -6,9 +10,8 @@ import model.GameCreation;
 import model.Piles.BasicPile;
 import model.Piles.Pile;
 import view.TableTab.PileSettingsMenuView;
-
 import java.util.HashMap;
-import java.util.Map;
+
 
 
 public class PileSettingsMenuController {

@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 
+/*
+* Requirements mandating inclusion:
+* */
 public enum PlayingCard implements Serializable {
 
     ACE(1, "Ace"),

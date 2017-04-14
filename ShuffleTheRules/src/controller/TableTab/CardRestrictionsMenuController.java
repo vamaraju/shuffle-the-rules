@@ -1,7 +1,10 @@
+/*
+* Requirements mandating inclusion:
+* */
+
 package controller.TableTab;
 
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import model.CardSettings;
@@ -10,7 +13,6 @@ import model.PlayingCard;
 import model.Suit;
 import view.TableTab.CardRestrictionsMenuView;
 
-import java.util.List;
 
 public class CardRestrictionsMenuController {
 

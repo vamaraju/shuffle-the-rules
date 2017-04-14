@@ -1,5 +1,8 @@
 package model;
 
+/*
+* Requirements mandating inclusion:
+* */
 public enum CardOrientation {
 
     DOWN(0, "Face Down", "assets/playing_cards/back/blue.png"),
