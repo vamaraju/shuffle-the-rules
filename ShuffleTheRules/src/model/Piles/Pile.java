@@ -1,11 +1,14 @@
 package model.Piles;
 
 import model.Card;
+import model.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
-public class Pile implements Serializable {
+public class Pile implements Serializable, Iterable {
 
     private ArrayList<Card> cards;
     private int startingNumberOfCards;
@@ -17,9 +20,13 @@ public class Pile implements Serializable {
     private int maxSize;
     private boolean clicked;
 
+    public Pile() {
+
+    }
+
     /* TODO add dimensions, startingNumberOfCards to constructor input args? */
     public Pile(String name, int minSize, int maxSize){
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
         this.name = name;
         this.minSize = minSize;
         this.maxSize = maxSize;
@@ -39,15 +46,32 @@ public class Pile implements Serializable {
     }
 
     public Card remove(int index){
-        Card removedCard = cards.get(index);
-        cards.remove(index);
-        return removedCard;
+        if ((index < 0) ||(index >= cards.size())) {
+            return null;
+        } else {
+            return cards.remove(index);
+        }
     }
 
-    public Card remove(Card card){
-        int removedCardIndex = cards.indexOf(card);
-        Card removedCard = cards.get(removedCardIndex);
-        return removedCard;
+    public boolean remove(Card card){
+        return cards.remove(card);
+    }
+
+    public Card draw() {
+        return this.remove(0);
+    }
+
+    public void shuffle() {
+        Random generator = new Random();
+        int size = cards.size();
+
+        for (int i = 0; i < size; i++) {
+            int index1 = generator.nextInt(size);
+            int index2 = generator.nextInt(size);
+            Card card1 = cards.get(index1);
+            cards.set(index1, cards.get(index2));
+            cards.set(index2, card1);
+        }
     }
 
     public int getMinSize(){
@@ -120,5 +144,14 @@ public class Pile implements Serializable {
 
     public boolean isFull() {
         return this.cards.size() == this.maxSize;
+    }
+
+    @Override
+    public Iterator<Card> iterator() {
+        return cards.iterator();
+    }
+
+    public Card get(int index) {
+        return cards.get(index);
     }
 }

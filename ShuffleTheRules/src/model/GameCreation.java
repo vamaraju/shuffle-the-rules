@@ -208,6 +208,20 @@ public class GameCreation implements Serializable {
         this.players = players;
     }
 
+    public Player getPlayerFromPlayerNum(int playerNum) {
+        for (Player p : players) {
+            if (p.getPlayerNum() == playerNum) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public Player getNextPlayer(Player currentPlayer) {
+        int nextPlayerIndex = players.indexOf(currentPlayer)+1 % players.size();
+        return players.get(nextPlayerIndex);
+    }
+
     /* *************************************************************************************************************
     *   CardSettings
     *
