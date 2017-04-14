@@ -37,7 +37,7 @@ public class RuleElementLine extends Line {
     }
 
     public void setEndY(double endY, boolean setArrowhead) {
-        this.setEndY(endY);
+        this.setEndY(endY-arrowheadSize);
         if (setArrowhead) {
             arrowhead.getPoints().set(1, endY-arrowheadSize);
             arrowhead.getPoints().set(3, endY);
