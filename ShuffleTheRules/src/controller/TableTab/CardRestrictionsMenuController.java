@@ -26,6 +26,12 @@ public class CardRestrictionsMenuController {
 
     public void onUpdateButtonClick(Event event){
         System.out.println("Update pressed - Card Restrictions Menu ");
+        PlayingCard selectedCard = (PlayingCard) cardRestrictionsMenuView.getAvailableCards().getValue();
+
+        if(selectedCard == null){
+            /* update pressed and no card selected */
+            return;
+        }
 
         /* Get input from view. convert counts from strings to ints */
         String heartCount = cardRestrictionsMenuView.getHeartCount();
@@ -33,8 +39,7 @@ public class CardRestrictionsMenuController {
         String clubCount = cardRestrictionsMenuView.getClubCount();
         String diamondCount = cardRestrictionsMenuView.getDiamondCount();
 
-        PlayingCard selectedCard = (PlayingCard) cardRestrictionsMenuView.getAvailableCards().getValue();
-        System.out.println("card "+ selectedCard.getClass());
+
 
         /* validate */
         int heartCountInt = validateSuitCount(heartCount);

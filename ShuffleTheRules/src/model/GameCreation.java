@@ -23,7 +23,6 @@ public class GameCreation implements Serializable {
 
     private ArrayList<GameEvent> gameEvents = new ArrayList<>();
     private ArrayList<GameAction> gameActions = new ArrayList<>();
-    //private ArrayList<Pile> piles = new ArrayList<>();
     private HashMap<String, Pile> piles;
     private ArrayList<Player> players = new ArrayList<>();
     private CardSettings cardSettings;
