@@ -1,7 +1,11 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.GameActions;
 
 import model.GameRule;
 import model.Piles.Pile;
+
 
 public class ShufflePileAction extends GameAction {
 

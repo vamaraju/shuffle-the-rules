@@ -1,8 +1,11 @@
+/*
+* Requirements mandating inclusion:
+* */
+
 package controller.TableTab;
 
 
 import javafx.event.ActionEvent;
-import model.PlayingCard;
 import view.TableTab.TableGridElement;
 import view.TableTab.TableGridView;
 import view.TableTab.TableTabView;

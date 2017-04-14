@@ -1,3 +1,6 @@
+/*
+* Requirements mandating inclusion:
+* */
 package view;
 
 import javafx.scene.control.*;

@@ -1,10 +1,12 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.GameActions;
 
-import model.GameEvents.GameEvent;
-import model.GameRule;
 
+import model.GameRule;
 import java.io.Serializable;
-import java.util.ArrayList;
+
 
 public abstract class GameAction extends GameRule implements Serializable {
 

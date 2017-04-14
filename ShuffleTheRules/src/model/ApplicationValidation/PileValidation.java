@@ -1,8 +1,10 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.ApplicationValidation;
 
 
 import model.Piles.Pile;
-
 import java.util.ArrayList;
 
 public class PileValidation {

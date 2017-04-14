@@ -1,6 +1,10 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model;
 
 import java.io.Serializable;
+
 
 public enum PlayingCard implements Serializable {
 

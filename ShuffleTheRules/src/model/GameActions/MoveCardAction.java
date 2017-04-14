@@ -1,11 +1,11 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.GameActions;
 
 import model.Card;
 import model.GameRule;
 import model.Piles.Pile;
-
-import java.util.ArrayList;
-
 
 public class MoveCardAction extends GameAction {
 

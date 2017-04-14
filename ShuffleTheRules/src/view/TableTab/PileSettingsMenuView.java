@@ -1,12 +1,13 @@
+/*
+* Requirements mandating inclusion:
+* */
 package view.TableTab;
-
 
 
 import controller.TableTab.PileSettingsMenuController;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
+
 
 public class PileSettingsMenuView extends TitledPane {
 

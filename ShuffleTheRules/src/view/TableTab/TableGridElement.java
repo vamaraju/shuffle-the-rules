@@ -1,3 +1,6 @@
+/*
+* Requirements mandating inclusion:
+* */
 package view.TableTab;
 
 import javafx.scene.image.Image;

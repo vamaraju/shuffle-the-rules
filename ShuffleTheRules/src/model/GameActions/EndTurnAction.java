@@ -1,8 +1,9 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.GameActions;
 
 import model.GameRule;
-
-import java.util.ArrayList;
 
 public class EndTurnAction extends GameAction  {
 

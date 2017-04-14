@@ -1,3 +1,6 @@
+/*
+* Requirements mandating inclusion:
+* */
 package view.Gameplay;
 
 
@@ -54,6 +57,7 @@ public class GameplayView extends BorderPane {
 
         handAndButtons.getChildren().addAll(buttonsPane);
         this.setBottom(handAndButtons);
+
     }
 
     public Button getEndTurnButton() {

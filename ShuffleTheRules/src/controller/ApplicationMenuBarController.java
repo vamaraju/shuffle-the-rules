@@ -1,6 +1,9 @@
+/*
+* Requirements mandating inclusion:
+* */
 package controller;
 
-import javafx.event.ActionEvent;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -10,9 +13,7 @@ import javafx.stage.Stage;
 import model.GameCreation;
 import model.GameView;
 import view.Gameplay.GameplayView;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 
 public class ApplicationMenuBarController {

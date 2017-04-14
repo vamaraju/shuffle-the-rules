@@ -1,8 +1,11 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.GameActions;
 
-import model.GameCreation;
 import model.GameRule;
 import model.Player;
+
 
 public class SkipTurnAction extends GameAction {
 

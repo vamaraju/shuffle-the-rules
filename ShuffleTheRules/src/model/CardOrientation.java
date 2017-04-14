@@ -1,4 +1,8 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model;
+
 
 public enum CardOrientation {
 

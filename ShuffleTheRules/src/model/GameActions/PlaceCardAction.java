@@ -1,3 +1,6 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.GameActions;
 
 import model.Card;

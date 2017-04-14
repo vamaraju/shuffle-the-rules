@@ -1,12 +1,14 @@
-package controller.TableTab;
+/*
+* Requirements mandating inclusion:
+* */
 
+package controller.TableTab;
 
 import javafx.event.Event;
 import model.GameCreation;
 import model.GameSettings;
 import view.TableTab.GeneralSettingsMenuView;
 
-import java.awt.*;
 
 public class GeneralSettingsMenuController {
     private GeneralSettingsMenuView generalSettingsMenuView;

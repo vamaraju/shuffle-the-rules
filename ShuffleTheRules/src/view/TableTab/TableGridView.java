@@ -1,3 +1,6 @@
+/*
+* Requirements mandating inclusion:
+* */
 package view.TableTab;
 
 
@@ -6,7 +9,6 @@ import javafx.scene.layout.GridPane;
 
 import javafx.scene.Node;
 import javafx.scene.layout.*;
-import model.PlayingCard;
 import model.TableGrid;
 
 import java.util.ArrayList;

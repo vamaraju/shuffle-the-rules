@@ -1,21 +1,17 @@
+/*
+* Requirements mandating inclusion:
+* */
 package view.TableTab;
 
 
 import controller.TableTab.CardRestrictionsMenuController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import model.PlayingCard;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class CardRestrictionsMenuView extends TitledPane{
 
