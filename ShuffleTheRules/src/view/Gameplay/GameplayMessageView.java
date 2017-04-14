@@ -6,16 +6,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import model.GameplayMessage;
 
-public class GameplayMessageView extends Pane{
+public class GameplayMessageView extends ListView{
 
-    private ObservableList<GameplayMessage> gameplayMessages = FXCollections.observableArrayList();
-    private ListView<GameplayMessage> gameplayMessageListView;
+    private ObservableList<GameplayMessage> gameplayMessages;
 
     public GameplayMessageView(){
         gameplayMessages = FXCollections.observableArrayList();
-        gameplayMessageListView = new ListView<>(gameplayMessages);
-
-        this.getChildren().addAll(gameplayMessageListView);
+        this.setItems(gameplayMessages);
 
     }
 

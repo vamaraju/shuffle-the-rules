@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import model.GameplayMessage;
 import view.TableTab.TableGridView;
 
 
@@ -54,6 +55,7 @@ public class GameplayView extends BorderPane {
 
         handAndButtons.getChildren().addAll(buttonsPane);
         this.setBottom(handAndButtons);
+
     }
 
     public Button getEndTurnButton() {
