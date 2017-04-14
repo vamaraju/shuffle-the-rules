@@ -1,10 +1,11 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model;
 
 import java.io.Serializable;
 
-/*
-* Requirements mandating inclusion:
-* */
+
 public class Card implements Serializable, Comparable {
     private PlayingCard value;
     private Suit suit;

@@ -1,7 +1,9 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model;
 
 import javafx.scene.shape.Line;
-
 import java.io.Serializable;
 
 /**
