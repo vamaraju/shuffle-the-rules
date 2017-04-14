@@ -5,12 +5,12 @@ package view.TableTab;
 
 
 import controller.TableTab.GeneralSettingsMenuController;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import model.TripleHashMap;
 
+import javax.xml.soap.Text;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -19,69 +19,66 @@ public class GeneralSettingsMenuView extends TitledPane {
 
     private GeneralSettingsMenuController controller;
 
-    private HashMap<String, Label> labels = new LinkedHashMap<>();
-    private HashMap<String, TextField> textFields = new LinkedHashMap<>();
+    private GridPane generalMenuContent;
+    private TripleHashMap<String, Node, Node> elements = new TripleHashMap<>();
 
     private Button updateButton = new Button("Update");
-
-    private String numPlayersHeaderKey = "playersHeader";
-    private String minPlayersKey = "minPlayers";
-    private String maxPlayersKey = "maxPlayers";
 
     public GeneralSettingsMenuView() {
         initialize();
     }
 
     public void initialize(){
-
-        this.controller = new GeneralSettingsMenuController(this);
+        controller = new GeneralSettingsMenuController(this);
         this.setText("General Settings");
 
-        /* organize fields in GridPane */
-        GridPane generalMenuContent = new GridPane();
+        generalMenuContent = new GridPane();
         generalMenuContent.setHgap(2);
         generalMenuContent.setVgap(4);
 
-        labels.put(numPlayersHeaderKey, new Label("Number of Players"));
-        labels.put(minPlayersKey, new Label("Min:"));
-        labels.put(maxPlayersKey, new Label("Max:"));
+        elements.put("playersHeader", new Label("Number of Players"), null);
+        elements.put("minPlayers", new Label("Min:"), new TextField());
+        elements.put("maxPlayers", new Label("Max:"), new TextField());
+        elements.put("handSizeHeader", new Label("Hand Size"), null);
+        elements.put("minHandSize", new Label("Min:"), new TextField());
+        elements.put("maxHandSize", new Label("Max:"), new TextField());
+        elements.put("startingHandSize", new Label("Starting:"), new TextField());
 
-        textFields.put(minPlayersKey, new TextField());
-        textFields.put(maxPlayersKey, new TextField());
-
-        generalMenuContent.add(labels.get(numPlayersHeaderKey), 0, 0);
-
-        int i = 1;
-        for (String key : textFields.keySet()) {
-            textFields.get(key).setMaxSize(50,20);
-            generalMenuContent.add(labels.get(key), 0, i);
-            generalMenuContent.add(textFields.get(key), 1, i);
-            i++;
-        }
-
-        generalMenuContent.add(updateButton, 0, i++);
+        addGridContent();
 
         this.setContent(generalMenuContent);
         this.updateButton.setOnAction(controller::onUpdateButtonClick);
+    }
+
+    public void addGridContent() {
+        int row = 0;
+        for (String key : elements.keySet()) {
+            if (elements.getValue2(key) == null) {
+                if (row != 0) {
+                    generalMenuContent.add(new Separator(), 0, row++);
+                }
+                generalMenuContent.add(elements.getValue1(key), 0, row++);
+            } else {
+                Node n = elements.getValue2(key);
+                if (n instanceof TextField) {
+                    ((TextField) n).setMaxSize(50, 20);
+                }
+                generalMenuContent.add(elements.getValue1(key), 0, row);
+                generalMenuContent.add(n, 1, row++);
+            }
+        }
+        generalMenuContent.add(updateButton, 0, row++);
     }
 
     public Button getUpdateButton(){
         return updateButton;
     }
 
-    public HashMap<String, Label> getLabels() {
-        return labels;
-    }
-
-    public HashMap<String, TextField> getTextFields() {
-        return textFields;
-    }
-
     public String getMinPlayersTextFieldValue() {
-        return textFields.get(minPlayersKey).getText();
+        return ((TextField) elements.getValue2("minPlayers")).getText();
     }
 
     public String getMaxPlayersTextFieldValue() {
-        return textFields.get(maxPlayersKey).getText();
+        return ((TextField) elements.getValue2("maxPlayers")).getText();
     }
 }
