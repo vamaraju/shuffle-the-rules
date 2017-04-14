@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class RuleElementRectangle extends Rectangle {
 
-    private transient Text text = new Text("");
+    private Text text = new Text("");
     private GameRule gameRule;
     private Paint defaultBorderColor;
     private boolean clicked = false;

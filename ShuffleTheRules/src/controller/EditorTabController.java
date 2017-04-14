@@ -199,6 +199,9 @@ public class EditorTabController {
 
     public void addOnGameStart(Pane drawingPane) {
         RuleElementRectangle r = new RuleElementRectangle(160, 50, "Game Start", GameRuleType.EVENT);
+        r.setDefaultBorderColor(Color.BLACK);
+        r.setStroke(Color.BLACK);
+
         r.setGameRule(new OnGameStartEvent());
 
         drawingPane.getChildren().addAll(r, r.getTextObj());
