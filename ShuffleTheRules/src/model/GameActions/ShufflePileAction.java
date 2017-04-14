@@ -1,10 +1,9 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.GameActions;
 
-import java.util.ArrayList;
 
-/**
- * Created by kirsten on 2017-03-18.
- */
 public class ShufflePileAction extends GameAction {
 
     public ShufflePileAction() {
