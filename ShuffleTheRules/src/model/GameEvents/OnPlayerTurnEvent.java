@@ -1,11 +1,13 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.GameEvents;
 
-import model.GameActions.GameAction;
+
 import model.GameRule;
 import model.GameState;
 import model.Player;
 
-import java.util.ArrayList;
 
 
 public class OnPlayerTurnEvent extends GameEvent {

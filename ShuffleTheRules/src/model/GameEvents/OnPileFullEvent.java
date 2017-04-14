@@ -1,10 +1,11 @@
+/*
+* Requirements mandating inclusion:
+* */
 package model.GameEvents;
 
-import model.GameActions.GameAction;
+
 import model.GameRule;
 import model.Piles.Pile;
-
-import java.util.ArrayList;
 
 
 public class OnPileFullEvent extends GameEvent {
