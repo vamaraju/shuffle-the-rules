@@ -4,11 +4,11 @@
 package view.Gameplay;
 
 
+import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Separator;
+import javafx.scene.layout.*;
 import view.TableTab.TableGridView;
 
 
@@ -42,11 +42,14 @@ public class GameplayView extends BorderPane {
         this.setRight(gameplayMessageView);
 
         /* bottom pane will be where hand and buttons are displayed */
-
-        HBox handAndButtons = new HBox();
-
+        HBox selectedPileAndButtons = new HBox();
+        PileView selectedPileView = new PileView(Orientation.HORIZONTAL);
 
         GridPane buttonsPane = new GridPane();
+        endTurnButton.setPrefWidth(100);
+        endGameButton.setPrefWidth(100);
+        sortHandButton.setPrefWidth(100);
+
         buttonsPane.add(endTurnButton,2,1,2,2);
         buttonsPane.add(sortHandButton,2,3,2,2);
         buttonsPane.add(endGameButton,2,5,2,2);
@@ -55,8 +58,11 @@ public class GameplayView extends BorderPane {
         endTurnButton.setDisable(true);
         sortHandButton.setDisable(true);
 
-        handAndButtons.getChildren().addAll(buttonsPane);
-        this.setBottom(handAndButtons);
+        selectedPileAndButtons.setHgrow(selectedPileView, Priority.ALWAYS);
+        selectedPileAndButtons.setMaxHeight(200);
+        selectedPileAndButtons.getChildren().addAll(selectedPileView, new Separator(Orientation.VERTICAL), buttonsPane);
+
+        this.setBottom(selectedPileAndButtons);
 
     }
 
