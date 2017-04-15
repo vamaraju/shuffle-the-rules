@@ -94,14 +94,6 @@ public class TableTabView extends Tab {
         return tableGridPropertiesView.getUpdateButton();
     }
 
-    public HashMap<String, TextField> getGridTextFields() {
-        return tableGridPropertiesView.getTextFields();
-    }
-
-    public TextField getGridTextField(String textFieldName) {
-        return tableGridPropertiesView.getTextFields().get(textFieldName);
-    }
-
     public int getGridWidthSetting() {
         String gridWidthStr = tableGridPropertiesView.getGridWidthTextFieldValue();
         if ((gridWidthStr != null) && (!gridWidthStr.isEmpty()) && (gridWidthStr.matches("[0-9]*"))) {

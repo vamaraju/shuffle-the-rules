@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import model.GameCreation;
+import model.GameView;
 import model.Piles.Pile;
 import model.TableGrid;
 import model.TableGridPosition;
@@ -22,19 +23,15 @@ public class TableGridView extends GridPane {
 
     private TableGridViewController controller;
 
-    private final String enableGridCSS = "-fx-background-color: black, green; -fx-background-insets: 0, 0 1 1 0;";
-    private final String disableGridCSS = "-fx-background-color: green;";
-    private final String enableBackgroundImageCSS = "-fx-background-image: url('assets/background/green.jpg')";
-
     private TableGrid tableGrid;
 
     public TableGridView() {
-        this.setStyle("-fx-background-color: white; -fx-padding: 10;");
+        this.setStyle(TableGridCSS.DEFAULT_GRID.getStyle());
         resetGrid();
     }
 
     public void resetGrid() {
-        initGrid(7, 4, 70);
+        initGrid(TableGridDefaults.NUM_COLUMNS.toInt(), TableGridDefaults.NUM_ROWS.toInt(), TableGridDefaults.CELL_WIDTH.toDouble());
     }
 
     public void initGrid(int numCols, int numRows, double cellWidth) {
@@ -62,7 +59,7 @@ public class TableGridView extends GridPane {
         for (int i = 0; i < tableGrid.getNumCols(); i++) {
             for (int j = 0; j < tableGrid.getNumRows(); j++) {
                 TableGridElement gridElement = new TableGridElement(i, j, tableGrid.getCellWidth(), tableGrid.getCellHeight());
-                gridElement.setStyle(enableGridCSS);
+                gridElement.setStyle(TableGridCSS.ENABLE_GRID.getStyle());
                 this.add(gridElement, i, j);
                 gridElement.setOnMouseClicked(controller::onGridElementClicked);
             }
@@ -75,19 +72,19 @@ public class TableGridView extends GridPane {
 
     public void enableGridLines() {
         for (Node n : this.getChildren()) {
-            n.setStyle(enableGridCSS);
+            n.setStyle(TableGridCSS.ENABLE_GRID.getStyle());
         }
     }
 
     public void disableGridLines() {
         for (Node n : this.getChildren()) {
-            n.setStyle(disableGridCSS);
+            n.setStyle(TableGridCSS.DISABLE_GRID.getStyle());
         }
     }
 
     public void enableBackgroundImage() {
         for (Node n : this.getChildren()) {
-            n.setStyle(enableBackgroundImageCSS);
+            n.setStyle(TableGridCSS.ENABLE_BACKGROUND_IMAGE.getStyle());
         }
     }
 

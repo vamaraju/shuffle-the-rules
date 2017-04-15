@@ -15,7 +15,6 @@ public class TableGridElement extends Pane {
 
     private TableGridPosition position;
     private Pile pile;
-    private CardOrientation cardOrientation;
 
     public TableGridElement() {
 
@@ -50,19 +49,19 @@ public class TableGridElement extends Pane {
     }
 
     public void updatePile(Pile p) {
-        updatePile(p, p.getCardOrientation());
-    }
-
-    private void updatePile(Pile p, CardOrientation cardOrientation) {
         this.pile = p;
-        this.cardOrientation = cardOrientation;
 
-        ImageView im = new ImageView(new Image(cardOrientation.getAssetLocation()));
+        ImageView im = new ImageView(new Image(p.getCardOrientation().getAssetLocation()));
         im.setFitHeight(this.getHeight());
         im.setFitWidth(this.getWidth());
 
         this.getChildren().clear();
         this.getChildren().add(im);
+    }
+
+    public void removePile() {
+        this.getChildren().clear();
+        this.pile = null;
     }
 
     public boolean hasPile() {
@@ -89,6 +88,10 @@ public class TableGridElement extends Pane {
         return pile.getStartingSize();
     }
 
+    public CardOrientation getPileCardOrientation() {
+        return pile.getCardOrientation();
+    }
+
     public int getX() {
         return position.getX();
     }
@@ -109,19 +112,19 @@ public class TableGridElement extends Pane {
         return pile;
     }
 
-    public CardOrientation getCardOrientation() {
-        return cardOrientation;
-    }
-
-    public void setCardOrientation(CardOrientation cardOrientation) {
-        this.cardOrientation = cardOrientation;
-    }
-
     public TableGridPosition getPosition() {
         return position;
     }
 
     public void setPosition(TableGridPosition position) {
         this.position = position;
+    }
+
+    public void addStyle(String cssStyle) {
+        this.setStyle(this.getStyle() + cssStyle);
+    }
+
+    public void removeStyle(String cssStyle) {
+        this.setStyle(this.getStyle().replaceFirst(cssStyle, ""));
     }
 }

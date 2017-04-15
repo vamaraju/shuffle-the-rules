@@ -84,7 +84,6 @@ public class PileSettingsMenuView extends TitledPane {
         addPileButton.setOnAction(controller::onAddPileButtonClick);
         updatePileButton.setOnAction(controller::onUpdatePileButtonClick);
         deletePileButton.setOnAction(controller::onDeletePileButtonClick);
-
     }
 
     public void addGridContent() {
@@ -119,6 +118,14 @@ public class PileSettingsMenuView extends TitledPane {
 
     public Button getUpdatePileButton(){
         return updatePileButton;
+    }
+
+    public Button getAddPileButton(){
+        return addPileButton;
+    }
+
+    public Button getDeletePileButton(){
+        return deletePileButton;
     }
 
     public TextField getPileNameTextField() {
