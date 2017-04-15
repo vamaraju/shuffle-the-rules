@@ -105,6 +105,18 @@ public class PileSettingsMenuView extends TitledPane {
         pileSettingsGrid.add(deletePileButton, 2, row);
     }
 
+    public void clearAllInputs() {
+        getPileNameTextField().clear();
+        getPileTypeComboBox().valueProperty().set(null);
+        getMinCardsTextField().clear();
+        getMaxCardsTextField().clear();
+        getStartingCardsTextField().clear();
+        getXCoordinateTextField().clear();
+        getYCoordinateTextField().clear();
+        getViewableByComboBox().valueProperty().set(null);
+        getCardOrientationComboBox().valueProperty().set(null);
+    }
+
     public Button getUpdatePileButton(){
         return updatePileButton;
     }

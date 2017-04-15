@@ -109,10 +109,6 @@ public class TableGridElement extends Pane {
         return pile;
     }
 
-    public void setPile(Pile pile) {
-        this.pile = pile;
-    }
-
     public CardOrientation getCardOrientation() {
         return cardOrientation;
     }

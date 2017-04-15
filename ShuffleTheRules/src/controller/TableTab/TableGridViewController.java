@@ -19,6 +19,7 @@ public class TableGridViewController {
         PileSettingsMenuView pileSettingsView = GameView.getInstance().getTableTab().getPileSettingsMenu();
 
         if (gridElement.hasPile()) {
+            pileSettingsView.setExpanded(true);
             pileSettingsView.getPileNameTextField().setText(gridElement.getPileName());
             pileSettingsView.getPileTypeComboBox().setValue(gridElement.getPileType());
             pileSettingsView.getMinCardsTextField().setText(Integer.toString(gridElement.getPileMinSize()));
@@ -28,6 +29,11 @@ public class TableGridViewController {
             pileSettingsView.getYCoordinateTextField().setText(Integer.toString(gridElement.getY()));
             pileSettingsView.getViewableByComboBox().setValue(gridElement.getPile().getViewablePlayers());
             pileSettingsView.getCardOrientationComboBox().setValue(gridElement.getCardOrientation());
+        } else {
+            pileSettingsView.setExpanded(true);
+            pileSettingsView.clearAllInputs();
+            pileSettingsView.getXCoordinateTextField().setText(Integer.toString(gridElement.getX()));
+            pileSettingsView.getYCoordinateTextField().setText(Integer.toString(gridElement.getY()));
         }
     }
 

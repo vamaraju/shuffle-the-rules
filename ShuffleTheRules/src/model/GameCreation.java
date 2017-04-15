@@ -10,6 +10,7 @@ import model.Piles.Pile;
 import view.RuleElementLine;
 import view.RuleElementRectangle;
 import view.TableTab.GeneralSettingsMenuView;
+import view.TableTab.TableGridView;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class GameCreation implements Serializable {
     private GameSettings gameSettings;
 
     private transient ArrayList<RuleElementRectangleBlueprint> rectangleBlueprints = new ArrayList<>();
+    private transient TableGrid tableGrid = new TableGrid();
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -264,9 +266,23 @@ public class GameCreation implements Serializable {
 
 
 
-
-
     /* *************************************************************************************************************
+    *   TableGrid
+    *
+    * ************************************************************************************************************* */
+
+    public TableGrid getTableGrid() {
+        return tableGrid;
+    }
+
+    public void setTableGrid(TableGrid tableGrid) {
+        this.tableGrid = tableGrid;
+    }
+
+
+
+
+/* *************************************************************************************************************
     *   Serialization (Saving and Loading)
     *
     * ************************************************************************************************************* */
@@ -362,19 +378,26 @@ public class GameCreation implements Serializable {
         view.getPlayerComboBox().getItems().addAll(players);
     }
 
+    private void loadTableGrid() {
+        TableGridView view = GameView.getInstance().getTableTab().getTableGridView();
+        view.setTableGrid(this.tableGrid);
+        view.drawGrid();
+    }
+
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         saveDrawingPane();
-//        saveTableGrid();
         out.writeObject(this.rectangleBlueprints);
+        out.writeObject(this.tableGrid);
     }
 
     private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
         in.defaultReadObject();
         this.rectangleBlueprints = (ArrayList<RuleElementRectangleBlueprint>) in.readObject();
+        this.tableGrid = (TableGrid) in.readObject();
         loadDrawingPane();
         loadGeneralSettings();
-//        loadTableGrid();
+        loadTableGrid();
     }
 
 

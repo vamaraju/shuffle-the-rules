@@ -10,9 +10,12 @@ import javafx.scene.layout.GridPane;
 
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import model.GameCreation;
 import model.Piles.Pile;
 import model.TableGrid;
 import model.TableGridPosition;
+
+import java.util.Map;
 
 
 public class TableGridView extends GridPane {
@@ -31,13 +34,18 @@ public class TableGridView extends GridPane {
     }
 
     public void resetGrid() {
-        initGrid(5, 5, 70);
+        initGrid(7, 4, 70);
     }
 
     public void initGrid(int numCols, int numRows, double cellWidth) {
         controller = new TableGridViewController(this);
-        this.tableGrid = new TableGrid(numCols, numRows, cellWidth);
+        tableGrid = new TableGrid(numCols, numRows, cellWidth);
+        GameCreation.getInstance().setTableGrid(tableGrid);
 
+        drawGrid();
+    }
+
+    public void drawGrid() {
         this.getColumnConstraints().clear();
         for (int i = 0; i < tableGrid.getNumCols(); i++) {
             ColumnConstraints column = new ColumnConstraints(tableGrid.getCellWidth());
@@ -58,6 +66,10 @@ public class TableGridView extends GridPane {
                 this.add(gridElement, i, j);
                 gridElement.setOnMouseClicked(controller::onGridElementClicked);
             }
+        }
+
+        for (Map.Entry<Pile, TableGridPosition> gridEntry : tableGrid.getPileMap().entrySet()) {
+            set(gridEntry.getValue(), gridEntry.getKey());
         }
     }
 
@@ -99,6 +111,13 @@ public class TableGridView extends GridPane {
         for (int i = 0; i < this.getChildren().size(); i++) {
             TableGridElement t = (TableGridElement) this.getChildren().get(i);
             if (t.isPosition(x, y)) {this.getChildren().set(i, pile);}
+        }
+    }
+
+    public void set(TableGridPosition gridPosition, Pile p) {
+        for (int i = 0; i < this.getChildren().size(); i++) {
+            TableGridElement t = (TableGridElement) this.getChildren().get(i);
+            if (t.isPosition(gridPosition)) {((TableGridElement) this.getChildren().get(i)).updatePile(p);}
         }
     }
 
