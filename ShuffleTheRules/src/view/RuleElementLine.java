@@ -17,7 +17,7 @@ public class RuleElementLine extends Line {
     }
 
     public RuleElementLine(double startX, double startY, double endX, double endY) {
-        super(startX, startY, endX, endY);
+        super(startX, startY, endX, endY-arrowheadSize);
         arrowhead = new Polygon(endX-arrowheadSize, endY-arrowheadSize, endX, endY, endX+arrowheadSize, endY-arrowheadSize);
     }
 
@@ -37,7 +37,7 @@ public class RuleElementLine extends Line {
     }
 
     public void setEndY(double endY, boolean setArrowhead) {
-        this.setEndY(endY);
+        this.setEndY(endY-arrowheadSize);
         if (setArrowhead) {
             arrowhead.getPoints().set(1, endY-arrowheadSize);
             arrowhead.getPoints().set(3, endY);
