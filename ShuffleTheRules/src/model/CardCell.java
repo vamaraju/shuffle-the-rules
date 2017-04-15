@@ -13,22 +13,24 @@ import javafx.scene.input.MouseEvent;
 public class CardCell extends ListCell<Card> {
 
     public CardCell(){
-        //this.setOnMouseClicked(this::cellClicked);
+        this.setOnMouseClicked(this::cellClicked);
 
     }
 
-   /* private void cellClicked(MouseEvent mouseEvent) {
+    private void cellClicked(MouseEvent mouseEvent) {
         System.out.println("cell originally is " + this.isSelected());
-        //if(this.isSelected()){
-           // this.updateSelected(false);
-          //  System.out.println("cell deselected" + this.getItem().getSuit() + " value " + this.getItem().getValue());
+        if(this.isSelected()){
+           this.updateSelected(false);
+            this.setStyle("-fx-background-color: blue;");
+            System.out.println("cell deselected" + this.getItem().getSuit() + " value " + this.getItem().getValue());
 
-        //}else{
+        }else{
             this.updateSelected(true);
+            this.setStyle("-fx-background-color: red;");
             System.out.println("cell selected" + this.getItem().getSuit() + " value " + this.getItem().getValue());
-        //}
+        }
     }
-*/
+
     @Override
     public void updateItem(Card item, boolean empty) {
         super.updateItem(item, empty);
