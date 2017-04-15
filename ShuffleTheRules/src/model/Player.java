@@ -8,24 +8,29 @@ import model.Piles.Hand;
 import java.io.Serializable;
 
 public class Player implements Serializable {
-    private int handId;
-    private Hand hand;
-    private int playerID;
-    private boolean status;
+
     private int playerNum;
+    private String name;
+    private Hand hand;
+    private boolean status;
     private boolean clicked;
     private boolean skipFlag = false;
 
-    public Player(){
+    public Player() {
 
     }
 
-    public int getHandId() {
-        return handId;
+    public Player(int playerNum) {
+        this.playerNum = playerNum;
+        this.name = "Player " + playerNum;
     }
 
-    public void setHandId(int handId) {
-        this.handId = handId;
+    public int getTurnNum() {
+        return playerNum;
+    }
+
+    public void setTurnNum(int turnNum) {
+        this.playerNum = turnNum;
     }
 
     public Hand getHand() {
@@ -34,14 +39,6 @@ public class Player implements Serializable {
 
     public void setHand(Hand hand) {
         this.hand = hand;
-    }
-
-    public int getPlayerID() {
-        return playerID;
-    }
-
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
     }
 
     public boolean getStatus() {
@@ -60,6 +57,14 @@ public class Player implements Serializable {
         this.clicked = clicked;
     }
 
+    public boolean isSkipFlag() {
+        return skipFlag;
+    }
+
+    public void setSkipFlag(boolean skipFlag) {
+        this.skipFlag = skipFlag;
+    }
+
     public int getPlayerNum() {
         return playerNum;
     }
@@ -68,11 +73,16 @@ public class Player implements Serializable {
         this.playerNum = playerNum;
     }
 
-    public boolean isSkipFlag() {
-        return skipFlag;
+    public String getName() {
+        return name;
     }
 
-    public void setSkipFlag(boolean skipFlag) {
-        this.skipFlag = skipFlag;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Player " + playerNum;
     }
 }

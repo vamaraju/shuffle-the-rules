@@ -9,6 +9,7 @@ import model.GameEvents.GameEvent;
 import model.Piles.Pile;
 import view.RuleElementLine;
 import view.RuleElementRectangle;
+import view.TableTab.GeneralSettingsMenuView;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -223,10 +224,21 @@ public class GameCreation implements Serializable {
         return players.get(nextPlayerIndex);
     }
 
+    public void resetPlayers() {
+        players.clear();
+    }
+
+    public void resetPlayers(int numPlayers) {
+        players.clear();
+        for (int i = 0; i < numPlayers; i++) {
+            players.add(new Player(i+1));
+        }
+    }
+
     /* *************************************************************************************************************
-    *   CardSettings
-    *
-    * ************************************************************************************************************* */
+        *   CardSettings
+        *
+        * ************************************************************************************************************* */
     public CardSettings getCardSettings() {
         return cardSettings;
     }
@@ -249,6 +261,15 @@ public class GameCreation implements Serializable {
     public void setGameSettings(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
     }
+
+
+
+
+
+    /* *************************************************************************************************************
+    *   Serialization (Saving and Loading)
+    *
+    * ************************************************************************************************************* */
 
 
     private void updateRectangleAssociations(ArrayList<RuleElementRectangle> rectangles) {
@@ -280,9 +301,7 @@ public class GameCreation implements Serializable {
         return (l1.getStartX() == l2.getStartX()) && (l1.getStartY() == l2.getStartY()) && (l1.getEndX() == l2.getEndX()) && (l1.getEndY() == l2.getEndY());
     }
 
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-
+    private void saveDrawingPane() {
         this.rectangleBlueprints = new ArrayList<>();
         Pane drawingPane = GameView.getInstance().getEditorTab().getEditorDrawingPane();
         for (Node child : drawingPane.getChildren()) {
@@ -290,15 +309,9 @@ public class GameCreation implements Serializable {
                 this.rectangleBlueprints.add(new RuleElementRectangleBlueprint((RuleElementRectangle)child));
             }
         }
-
-        out.writeObject(this.rectangleBlueprints);
     }
 
-
-    private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
-        in.defaultReadObject();
-
-        this.rectangleBlueprints = (ArrayList<RuleElementRectangleBlueprint>) in.readObject();
+    private void loadDrawingPane() {
         Pane drawingPane = new Pane();
         drawingPane.setOnMouseDragged(GameView.getInstance().getEditorTab().getController()::drawingPaneOnMouseDragged);
 
@@ -325,5 +338,42 @@ public class GameCreation implements Serializable {
         updateRectangleAssociations(rectangles);
         GameView.getInstance().getEditorTab().setEditorDrawingPane(drawingPane);
     }
+
+    private void loadGeneralSettings() {
+        GeneralSettingsMenuView view = GameView.getInstance().getTableTab().getGeneralSettingsMenu();
+        ArrayList<Player> playersBackup = new ArrayList<>(players);
+
+        if (gameSettings.getMinPlayers() != 0) {
+            view.getMinPlayersTextField().setText(Integer.toString(gameSettings.getMinPlayers()));
+        }
+
+        if (gameSettings.getMaxPlayers() != 0) {
+            view.getMaxPlayersTextField().setText(Integer.toString(gameSettings.getMaxPlayers())); // this may overwrite this.players
+        }
+
+        if (!(players.isEmpty())) {
+            view.getMinHandSizeTextField().setText(Integer.toString(players.get(0).getHand().getMinSize()));
+            view.getMaxHandSizeTextField().setText(Integer.toString(players.get(0).getHand().getMaxSize()));
+            view.getStartingHandSizeTextField().setText(Integer.toString(players.get(0).getHand().getStartingSize()));
+        }
+
+        players = playersBackup; // restore backup in case this.players was overwritten from maxPlayers listener
+        view.getPlayerComboBox().getItems().clear();
+        view.getPlayerComboBox().getItems().addAll(players);
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        saveDrawingPane();
+        out.writeObject(this.rectangleBlueprints);
+    }
+
+    private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
+        in.defaultReadObject();
+        this.rectangleBlueprints = (ArrayList<RuleElementRectangleBlueprint>) in.readObject();
+        loadDrawingPane();
+        loadGeneralSettings();
+    }
+
 
 }

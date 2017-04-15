@@ -4,7 +4,6 @@
 package model.Piles;
 
 import model.Card;
-import model.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,8 +12,8 @@ import java.util.Random;
 
 public class Pile implements Serializable, Iterable {
 
-    private ArrayList<Card> cards;
-    private int startingNumberOfCards;
+    private ArrayList<Card> cards = new ArrayList<>();
+    private int startingSize;
     private int gridDimensionX;    /* TODO add get/set? */
     private int gridDimensionY;    /* TODO add get/set? */
     /* TODO rename to name?*/
@@ -27,15 +26,28 @@ public class Pile implements Serializable, Iterable {
 
     }
 
-    /* TODO add dimensions, startingNumberOfCards to constructor input args? */
+    public Pile(int minSize, int maxSize){
+        this.minSize = minSize;
+        this.maxSize = maxSize;
+        this.startingSize = minSize;
+    }
+
+    public Pile(int minSize, int maxSize, int startingSize){
+        this.minSize = minSize;
+        this.maxSize = maxSize;
+        this.startingSize = startingSize;
+    }
+
+    /* TODO add dimensions, startingNumCards to constructor input args? */
     public Pile(String name, int minSize, int maxSize){
-        cards = new ArrayList<>();
         this.name = name;
         this.minSize = minSize;
         this.maxSize = maxSize;
-        startingNumberOfCards = 0;
-
+        this.startingSize = minSize;
     }
+
+
+
     public void add(Card card){
         cards.add(card);
     };
@@ -101,12 +113,12 @@ public class Pile implements Serializable, Iterable {
         this.cards = cards;
     }
 
-    public int getStartingNumberOfCards() {
-        return startingNumberOfCards;
+    public int getStartingSize() {
+        return startingSize;
     }
 
-    public void setStartingNumberOfCards(int startingNumberOfCards) {
-        this.startingNumberOfCards = startingNumberOfCards;
+    public void setStartingSize(int startingSize) {
+        this.startingSize = startingSize;
     }
 
     public int getGridDimensionX() {
