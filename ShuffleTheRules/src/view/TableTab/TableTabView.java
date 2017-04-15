@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import model.Piles.Pile;
+import model.TableGridPosition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,6 +82,10 @@ public class TableTabView extends Tab {
         return this.tableGridView.getChildren();
     }
 
+    public HashMap<Pile, TableGridPosition> getGridPileMap() {
+        return this.tableGridView.getTableGrid().getPileMap();
+    }
+
     public CheckBox getGridHideCheckBox() {
         return tableGridPropertiesView.getGridHideCheckBox();
     }
@@ -98,7 +104,7 @@ public class TableTabView extends Tab {
 
     public int getGridWidthSetting() {
         String gridWidthStr = tableGridPropertiesView.getGridWidthTextFieldValue();
-        if ((gridWidthStr != null) && (gridWidthStr != "") && (gridWidthStr.matches("[0-9]*"))) {
+        if ((gridWidthStr != null) && (!gridWidthStr.isEmpty()) && (gridWidthStr.matches("[0-9]*"))) {
             return Integer.parseInt(gridWidthStr);
         }
         return tableGridView.getTableGrid().getNumCols();
@@ -106,7 +112,7 @@ public class TableTabView extends Tab {
 
     public int getGridHeightSetting() {
         String gridHeightStr = tableGridPropertiesView.getGridHeightTextFieldValue();
-        if ((gridHeightStr != null) && (gridHeightStr != "") && (gridHeightStr.matches("[0-9]*"))) {
+        if ((gridHeightStr != null) && (!gridHeightStr.isEmpty()) && (gridHeightStr.matches("[0-9]*"))) {
             return Integer.parseInt(gridHeightStr);
         }
         return tableGridView.getTableGrid().getNumRows();
@@ -114,14 +120,10 @@ public class TableTabView extends Tab {
 
     public double getGridCellWidthSetting() {
         String gridCellWidthStr = tableGridPropertiesView.getGridCellWidthTextFieldValue();
-        if ((gridCellWidthStr != null) && (gridCellWidthStr != "") && (gridCellWidthStr.matches("[0-9]*"))) {
+        if ((gridCellWidthStr != null) && (!gridCellWidthStr.isEmpty()) && (gridCellWidthStr.matches("[0-9]*"))) {
             return Double.parseDouble(gridCellWidthStr);
         }
         return tableGridView.getTableGrid().getCellWidth();
-    }
-
-    public ArrayList<TableGridElement> getGridCurrentPiles() {
-        return tableGridView.getCurrentPiles();
     }
 
     public PileSettingsMenuView getPileSettingsMenu() {

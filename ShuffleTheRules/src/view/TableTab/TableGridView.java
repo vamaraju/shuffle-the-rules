@@ -4,25 +4,29 @@
 package view.TableTab;
 
 
+import controller.TableTab.TableGridViewController;
 import javafx.scene.layout.GridPane;
 
 
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import model.GameCreation;
+import model.Piles.Pile;
 import model.TableGrid;
+import model.TableGridPosition;
 
-import java.util.ArrayList;
-
+import java.util.Map;
 
 
 public class TableGridView extends GridPane {
+
+    private TableGridViewController controller;
 
     private final String enableGridCSS = "-fx-background-color: black, green; -fx-background-insets: 0, 0 1 1 0;";
     private final String disableGridCSS = "-fx-background-color: green;";
     private final String enableBackgroundImageCSS = "-fx-background-image: url('assets/background/green.jpg')";
 
     private TableGrid tableGrid;
-    private ArrayList<TableGridElement> currentPiles = new ArrayList<>();
 
     public TableGridView() {
         this.setStyle("-fx-background-color: white; -fx-padding: 10;");
@@ -30,12 +34,18 @@ public class TableGridView extends GridPane {
     }
 
     public void resetGrid() {
-        initGrid(5, 5, 70);
+        initGrid(7, 4, 70);
     }
 
     public void initGrid(int numCols, int numRows, double cellWidth) {
-        this.tableGrid = new TableGrid(numCols, numRows, cellWidth);
+        controller = new TableGridViewController(this);
+        tableGrid = new TableGrid(numCols, numRows, cellWidth);
+        GameCreation.getInstance().setTableGrid(tableGrid);
 
+        drawGrid();
+    }
+
+    public void drawGrid() {
         this.getColumnConstraints().clear();
         for (int i = 0; i < tableGrid.getNumCols(); i++) {
             ColumnConstraints column = new ColumnConstraints(tableGrid.getCellWidth());
@@ -54,7 +64,12 @@ public class TableGridView extends GridPane {
                 TableGridElement gridElement = new TableGridElement(i, j, tableGrid.getCellWidth(), tableGrid.getCellHeight());
                 gridElement.setStyle(enableGridCSS);
                 this.add(gridElement, i, j);
+                gridElement.setOnMouseClicked(controller::onGridElementClicked);
             }
+        }
+
+        for (Map.Entry<Pile, TableGridPosition> gridEntry : tableGrid.getPileMap().entrySet()) {
+            set(gridEntry.getValue(), gridEntry.getKey());
         }
     }
 
@@ -84,6 +99,14 @@ public class TableGridView extends GridPane {
         return null;
     }
 
+    public TableGridElement get(TableGridPosition position) {
+        for (Node n : this.getChildren()) {
+            TableGridElement t = (TableGridElement) n;
+            if (t.isPosition(position)) {return t;}
+        }
+        return null;
+    }
+
     public void set(TableGridElement pile, int x, int y) {
         for (int i = 0; i < this.getChildren().size(); i++) {
             TableGridElement t = (TableGridElement) this.getChildren().get(i);
@@ -91,13 +114,25 @@ public class TableGridView extends GridPane {
         }
     }
 
+    public void set(TableGridPosition gridPosition, Pile p) {
+        for (int i = 0; i < this.getChildren().size(); i++) {
+            TableGridElement t = (TableGridElement) this.getChildren().get(i);
+            if (t.isPosition(gridPosition)) {((TableGridElement) this.getChildren().get(i)).updatePile(p);}
+        }
+    }
+
     public void addPile(TableGridElement pile, int x, int y) {
-        currentPiles.add(pile);
         set(pile, x, y);
     }
 
-    public ArrayList<TableGridElement> getCurrentPiles() {
-        return currentPiles;
+    public void updateElement(int x, int y, Pile p) {
+        updateElement(new TableGridPosition(x, y), p);
+    }
+
+    public void updateElement(TableGridPosition gridPosition, Pile p) {
+        TableGridElement t = get(gridPosition);
+        t.updatePile(p);
+        tableGrid.updatePileMap(p, gridPosition);
     }
 
     public TableGrid getTableGrid() {
@@ -106,5 +141,13 @@ public class TableGridView extends GridPane {
 
     public void setTableGrid(TableGrid tableGrid) {
         this.tableGrid = tableGrid;
+    }
+
+    public double getCellWidth() {
+        return tableGrid.getCellWidth();
+    }
+
+    public double getCellHeight() {
+        return tableGrid.getCellHeight();
     }
 }

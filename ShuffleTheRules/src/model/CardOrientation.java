@@ -7,7 +7,8 @@ package model;
 public enum CardOrientation {
 
     DOWN(0, "Face Down", "assets/playing_cards/back/blue.png"),
-    UP(1, "Face Up", "assets/playing_cards/front/front.png");
+    UP(1, "Face Up", "assets/playing_cards/front/front.png"),
+    EITHER(2, "Either", "assets/playing_cards/back/red.png");
 
     private final int value;
     private final String name;

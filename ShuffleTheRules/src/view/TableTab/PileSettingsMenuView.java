@@ -5,8 +5,12 @@ package view.TableTab;
 
 
 import controller.TableTab.PileSettingsMenuController;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import model.CardOrientation;
+import model.Piles.PileType;
+import model.TripleHashMap;
 
 
 public class PileSettingsMenuView extends TitledPane {
@@ -14,23 +18,11 @@ public class PileSettingsMenuView extends TitledPane {
     private PileSettingsMenuController controller;
 
     private GridPane pileSettingsGrid;
+    private TripleHashMap<String, Node, Node> gridElements;
 
-    private Button updatePileButton;
-    private Button addPileButton;
-    private Button deletePileButton;
-
-    private TextField nameInput;
-    private ChoiceBox typeChoiceInput;
-    private TextField minNumCardsInput;
-    private TextField maxNumCardsInput;
-
-    private TextField xCoordInput;
-    private TextField yCoordInput;
-    /* TODO missing Pile Associations */
-    /* private pileAssociations */
-
-    private ChoiceBox pileViewableChoiceInput;
-    private ChoiceBox cardOrientationChoiceInput;
+    private Button updatePileButton = new Button("Update Pile");
+    private Button addPileButton = new Button("Add Pile");
+    private Button deletePileButton = new Button("Delete Pile");
 
     public PileSettingsMenuView(){
         initialize();
@@ -38,164 +30,166 @@ public class PileSettingsMenuView extends TitledPane {
 
     public void initialize(){
          /* Menu title */
-        this.controller = new PileSettingsMenuController(this);
+        controller = new PileSettingsMenuController(this);
         this.setText("Piles");
 
-        this.pileSettingsGrid = new GridPane();
-        this.setContent(pileSettingsGrid);
+        pileSettingsGrid = new GridPane();
+        pileSettingsGrid.setHgap(2);
+        pileSettingsGrid.setVgap(4);
 
+        gridElements = new TripleHashMap<>();
 
-        this.pileSettingsGrid.setHgap(2);
-        this.pileSettingsGrid.setVgap(4);
+        gridElements.put("generalHeader", new Label("General"), null);
+        gridElements.put("name", new Label("Name:"), new TextField());
+        gridElements.put("type", new Label("Type:"), new ComboBox<>());
 
-        /* Name - extract */
-        Label name = new Label("Name:");
-        nameInput = new TextField();
-        nameInput.setMaxSize(120, 20);
+        gridElements.put("numCardsHeader", new Label("Number of Cards"), null);
+        gridElements.put("minNumCards", new Label("Min:"), new TextField());
+        gridElements.put("maxNumCards", new Label("Max:"), new TextField());
+        gridElements.put("startingNumCards", new Label("Starting:"), new TextField());
 
-        this.pileSettingsGrid.add(name,1,1,1,1);
-        this.pileSettingsGrid.add(nameInput,2,1,1,1);
+        gridElements.put("coordinatesHeader", new Label("Table Grid Coordinates"), null);
+        gridElements.put("xCoordinate", new Label("X:"), new TextField());
+        gridElements.put("yCoordinate", new Label("Y:"), new TextField());
 
+        gridElements.put("playerAssociationHeader", new Label("Player Association"), null);
+        gridElements.put("viewable", new Label("Viewable By:"), new ComboBox<>());
 
-        /* Type - extract */
-        Label type = new Label("Type:");
-        typeChoiceInput = new ChoiceBox();
-        typeChoiceInput.getItems().addAll("General", "Hand", "Deck", "Discard");
+        gridElements.put("cardsHeader", new Label("Cards"), null);
+        gridElements.put("cardOrientation", new Label("Card Orientation:"), new ComboBox<>());
 
-        this.pileSettingsGrid.add(type,1,2,1,1);
-        this.pileSettingsGrid.add(typeChoiceInput,2,2,1,1);
+        String[] headers = {"generalHeader", "numCardsHeader", "coordinatesHeader", "playerAssociationHeader", "cardsHeader"};
+        for (int i = 0; i < headers.length; i++) {
+            gridElements.getValue1(headers[i]).setStyle("-fx-font-weight: bold");
+        }
 
+        getPileNameTextField().setPromptText("Enter a Name");
+        getMinCardsTextField().setPromptText("Enter a Number");
+        getMaxCardsTextField().setPromptText("Enter a Number");
+        getStartingCardsTextField().setPromptText("Enter a Number");
+        getXCoordinateTextField().setPromptText("Enter a Number");
+        getYCoordinateTextField().setPromptText("Enter a Number");
 
-        /* max/min number Cards in Pile - extract */
-        Label numCards = new Label("Number Cards");
-        this.pileSettingsGrid.add(numCards,1,4,2,2);
+        controller.setPileTypeComboBox();
+        controller.setViewableByComboBox();
+        controller.setCardOrientationComboBox();
 
-        /* min */
-        Label minNumCards = new Label("min:");
-        minNumCardsInput = new TextField();
-        minNumCardsInput.setMaxSize(50, 20);
+        addGridContent();
 
-        this.pileSettingsGrid.add(minNumCards,1,6,1,1);
-        this.pileSettingsGrid.add(minNumCardsInput,2,6,1,1);
-
-        /* max */
-        Label maxNumCards = new Label("max:");
-        maxNumCardsInput = new TextField();
-        maxNumCardsInput.setMaxSize(50, 20);
-
-        this.pileSettingsGrid.add(maxNumCards,1,7,1,1);
-        this.pileSettingsGrid.add(maxNumCardsInput,2,7,1,1);
-
-
-        /* Corrdinates - extract */
-        Label gridCoordinates = new Label("Coordinates");
-        this.pileSettingsGrid.add(gridCoordinates,1,8,2,2);
-
-        /* x */
-
-        Label xCoord = new Label("x:");
-        xCoordInput = new TextField();
-        xCoordInput.setMaxSize(50, 20);
-
-        this.pileSettingsGrid.add(xCoord,1,10,1,1);
-        this.pileSettingsGrid.add(xCoordInput,2,10,1,1);
-
-        /*y */
-        Label yCoord = new Label("y:");
-        yCoordInput = new TextField();
-        yCoordInput.setMaxSize(50, 20);
-
-        this.pileSettingsGrid.add(yCoord,1,11,1,1);
-        this.pileSettingsGrid.add(yCoordInput,2,11,1,1);
-
-        /* Player Pile Association Settings */
-        Label playerAssociation = new Label("Player Association");
-        this.pileSettingsGrid.add(playerAssociation,1,12,1,1);
-
-        /* Pile Viewable Settings */
-        Label viewableBy = new Label("Viewable By:");
-        pileViewableChoiceInput = new ChoiceBox();
-        pileViewableChoiceInput.getItems().addAll("All", "None");
-        this.pileSettingsGrid.add(viewableBy,1,13,1,1);
-        this.pileSettingsGrid.add(pileViewableChoiceInput,2,13,1,1);
-
-
-        /* Pile Orientation Settings - for display purposes.  Will determine how top of Pile is displayed */
-        Label orientation = new Label("Card Orientation");
-        cardOrientationChoiceInput = new ChoiceBox();
-        cardOrientationChoiceInput.getItems().addAll("Face Up", "Face Down");
-
-        this.pileSettingsGrid.add(orientation,1,14,1,1);
-        this.pileSettingsGrid.add(cardOrientationChoiceInput,2,14,1,1);
-
-
-        updatePileButton = new Button("Update Pile");
         updatePileButton.setDisable(true);
-        this.pileSettingsGrid.add(updatePileButton,1,15,1,2);
-
-        addPileButton = new Button("Add Pile");
-        addPileButton.setPrefWidth(100);
-        this.pileSettingsGrid.add(addPileButton,2,15,1,2);
-
-        deletePileButton = new Button("Delete Pile");
         deletePileButton.setDisable(true);
-        this.pileSettingsGrid.add(deletePileButton,3,15,1,2);
 
-        this.addPileButton.setOnAction(controller::onAddPileButtonClick);
-        this.updatePileButton.setOnAction(controller::onUpdatePileButtonClick);
+        this.setContent(pileSettingsGrid);
+        this.expandedProperty().addListener(controller::onTabExpanded);
+        addPileButton.setOnAction(controller::onAddPileButtonClick);
+        updatePileButton.setOnAction(controller::onUpdatePileButtonClick);
+        deletePileButton.setOnAction(controller::onDeletePileButtonClick);
+
     }
 
-    public Button getAddPileButton() {
-        return addPileButton;
+    public void addGridContent() {
+        int row = 0;
+        for (String key : gridElements.keySet()) {
+            if (gridElements.getValue2(key) == null) {
+                if (row != 0) {
+                    pileSettingsGrid.add(new Separator(), 0, row++);
+                }
+                pileSettingsGrid.add(gridElements.getValue1(key), 0, row++);
+            } else {
+                pileSettingsGrid.add(gridElements.getValue1(key), 0, row);
+                pileSettingsGrid.add(gridElements.getValue2(key), 1, row++);
+            }
+        }
+        pileSettingsGrid.add(updatePileButton, 0, row);
+        pileSettingsGrid.add(addPileButton, 1, row);
+        pileSettingsGrid.add(deletePileButton, 2, row);
     }
 
-    public Button getUpdatePileButton() {
+    public void clearAllInputs() {
+        getPileNameTextField().clear();
+        getPileTypeComboBox().valueProperty().set(null);
+        getMinCardsTextField().clear();
+        getMaxCardsTextField().clear();
+        getStartingCardsTextField().clear();
+        getXCoordinateTextField().clear();
+        getYCoordinateTextField().clear();
+        getViewableByComboBox().valueProperty().set(null);
+        getCardOrientationComboBox().valueProperty().set(null);
+    }
+
+    public Button getUpdatePileButton(){
         return updatePileButton;
     }
 
-    public Button getDeletePileButton() { return deletePileButton; }
-
-    public void enableAddPileButton(){ addPileButton.setDisable(false); }
-
-    public void disableAddPileButton(){ addPileButton.setDisable(true); }
-
-    public void enableUpdatePileButton(){ updatePileButton.setDisable(false); }
-
-    public void disableUpdatePileButton(){ updatePileButton.setDisable(true); }
-
-    public void enableDeletePileButton(){ deletePileButton.setDisable(false); }
-
-    public void disableDeletePileButton(){ deletePileButton.setDisable(true); }
-
-    public TextField getNameInput() {
-        return nameInput;
+    public TextField getPileNameTextField() {
+        return (TextField) gridElements.getValue2("name");
     }
 
-    public ChoiceBox getTypeChoiceInput() {
-        return typeChoiceInput;
+    public String getPileNameTextFieldValue() {
+        return getPileNameTextField().getText();
     }
 
-    public TextField getMinNumCardsInput() {
-        return minNumCardsInput;
+    public ComboBox getPileTypeComboBox() {
+        return (ComboBox) gridElements.getValue2("type");
     }
 
-    public TextField getMaxNumCardsInput() {
-        return maxNumCardsInput;
+    public PileType getPileTypeComboBoxValue() {
+        return (PileType) getPileTypeComboBox().getValue();
     }
 
-    public TextField getxCoordInput() {
-        return xCoordInput;
+    public TextField getMinCardsTextField() {
+        return (TextField) gridElements.getValue2("minNumCards");
     }
 
-    public TextField getyCoordInput() {
-        return yCoordInput;
+    public String getMinCardsTextFieldValue() {
+        return getMinCardsTextField().getText();
     }
 
-    public ChoiceBox getPileViewableChoiceInput() {
-        return pileViewableChoiceInput;
+    public TextField getMaxCardsTextField() {
+        return (TextField) gridElements.getValue2("maxNumCards");
     }
 
-    public ChoiceBox getCardOrientationChoiceInput() {
-        return cardOrientationChoiceInput;
+    public String getMaxCardsTextFieldValue() {
+        return getMaxCardsTextField().getText();
+    }
+
+    public TextField getStartingCardsTextField() {
+        return (TextField) gridElements.getValue2("startingNumCards");
+    }
+
+    public String getStartingCardsTextFieldValue() {
+        return getStartingCardsTextField().getText();
+    }
+
+    public TextField getXCoordinateTextField() {
+        return (TextField) gridElements.getValue2("xCoordinate");
+    }
+
+    public String getXCoordinateTextFieldValue() {
+        return getXCoordinateTextField().getText();
+    }
+
+    public TextField getYCoordinateTextField() {
+        return (TextField) gridElements.getValue2("yCoordinate");
+    }
+
+    public String getYCoordinateTextFieldValue() {
+        return getYCoordinateTextField().getText();
+    }
+
+    public ComboBox getViewableByComboBox() {
+        return (ComboBox) gridElements.getValue2("viewable");
+    }
+
+    public String getViewableByComboBoxValue() {
+        return (String) getViewableByComboBox().getValue();
+    }
+
+    public ComboBox getCardOrientationComboBox() {
+        return (ComboBox) gridElements.getValue2("cardOrientation");
+    }
+
+    public CardOrientation getCardOrientationComboBoxValue() {
+        return (CardOrientation) getCardOrientationComboBox().getValue();
     }
 }
