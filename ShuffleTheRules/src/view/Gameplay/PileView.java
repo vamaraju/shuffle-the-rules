@@ -33,14 +33,14 @@ public class PileView extends ListView<Card> {
         /* for easy testing. Sorry, will be deleted! */
         items.add(new Card(PlayingCard.ACE, Suit.HEART));
         items.add(new Card(PlayingCard.ACE, Suit.SPADE));
-        items.add(new Card(PlayingCard.FOUR, Suit.HEART));
+        items.add(new Card(PlayingCard.FOUR, Suit.CLUB));
         items.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
-        items.add(new Card(PlayingCard.THREE, Suit.HEART));
-        items.add(new Card(PlayingCard.TEN, Suit.SPADE));
-        items.add(new Card(PlayingCard.ACE, Suit.HEART));
-        items.add(new Card(PlayingCard.ACE, Suit.SPADE));
+        items.add(new Card(PlayingCard.THREE, Suit.CLUB));
+        items.add(new Card(PlayingCard.TEN, Suit.CLUB));
+        items.add(new Card(PlayingCard.ACE, Suit.DIAMOND));
+        items.add(new Card(PlayingCard.ACE, Suit.CLUB));
         items.add(new Card(PlayingCard.FOUR, Suit.HEART));
-        items.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
+        items.add(new Card(PlayingCard.SEVEN, Suit.DIAMOND));
         items.add(new Card(PlayingCard.THREE, Suit.HEART));
         items.add(new Card(PlayingCard.TEN, Suit.SPADE));
 
