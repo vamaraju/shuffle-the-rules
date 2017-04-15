@@ -181,14 +181,14 @@ public class PileSettingsMenuController {
     }
 
     private void showPileExistsErrorAlert(Pile existingPile, TableGridPosition position) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "A pile with the specified name (" + existingPile.getName() + ") already exists on the grid at position " + position + ". Please enter a unique name for this pile.");
+        Alert alert = new Alert(Alert.AlertType.WARNING, "A pile with the specified name '" + existingPile.getName() + "' already exists on the grid at position " + position + ". Please enter a unique name for this pile.");
         alert.setTitle("Pile Name Exists Error");
         alert.setHeaderText("Pile Name Already Exists In Grid");
         alert.showAndWait();
     }
 
     private void showGridPositionFilledErrorAlert(TableGridPosition position, Pile existingPile) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "The specified grid position " + position + " is already filled with a pile: " + existingPile.getName() + ". Please enter a unique grid position, or click on the grid element (pile) to update/delete it.");
+        Alert alert = new Alert(Alert.AlertType.WARNING, "The specified grid position " + position + " is already filled with a pile: '" + existingPile.getName() + "'. Please enter a unique grid position, or click on the grid element (pile) to update/delete it.");
         alert.setTitle("Grid Position Filled Error");
         alert.setHeaderText("Grid Location Already Contains A Pile");
         alert.showAndWait();

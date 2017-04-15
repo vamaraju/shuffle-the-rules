@@ -120,6 +120,14 @@ public class PileSettingsMenuView extends TitledPane {
         return updatePileButton;
     }
 
+    public Button getAddPileButton(){
+        return addPileButton;
+    }
+
+    public Button getDeletePileButton(){
+        return deletePileButton;
+    }
+
     public TextField getPileNameTextField() {
         return (TextField) gridElements.getValue2("name");
     }

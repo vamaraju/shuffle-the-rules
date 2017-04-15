@@ -3,6 +3,7 @@ package controller.TableTab;
 import javafx.scene.input.MouseEvent;
 import model.GameView;
 import view.TableTab.PileSettingsMenuView;
+import view.TableTab.TableGridCSS;
 import view.TableTab.TableGridElement;
 import view.TableTab.TableGridView;
 
@@ -20,6 +21,10 @@ public class TableGridViewController {
 
         if (gridElement.hasPile()) {
             pileSettingsView.setExpanded(true);
+            pileSettingsView.getUpdatePileButton().setDisable(false);
+            pileSettingsView.getAddPileButton().setDisable(true);
+            pileSettingsView.getDeletePileButton().setDisable(false);
+
             pileSettingsView.getPileNameTextField().setText(gridElement.getPileName());
             pileSettingsView.getPileTypeComboBox().setValue(gridElement.getPileType());
             pileSettingsView.getMinCardsTextField().setText(Integer.toString(gridElement.getPileMinSize()));
@@ -28,9 +33,13 @@ public class TableGridViewController {
             pileSettingsView.getXCoordinateTextField().setText(Integer.toString(gridElement.getX()));
             pileSettingsView.getYCoordinateTextField().setText(Integer.toString(gridElement.getY()));
             pileSettingsView.getViewableByComboBox().setValue(gridElement.getPile().getViewablePlayers());
-            pileSettingsView.getCardOrientationComboBox().setValue(gridElement.getCardOrientation());
+            pileSettingsView.getCardOrientationComboBox().setValue(gridElement.getPileCardOrientation());
         } else {
             pileSettingsView.setExpanded(true);
+            pileSettingsView.getUpdatePileButton().setDisable(true);
+            pileSettingsView.getAddPileButton().setDisable(false);
+            pileSettingsView.getDeletePileButton().setDisable(true);
+
             pileSettingsView.clearAllInputs();
             pileSettingsView.getXCoordinateTextField().setText(Integer.toString(gridElement.getX()));
             pileSettingsView.getYCoordinateTextField().setText(Integer.toString(gridElement.getY()));
