@@ -9,6 +9,8 @@ import javafx.scene.layout.GridPane;
 
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import model.CardOrientation;
+import model.Piles.Pile;
 import model.TableGrid;
 
 import java.util.ArrayList;
@@ -96,6 +98,12 @@ public class TableGridView extends GridPane {
         set(pile, x, y);
     }
 
+    public void updateElement(int x, int y, Pile p, CardOrientation orientation) {
+        TableGridElement t = get(x, y);
+        t.addPile(p, orientation);
+        currentPiles.add(t);
+    }
+
     public ArrayList<TableGridElement> getCurrentPiles() {
         return currentPiles;
     }
@@ -106,5 +114,13 @@ public class TableGridView extends GridPane {
 
     public void setTableGrid(TableGrid tableGrid) {
         this.tableGrid = tableGrid;
+    }
+
+    public double getCellWidth() {
+        return tableGrid.getCellWidth();
+    }
+
+    public double getCellHeight() {
+        return tableGrid.getCellHeight();
     }
 }

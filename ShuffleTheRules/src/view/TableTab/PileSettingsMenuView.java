@@ -8,10 +8,8 @@ import controller.TableTab.PileSettingsMenuController;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import model.Piles.Deck;
-import model.Piles.Pile;
+import model.CardOrientation;
 import model.Piles.PileType;
-import model.Player;
 import model.TripleHashMap;
 
 
@@ -25,19 +23,6 @@ public class PileSettingsMenuView extends TitledPane {
     private Button updatePileButton = new Button("Update Pile");
     private Button addPileButton = new Button("Add Pile");
     private Button deletePileButton = new Button("Delete Pile");
-
-    private TextField nameInput;
-    private ChoiceBox typeChoiceInput;
-    private TextField minNumCardsInput;
-    private TextField maxNumCardsInput;
-
-    private TextField xCoordInput;
-    private TextField yCoordInput;
-    /* TODO missing Pile Associations */
-    /* private pileAssociations */
-
-    private ChoiceBox pileViewableChoiceInput;
-    private ChoiceBox cardOrientationChoiceInput;
 
     public PileSettingsMenuView(){
         initialize();
@@ -61,6 +46,7 @@ public class PileSettingsMenuView extends TitledPane {
         gridElements.put("numCardsHeader", new Label("Number of Cards"), null);
         gridElements.put("minNumCards", new Label("Min:"), new TextField());
         gridElements.put("maxNumCards", new Label("Max:"), new TextField());
+        gridElements.put("startingNumCards", new Label("Starting:"), new TextField());
 
         gridElements.put("coordinatesHeader", new Label("Table Grid Coordinates"), null);
         gridElements.put("xCoordinate", new Label("X:"), new TextField());
@@ -80,6 +66,7 @@ public class PileSettingsMenuView extends TitledPane {
         getPileNameTextField().setPromptText("Enter a Name");
         getMinCardsTextField().setPromptText("Enter a Number");
         getMaxCardsTextField().setPromptText("Enter a Number");
+        getStartingCardsTextField().setPromptText("Enter a Number");
         getXCoordinateTextField().setPromptText("Enter a Number");
         getYCoordinateTextField().setPromptText("Enter a Number");
 
@@ -154,6 +141,14 @@ public class PileSettingsMenuView extends TitledPane {
         return getMaxCardsTextField().getText();
     }
 
+    public TextField getStartingCardsTextField() {
+        return (TextField) gridElements.getValue2("startingNumCards");
+    }
+
+    public String getStartingCardsTextFieldValue() {
+        return getStartingCardsTextField().getText();
+    }
+
     public TextField getXCoordinateTextField() {
         return (TextField) gridElements.getValue2("xCoordinate");
     }
@@ -182,7 +177,7 @@ public class PileSettingsMenuView extends TitledPane {
         return (ComboBox) gridElements.getValue2("cardOrientation");
     }
 
-    public String getCardOrientationComboBoxValue() {
-        return (String) getCardOrientationComboBox().getValue();
+    public CardOrientation getCardOrientationComboBoxValue() {
+        return (CardOrientation) getCardOrientationComboBox().getValue();
     }
 }

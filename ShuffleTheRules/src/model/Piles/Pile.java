@@ -4,6 +4,7 @@
 package model.Piles;
 
 import model.Card;
+import model.CardOrientation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,14 +14,10 @@ import java.util.Random;
 public class Pile implements Serializable, Iterable {
 
     private ArrayList<Card> cards = new ArrayList<>();
-    private int startingSize;
-    private int gridDimensionX;    /* TODO add get/set? */
-    private int gridDimensionY;    /* TODO add get/set? */
-    /* TODO rename to name?*/
     private String name;
+    private int startingSize;
     private int minSize;
     private int maxSize;
-    private boolean clicked;
 
     public Pile() {
 
@@ -38,7 +35,7 @@ public class Pile implements Serializable, Iterable {
         this.startingSize = startingSize;
     }
 
-    /* TODO add dimensions, startingNumCards to constructor input args? */
+
     public Pile(String name, int minSize, int maxSize){
         this.name = name;
         this.minSize = minSize;
@@ -46,7 +43,12 @@ public class Pile implements Serializable, Iterable {
         this.startingSize = minSize;
     }
 
-
+    public Pile(String name, int minSize, int maxSize, int startingSize) {
+        this.name = name;
+        this.minSize = minSize;
+        this.maxSize = maxSize;
+        this.startingSize = startingSize;
+    }
 
     public void add(Card card){
         cards.add(card);
@@ -101,14 +103,14 @@ public class Pile implements Serializable, Iterable {
         return minSize;
     }
 
-    /* TODO requries validation */
-    public void setMinSize(int minSize){ this.minSize = minSize; }
+    public void setMinSize(int minSize) {
+        this.minSize = minSize;
+    }
 
     public int getMaxSize(){
         return maxSize;
     }
 
-    /* TODO requries validation */
     public void setMaxSize(int maxSize){
         this.maxSize = maxSize;
     }
@@ -129,36 +131,12 @@ public class Pile implements Serializable, Iterable {
         this.startingSize = startingSize;
     }
 
-    public int getGridDimensionX() {
-        return gridDimensionX;
-    }
-
-    public void setGridDimensionX(int gridDimensionX) {
-        this.gridDimensionX = gridDimensionX;
-    }
-
-    public int getGridDimensionY() {
-        return gridDimensionY;
-    }
-
-    public void setGridDimensionY(int gridDimensionY) {
-        this.gridDimensionY = gridDimensionY;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isClicked() {
-        return clicked;
-    }
-
-    public void setClicked(boolean clicked) {
-        this.clicked = clicked;
     }
 
     public boolean isEmpty() {

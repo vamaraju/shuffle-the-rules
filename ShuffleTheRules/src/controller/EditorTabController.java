@@ -52,7 +52,6 @@ public class EditorTabController {
         gameEvents.add(new OnGameEndEvent());
         gameEvents.add(new OnHandEmptyEvent());
         gameEvents.add(new OnHandFullEvent());
-        gameEvents.add(new OnPileClickEvent());
         gameEvents.add(new OnPileEmptyEvent());
         gameEvents.add(new OnPileFullEvent());
         gameEvents.add(new OnPlayerClickEvent());
