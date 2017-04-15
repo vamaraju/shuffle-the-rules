@@ -4,60 +4,63 @@
 
 package controller.TableTab;
 
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import model.CardOrientation;
 import model.GameCreation;
 import model.Piles.BasicPile;
 import model.Piles.Pile;
+import model.Piles.PileType;
+import model.Player;
 import view.TableTab.PileSettingsMenuView;
 import java.util.HashMap;
-
+import java.util.Observable;
 
 
 public class PileSettingsMenuController {
 
-    private PileSettingsMenuView pileSettingsMenuView;
-    /* will store BasicPiles and Hands */
-    private HashMap<String, Pile> piles = GameCreation.getInstance().getPilesHashMap();
-
+    private PileSettingsMenuView view;
 
     public PileSettingsMenuController(PileSettingsMenuView view){
-        this.pileSettingsMenuView = view;
+        this.view = view;
     }
 
-    public PileSettingsMenuView getPileSettingsMenuView() {
-        return pileSettingsMenuView;
+    public void onTabExpanded(ObservableValue observable, Object oldExpandedValue, Object newExpandedValue) {
+        boolean expanded = (boolean) newExpandedValue;
+        if (expanded) {
+            setViewableByComboBox();
+        }
     }
 
-    public void onAddPileButtonClick(Event event){
-        System.out.println("Add Pile pressed");
-        /* Get input from view*/
-        /* validate */
-        /* create a Pile - Basic or Hand */
-
-        /* update view */
+    public void setPileTypeComboBox() {
+        view.getPileTypeComboBox().getItems().addAll(PileType.values());
     }
 
-    public void onUpdatePileButtonClick(Event event){
-        System.out.println("Update Pile pressed");
-        /* Get input from view*/
-
-        /* validate */
-        /* update model */
-        /* update view */
-        /* */
+    public void setViewableByComboBox() {
+        ComboBox c = view.getViewableByComboBox();
+        c.getItems().clear();
+        c.getItems().addAll("All", "None");
+        for (Player p : GameCreation.getInstance().getPlayers()) {
+            c.getItems().add(p.getName());
+        }
     }
 
-    public void createNewPile(String type){
+    public void setCardOrientationComboBox() {
+        view.getCardOrientationComboBox().getItems().addAll(CardOrientation.values());
+    }
+
+    public void onAddPileButtonClick(Event e){
 
     }
 
-    /* Access a specific Pile*/
-    public Pile getPile(String pileName){
-        return new BasicPile("placeholder",0,2);
+    public void onUpdatePileButtonClick(Event e){
+
     }
 
-    public void deletePile(String pileName){
-        
+    public void onDeletePileButtonClick(Event e){
+
     }
+
 }

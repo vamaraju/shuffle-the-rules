@@ -52,6 +52,14 @@ public class Pile implements Serializable, Iterable {
         cards.add(card);
     };
 
+    public void addToTop(Card card) {
+        cards.add(0, card);
+    }
+
+    public void addToBottom(Card card) {
+        cards.add(card);
+    }
+
     public void view(){
 
     }

@@ -8,13 +8,8 @@ import controller.TableTab.GeneralSettingsMenuController;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import model.GameCreation;
 import model.Player;
 import model.TripleHashMap;
-
-import javax.xml.soap.Text;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 
 public class GeneralSettingsMenuView extends TitledPane {
@@ -22,7 +17,7 @@ public class GeneralSettingsMenuView extends TitledPane {
     private GeneralSettingsMenuController controller;
 
     private GridPane generalMenuContent;
-    private TripleHashMap<String, Node, Node> elements;
+    private TripleHashMap<String, Node, Node> gridElements;
 
     private Button updateButton = new Button("Update");
 
@@ -38,26 +33,26 @@ public class GeneralSettingsMenuView extends TitledPane {
         generalMenuContent.setHgap(2);
         generalMenuContent.setVgap(4);
 
-        elements = new TripleHashMap<>();
+        gridElements = new TripleHashMap<>();
 
-        elements.put("numPlayersHeader", new Label("Number of Players"), null);
-        elements.put("minPlayers", new Label("Min:"), new TextField());
-        elements.put("maxPlayers", new Label("Max:"), new TextField());
+        gridElements.put("numPlayersHeader", new Label("Number of Players"), null);
+        gridElements.put("minPlayers", new Label("Min:"), new TextField());
+        gridElements.put("maxPlayers", new Label("Max:"), new TextField());
 
-        elements.put("handSizeHeader", new Label("Hand Size"), null);
-        elements.put("minHandSize", new Label("Min:"), new TextField());
-        elements.put("maxHandSize", new Label("Max:"), new TextField());
-        elements.put("startingHandSize", new Label("Starting:"), new TextField());
+        gridElements.put("handSizeHeader", new Label("Hand Size"), null);
+        gridElements.put("minHandSize", new Label("Min:"), new TextField());
+        gridElements.put("maxHandSize", new Label("Max:"), new TextField());
+        gridElements.put("startingHandSize", new Label("Starting:"), new TextField());
 
-        elements.put("playerSettingsHeader", new Label("Player Settings"), null);
-        elements.put("player", new Label("Player:"), new ComboBox<Player>());
-        elements.put("playerName", new Label("Player Name:"), new TextField());
-//        elements.put("playerTurn", new Label("Turn Number:"), new ComboBox<Integer>());
-        elements.put("playerTurn", new Label("Turn Number:"), new Label());
+        gridElements.put("playerSettingsHeader", new Label("Player Settings"), null);
+        gridElements.put("player", new Label("Player:"), new ComboBox<Player>());
+        gridElements.put("playerName", new Label("Player Name:"), new TextField());
+//        gridElements.put("playerTurn", new Label("Turn Number:"), new ComboBox<Integer>());
+        gridElements.put("playerTurn", new Label("Turn Number:"), new Label());
 
         String[] headers = {"numPlayersHeader", "playerSettingsHeader", "handSizeHeader"};
         for (int i = 0; i < headers.length; i++) {
-            elements.getValue1(headers[i]).setStyle("-fx-font-weight: bold");
+            gridElements.getValue1(headers[i]).setStyle("-fx-font-weight: bold");
         }
 
         getMinPlayersTextField().setPromptText("Enter a Number");
@@ -82,15 +77,15 @@ public class GeneralSettingsMenuView extends TitledPane {
 
     public void addGridContent() {
         int row = 0;
-        for (String key : elements.keySet()) {
-            if (elements.getValue2(key) == null) {
+        for (String key : gridElements.keySet()) {
+            if (gridElements.getValue2(key) == null) {
                 if (row != 0) {
                     generalMenuContent.add(new Separator(), 0, row++);
                 }
-                generalMenuContent.add(elements.getValue1(key), 0, row++);
+                generalMenuContent.add(gridElements.getValue1(key), 0, row++);
             } else {
-                generalMenuContent.add(elements.getValue1(key), 0, row);
-                generalMenuContent.add(elements.getValue2(key), 1, row++);
+                generalMenuContent.add(gridElements.getValue1(key), 0, row);
+                generalMenuContent.add(gridElements.getValue2(key), 1, row++);
             }
         }
         generalMenuContent.add(updateButton, 0, row++);
@@ -101,7 +96,7 @@ public class GeneralSettingsMenuView extends TitledPane {
     }
 
     public TextField getMinPlayersTextField() {
-        return (TextField) elements.getValue2("minPlayers");
+        return (TextField) gridElements.getValue2("minPlayers");
     }
 
     public String getMinPlayersTextFieldValue() {
@@ -109,7 +104,7 @@ public class GeneralSettingsMenuView extends TitledPane {
     }
 
     public TextField getMaxPlayersTextField() {
-        return (TextField) elements.getValue2("maxPlayers");
+        return (TextField) gridElements.getValue2("maxPlayers");
     }
 
     public String getMaxPlayersTextFieldValue() {
@@ -117,7 +112,7 @@ public class GeneralSettingsMenuView extends TitledPane {
     }
 
     public ComboBox getPlayerComboBox() {
-        return (ComboBox<Player>) elements.getValue2("player");
+        return (ComboBox<Player>) gridElements.getValue2("player");
     }
 
     public Player getPlayerComboBoxValue() {
@@ -125,7 +120,7 @@ public class GeneralSettingsMenuView extends TitledPane {
     }
 
     public TextField getPlayerNameTextField() {
-        return (TextField) elements.getValue2("playerName");
+        return (TextField) gridElements.getValue2("playerName");
     }
 
     public String getPlayerNameTextFieldValue() {
@@ -133,7 +128,7 @@ public class GeneralSettingsMenuView extends TitledPane {
     }
 
 //    public ComboBox getTurnNumberComboBox() {
-//        return (ComboBox<Integer>) elements.getValue2("playerTurn");
+//        return (ComboBox<Integer>) gridElements.getValue2("playerTurn");
 //    }
 
 //    public Integer getTurnNumberComboBoxValue() {
@@ -141,7 +136,7 @@ public class GeneralSettingsMenuView extends TitledPane {
 //    }
 
     public Label getTurnNumberLabel() {
-        return (Label) elements.getValue2("playerTurn");
+        return (Label) gridElements.getValue2("playerTurn");
     }
 
     public String getTurnNumberLabelValue() {
@@ -149,7 +144,7 @@ public class GeneralSettingsMenuView extends TitledPane {
     }
 
     public TextField getMinHandSizeTextField() {
-        return (TextField) elements.getValue2("minHandSize");
+        return (TextField) gridElements.getValue2("minHandSize");
     }
 
     public String getMinHandSizeTextFieldValue() {
@@ -157,7 +152,7 @@ public class GeneralSettingsMenuView extends TitledPane {
     }
 
     public TextField getMaxHandSizeTextField() {
-        return (TextField) elements.getValue2("maxHandSize");
+        return (TextField) gridElements.getValue2("maxHandSize");
     }
 
     public String getMaxHandSizeTextFieldValue() {
@@ -165,7 +160,7 @@ public class GeneralSettingsMenuView extends TitledPane {
     }
 
     public TextField getStartingHandSizeTextField() {
-        return (TextField) elements.getValue2("startingHandSize");
+        return (TextField) gridElements.getValue2("startingHandSize");
     }
 
     public String getStartingHandSizeTextFieldValue() {
