@@ -8,19 +8,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import model.CardOrientation;
-import model.GameCreation;
-import model.GameView;
+import model.*;
 import model.Piles.BasicPile;
 import model.Piles.Deck;
 import model.Piles.Pile;
 import model.Piles.PileType;
-import model.Player;
 import view.TableTab.PileSettingsMenuView;
 import view.TableTab.TableGridElement;
 import view.TableTab.TableGridView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 
 
@@ -40,7 +39,7 @@ public class PileSettingsMenuController {
     }
 
     public void setPileTypeComboBox() {
-        view.getPileTypeComboBox().getItems().addAll(PileType.values());
+        view.getPileTypeComboBox().getItems().addAll(PileType.GENERAL, PileType.DECK);
     }
 
     public void setViewableByComboBox() {
@@ -60,27 +59,25 @@ public class PileSettingsMenuController {
         TableGridView tableGridView = GameView.getInstance().getTableTab().getTableGridView();
 
         if (runValidationChecks()) {
-            int x = Integer.parseInt(view.getXCoordinateTextFieldValue());
-            int y = Integer.parseInt(view.getYCoordinateTextFieldValue());
+            TableGridPosition gridPosition = new TableGridPosition(Integer.parseInt(view.getXCoordinateTextFieldValue()), Integer.parseInt(view.getYCoordinateTextFieldValue()));
             double width = GameView.getInstance().getTableTab().getTableGridView().getCellWidth();
             double height = GameView.getInstance().getTableTab().getTableGridView().getCellHeight();
             String name = view.getPileNameTextFieldValue();
             int minCards = Integer.parseInt(view.getMinCardsTextFieldValue());
             int maxCards = Integer.parseInt(view.getMaxCardsTextFieldValue());
             int startingCards = Integer.parseInt(view.getStartingCardsTextFieldValue());
-
-            TableGridElement tableGridElement = new TableGridElement(x, y, width, height);
+            String viewablePlayers = view.getViewableByComboBoxValue();
 
             switch (view.getPileTypeComboBoxValue()) {
                 case GENERAL:
-                    tableGridView.updateElement(x, y, new Pile(name, minCards, maxCards, startingCards), view.getCardOrientationComboBoxValue());
+                    tableGridView.updateElement(gridPosition, new Pile(name, minCards, maxCards, startingCards, view.getCardOrientationComboBoxValue(), viewablePlayers));
                     break;
                 case DECK:
-                    tableGridView.updateElement(x, y, new Deck(name, minCards, maxCards, startingCards), view.getCardOrientationComboBoxValue());
+                    tableGridView.updateElement(gridPosition, new Deck(name, minCards, maxCards, startingCards, view.getCardOrientationComboBoxValue(), viewablePlayers));
                     break;
             }
 
-            showUpdateSuccessAlert();
+            showAddSuccessAlert();
         }
     }
 
@@ -132,6 +129,19 @@ public class PileSettingsMenuController {
             return false;
         }
 
+        TableGridPosition inputGridPosition = new TableGridPosition(Integer.parseInt(view.getXCoordinateTextFieldValue()), Integer.parseInt(view.getYCoordinateTextFieldValue()));
+        TableGrid tableGrid = GameView.getInstance().getTableTab().getTableGridView().getTableGrid();
+        for (Map.Entry<Pile, TableGridPosition> existingPile : tableGrid.getPileMap().entrySet()) {
+            if (existingPile.getKey().getName().equals(view.getPileNameTextFieldValue())) {
+                showPileExistsErrorAlert(existingPile.getKey(), existingPile.getValue());
+                return false;
+            }
+            if (inputGridPosition.equals(existingPile.getValue())) {
+                showGridPositionFilledErrorAlert(inputGridPosition, existingPile.getKey());
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -170,8 +180,29 @@ public class PileSettingsMenuController {
         alert.showAndWait();
     }
 
+    private void showPileExistsErrorAlert(Pile existingPile, TableGridPosition position) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "A pile with the specified name (" + existingPile.getName() + ") already exists on the grid at position " + position + ". Please enter a unique name for this pile.");
+        alert.setTitle("Pile Name Exists Error");
+        alert.setHeaderText("Pile Name Already Exists In Grid");
+        alert.showAndWait();
+    }
+
+    private void showGridPositionFilledErrorAlert(TableGridPosition position, Pile existingPile) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "The specified grid position " + position + " is already filled with a pile: " + existingPile.getName() + ". Please enter a unique grid position, or click on the grid element (pile) to update/delete it.");
+        alert.setTitle("Grid Position Filled Error");
+        alert.setHeaderText("Grid Location Already Contains A Pile");
+        alert.showAndWait();
+    }
+
+    private void showAddSuccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Pile has been added successfully!");
+        alert.setTitle("Add Successful");
+        alert.setHeaderText("Add Successful");
+        alert.showAndWait();
+    }
+
     private void showUpdateSuccessAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "All fields were updated successfully!");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "All fields were updated successfully! Pile has been updated.");
         alert.setTitle("Update Successful");
         alert.setHeaderText("Update Successful");
         alert.showAndWait();

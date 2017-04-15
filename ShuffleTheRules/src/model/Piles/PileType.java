@@ -8,7 +8,8 @@ import java.io.Serializable;
 public enum PileType implements Serializable {
 
     GENERAL("General"),
-    DECK("Deck");
+    DECK("Deck"),
+    HAND("Hand");
 
     private final String name;
     private PileType(String name) {
@@ -25,6 +26,8 @@ public enum PileType implements Serializable {
                 return new Pile();
             case DECK:
                 return new Deck();
+            case HAND:
+                return new Hand();
         }
         return null;
     }

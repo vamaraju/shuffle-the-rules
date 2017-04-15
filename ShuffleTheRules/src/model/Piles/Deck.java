@@ -9,18 +9,32 @@ public class Deck extends Pile {
 
     public Deck() {
         super();
+        setPileType(PileType.DECK);
     }
 
     public Deck(int minSize, int maxSize){
         super(minSize, maxSize);
+        setPileType(PileType.DECK);
     }
 
     public Deck(int minSize, int maxSize, int startingSize){
         super(minSize, maxSize, startingSize);
+        setPileType(PileType.DECK);
     }
 
     public Deck(String name, int minSize, int maxSize, int startingSize) {
         super(name, minSize, maxSize, startingSize);
+        setPileType(PileType.DECK);
+    }
+
+    public Deck(String name, int minSize, int maxSize, int startingSize, CardOrientation cardOrientation) {
+        super(name, minSize, maxSize, startingSize, cardOrientation);
+        setPileType(PileType.DECK);
+    }
+
+    public Deck(String name, int minSize, int maxSize, int startingSize, CardOrientation cardOrientation, String viewablePlayers) {
+        super(name, minSize, maxSize, startingSize, cardOrientation, viewablePlayers);
+        setPileType(PileType.DECK);
     }
 
     public void deal(Player player) {

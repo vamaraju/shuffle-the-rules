@@ -3,7 +3,11 @@
 * */
 package model;
 
+import model.Piles.Pile;
+
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TableGrid implements Serializable {
 
@@ -11,6 +15,7 @@ public class TableGrid implements Serializable {
     private int numCols;
     private double cellWidth;
     private double cellHeight;
+    private HashMap<Pile, TableGridPosition> pileMap = new HashMap<>();
 
     public TableGrid() {
 
@@ -26,6 +31,28 @@ public class TableGrid implements Serializable {
         this.numRows = numRows;
         this.cellWidth = cellWidth;
         this.cellHeight = cellWidth*PlayingCard.ASPECT_RATIO;
+    }
+
+    public boolean positionFilled(TableGridPosition position) {
+        for (TableGridPosition activePosition : pileMap.values()) {
+            if (position.equals(activePosition)) {return true;}
+        }
+        return false;
+    }
+
+    public void clearPosition(TableGridPosition position) {
+        for (Map.Entry<Pile, TableGridPosition> entry : pileMap.entrySet()) {
+            if (entry.getValue().equals(position)) {
+                pileMap.remove(entry.getKey());
+            }
+        }
+    }
+
+    public void updatePileMap(Pile p, TableGridPosition gridPosition) {
+        if (positionFilled(gridPosition)) {
+            clearPosition(gridPosition);
+        }
+        pileMap.put(p, gridPosition);
     }
 
     public int getNumRows() {
@@ -60,4 +87,11 @@ public class TableGrid implements Serializable {
         this.cellHeight = cellHeight;
     }
 
+    public HashMap<Pile, TableGridPosition> getPileMap() {
+        return pileMap;
+    }
+
+    public void setPileMap(HashMap<Pile, TableGridPosition> pileMap) {
+        this.pileMap = pileMap;
+    }
 }

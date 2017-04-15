@@ -365,6 +365,7 @@ public class GameCreation implements Serializable {
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         saveDrawingPane();
+//        saveTableGrid();
         out.writeObject(this.rectangleBlueprints);
     }
 
@@ -373,6 +374,7 @@ public class GameCreation implements Serializable {
         this.rectangleBlueprints = (ArrayList<RuleElementRectangleBlueprint>) in.readObject();
         loadDrawingPane();
         loadGeneralSettings();
+//        loadTableGrid();
     }
 
 

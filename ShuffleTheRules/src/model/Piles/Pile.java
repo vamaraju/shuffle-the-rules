@@ -5,6 +5,7 @@ package model.Piles;
 
 import model.Card;
 import model.CardOrientation;
+import model.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,29 +19,35 @@ public class Pile implements Serializable, Iterable {
     private int startingSize;
     private int minSize;
     private int maxSize;
+    private CardOrientation cardOrientation;
+    private PileType pileType;
+    private String viewablePlayers;
 
     public Pile() {
-
+        this.pileType = PileType.GENERAL;
     }
 
     public Pile(int minSize, int maxSize){
         this.minSize = minSize;
         this.maxSize = maxSize;
         this.startingSize = minSize;
+        this.pileType = PileType.GENERAL;
     }
 
-    public Pile(int minSize, int maxSize, int startingSize){
+    public Pile(int minSize, int maxSize, int startingSize) {
         this.minSize = minSize;
         this.maxSize = maxSize;
         this.startingSize = startingSize;
+        this.pileType = PileType.GENERAL;
     }
 
 
-    public Pile(String name, int minSize, int maxSize){
+    public Pile(String name, int minSize, int maxSize) {
         this.name = name;
         this.minSize = minSize;
         this.maxSize = maxSize;
         this.startingSize = minSize;
+        this.pileType = PileType.GENERAL;
     }
 
     public Pile(String name, int minSize, int maxSize, int startingSize) {
@@ -48,6 +55,26 @@ public class Pile implements Serializable, Iterable {
         this.minSize = minSize;
         this.maxSize = maxSize;
         this.startingSize = startingSize;
+        this.pileType = PileType.GENERAL;
+    }
+
+    public Pile(String name, int minSize, int maxSize, int startingSize, CardOrientation cardOrientation) {
+        this.name = name;
+        this.minSize = minSize;
+        this.maxSize = maxSize;
+        this.startingSize = startingSize;
+        this.cardOrientation = cardOrientation;
+        this.pileType = PileType.GENERAL;
+    }
+
+    public Pile(String name, int minSize, int maxSize, int startingSize, CardOrientation cardOrientation, String viewablePlayers) {
+        this.name = name;
+        this.minSize = minSize;
+        this.maxSize = maxSize;
+        this.startingSize = startingSize;
+        this.cardOrientation = cardOrientation;
+        this.viewablePlayers = viewablePlayers;
+        this.pileType = PileType.GENERAL;
     }
 
     public void add(Card card){
@@ -137,6 +164,30 @@ public class Pile implements Serializable, Iterable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public CardOrientation getCardOrientation() {
+        return cardOrientation;
+    }
+
+    public void setCardOrientation(CardOrientation cardOrientation) {
+        this.cardOrientation = cardOrientation;
+    }
+
+    public PileType getPileType() {
+        return pileType;
+    }
+
+    public void setPileType(PileType pileType) {
+        this.pileType = pileType;
+    }
+
+    public String getViewablePlayers() {
+        return viewablePlayers;
+    }
+
+    public void setViewablePlayers(String viewablePlayers) {
+        this.viewablePlayers = viewablePlayers;
     }
 
     public boolean isEmpty() {
