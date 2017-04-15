@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import model.GameCreation;
+import model.GameView;
 import model.Piles.Pile;
 import model.TableGrid;
 import model.TableGridPosition;
@@ -34,7 +35,7 @@ public class TableGridView extends GridPane {
     }
 
     public void resetGrid() {
-        initGrid(7, 4, 70);
+        initGrid(TableGridDefaults.NUM_COLUMNS.toInt(), TableGridDefaults.NUM_ROWS.toInt(), TableGridDefaults.CELL_WIDTH.toDouble());
     }
 
     public void initGrid(int numCols, int numRows, double cellWidth) {

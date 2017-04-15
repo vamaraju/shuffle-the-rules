@@ -84,7 +84,6 @@ public class PileSettingsMenuView extends TitledPane {
         addPileButton.setOnAction(controller::onAddPileButtonClick);
         updatePileButton.setOnAction(controller::onUpdatePileButtonClick);
         deletePileButton.setOnAction(controller::onDeletePileButtonClick);
-
     }
 
     public void addGridContent() {
