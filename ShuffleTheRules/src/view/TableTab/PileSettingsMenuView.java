@@ -99,9 +99,9 @@ public class PileSettingsMenuView extends TitledPane {
                 pileSettingsGrid.add(gridElements.getValue2(key), 1, row++);
             }
         }
-        pileSettingsGrid.add(updatePileButton, 0, row);
+        pileSettingsGrid.add(deletePileButton, 0, row);
         pileSettingsGrid.add(addPileButton, 1, row);
-        pileSettingsGrid.add(deletePileButton, 2, row);
+        pileSettingsGrid.add(updatePileButton, 2, row);
     }
 
     public void clearAllInputs() {

@@ -58,38 +58,77 @@ public class PileSettingsMenuController {
     public void onAddPileButtonClick(Event e){
         TableGridView tableGridView = GameView.getInstance().getTableTab().getTableGridView();
 
-        if (runValidationChecks()) {
+        if (runAllValidations()) {
             TableGridPosition gridPosition = new TableGridPosition(Integer.parseInt(view.getXCoordinateTextFieldValue()), Integer.parseInt(view.getYCoordinateTextFieldValue()));
-            double width = GameView.getInstance().getTableTab().getTableGridView().getCellWidth();
-            double height = GameView.getInstance().getTableTab().getTableGridView().getCellHeight();
-            String name = view.getPileNameTextFieldValue();
-            int minCards = Integer.parseInt(view.getMinCardsTextFieldValue());
-            int maxCards = Integer.parseInt(view.getMaxCardsTextFieldValue());
-            int startingCards = Integer.parseInt(view.getStartingCardsTextFieldValue());
-            String viewablePlayers = view.getViewableByComboBoxValue();
-
-            switch (view.getPileTypeComboBoxValue()) {
-                case GENERAL:
-                    tableGridView.updateElement(gridPosition, new Pile(name, minCards, maxCards, startingCards, view.getCardOrientationComboBoxValue(), viewablePlayers));
-                    break;
-                case DECK:
-                    tableGridView.updateElement(gridPosition, new Deck(name, minCards, maxCards, startingCards, view.getCardOrientationComboBoxValue(), viewablePlayers));
-                    break;
-            }
-
+            Pile pile = generatePileFromInputs();
+            tableGridView.updateElement(gridPosition, pile);
             showAddSuccessAlert();
         }
     }
 
     public void onUpdatePileButtonClick(Event e){
+        TableGridView tableGridView = GameView.getInstance().getTableTab().getTableGridView();
+        TableGridElement clickedElement = tableGridView.getClickedElement();
 
+        if (clickedElement != null && emptyFieldValidation() && numberFieldValidation() && numCardsMinMaxValidation() && startingPileSizeValidation() && gridCoordinatesValidation()) {
+            TableGridPosition oldGridPosition = clickedElement.getPosition();
+            TableGridPosition newGridPosition = new TableGridPosition(Integer.parseInt(view.getXCoordinateTextFieldValue()), Integer.parseInt(view.getYCoordinateTextFieldValue()));
+            Pile oldPile = clickedElement.getPile();
+            Pile newPile = generatePileFromInputs();
+
+            tableGridView.removeElement(oldGridPosition, oldPile);
+            tableGridView.removeElement(newGridPosition);
+            tableGridView.updateElement(newGridPosition, newPile);
+
+            tableGridView.setClickedElement(newGridPosition);
+            showUpdateSuccessAlert();
+        }
     }
 
     public void onDeletePileButtonClick(Event e){
+        TableGridView tableGridView = GameView.getInstance().getTableTab().getTableGridView();
+        TableGridElement clickedElement = tableGridView.getClickedElement();
 
+        if (clickedElement != null) {
+            tableGridView.removeElement(clickedElement.getPosition(), clickedElement.getPile());
+            tableGridView.resetClickedElement();
+
+            showDeleteSuccessAlert();
+
+            view.getUpdatePileButton().setDisable(true);
+            view.getAddPileButton().setDisable(false);
+            view.getDeletePileButton().setDisable(true);
+        }
     }
 
-    private boolean runValidationChecks() {
+    private Pile generatePileFromInputs() {
+        String name = view.getPileNameTextFieldValue();
+        int minCards = Integer.parseInt(view.getMinCardsTextFieldValue());
+        int maxCards = Integer.parseInt(view.getMaxCardsTextFieldValue());
+        int startingCards = Integer.parseInt(view.getStartingCardsTextFieldValue());
+        String viewablePlayers = view.getViewableByComboBoxValue();
+
+        switch (view.getPileTypeComboBoxValue()) {
+            case GENERAL:
+                return new Pile(name, minCards, maxCards, startingCards, view.getCardOrientationComboBoxValue(), viewablePlayers);
+            case DECK:
+                return new Deck(name, minCards, maxCards, startingCards, view.getCardOrientationComboBoxValue(), viewablePlayers);
+            default:
+                return new Pile(name, minCards, maxCards, startingCards, view.getCardOrientationComboBoxValue(), viewablePlayers);
+        }
+    }
+
+    private boolean runAllValidations() {
+        if (!emptyFieldValidation()) {return false;}
+        if (!numberFieldValidation()) {return false;}
+        if (!numCardsMinMaxValidation()) {return false;}
+        if (!startingPileSizeValidation()) {return false;}
+        if (!gridCoordinatesValidation()) {return false;}
+        if (!pileExistsValidation()) {return false;}
+        return true;
+    }
+
+    private boolean emptyFieldValidation() {
         if ((view.getPileNameTextFieldValue().isEmpty() || view.getPileNameTextFieldValue() == null) ||
                 (view.getPileTypeComboBoxValue() == null) ||
                 (view.getMinCardsTextFieldValue().isEmpty() || view.getMinCardsTextFieldValue() == null) ||
@@ -102,7 +141,10 @@ public class PileSettingsMenuController {
             showEmptyFieldErrorAlert();
             return false;
         }
+        return true;
+    }
 
+    private boolean numberFieldValidation() {
         if (!view.getMinCardsTextFieldValue().matches("[0-9]*") ||
                 !view.getMaxCardsTextFieldValue().matches("[0-9]*") ||
                 !view.getStartingCardsTextFieldValue().matches("[0-9]*") ||
@@ -111,24 +153,36 @@ public class PileSettingsMenuController {
             showNumberErrorAlert();
             return false;
         }
+        return true;
+    }
 
+    private boolean numCardsMinMaxValidation() {
         if (Integer.parseInt(view.getMinCardsTextFieldValue()) > Integer.parseInt(view.getMaxCardsTextFieldValue())) {
             showNumCardsMinMaxErrorAlert();
             return false;
         }
+        return true;
+    }
 
+    private boolean startingPileSizeValidation() {
         if (Integer.parseInt(view.getStartingCardsTextFieldValue()) > Integer.parseInt(view.getMaxCardsTextFieldValue()) ||
                 Integer.parseInt(view.getStartingCardsTextFieldValue()) < Integer.parseInt(view.getMinCardsTextFieldValue())) {
             showStartingPileSizeErrorAlert();
             return false;
         }
+        return true;
+    }
 
+    private boolean gridCoordinatesValidation() {
         if ((Integer.parseInt(view.getXCoordinateTextFieldValue()) > GameView.getInstance().getTableTab().getTableGridView().getTableGrid().getNumCols()-1) ||
                 (Integer.parseInt(view.getYCoordinateTextFieldValue()) > GameView.getInstance().getTableTab().getTableGridView().getTableGrid().getNumRows()-1)) {
             showGridCoordinatesErrorAlert();
             return false;
         }
+        return true;
+    }
 
+    private boolean pileExistsValidation() {
         TableGridPosition inputGridPosition = new TableGridPosition(Integer.parseInt(view.getXCoordinateTextFieldValue()), Integer.parseInt(view.getYCoordinateTextFieldValue()));
         TableGrid tableGrid = GameView.getInstance().getTableTab().getTableGridView().getTableGrid();
         for (Map.Entry<Pile, TableGridPosition> existingPile : tableGrid.getPileMap().entrySet()) {
@@ -141,7 +195,6 @@ public class PileSettingsMenuController {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -202,9 +255,16 @@ public class PileSettingsMenuController {
     }
 
     private void showUpdateSuccessAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "All fields were updated successfully! Pile has been updated.");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "All fields were updated successfully! The pile has been updated.");
         alert.setTitle("Update Successful");
         alert.setHeaderText("Update Successful");
+        alert.showAndWait();
+    }
+
+    private void showDeleteSuccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Element was successfully deleted! The pile has been removed.");
+        alert.setTitle("Delete Successful");
+        alert.setHeaderText("Delete Successful");
         alert.showAndWait();
     }
 }

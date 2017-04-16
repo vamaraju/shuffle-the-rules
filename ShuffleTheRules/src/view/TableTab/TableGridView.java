@@ -11,7 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import model.GameCreation;
-import model.GameView;
 import model.Piles.Pile;
 import model.TableGrid;
 import model.TableGridPosition;
@@ -24,6 +23,7 @@ public class TableGridView extends GridPane {
     private TableGridViewController controller;
 
     private TableGrid tableGrid;
+    private TableGridElement clickedElement;
 
     public TableGridView() {
         this.setStyle(TableGridCSS.DEFAULT_GRID.getStyle());
@@ -88,7 +88,7 @@ public class TableGridView extends GridPane {
         }
     }
 
-    public TableGridElement get(int x, int y) {
+    public TableGridElement getElement(int x, int y) {
         for (Node n : this.getChildren()) {
             TableGridElement t = (TableGridElement) n;
             if (t.isPosition(x, y)) {return t;}
@@ -96,7 +96,7 @@ public class TableGridView extends GridPane {
         return null;
     }
 
-    public TableGridElement get(TableGridPosition position) {
+    public TableGridElement getElement(TableGridPosition position) {
         for (Node n : this.getChildren()) {
             TableGridElement t = (TableGridElement) n;
             if (t.isPosition(position)) {return t;}
@@ -127,9 +127,21 @@ public class TableGridView extends GridPane {
     }
 
     public void updateElement(TableGridPosition gridPosition, Pile p) {
-        TableGridElement t = get(gridPosition);
+        TableGridElement t = getElement(gridPosition);
         t.updatePile(p);
         tableGrid.updatePileMap(p, gridPosition);
+    }
+
+    public void removeElement(TableGridPosition gridPosition) {
+        TableGridElement t = getElement(gridPosition);
+        t.removePile();
+        tableGrid.clearPosition(gridPosition);
+    }
+
+    public void removeElement(TableGridPosition gridPosition, Pile p) {
+        TableGridElement t = getElement(gridPosition);
+        t.removePile();
+        tableGrid.removePile(p);
     }
 
     public TableGrid getTableGrid() {
@@ -138,6 +150,22 @@ public class TableGridView extends GridPane {
 
     public void setTableGrid(TableGrid tableGrid) {
         this.tableGrid = tableGrid;
+    }
+
+    public TableGridElement getClickedElement() {
+        return clickedElement;
+    }
+
+    public void setClickedElement(TableGridElement clickedElement) {
+        this.clickedElement = clickedElement;
+    }
+
+    public void setClickedElement(TableGridPosition gridPosition) {
+        this.clickedElement = getElement(gridPosition);
+    }
+
+    public void resetClickedElement() {
+        this.clickedElement = null;
     }
 
     public double getCellWidth() {
