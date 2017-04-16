@@ -83,12 +83,22 @@ public class PileSettingsMenuController {
             tableGridView.setClickedElement(newGridPosition);
             showUpdateSuccessAlert();
         }
-
-
     }
 
     public void onDeletePileButtonClick(Event e){
+        TableGridView tableGridView = GameView.getInstance().getTableTab().getTableGridView();
+        TableGridElement clickedElement = tableGridView.getClickedElement();
 
+        if (clickedElement != null) {
+            tableGridView.removeElement(clickedElement.getPosition(), clickedElement.getPile());
+            tableGridView.resetClickedElement();
+
+            showDeleteSuccessAlert();
+
+            view.getUpdatePileButton().setDisable(true);
+            view.getAddPileButton().setDisable(false);
+            view.getDeletePileButton().setDisable(true);
+        }
     }
 
     private Pile generatePileFromInputs() {
@@ -248,6 +258,13 @@ public class PileSettingsMenuController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "All fields were updated successfully! The pile has been updated.");
         alert.setTitle("Update Successful");
         alert.setHeaderText("Update Successful");
+        alert.showAndWait();
+    }
+
+    private void showDeleteSuccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Element was successfully deleted! The pile has been removed.");
+        alert.setTitle("Delete Successful");
+        alert.setHeaderText("Delete Successful");
         alert.showAndWait();
     }
 }
