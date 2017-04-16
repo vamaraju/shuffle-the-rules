@@ -24,6 +24,7 @@ public class TableGridView extends GridPane {
     private TableGridViewController controller;
 
     private TableGrid tableGrid;
+    private TableGridElement clickedElement;
 
     public TableGridView() {
         this.setStyle(TableGridCSS.DEFAULT_GRID.getStyle());
@@ -132,12 +133,32 @@ public class TableGridView extends GridPane {
         tableGrid.updatePileMap(p, gridPosition);
     }
 
+    public void removeElement(TableGridPosition gridPosition) {
+        TableGridElement t = get(gridPosition);
+        t.removePile();
+        tableGrid.clearPosition(gridPosition);
+    }
+
+    public void removeElement(TableGridPosition gridPosition, Pile p) {
+        TableGridElement t = get(gridPosition);
+        t.removePile();
+        tableGrid.removePile(p);
+    }
+
     public TableGrid getTableGrid() {
         return tableGrid;
     }
 
     public void setTableGrid(TableGrid tableGrid) {
         this.tableGrid = tableGrid;
+    }
+
+    public TableGridElement getClickedElement() {
+        return clickedElement;
+    }
+
+    public void setClickedElement(TableGridElement clickedElement) {
+        this.clickedElement = clickedElement;
     }
 
     public double getCellWidth() {

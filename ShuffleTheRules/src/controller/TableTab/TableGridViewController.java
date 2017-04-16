@@ -16,24 +16,25 @@ public class TableGridViewController {
     }
 
     public void onGridElementClicked(MouseEvent e) {
-        TableGridElement gridElement = (TableGridElement) e.getSource();
+        TableGridElement clickedGridElement = (TableGridElement) e.getSource();
+        view.setClickedElement(clickedGridElement);
         PileSettingsMenuView pileSettingsView = GameView.getInstance().getTableTab().getPileSettingsMenu();
 
-        if (gridElement.hasPile()) {
+        if (clickedGridElement.hasPile()) {
             pileSettingsView.setExpanded(true);
             pileSettingsView.getUpdatePileButton().setDisable(false);
             pileSettingsView.getAddPileButton().setDisable(true);
             pileSettingsView.getDeletePileButton().setDisable(false);
 
-            pileSettingsView.getPileNameTextField().setText(gridElement.getPileName());
-            pileSettingsView.getPileTypeComboBox().setValue(gridElement.getPileType());
-            pileSettingsView.getMinCardsTextField().setText(Integer.toString(gridElement.getPileMinSize()));
-            pileSettingsView.getMaxCardsTextField().setText(Integer.toString(gridElement.getPileMaxSize()));
-            pileSettingsView.getStartingCardsTextField().setText(Integer.toString(gridElement.getPileStartingSize()));
-            pileSettingsView.getXCoordinateTextField().setText(Integer.toString(gridElement.getX()));
-            pileSettingsView.getYCoordinateTextField().setText(Integer.toString(gridElement.getY()));
-            pileSettingsView.getViewableByComboBox().setValue(gridElement.getPile().getViewablePlayers());
-            pileSettingsView.getCardOrientationComboBox().setValue(gridElement.getPileCardOrientation());
+            pileSettingsView.getPileNameTextField().setText(clickedGridElement.getPileName());
+            pileSettingsView.getPileTypeComboBox().setValue(clickedGridElement.getPileType());
+            pileSettingsView.getMinCardsTextField().setText(Integer.toString(clickedGridElement.getPileMinSize()));
+            pileSettingsView.getMaxCardsTextField().setText(Integer.toString(clickedGridElement.getPileMaxSize()));
+            pileSettingsView.getStartingCardsTextField().setText(Integer.toString(clickedGridElement.getPileStartingSize()));
+            pileSettingsView.getXCoordinateTextField().setText(Integer.toString(clickedGridElement.getX()));
+            pileSettingsView.getYCoordinateTextField().setText(Integer.toString(clickedGridElement.getY()));
+            pileSettingsView.getViewableByComboBox().setValue(clickedGridElement.getPile().getViewablePlayers());
+            pileSettingsView.getCardOrientationComboBox().setValue(clickedGridElement.getPileCardOrientation());
         } else {
             pileSettingsView.setExpanded(true);
             pileSettingsView.getUpdatePileButton().setDisable(true);
@@ -41,8 +42,8 @@ public class TableGridViewController {
             pileSettingsView.getDeletePileButton().setDisable(true);
 
             pileSettingsView.clearAllInputs();
-            pileSettingsView.getXCoordinateTextField().setText(Integer.toString(gridElement.getX()));
-            pileSettingsView.getYCoordinateTextField().setText(Integer.toString(gridElement.getY()));
+            pileSettingsView.getXCoordinateTextField().setText(Integer.toString(clickedGridElement.getX()));
+            pileSettingsView.getYCoordinateTextField().setText(Integer.toString(clickedGridElement.getY()));
         }
     }
 

@@ -55,6 +55,10 @@ public class TableGrid implements Serializable {
         pileMap.put(p, gridPosition);
     }
 
+    public void removePile(Pile p) {
+        pileMap.remove(p);
+    }
+
     public int getNumRows() {
         return numRows;
     }
