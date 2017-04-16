@@ -80,10 +80,11 @@ public class PileSettingsMenuController {
             tableGridView.removeElement(newGridPosition);
             tableGridView.updateElement(newGridPosition, newPile);
 
+            tableGridView.setClickedElement(newGridPosition);
             showUpdateSuccessAlert();
         }
 
-        tableGridView.setClickedElement(null);
+
     }
 
     public void onDeletePileButtonClick(Event e){
