@@ -4,6 +4,7 @@
 package view.Gameplay;
 
 
+import controller.GameplayController;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 
@@ -19,8 +20,12 @@ public class GameplayView extends BorderPane {
     private Button endTurnButton = new Button("End Turn");
     private Button sortHandButton = new Button("Sort Hand");
     private Button endGameButton = new Button("End Game");
+    private Button showHandButton = new Button("Show Hand");
 
     private GameplayMessageView gameplayMessageView;
+
+    private GameplayController gameplayController = new GameplayController(this);
+
 
     public GameplayView(){
         initialize();
@@ -48,21 +53,27 @@ public class GameplayView extends BorderPane {
         GridPane buttonsPane = new GridPane();
         endTurnButton.setPrefWidth(100);
         endGameButton.setPrefWidth(100);
+        showHandButton.setPrefWidth(100);
         sortHandButton.setPrefWidth(100);
 
         buttonsPane.add(endTurnButton,2,1,2,2);
-        buttonsPane.add(sortHandButton,2,3,2,2);
-        buttonsPane.add(endGameButton,2,5,2,2);
+        buttonsPane.add(showHandButton,2,3,2,2);
+        buttonsPane.add(sortHandButton,2,5,2,2);
+        buttonsPane.add(endGameButton,2,7,2,2);
 
         /* buttons will be disabled unless condition satisified */
-        //endTurnButton.setDisable(true);
-        //sortHandButton.setDisable(true);
+        endTurnButton.setDisable(true);
+        sortHandButton.setDisable(true);
 
         selectedPileAndButtons.setHgrow(selectedPileView, Priority.ALWAYS);
         selectedPileAndButtons.setMaxHeight(300);
         selectedPileAndButtons.getChildren().addAll(selectedPileView, new Separator(Orientation.VERTICAL), buttonsPane);
 
         this.setBottom(selectedPileAndButtons);
+
+        endTurnButton.setOnAction(gameplayController::onEndTurnButtonClick);
+        sortHandButton.setOnAction(gameplayController::onSortHandButtonClick);
+
 
     }
 

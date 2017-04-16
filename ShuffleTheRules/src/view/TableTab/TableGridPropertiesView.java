@@ -12,8 +12,6 @@ import model.TripleHashMap;
 * Used inside centre pane of TableTabView.
 * Displays and allows modifications to be made to grid properties.
 *
-* Currently, viewable only because the functionality is part of the list
-* of low priority requirements.
 * */
 public class TableGridPropertiesView extends GridPane {
 

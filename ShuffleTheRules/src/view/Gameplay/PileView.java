@@ -57,8 +57,13 @@ public class PileView extends ListView<Card> {
 
     }
 
-    public void showPile(Pile pile){
+    public void updatePile(Pile pile){
         /* change the displayed Pile (Cards displayed) */
+        this.items = FXCollections.observableArrayList(pile.getCards());
+    }
 
+    /* TODO change to List? */
+    public ObservableList<Card> getSelectedCards(){
+        return this.getSelectionModel().getSelectedItems();
     }
 }

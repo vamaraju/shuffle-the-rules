@@ -20,12 +20,6 @@ public class GameplayController {
     public GameplayController(GameplayView view){
         this.gameplayView = view;
 
-        gameplayView.getEndTurnButton().setOnAction(this::onEndTurnButtonClick);
-        gameplayView.getSortHandButton().setOnAction(this::onSortHandButtonClick);
-
-        addMessage(new GameplayMessage("Event", "onGameStart"));
-        addMessage(new GameplayMessage("Action", "Deal 5 cards"));
-        addMessage(new GameplayMessage("Turn", "Player 1 Turn Start"));
     }
 
 
@@ -47,4 +41,14 @@ public class GameplayController {
         GameplayMessage gameplayMessage = new GameplayMessage(type, message);
         this.addMessage(gameplayMessage);
     }
+
+    public void disableEndTurnButton(){
+        gameplayView.getEndTurnButton().setDisable(true);
+    }
+
+    public void enableEndTurnButton(){
+        gameplayView.getEndTurnButton().setDisable(false);
+    }
+
+
 }
