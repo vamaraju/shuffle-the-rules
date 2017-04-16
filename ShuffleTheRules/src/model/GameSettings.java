@@ -13,10 +13,6 @@ public class GameSettings implements Serializable {
     public GameSettings(){
 
     }
-    /* TODO we may want to restrict this to ASC/DESC, or move to gameplay. doesn't make sense being in GameCreation with Player objects and no people present */
-    public void changeTurnOrder(Player player){
-
-    }
 
     public int getMinPlayers() {
         return minPlayers;
