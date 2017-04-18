@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 
 
 /* referenced http://docs.oracle.com/javafx/2/ui_controls/list-view.htm */
+/* Used to display Cards in Gameplay mode to the user. Each CardCell stores a Card
+*  object.  The grpahic displayed to the user is dependent on the orientation of the Card. */
 public class CardCell extends ListCell<Card> {
 
     public CardCell(){
@@ -27,18 +29,25 @@ public class CardCell extends ListCell<Card> {
         super.updateItem(item, empty);
 
         if (item != null) {
-            ImageView cardImage;
-            if (item.getOrientation() == CardOrientation.UP ) {
-                cardImage = new ImageView(new Image(item.getCardFaceAssetLocation()));
-            }else{
-                cardImage = new ImageView(new Image(item.getCardBackAssetLocation()));
+            try {
+                ImageView cardImage;
+                /* image displayed is dependent on orientation of Card (item) */
+                if (item.getOrientation() == CardOrientation.UP) {
+                    cardImage = new ImageView(new Image(item.getCardFaceAssetLocation()));
+                } else {
+                    cardImage = new ImageView(new Image(item.getCardBackAssetLocation()));
+                }
+                /* scale image */
+                cardImage.setPreserveRatio(true);
+                cardImage.setFitWidth(150);
+                cardImage.setFitHeight(350);
+
+                setGraphic(cardImage);
+
+            }catch(Exception e){
+                /* if we can't display the image asset */
+                System.out.println("Could not display image for Card with Value: " + this.getItem().getValue() + " and Suit: " + this.getItem().getSuit());
             }
-            cardImage.setPreserveRatio(true);
-            cardImage.setFitWidth(150);
-            cardImage.setFitHeight(350);
-
-            setGraphic(cardImage);
-
         }
     }
 

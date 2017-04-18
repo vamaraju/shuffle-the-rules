@@ -5,7 +5,8 @@
 package controller;
 
 
-import javafx.beans.value.ObservableValue;
+
+import model.GameplayMessage;
 import view.Gameplay.PileView;
 
 public class PileViewController {
@@ -16,7 +17,4 @@ public class PileViewController {
         pileView = view;
     }
 
-    public void changeDisplayedSuitCounts(ObservableValue observable, Object oldValue, Object newValue){
-
-    }
 }

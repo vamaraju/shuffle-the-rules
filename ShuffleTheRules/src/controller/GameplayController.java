@@ -4,6 +4,7 @@
 
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import model.GameplayMessage;
 import view.Gameplay.GameplayView;
@@ -33,15 +34,6 @@ public class GameplayController {
 
     }
 
-    public void addMessage(GameplayMessage gameplayMessage){
-        gameplayView.getGameplayMessageView().addMessage(gameplayMessage);
-    }
-
-    public void addMessage(String type, String message){
-        GameplayMessage gameplayMessage = new GameplayMessage(type, message);
-        this.addMessage(gameplayMessage);
-    }
-
     public void disableEndTurnButton(){
         gameplayView.getEndTurnButton().setDisable(true);
     }
@@ -51,4 +43,11 @@ public class GameplayController {
     }
 
 
+    public void onShowHandButtonClick(ActionEvent actionEvent) {
+        System.out.println("Show Hand pressed - Gameplay View ");
+    }
+
+    public void onEndGameButtonClick(ActionEvent actionEvent) {
+        System.out.println("End Game pressed - Gameplay View ");
+    }
 }

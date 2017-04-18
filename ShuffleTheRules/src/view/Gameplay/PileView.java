@@ -22,33 +22,37 @@ import model.Piles.Pile;
 
 public class PileView extends ListView<Card> {
 
-    private ObservableList<Card> items;
-    private PileViewController pileViewController;
+    private ObservableList<Card> cards;
 
-    /* set the view to be horizontal or vertical */
+    private PileViewController pileViewController = new PileViewController(this);
+
+    /* One input argument - orientaton of the PileView.
+     * horizontal - Orientation.HORIZONTAL
+     * vertical - Orientation.VERTICAL */
     public PileView(Orientation orientation){
-        items = FXCollections.observableArrayList();
-        this.setItems(items);
+        cards = FXCollections.observableArrayList();
+        this.setItems(cards);
 
+        /* want user to be able to select multiple Cards (CardCells)*/
         this.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         this.setOrientation(orientation);
 
         pileViewController = new PileViewController(this);
-        this.getSelectionModel().selectedItemProperty().addListener(pileViewController::changeDisplayedSuitCounts);
 
         /* for easy testing. Sorry, will be deleted! */
-        items.add(new Card(PlayingCard.ACE, Suit.HEART));
-        items.add(new Card(PlayingCard.ACE, Suit.SPADE));
-        items.add(new Card(PlayingCard.FOUR, Suit.CLUB));
-        items.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
-        items.add(new Card(PlayingCard.THREE, Suit.CLUB));
-        items.add(new Card(PlayingCard.TEN, Suit.CLUB));
-        items.add(new Card(PlayingCard.ACE, Suit.DIAMOND));
-        items.add(new Card(PlayingCard.ACE, Suit.CLUB));
-        items.add(new Card(PlayingCard.FOUR, Suit.HEART));
-        items.add(new Card(PlayingCard.SEVEN, Suit.DIAMOND));
-        items.add(new Card(PlayingCard.THREE, Suit.HEART));
-        items.add(new Card(PlayingCard.TEN, Suit.SPADE));
+        cards.add(new Card(PlayingCard.ACE, Suit.HEART));
+        cards.add(new Card(PlayingCard.ACE, Suit.SPADE));
+        cards.add(new Card(PlayingCard.FOUR, Suit.CLUB));
+        cards.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
+        cards.add(new Card(PlayingCard.THREE, Suit.CLUB));
+        cards.add(new Card(PlayingCard.TEN, Suit.CLUB));
+        cards.add(new Card(PlayingCard.ACE, Suit.DIAMOND));
+        cards.add(new Card(PlayingCard.ACE, Suit.CLUB));
+        cards.add(new Card(PlayingCard.FOUR, Suit.HEART));
+        cards.add(new Card(PlayingCard.SEVEN, Suit.DIAMOND));
+        cards.add(new Card(PlayingCard.THREE, Suit.HEART));
+        cards.add(new Card(PlayingCard.TEN, Suit.SPADE));
 
 
 
@@ -59,13 +63,11 @@ public class PileView extends ListView<Card> {
             }
         });
 
-        System.out.println(this.getSelectionModel().getSelectedItem());
-
     }
 
     public void updatePile(Pile pile){
         /* change the displayed Pile (Cards displayed) */
-        this.items = FXCollections.observableArrayList(pile.getCards());
+        this.cards = FXCollections.observableArrayList(pile.getCards());
     }
 
     /* TODO change to List? */
