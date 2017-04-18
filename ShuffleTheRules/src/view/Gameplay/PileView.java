@@ -41,6 +41,7 @@ public class PileView extends ListView<Card> {
         pileViewController = new PileViewController(this);
 
         /* for easy testing. Sorry, will be deleted! */
+        /*
         cards.add(new Card(PlayingCard.ACE, Suit.HEART));
         cards.add(new Card(PlayingCard.ACE, Suit.SPADE));
         cards.add(new Card(PlayingCard.FOUR, Suit.CLUB));
@@ -53,7 +54,7 @@ public class PileView extends ListView<Card> {
         cards.add(new Card(PlayingCard.SEVEN, Suit.DIAMOND));
         cards.add(new Card(PlayingCard.THREE, Suit.HEART));
         cards.add(new Card(PlayingCard.TEN, Suit.SPADE));
-
+*/
 
 
         this.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {

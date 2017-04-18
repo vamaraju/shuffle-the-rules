@@ -5,8 +5,7 @@
 package controller;
 
 
-
-import model.GameplayMessage;
+import model.Piles.Pile;
 import view.Gameplay.PileView;
 
 public class PileViewController {
@@ -17,4 +16,8 @@ public class PileViewController {
         pileView = view;
     }
 
+
+    public void updateDisplayedPile(Pile pile){
+        pileView.updatePile(pile);
+    }
 }
