@@ -4,7 +4,7 @@
 * 3.2.1.2.3.1 User can specify number of each type and suit of Card(s).
 *
 * */
-package model;
+package main.java.model;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/* Test suite related to the CardSettings model */
+/* Test suite related to the CardSettings main.java.model */
 public class CardSettingsTest {
     @Before
     public void setUp() throws Exception {
