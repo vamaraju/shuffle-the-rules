@@ -67,7 +67,7 @@ public class GeneralSettingsMenuView extends TitledPane {
         getPlayerNameTextField().textProperty().addListener(controller::onPlayerNameChanged);
 
         controller.updatePlayersComboBox();
-//        main.java.controller.updateTurnNumberComboBox();
+//        controller.updateTurnNumberComboBox();
 
         addGridContent();
 

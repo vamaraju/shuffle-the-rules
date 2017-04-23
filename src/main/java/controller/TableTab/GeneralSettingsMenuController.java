@@ -77,9 +77,9 @@ public class GeneralSettingsMenuController {
     private boolean runValidationChecks() {
         if ((view.getMinPlayersTextFieldValue().isEmpty() || view.getMinPlayersTextFieldValue() == null) ||
                 (view.getMaxPlayersTextFieldValue().isEmpty() || view.getMaxPlayersTextFieldValue() == null) ||
-                //(main.java.view.getPlayerComboBoxValue() == null) ||
-                //(main.java.view.getPlayerNameTextFieldValue().isEmpty() || main.java.view.getPlayerNameTextFieldValue() == null) ||
-                //(main.java.view.getTurnNumberComboBoxValue() == null) ||
+                //(view.getPlayerComboBoxValue() == null) ||
+                //(view.getPlayerNameTextFieldValue().isEmpty() || view.getPlayerNameTextFieldValue() == null) ||
+                //(view.getTurnNumberComboBoxValue() == null) ||
                 (view.getMinHandSizeTextFieldValue().isEmpty() || view.getMinHandSizeTextFieldValue() == null) ||
                 (view.getMaxHandSizeTextFieldValue().isEmpty() || view.getMaxHandSizeTextFieldValue() == null) ||
                 (view.getStartingHandSizeTextFieldValue().isEmpty() || view.getStartingHandSizeTextFieldValue() == null)) {

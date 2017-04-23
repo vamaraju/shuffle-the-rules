@@ -92,7 +92,7 @@ public class ApplicationMenuBarController {
         Stage gameplayStage = new Stage();
         gameplayStage.setTitle("Shuffle The Rules - Gameplay Mode");
         GameplayView gameplayView = new GameplayView();
-        /* main.java.controller should not be here TODO move the main.java.controller initialization */
+        /* controller should not be here TODO move the controller initialization */
         GameplayController gameplayController = new GameplayController(gameplayView);
         gameplayStage.setScene(new Scene(gameplayView, 1000,600));
         gameplayStage.show();

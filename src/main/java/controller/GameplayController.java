@@ -9,9 +9,9 @@ import javafx.event.Event;
 import view.Gameplay.GameplayView;
 
 /* Think that separate elements should have separate controllers.
-*  For now, all main.java.controller functionality for Gameplay mode will be in this file.
+*  For now, all controller functionality for Gameplay mode will be in this file.
  *
- * The table grid will have its own main.java.controller.
+ * The table grid will have its own controller.
  *  */
 public class GameplayController {
 

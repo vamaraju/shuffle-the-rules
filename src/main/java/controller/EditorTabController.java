@@ -37,7 +37,7 @@ public class EditorTabController {
 
     /**
      * Populates and returns an ArrayList of Game Events (strings) for use in drop-down menus.
-     * Populated based on the contents of the main.java.model/GameEvents directory.
+     * Populated based on the contents of the model/GameEvents directory.
      *
      * @return An ArrayList of Game Event names (strings).
      */
@@ -64,7 +64,7 @@ public class EditorTabController {
 
     /**
      * Populates and returns an ArrayList of Game Actions (strings) for use in drop-down menus.
-     * Populated based on the contents of the main.java.model/GameActions directory.
+     * Populated based on the contents of the model/GameActions directory.
      *
      * @return An ArrayList of Game Actions names (strings).
      */

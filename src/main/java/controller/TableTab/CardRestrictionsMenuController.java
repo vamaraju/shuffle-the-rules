@@ -36,7 +36,7 @@ public class CardRestrictionsMenuController {
             return;
         }
 
-        /* Get input from main.java.view. convert counts from strings to ints */
+        /* Get input from view. convert counts from strings to ints */
         String heartCount = cardRestrictionsMenuView.getHeartCount();
         String spadeCount = cardRestrictionsMenuView.getSpadeCount();
         String clubCount = cardRestrictionsMenuView.getClubCount();
@@ -50,13 +50,13 @@ public class CardRestrictionsMenuController {
         int clubCountInt = validateSuitCount(clubCount);
         int diamondCountInt = validateSuitCount(diamondCount);
 
-        /* update main.java.model */
+        /* update model */
         updateSuitCount(selectedCard, Suit.HEART, heartCountInt);
         updateSuitCount(selectedCard, Suit.SPADE, spadeCountInt);
         updateSuitCount(selectedCard, Suit.CLUB, clubCountInt);
         updateSuitCount(selectedCard, Suit.DIAMOND, diamondCountInt);
 
-        /* update main.java.view */
+        /* update view */
         updateDisplayedSuitCounts(selectedCard);
 
     }

@@ -1,7 +1,7 @@
 /*
 * Requirements mandating inclusion:
 *
-* 3.2.2.1.3.1 User can main.java.view their Hand.
+* 3.2.2.1.3.1 User can view their Hand.
 * 3.2.2.1.3.2 User can sort their Hand.
 * 3.2.2.2.3.1 User can select Card(s) from Hand to play.
 * 3.2.2.2.3.2 User can select Card(s) from Hand to discard.
