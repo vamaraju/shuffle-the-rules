@@ -6,11 +6,14 @@ package view;
 
 import controller.EditorTabController;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import model.GameRule;
 import model.GameRuleType;
+import model.TripleHashMap;
 
 public class EditorTabView extends Tab {
 
@@ -22,39 +25,21 @@ public class EditorTabView extends Tab {
 
     private TitledPane eventsPane;
     private GridPane eventsGrid;
-    private ComboBox eventComboBox;
-    private TextField eventNameTextField;
-    private TextField eventDescriptionTextField;
-    private TextField eventPreviousRuleTextField;
-    private Button addEventButton;
+    private TripleHashMap<String, Node, Node> eventsGridElements = new TripleHashMap<>();
 
     private TitledPane actionsPane;
     private GridPane actionsGrid;
-    private ComboBox actionComboBox;
-    private TextField actionNameTextField;
-    private TextField actionDescriptionTextField;
-    private TextField actionPreviousRuleTextField;
-    private Button addActionButton;
+    private TripleHashMap<String, Node, Node> actionsGridElements = new TripleHashMap<>();
+
+    private Button addEventButton = new Button("Add Event");
+    private Button updateEventButton = new Button("Update Event");
+    private Button deleteEventButton = new Button("Delete Event");
+
+    private Button addActionButton = new Button("Add Action");
+    private Button updateActionButton = new Button("Update Action");
+    private Button deleteActionButton = new Button("Delete Action");
 
     private RuleElementRectangle clickedRectangle;
-
-    private Label clickedEventTypeHeader;
-    private Label clickedEventTypeValue;
-    private Label clickedEventNameHeader;
-    private Label clickedEventNameValue;
-    private Label clickedEventDescriptionHeader;
-    private Label clickedEventDescriptionValue;
-    private Label clickedEventPreviousEventHeader;
-    private Label clickedEventPreviousEventValue;
-
-    private Label clickedActionTypeHeader;
-    private Label clickedActionTypeValue;
-    private Label clickedActionNameHeader;
-    private Label clickedActionNameValue;
-    private Label clickedActionDescriptionHeader;
-    private Label clickedActionDescriptionValue;
-    private Label clickedActionPreviousActionHeader;
-    private Label clickedActionPreviousActionValue;
 
     public EditorTabView() {
 
@@ -67,40 +52,29 @@ public class EditorTabView extends Tab {
 
         eventsPane = new TitledPane(); // "Events" tab on right-hand side in the accordion
         eventsGrid = new GridPane(); // Grid in the "Events" tab
-        eventComboBox = new ComboBox(); // Drop-down menu of Game Events
-        eventNameTextField = new TextField(); // ID text field for Events ("Events" tab)
-        eventDescriptionTextField = new TextField(); // Description text field for Events ("Events" tab)
-        eventPreviousRuleTextField = new TextField(); // Text field to specify the previous rule ("Events" tab)
-        addEventButton = new Button("Add Event"); // "Add Event" button in "Events" tab
+        eventsGrid.setHgap(2);
+        eventsGrid.setVgap(4);
 
         actionsPane = new TitledPane(); // "Actions" tab on right-hand side in the accordion
         actionsGrid = new GridPane(); // Grid in the "Actions" tab
-        actionComboBox = new ComboBox(); // Drop-down menu of Game Actions
-        actionNameTextField = new TextField(); // ID text field for Actions ("Actions" tab)
-        actionDescriptionTextField = new TextField(); // Description text field for Actions ("Action" tab)
-        actionPreviousRuleTextField = new TextField(); // Text field to specify the previous rule ("Actions" tab)
-        addActionButton = new Button("Add Action"); // "Add Action" button in "Actions" tab
+        actionsGrid.setHgap(2);
+        actionsGrid.setVgap(4);
 
-        clickedEventTypeHeader = new Label("Event Type:");
-        clickedEventTypeValue = new Label();
-        clickedEventNameHeader = new Label("Event Name:");
-        clickedEventNameValue = new Label();
-        clickedEventDescriptionHeader = new Label("Event Description:");
-        clickedEventDescriptionValue = new Label();
-        clickedEventPreviousEventHeader = new Label("Previous Rule(s):");
-        clickedEventPreviousEventValue = new Label();
+        populateGridElements(eventsGridElements, GameRuleType.EVENT);
+        populateGridElements(actionsGridElements, GameRuleType.ACTION);
 
-        clickedActionTypeHeader = new Label("Action Type:");
-        clickedActionTypeValue = new Label();
-        clickedActionNameHeader = new Label("Action Name:");
-        clickedActionNameValue = new Label();
-        clickedActionDescriptionHeader = new Label("Action Description:");
-        clickedActionDescriptionValue = new Label();
-        clickedActionPreviousActionHeader = new Label("Previous Rule(s):");
-        clickedActionPreviousActionValue = new Label();
+        boldAllHeaders(eventsGridElements);
+        boldAllHeaders(actionsGridElements);
+
+        setTextFieldPrompts(eventsGridElements);
+        setTextFieldPrompts(actionsGridElements);
+
+        initGrid(eventsGrid, eventsGridElements, GameRuleType.EVENT);
+        initGrid(actionsGrid, actionsGridElements, GameRuleType.ACTION);
 
         window.setCenter(scrollPane);
         window.setRight(accordion);
+
         addEventButton.setOnAction(controller::onAddEventButtonClick);
         addActionButton.setOnAction(controller::onAddActionButtonClick);
         drawingPane.setOnMouseDragged(controller::drawingPaneOnMouseDragged);
@@ -108,8 +82,6 @@ public class EditorTabView extends Tab {
 
         initEventComboBox();
         initActionComboBox();
-        initGrid(GameRuleType.EVENT);
-        initGrid(GameRuleType.ACTION);
         initEditorDrawingPane();
         initEditorScrollPane();
 
@@ -125,98 +97,72 @@ public class EditorTabView extends Tab {
     }
 
 
-    private void initGrid(GameRuleType ruleType) {
-        GridPane grid = null;
-        TextField nameTextField = null;
-        TextField descriptionTextField = null;
-        TextField previousRuleTextField = null;
-        ComboBox comboBox = null;
-        Button addButton = null;
-        Label clickedRuleTypeHeader = null;
-        Label clickedRuleNameHeader = null;
-        Label clickedRuleDescriptionHeader = null;
-        Label clickedRuleDescriptionValue = null;
-        Label clickedPreviousRuleHeader = null;
-        Label clickedRuleTypeValue = null;
-        Label clickedRuleNameValue = null;
-        Label clickedPreviousRuleValue = null;
+    private void populateGridElements(TripleHashMap<String, Node, Node> gridElements, GameRuleType ruleType) {
+        gridElements.put("generalHeader", new Label("General"), null);
+        gridElements.put("type", new Label(ruleType + " Type: "), new ComboBox());
+        gridElements.put("name", new Label(ruleType + " Name: "), new TextField());
+        gridElements.put("description", new Label(ruleType + " Description: "), new TextField());
+        gridElements.put("previous", new Label("Previous Rule: "), new TextField());
 
-        switch (ruleType) {
-            case EVENT:
-                grid = this.eventsGrid;
-                nameTextField = this.eventNameTextField;
-                descriptionTextField = this.eventDescriptionTextField;
-                previousRuleTextField = this.eventPreviousRuleTextField;
-                comboBox = this.eventComboBox;
-                addButton = this.addEventButton;
-                clickedRuleTypeHeader = this.clickedEventTypeHeader;
-                clickedRuleNameHeader = this.clickedEventNameHeader;
-                clickedRuleDescriptionHeader = this.clickedEventDescriptionHeader;
-                clickedPreviousRuleHeader = this.clickedEventPreviousEventHeader;
-                clickedRuleTypeValue = this.clickedEventTypeValue;
-                clickedRuleNameValue = this.clickedEventNameValue;
-                clickedRuleDescriptionValue = this.clickedEventDescriptionValue;
-                clickedPreviousRuleValue = this.clickedEventPreviousEventValue;
-                break;
-            case ACTION:
-                grid = this.actionsGrid;
-                nameTextField = this.actionNameTextField;
-                descriptionTextField = this.actionDescriptionTextField;
-                previousRuleTextField = this.actionPreviousRuleTextField;
-                comboBox = this.actionComboBox;
-                addButton = this.addActionButton;
-                clickedRuleTypeHeader = this.clickedActionTypeHeader;
-                clickedRuleNameHeader = this.clickedActionNameHeader;
-                clickedRuleDescriptionHeader = this.clickedActionDescriptionHeader;
-                clickedPreviousRuleHeader = this.clickedActionPreviousActionHeader;
-                clickedRuleTypeValue = this.clickedActionTypeValue;
-                clickedRuleNameValue = this.clickedActionNameValue;
-                clickedRuleDescriptionValue = this.clickedActionDescriptionValue;
-                clickedPreviousRuleValue = this.clickedActionPreviousActionValue;
-                break;
+        gridElements.put("specificHeader", new Label(ruleType + "-Specific"), null);
+        gridElements.put("pile", new Label("Pile"), new ComboBox());
+        gridElements.put("numberOfCards", new Label("Number of Cards"), new TextField());
+        gridElements.put("card", new Label("Card"), new ComboBox());
+        gridElements.put("player", new Label("Player(s)"), new ComboBox());
+    }
+
+
+    private void boldAllHeaders(TripleHashMap<String, Node, Node> gridElements) {
+        for (String key : gridElements.keySet()) {
+            if (key.contains("Header")) {
+                gridElements.getValue1(key).setStyle("-fx-font-weight: bold");
+            }
+        }
+    }
+
+    private void setTextFieldPrompts(TripleHashMap<String, Node, Node> gridElements) {
+        ((TextField) gridElements.getValue2("name")).setPromptText("Enter a Name");
+        ((TextField) gridElements.getValue2("description")).setPromptText("Enter a Description");
+        ((TextField) gridElements.getValue2("previous")).setPromptText("Enter the Previous Rule");
+        ((TextField) gridElements.getValue2("numberOfCards")).setPromptText("Enter the Number of Cards");
+    }
+
+    private void initGrid(GridPane grid, TripleHashMap<String, Node, Node> gridElements, GameRuleType ruleType) {
+        int row = 0;
+        for (String key : gridElements.keySet()) {
+            if (gridElements.getValue2(key) == null) {
+                if (row != 0) {
+                    grid.add(new Separator(), 0, row++);
+                }
+                grid.add(gridElements.getValue1(key), 0, row++);
+            } else {
+                grid.add(gridElements.getValue1(key), 0, row);
+                grid.add(gridElements.getValue2(key), 1, row++);
+            }
         }
 
-        grid.setVgap(4);
-        grid.setHgap(10);
-        grid.setPadding(new Insets(5, 5, 5, 5));
-
-        nameTextField.setPromptText("Enter a Name");
-        descriptionTextField.setPromptText("Enter a Description");
-        previousRuleTextField.setPromptText("Enter the Previous Rule");
-        previousRuleTextField.setText("Game Start");
-        grid.addRow(0, new Label(ruleType + " Type: "), comboBox);
-        grid.addRow(1, new Label(ruleType + " Name: "), nameTextField);
-        grid.addRow(2, new Label(ruleType + " Description: "), descriptionTextField);
-        grid.addRow(3, new Label("Previous Rule: "), previousRuleTextField);
-        grid.add(addButton, 0, 4);
-        grid.add(new Separator(), 0, 5);
-        grid.add(new Label("Clicked " + ruleType + ":"), 0, 6);
-        grid.addRow(7, clickedRuleTypeHeader, clickedRuleTypeValue);
-        grid.addRow(8, clickedRuleNameHeader, clickedRuleNameValue);
-        grid.addRow(9, clickedRuleDescriptionHeader, clickedRuleDescriptionValue);
-        grid.addRow(10, clickedPreviousRuleHeader, clickedPreviousRuleValue);
-
-        clickedRuleTypeHeader.setVisible(false);
-        clickedRuleNameHeader.setVisible(false);
-        clickedRuleDescriptionHeader.setVisible(false);
-        clickedPreviousRuleHeader.setVisible(false);
-        clickedRuleTypeValue.setVisible(false);
-        clickedRuleNameValue.setVisible(false);
-        clickedRuleDescriptionValue.setVisible(false);
-        clickedPreviousRuleValue.setVisible(false);
+        if (ruleType == GameRuleType.EVENT) {
+            grid.add(deleteEventButton, 0, row);
+            grid.add(addEventButton, 1, row);
+            grid.add(updateEventButton, 2, row++);
+        } else if (ruleType == GameRuleType.ACTION) {
+            grid.add(deleteActionButton, 0, row);
+            grid.add(addActionButton, 1, row);
+            grid.add(updateActionButton, 2, row++);
+        }
     }
 
 
     public void initEventComboBox() {
-        this.eventComboBox.getItems().addAll(controller.getEventList());
-        this.eventComboBox.setPromptText("Select a Game Event");
-        this.eventComboBox.setEditable(false);
+        getEventComboBox().getItems().addAll(controller.getEventList());
+        getEventComboBox().setPromptText("Select a Game Event");
+        getEventComboBox().setEditable(false);
     }
 
     public void initActionComboBox() {
-        this.actionComboBox.getItems().addAll(controller.getActionList());
-        this.actionComboBox.setPromptText("Select a Game Action");
-        this.actionComboBox.setEditable(false);
+        getActionComboBox().getItems().addAll(controller.getActionList());
+        getActionComboBox().setPromptText("Select a Game Action");
+        getActionComboBox().setEditable(false);
     }
 
     public void initEditorDrawingPane() {
@@ -264,11 +210,11 @@ public class EditorTabView extends Tab {
     }
 
     public TextField getEventNameTextField() {
-        return this.eventNameTextField;
+        return (TextField) eventsGridElements.getValue2("name");
     }
 
     public TextField getActionNameTextField() {
-        return this.actionNameTextField;
+        return (TextField) actionsGridElements.getValue2("name");
     }
 
     public Accordion getAccordion() {
@@ -284,11 +230,11 @@ public class EditorTabView extends Tab {
     }
 
     public ComboBox getEventComboBox() {
-        return this.eventComboBox;
+        return (ComboBox) eventsGridElements.getValue2("type");
     }
 
     public ComboBox getActionComboBox() {
-        return this.actionComboBox;
+        return (ComboBox) actionsGridElements.getValue2("type");
     }
 
     public GridPane getEventsGrid() {
@@ -296,83 +242,19 @@ public class EditorTabView extends Tab {
     }
 
     public TextField getEventPreviousRuleTextField() {
-        return eventPreviousRuleTextField;
+        return (TextField) eventsGridElements.getValue2("previous");
     }
 
     public TextField getActionPreviousRuleTextField() {
-        return actionPreviousRuleTextField;
+        return (TextField) actionsGridElements.getValue2("previous");
     }
 
     public TextField getEventDescriptionTextField() {
-        return eventDescriptionTextField;
+        return (TextField) eventsGridElements.getValue2("description");
     }
 
     public TextField getActionDescriptionTextField() {
-        return actionDescriptionTextField;
-    }
-
-    public Label getClickedEventTypeHeader() {
-        return clickedEventTypeHeader;
-    }
-
-    public Label getClickedEventTypeValue() {
-        return clickedEventTypeValue;
-    }
-
-    public Label getClickedEventNameHeader() {
-        return clickedEventNameHeader;
-    }
-
-    public Label getClickedEventNameValue() {
-        return clickedEventNameValue;
-    }
-
-    public Label getClickedEventDescriptionHeader() {
-        return clickedEventDescriptionHeader;
-    }
-
-    public Label getClickedEventDescriptionValue() {
-        return clickedEventDescriptionValue;
-    }
-
-    public Label getClickedEventPreviousEventHeader() {
-        return clickedEventPreviousEventHeader;
-    }
-
-    public Label getClickedEventPreviousEventValue() {
-        return clickedEventPreviousEventValue;
-    }
-
-    public Label getClickedActionTypeHeader() {
-        return clickedActionTypeHeader;
-    }
-
-    public Label getClickedActionTypeValue() {
-        return clickedActionTypeValue;
-    }
-
-    public Label getClickedActionNameHeader() {
-        return clickedActionNameHeader;
-    }
-
-    public Label getClickedActionNameValue() {
-        return clickedActionNameValue;
-    }
-
-    public Label getClickedActionDescriptionHeader() {
-        return clickedActionDescriptionHeader;
-    }
-
-    public Label getClickedActionDescriptionValue() {
-        return clickedActionDescriptionValue;
-    }
-
-    public Label getClickedActionPreviousActionHeader() {
-        return clickedActionPreviousActionHeader;
-    }
-
-    public Label getClickedActionPreviousActionValue() {
-        return clickedActionPreviousActionValue;
+        return (TextField) actionsGridElements.getValue2("description");
     }
 
     public RuleElementRectangle getClickedRectangle() {

@@ -155,6 +155,11 @@ public class EditorTabController {
             return;
         }
 
+        if (comboBox.getValue() instanceof OnGameStartEvent) {
+            showRuleTypeIsOnGameStartErrorAlert();
+            return;
+        }
+
         GameRule gameRule = null;
         switch (ruleType) {
             case EVENT:
@@ -251,36 +256,18 @@ public class EditorTabController {
             view.getActionsPane().setExpanded(false);
             view.getEventsPane().setExpanded(true);
 
-            view.getClickedEventTypeHeader().setVisible(true);
-            view.getClickedEventTypeValue().setVisible(true);
-            view.getClickedEventNameHeader().setVisible(true);
-            view.getClickedEventNameValue().setVisible(true);
-            view.getClickedEventDescriptionHeader().setVisible(true);
-            view.getClickedEventDescriptionValue().setVisible(true);
-            view.getClickedEventPreviousEventHeader().setVisible(true);
-            view.getClickedEventPreviousEventValue().setVisible(true);
-
-            view.getClickedEventTypeValue().setText(r.getGameRuleName());
-            view.getClickedEventNameValue().setText(r.getText());
-            view.getClickedEventDescriptionValue().setText(r.getGameRule().getDescription());
-            view.getClickedEventPreviousEventValue().setText(getPreviousRuleText(r));
+            view.getEventComboBox().setValue(r.getGameRule());
+            view.getEventNameTextField().setText(r.getText());
+            view.getEventDescriptionTextField().setText(r.getGameRule().getDescription());
+            view.getEventPreviousRuleTextField().setText(getPreviousRuleText(r));
         } else if (r.getRuleType() == GameRuleType.ACTION) { // rectangle is for an action
             view.getEventsPane().setExpanded(false);
             view.getActionsPane().setExpanded(true);
 
-            view.getClickedActionTypeHeader().setVisible(true);
-            view.getClickedActionTypeValue().setVisible(true);
-            view.getClickedActionNameHeader().setVisible(true);
-            view.getClickedActionNameValue().setVisible(true);
-            view.getClickedActionDescriptionHeader().setVisible(true);
-            view.getClickedActionDescriptionValue().setVisible(true);
-            view.getClickedActionPreviousActionHeader().setVisible(true);
-            view.getClickedActionPreviousActionValue().setVisible(true);
-
-            view.getClickedActionTypeValue().setText(r.getGameRuleName());
-            view.getClickedActionNameValue().setText(r.getText());
-            view.getClickedActionDescriptionValue().setText(r.getGameRule().getDescription());
-            view.getClickedActionPreviousActionValue().setText(getPreviousRuleText(r));
+            view.getActionComboBox().setValue(r.getGameRule());
+            view.getActionNameTextField().setText(r.getText());
+            view.getActionDescriptionTextField().setText(r.getGameRule().getDescription());
+            view.getActionPreviousRuleTextField().setText(getPreviousRuleText(r));
         }
     }
 
@@ -289,25 +276,15 @@ public class EditorTabController {
         r.setClicked(false);
         r.setStroke(r.getDefaultBorderColor());
 
-        if (r.getRuleType() == GameRuleType.EVENT) { // rectangle is for an event
-            view.getClickedEventTypeHeader().setVisible(false);
-            view.getClickedEventTypeValue().setVisible(false);
-            view.getClickedEventNameHeader().setVisible(false);
-            view.getClickedEventNameValue().setVisible(false);
-            view.getClickedEventDescriptionHeader().setVisible(false);
-            view.getClickedEventDescriptionValue().setVisible(false);
-            view.getClickedEventPreviousEventHeader().setVisible(false);
-            view.getClickedEventPreviousEventValue().setVisible(false);
-        } else if (r.getRuleType() == GameRuleType.ACTION) { // rectangle is for an action
-            view.getClickedActionTypeHeader().setVisible(false);
-            view.getClickedActionTypeValue().setVisible(false);
-            view.getClickedActionNameHeader().setVisible(false);
-            view.getClickedActionNameValue().setVisible(false);
-            view.getClickedActionDescriptionHeader().setVisible(false);
-            view.getClickedActionDescriptionValue().setVisible(false);
-            view.getClickedActionPreviousActionHeader().setVisible(false);
-            view.getClickedActionPreviousActionValue().setVisible(false);
-        }
+        view.getEventComboBox().setValue(null);
+        view.getEventNameTextField().setText(null);
+        view.getEventDescriptionTextField().setText(null);
+        view.getEventPreviousRuleTextField().setText(null);
+
+        view.getActionComboBox().setValue(null);
+        view.getActionNameTextField().setText(null);
+        view.getActionDescriptionTextField().setText(null);
+        view.getActionPreviousRuleTextField().setText(null);
     }
 
 
@@ -414,6 +391,14 @@ public class EditorTabController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a Game " + ruleType.getName() + " type from the drop-down box.");
         alert.setTitle(ruleType.getName() + " Type Error");
         alert.setHeaderText(ruleType.getName() + " Type Not Selected");
+        alert.showAndWait();
+    }
+
+
+    private void showRuleTypeIsOnGameStartErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Only one OnGameStartEvent is allowed in a game. Please select another Event Type.");
+        alert.setTitle("Duplicate OnGameStartEvent Error");
+        alert.setHeaderText("OnGameStartEvent Selected As Event Type");
         alert.showAndWait();
     }
 
