@@ -256,6 +256,10 @@ public class EditorTabController {
             view.getActionsPane().setExpanded(false);
             view.getEventsPane().setExpanded(true);
 
+            view.getAddEventButton().setDisable(true);
+            view.getUpdateEventButton().setDisable(false);
+            view.getDeleteEventButton().setDisable(false);
+
             view.getEventComboBox().setValue(r.getGameRule());
             view.getEventNameTextField().setText(r.getText());
             view.getEventDescriptionTextField().setText(r.getGameRule().getDescription());
@@ -263,6 +267,10 @@ public class EditorTabController {
         } else if (r.getRuleType() == GameRuleType.ACTION) { // rectangle is for an action
             view.getEventsPane().setExpanded(false);
             view.getActionsPane().setExpanded(true);
+
+            view.getAddActionButton().setDisable(true);
+            view.getUpdateActionButton().setDisable(false);
+            view.getDeleteActionButton().setDisable(false);
 
             view.getActionComboBox().setValue(r.getGameRule());
             view.getActionNameTextField().setText(r.getText());
@@ -276,15 +284,13 @@ public class EditorTabController {
         r.setClicked(false);
         r.setStroke(r.getDefaultBorderColor());
 
-        view.getEventComboBox().setValue(null);
-        view.getEventNameTextField().setText(null);
-        view.getEventDescriptionTextField().setText(null);
-        view.getEventPreviousRuleTextField().setText(null);
+        view.getAddEventButton().setDisable(false);
+        view.getUpdateEventButton().setDisable(true);
+        view.getDeleteEventButton().setDisable(true);
 
-        view.getActionComboBox().setValue(null);
-        view.getActionNameTextField().setText(null);
-        view.getActionDescriptionTextField().setText(null);
-        view.getActionPreviousRuleTextField().setText(null);
+        view.getAddActionButton().setDisable(false);
+        view.getUpdateActionButton().setDisable(true);
+        view.getDeleteActionButton().setDisable(true);
     }
 
 

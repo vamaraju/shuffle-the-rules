@@ -72,6 +72,16 @@ public class EditorTabView extends Tab {
         initGrid(eventsGrid, eventsGridElements, GameRuleType.EVENT);
         initGrid(actionsGrid, actionsGridElements, GameRuleType.ACTION);
 
+        disableAllEventSpecificInputs();
+        disableAllActionSpecificInputs();
+
+        addEventButton.setDisable(false);
+        updateEventButton.setDisable(true);
+        deleteEventButton.setDisable(true);
+        addActionButton.setDisable(false);
+        updateActionButton.setDisable(true);
+        deleteActionButton.setDisable(true);
+
         window.setCenter(scrollPane);
         window.setRight(accordion);
 
@@ -107,7 +117,8 @@ public class EditorTabView extends Tab {
         gridElements.put("specificHeader", new Label(ruleType + "-Specific"), null);
         gridElements.put("pile", new Label("Pile"), new ComboBox());
         gridElements.put("numberOfCards", new Label("Number of Cards"), new TextField());
-        gridElements.put("card", new Label("Card"), new ComboBox());
+        gridElements.put("cardValue", new Label("Card Value"), new ComboBox());
+        gridElements.put("cardSuit", new Label("Card Suit"), new ComboBox());
         gridElements.put("player", new Label("Player(s)"), new ComboBox());
     }
 
@@ -209,6 +220,118 @@ public class EditorTabView extends Tab {
         controller.addOnGameStart(this.drawingPane);
     }
 
+    public void disableEventPileComboBox() {
+        getEventPileComboBox().setDisable(true);
+    }
+
+    public void disableEventNumCardsTextField() {
+        getEventNumCardsTextField().setDisable(true);
+    }
+
+    public void disableEventCardValueComboBox() {
+        getEventCardValueComboBox().setDisable(true);
+    }
+
+    public void disableEventCardSuitComboBox() {
+        getEventCardSuitComboBox().setDisable(true);
+    }
+
+    public void disableEventPlayerComboBox() {
+        getEventPlayerComboBox().setDisable(true);
+    }
+
+    public void disableActionPileComboBox() {
+        getActionPileComboBox().setDisable(true);
+    }
+
+    public void disableActionNumCardsTextField() {
+        getActionNumCardsTextField().setDisable(true);
+    }
+
+    public void disableActionCardValueComboBox() {
+        getActionCardValueComboBox().setDisable(true);
+    }
+
+    public void disableActionCardSuitComboBox() {
+        getActionCardSuitComboBox().setDisable(true);
+    }
+
+    public void disableActionPlayerComboBox() {
+        getActionPlayerComboBox().setDisable(true);
+    }
+
+    public void enableEventPileComboBox() {
+        getEventPileComboBox().setDisable(false);
+    }
+
+    public void enableEventNumCardsTextField() {
+        getEventNumCardsTextField().setDisable(false);
+    }
+
+    public void enableEventCardValueComboBox() {
+        getEventCardValueComboBox().setDisable(false);
+    }
+
+    public void enableEventCardSuitComboBox() {
+        getEventCardSuitComboBox().setDisable(false);
+    }
+
+    public void enableEventPlayerComboBox() {
+        getEventPlayerComboBox().setDisable(false);
+    }
+
+    public void enableActionPileComboBox() {
+        getActionPileComboBox().setDisable(false);
+    }
+
+    public void enableActionNumCardsTextField() {
+        getActionNumCardsTextField().setDisable(false);
+    }
+
+    public void enableActionCardValueComboBox() {
+        getActionCardValueComboBox().setDisable(false);
+    }
+
+    public void enableActionCardSuitComboBox() {
+        getActionCardSuitComboBox().setDisable(false);
+    }
+
+    public void enableActionPlayerComboBox() {
+        getActionPlayerComboBox().setDisable(false);
+    }
+
+    public void disableAllEventSpecificInputs() {
+        disableEventPileComboBox();
+        disableEventNumCardsTextField();
+        disableEventCardValueComboBox();
+        disableEventCardSuitComboBox();
+        disableEventPlayerComboBox();
+    }
+
+    public void disableAllActionSpecificInputs() {
+        disableActionPileComboBox();
+        disableActionNumCardsTextField();
+        disableActionCardValueComboBox();
+        disableActionCardSuitComboBox();
+        disableActionPlayerComboBox();
+    }
+
+    public void enableAllEventSpecificInputs() {
+        enableEventPileComboBox();
+        enableEventNumCardsTextField();
+        enableEventCardValueComboBox();
+        enableEventCardSuitComboBox();
+        enableEventPlayerComboBox();
+    }
+
+    public void enableAllActionSpecificInputs() {
+        enableActionPileComboBox();
+        enableActionNumCardsTextField();
+        enableActionCardValueComboBox();
+        enableActionCardSuitComboBox();
+        enableActionPlayerComboBox();
+    }
+
     public TextField getEventNameTextField() {
         return (TextField) eventsGridElements.getValue2("name");
     }
@@ -255,6 +378,70 @@ public class EditorTabView extends Tab {
 
     public TextField getActionDescriptionTextField() {
         return (TextField) actionsGridElements.getValue2("description");
+    }
+
+    public ComboBox getEventPileComboBox() {
+        return (ComboBox) eventsGridElements.getValue2("pile");
+    }
+
+    public TextField getEventNumCardsTextField() {
+        return (TextField) eventsGridElements.getValue2("numberOfCards");
+    }
+
+    public ComboBox getEventCardValueComboBox() {
+        return (ComboBox) eventsGridElements.getValue2("cardValue");
+    }
+
+    public ComboBox getEventCardSuitComboBox() {
+        return (ComboBox) eventsGridElements.getValue2("cardSuit");
+    }
+
+    public ComboBox getEventPlayerComboBox() {
+        return (ComboBox) eventsGridElements.getValue2("player");
+    }
+
+    public ComboBox getActionPileComboBox() {
+        return (ComboBox) actionsGridElements.getValue2("pile");
+    }
+
+    public TextField getActionNumCardsTextField() {
+        return (TextField) actionsGridElements.getValue2("numberOfCards");
+    }
+
+    public ComboBox getActionCardValueComboBox() {
+        return (ComboBox) actionsGridElements.getValue2("cardValue");
+    }
+
+    public ComboBox getActionCardSuitComboBox() {
+        return (ComboBox) actionsGridElements.getValue2("cardSuit");
+    }
+
+    public ComboBox getActionPlayerComboBox() {
+        return (ComboBox) actionsGridElements.getValue2("player");
+    }
+
+    public Button getAddEventButton() {
+        return addEventButton;
+    }
+
+    public Button getUpdateEventButton() {
+        return updateEventButton;
+    }
+
+    public Button getDeleteEventButton() {
+        return deleteEventButton;
+    }
+
+    public Button getAddActionButton() {
+        return addActionButton;
+    }
+
+    public Button getUpdateActionButton() {
+        return updateActionButton;
+    }
+
+    public Button getDeleteActionButton() {
+        return deleteActionButton;
     }
 
     public RuleElementRectangle getClickedRectangle() {
