@@ -29,8 +29,6 @@ public class Main extends Application {
     private void initializeStage(Stage primaryStage){
 
         primaryStage.setTitle("Shuffle The Rules");
-        primaryStage.setResizable(false);
-
 
         /* The main layout to organize GameCreation Mode window.*/
         BorderPane rootBorderPane = new BorderPane();
