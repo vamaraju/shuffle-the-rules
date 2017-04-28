@@ -4,6 +4,7 @@
 
 package controller;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
@@ -13,10 +14,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import model.*;
 import model.GameActions.*;
 import model.GameEvents.*;
-import model.GameRule;
-import model.GameRuleType;
+import model.Piles.Pile;
 import view.RuleElementLine;
 import view.RuleElementRectangle;
 import view.EditorTabView;
@@ -212,6 +213,39 @@ public class EditorTabController {
 
         r.setOnMouseClicked(this::onRectangleClicked);
         r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
+    }
+
+
+    public void onTabSelected(ObservableValue observable, Object oldSelectedValue, Object newSelectedValue) {
+        boolean expanded = (boolean) newSelectedValue;
+        if (expanded) {
+            updatePileComboBoxes();
+            updatePlayerComboBoxes();
+        }
+    }
+
+
+    public void updatePileComboBoxes() {
+        ComboBox eventPileComboBox = view.getEventPileComboBox();
+        ComboBox actionPileComboBox = view.getActionPileComboBox();
+        eventPileComboBox.getItems().clear();
+        eventPileComboBox.getItems().addAll(GameView.getInstance().getTableTab().getTableGrid().getPileMap().keySet());
+        actionPileComboBox.getItems().clear();
+        actionPileComboBox.getItems().addAll(GameView.getInstance().getTableTab().getTableGrid().getPileMap().keySet());
+    }
+
+
+    public void updatePlayerComboBoxes() {
+        ComboBox eventPlayerComboBox = view.getEventPlayerComboBox();
+        ComboBox actionPlayerComboBox = view.getActionPlayerComboBox();
+
+        eventPlayerComboBox.getItems().clear();
+        eventPlayerComboBox.getItems().add("All");
+        eventPlayerComboBox.getItems().addAll(GameCreation.getInstance().getPlayers());
+
+        actionPlayerComboBox.getItems().clear();
+        actionPlayerComboBox.getItems().add("All");
+        actionPlayerComboBox.getItems().addAll(GameCreation.getInstance().getPlayers());
     }
 
 

@@ -213,4 +213,9 @@ public class Pile implements Serializable, Iterable {
     public Card getBottomCard() {
         return cards.get(cards.size()-1);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

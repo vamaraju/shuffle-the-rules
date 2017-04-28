@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.Piles.Pile;
+import model.TableGrid;
 import model.TableGridPosition;
 
 import java.util.HashMap;
@@ -135,6 +136,10 @@ public class TableTabView extends Tab {
 
     public TableGridView getTableGridView() {
         return tableGridView;
+    }
+
+    public TableGrid getTableGrid() {
+        return tableGridView.getTableGrid();
     }
 
     public TableGridPropertiesView getTableGridPropertiesView() {

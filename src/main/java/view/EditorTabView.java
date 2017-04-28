@@ -85,6 +85,7 @@ public class EditorTabView extends Tab {
         window.setCenter(scrollPane);
         window.setRight(accordion);
 
+        this.selectedProperty().addListener(controller::onTabSelected);
         addEventButton.setOnAction(controller::onAddEventButtonClick);
         addActionButton.setOnAction(controller::onAddActionButtonClick);
         drawingPane.setOnMouseDragged(controller::drawingPaneOnMouseDragged);
