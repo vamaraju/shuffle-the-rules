@@ -6,6 +6,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.util.Pair;
 import view.Gameplay.GameplayView;
 import view.Gameplay.SortDialog;
 
@@ -32,6 +33,7 @@ public class GameplayController {
     public void onSortHandButtonClick(Event event){
         System.out.println("Sort Hand pressed - Gameplay View ");
         SortDialog sortDialog = new SortDialog();
+        Pair<String, Boolean> result = sortDialog.getResult();
 
     }
 

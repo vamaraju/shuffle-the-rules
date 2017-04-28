@@ -9,6 +9,6 @@ import javafx.scene.control.Dialog;
 public class SwapDialog extends Dialog {
 
     public SwapDialog(){
-        
+
     }
 }
