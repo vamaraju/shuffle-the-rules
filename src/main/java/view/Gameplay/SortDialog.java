@@ -4,6 +4,7 @@ package view.Gameplay;/*
 *
 * */
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
@@ -23,7 +24,7 @@ public class SortDialog extends Dialog<Pair<String, Boolean>> {
 
     private Label sortPrompt = new Label("Sort by:");
 
-    private Button submitSortCriteria = new Button("SORT");
+    private Button submitSortCriteriaButton = new Button("SORT");
 
     private Label value = new Label("Value");
     private Label suit = new Label("Suit");
@@ -57,12 +58,18 @@ public class SortDialog extends Dialog<Pair<String, Boolean>> {
         sortLayout.add(valueAscendingRadioButton,3,3);
         sortLayout.add(valueDescendingRadioButton,3,4);
 
-        sortLayout.add(suitCheckBox,3,5);
+        sortLayout.add(suitCheckBox,2,5);
 
-        sortLayout.add(submitSortCriteria,2,8,2,2);
+        sortLayout.add(submitSortCriteriaButton,2,8,2,2);
 
 
         this.getDialogPane().setContent(sortLayout);
+
+        this.submitSortCriteriaButton.setOnAction(this::onSubmitSortCriteriaButtonClick);
+    }
+
+    private void onSubmitSortCriteriaButtonClick(ActionEvent actionEvent) {
+
     }
 
     private void initializeRadioButtons() {

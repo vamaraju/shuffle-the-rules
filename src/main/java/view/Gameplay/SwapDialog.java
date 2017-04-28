@@ -1,7 +1,7 @@
 package view.Gameplay;/*
 * Requirements mandating inclusion:
 *
-* Need to update with anything Gameplay related that this class takes care of (showing)
+*
 * */
 
 import javafx.beans.value.ObservableValue;
@@ -10,6 +10,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import model.Piles.Pile;
 
 /*
@@ -37,9 +38,15 @@ public class SwapDialog extends Dialog {
 
     public void initialize(){
 
+        /* VERY IMPORTANT WARNING MESSAGE */
+        Label pileWarningMessage = new Label("Control click to select and deselect multiple cards");
+        pileWarningMessage.setStyle("-fx-font-weight: bold");
+
 
         pile1_PileView = new PileView(Orientation.VERTICAL);
         pile2_pileView = new PileView(Orientation.VERTICAL);
+
+
 
         this.initiateSwapButton.setOnAction(this::onInitiateSwapButtonClick);
 
@@ -49,14 +56,19 @@ public class SwapDialog extends Dialog {
     }
 
     private void onInitiateSwapButtonClick(ActionEvent actionEvent) {
+
     }
 
     public void updateDisplayedPile(ObservableValue observable, Object oldValue, Object newValue){
+        /* Wipe current selections. */
+        /* Update pile */
 
     }
 
     public void updatePile(PileView viewToUpdate, Pile newPile){
         viewToUpdate.updatePile(newPile);
+
+
     }
 
 }
