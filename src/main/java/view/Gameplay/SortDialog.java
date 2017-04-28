@@ -14,6 +14,8 @@ import java.util.Optional;
 * whether or not to sort by suit
 *
 * TODO Will change the ASC/DESC from strings to enums */
+
+/* TODO BUG dialog window currently does not close */
 public class SortDialog extends Dialog<Pair<String, Boolean>> {
 
     private GridPane sortLayout = new GridPane();
@@ -25,8 +27,9 @@ public class SortDialog extends Dialog<Pair<String, Boolean>> {
     private Label value = new Label("Value");
     private Label suit = new Label("Suit");
 
-    private RadioButton sortAscending = new RadioButton("Ascending");
-    private RadioButton sortDescending = new RadioButton("Descending");
+    private ToggleGroup sortValueRadioGroup;
+    private RadioButton valueAscendingRadioButton;
+    private RadioButton valueDescendingRadioButton;
 
     private CheckBox suitCheckBox = new CheckBox("Suit");
 
@@ -34,7 +37,6 @@ public class SortDialog extends Dialog<Pair<String, Boolean>> {
 
     public SortDialog(){
         this.setTitle("Sort Hand");
-        this.setHeaderText("How would you like to sort your hand?");
         //this.setOnCloseRequest();
 
         initialize();
@@ -43,13 +45,17 @@ public class SortDialog extends Dialog<Pair<String, Boolean>> {
     }
 
     public void initialize(){
+
+        initializeRadioButtons();
+
+        sortLayout.setVgap(10);
+        sortLayout.setHgap(4);
         sortLayout.add(sortPrompt,1,1);
 
         sortLayout.add(value,2,2);
-        sortLayout.add(sortAscending,3,2);
-        sortLayout.add(sortDescending,4,2);
+        sortLayout.add(valueAscendingRadioButton,3,3);
+        sortLayout.add(valueDescendingRadioButton,3,4);
 
-        sortLayout.add(suit,2,5);
         sortLayout.add(suitCheckBox,3,5);
 
         sortLayout.add(submitSortCriteria,2,8,2,2);
@@ -57,6 +63,18 @@ public class SortDialog extends Dialog<Pair<String, Boolean>> {
 
         this.getDialogPane().setContent(sortLayout);
     }
+
+    private void initializeRadioButtons() {
+        /* ToggleGroup used to make radio button selection mutually exclusive */
+        sortValueRadioGroup = new ToggleGroup();
+
+        valueAscendingRadioButton = new RadioButton("Ascending");
+        valueAscendingRadioButton.setToggleGroup(sortValueRadioGroup);
+
+        valueDescendingRadioButton = new RadioButton("Descending");
+        valueDescendingRadioButton.setToggleGroup(sortValueRadioGroup);
+    }
+
 
     /* on click method will check get input values, then pass to Gameplay Controller */
     /* the button will set the result of the dialog*/
