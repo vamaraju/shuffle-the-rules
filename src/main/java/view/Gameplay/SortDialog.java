@@ -10,8 +10,9 @@ import javafx.util.Pair;
 
 import java.util.Optional;
 
-/* Currently will return a string (ASC/DESC) and a Boolean (True/False as to
-* whether or not to sort by suit
+/* Currently result will be a Pair<String, Boolean>.
+* String value will be (ASC/DESC) - used to determine whether to sort by ascending or descending value.
+* Boolean value will be True/False - used to determine whether or not to sort by suit.
 *
 * TODO Will change the ASC/DESC from strings to enums */
 
