@@ -113,7 +113,22 @@ public class EditorTabController {
      * @param e
      */
     public void onAddEventButtonClick(Event e) {
-        addButtonClick(GameRuleType.EVENT);
+        Pane drawingPane = view.getEditorDrawingPane();
+
+        ComboBox typeComboBox = view.getEventTypeComboBox();
+        TextField nameTextField = view.getEventNameTextField();
+        TextField previousRuleTextField = view.getEventPreviousRuleTextField();
+        TextField descriptionTextField = view.getEventDescriptionTextField();
+
+        if (runAllValidations(GameRuleType.EVENT, typeComboBox, nameTextField.getText(), previousRuleTextField.getText(), descriptionTextField.getText())) {
+            GameRule gameRule = (GameEvent) typeComboBox.getValue();
+            String ruleDescription = descriptionTextField.getText();
+            if (!(ruleDescription == null || ruleDescription.isEmpty())) {
+                gameRule.setDescription(ruleDescription);
+            }
+
+            createAndAddRect(drawingPane, nameTextField.getText(), GameRuleType.EVENT, gameRule, findRectangleByName(previousRuleTextField.getText()));
+        }
     }
 
 
@@ -123,80 +138,28 @@ public class EditorTabController {
      *
      * @param e
      */
-    public void onAddActionButtonClick(Event e){
-        addButtonClick(GameRuleType.ACTION);
+    public void onAddActionButtonClick(Event e) {
+        Pane drawingPane = view.getEditorDrawingPane();
+
+        ComboBox typeComboBox = view.getActionTypeComboBox();
+        TextField nameTextField = view.getActionNameTextField();
+        TextField previousRuleTextField = view.getActionPreviousRuleTextField();
+        TextField descriptionTextField = view.getActionDescriptionTextField();
+
+        if (runAllValidations(GameRuleType.ACTION, typeComboBox, nameTextField.getText(), previousRuleTextField.getText(), descriptionTextField.getText())) {
+            GameRule gameRule = (GameAction) typeComboBox.getValue();
+            String ruleDescription = descriptionTextField.getText();
+            if (!(ruleDescription == null || ruleDescription.isEmpty())) {
+                gameRule.setDescription(ruleDescription);
+            }
+
+            createAndAddRect(drawingPane, nameTextField.getText(), GameRuleType.ACTION, gameRule, findRectangleByName(previousRuleTextField.getText()));
+        }
     }
 
 
-    /**
-     * Logic for "Add Event" and "Add Action" button onclick listeners.
-     *
-     * @param ruleType The GameRuleType (either EVENT or ACTION) corresponding to the specific button click.
-     */
-    private void addButtonClick(GameRuleType ruleType) {
-        Pane drawingPane = view.getEditorDrawingPane();
-        ComboBox comboBox = null;
-        TextField nameTextField = null;
-        TextField descriptionTextField = null;
-        TextField previousRuleTextField = null;
-
-        switch (ruleType) {
-            case EVENT:
-                comboBox = view.getEventTypeComboBox();
-                nameTextField = view.getEventNameTextField();
-                previousRuleTextField = view.getEventPreviousRuleTextField();
-                descriptionTextField = view.getEventDescriptionTextField();
-                break;
-            case ACTION:
-                comboBox = view.getActionTypeComboBox();
-                nameTextField = view.getActionNameTextField();
-                previousRuleTextField = view.getActionPreviousRuleTextField();
-                descriptionTextField = view.getActionDescriptionTextField();
-                break;
-        }
-
-        String previousRuleName = previousRuleTextField.getText();
-        RuleElementRectangle previousRect = findRectangleByName(previousRuleName);
-        if (previousRect == null) {
-            showPreviousRuleNotFoundErrorAlert(previousRuleName);
-            return;
-        }
-
-        String ruleName = nameTextField.getText();
-        if (ruleName == null || ruleName.equals("")) {
-            showRuleNameEmptyErrorAlert(ruleType);
-            return;
-        } else if (findRectangleByName(ruleName) != null) {
-            showRuleNameExistsErrorAlert(ruleType, ruleName);
-            return;
-        }
-
-        if (comboBox.getValue() == null) {
-            showRuleTypeNotSelectedErrorAlert(ruleType);
-            return;
-        }
-
-        if (comboBox.getValue() instanceof OnGameStartEvent) {
-            showRuleTypeIsOnGameStartErrorAlert();
-            return;
-        }
-
-        GameRule gameRule = null;
-        switch (ruleType) {
-            case EVENT:
-                gameRule = (GameEvent) comboBox.getValue();
-                break;
-            case ACTION:
-                gameRule = (GameAction) comboBox.getValue();
-                break;
-        }
-
-        String ruleDescription = descriptionTextField.getText();
-        if (!(ruleDescription == null || ruleDescription.equals(""))) {
-            gameRule.setDescription(ruleDescription);
-        }
-
-        RuleElementRectangle r = new RuleElementRectangle(0, 0, nameTextField.getText(), ruleType);
+    public void createAndAddRect(Pane drawingPane, String ruleName, GameRuleType ruleType, GameRule gameRule, RuleElementRectangle previousRect) {
+        RuleElementRectangle r = new RuleElementRectangle(0, 0, ruleName, ruleType);
         r.setGameRule(gameRule);
         r.addPreRule(previousRect);
         previousRect.addPostRule(r);
@@ -236,6 +199,29 @@ public class EditorTabController {
     }
 
 
+    public void onUpdateEventButtonClick(Event e) {
+        RuleElementRectangle r = view.getClickedRectangle();
+
+        //validate before updating!!! runallvalidations()
+
+        r.setGameRule((GameRule) view.getEventTypeComboBox().getValue());
+        r.setText(view.getEventNameTextField().getText());
+        r.getGameRule().setDescription(view.getEventDescriptionTextField().getText());
+        // update previous rule.....??
+        showUpdateSuccessfulAlert(GameRuleType.EVENT);
+    }
+
+
+    public void onUpdateActionButtonClick(Event e) {
+        RuleElementRectangle r = view.getClickedRectangle();
+        r.setGameRule((GameRule) view.getActionTypeComboBox().getValue());
+        r.setText(view.getActionNameTextField().getText());
+        r.getGameRule().setDescription(view.getActionDescriptionTextField().getText());
+        // update previous rule.....??
+        showUpdateSuccessfulAlert(GameRuleType.ACTION);
+    }
+
+
     public void onTabSelected(ObservableValue observable, Object oldSelectedValue, Object newSelectedValue) {
         boolean expanded = (boolean) newSelectedValue;
         if (expanded) {
@@ -266,6 +252,12 @@ public class EditorTabController {
         actionPlayerComboBox.getItems().clear();
         actionPlayerComboBox.getItems().add("All");
         actionPlayerComboBox.getItems().addAll(GameCreation.getInstance().getPlayers());
+    }
+
+
+    public void onEventTypeChanged(ObservableValue observable, Object oldEventType, Object newEventType) {
+        GameEvent selectedGameEvent = (GameEvent) newEventType;
+        System.out.println(selectedGameEvent);
     }
 
 
@@ -439,6 +431,61 @@ public class EditorTabController {
     }
 
 
+    private boolean previousRuleNotFoundValidation(String previousRuleName) {
+        RuleElementRectangle previousRect = findRectangleByName(previousRuleName);
+        if (previousRect == null) {
+            showPreviousRuleNotFoundErrorAlert(previousRuleName);
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean ruleTypeNotSelectedValidation(GameRuleType ruleType, ComboBox typeComboBox) {
+        if (typeComboBox.getValue() == null) {
+            showRuleTypeNotSelectedErrorAlert(ruleType);
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean ruleTypeIsOnGameStartValidation(ComboBox typeComboBox) {
+        if (typeComboBox.getValue() instanceof OnGameStartEvent) {
+            showRuleTypeIsOnGameStartErrorAlert();
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean ruleNameEmptyValidation(GameRuleType ruleType, String ruleName) {
+        if (ruleName == null || ruleName.isEmpty()) {
+            showRuleNameEmptyErrorAlert(ruleType);
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean ruleNameExistsValidation(GameRuleType ruleType, String ruleName) {
+        if (findRectangleByName(ruleName) != null) {
+            showRuleNameExistsErrorAlert(ruleType, ruleName);
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean runAllValidations(GameRuleType ruleType, ComboBox typeComboBox, String ruleName, String previousRuleName, String ruleDescription) {
+        if (!previousRuleNotFoundValidation(previousRuleName)) {return false;}
+        if (!ruleTypeNotSelectedValidation(ruleType, typeComboBox)) {return false;}
+        if (!ruleTypeIsOnGameStartValidation(typeComboBox)) {return false;}
+        if (!ruleNameEmptyValidation(ruleType, ruleName)) {return false;}
+        if (!ruleNameExistsValidation(ruleType, ruleName)) {return false;}
+        return true;
+    }
+
     private void showPreviousRuleNotFoundErrorAlert(String previousRuleName) {
         Alert alert = new Alert(Alert.AlertType.WARNING, "The specified previous rule name cannot be found in editor: \n" + previousRuleName + "\nPlease enter a previous rule name that already exists in the rule tree. Note that the names are case-sensitive.");
         alert.setTitle("Previous Rule Error");
@@ -475,6 +522,14 @@ public class EditorTabController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter a unique " + ruleType.getName() + " name in the text field. The specified name already exists in the rule tree: \n" + eventName);
         alert.setTitle(ruleType.getName() + " Name Error");
         alert.setHeaderText(ruleType.getName() + " Name Is A Duplicate");
+        alert.showAndWait();
+    }
+
+
+    private void showUpdateSuccessfulAlert(GameRuleType ruleType) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, ruleType.getName() + " updated successfully!");
+        alert.setTitle(ruleType.getName() + " Update Successful");
+        alert.setHeaderText(ruleType.getName() + " Update Successful");
         alert.showAndWait();
     }
 }

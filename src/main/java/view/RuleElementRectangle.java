@@ -109,11 +109,10 @@ public class RuleElementRectangle extends Rectangle {
         t.setFont(new Font(15));
         this.text = t;
 
-        double textWidth = t.getLayoutBounds().getWidth();
-        double rectWidth = textWidth + 40;
+        double rectWidth = calculateRectWidth();
+        double rectHeight = calculateRectHeight();
+
         t.setWrappingWidth(rectWidth-20);
-        double textHeight = t.getLayoutBounds().getHeight();
-        double rectHeight = textHeight + 40;
 
         this.setX(x, true);
         this.setY(y, true);
@@ -213,6 +212,28 @@ public class RuleElementRectangle extends Rectangle {
         }
 
         this.setListeners();
+    }
+
+
+    /**
+     * Returns the expected/desired width of the rectangle, based on the text inside of it.
+     *
+     * @return The proper width of the rectangle.
+     */
+    public double calculateRectWidth() {
+        double textWidth = text.getLayoutBounds().getWidth();
+        return textWidth + 40;
+    }
+
+
+    /**
+     * Returns the expected/desired height of the rectangle, based on the text inside of it.
+     *
+     * @return The proper height of the rectangle.
+     */
+    public double calculateRectHeight() {
+        double textHeight = text.getLayoutBounds().getHeight();
+        return textHeight + 40;
     }
 
 
@@ -388,6 +409,13 @@ public class RuleElementRectangle extends Rectangle {
      */
     public void setText(String text) {
         this.text.setText(text);
+        this.text.setWrappingWidth(0.0);
+        this.setWidth(calculateRectWidth());
+        this.setHeight(calculateRectHeight());
+        this.text.setWrappingWidth(this.getWidth()-20);
+
+        this.setX(this.getX(), true, true);
+        this.setY(this.getY(), true, true);
     }
 
 

@@ -86,8 +86,13 @@ public class EditorTabView extends Tab {
         window.setRight(accordion);
 
         this.selectedProperty().addListener(controller::onTabSelected);
+        getEventTypeComboBox().valueProperty().addListener(controller::onEventTypeChanged);
         addEventButton.setOnAction(controller::onAddEventButtonClick);
         addActionButton.setOnAction(controller::onAddActionButtonClick);
+        updateEventButton.setOnAction(controller::onUpdateEventButtonClick);
+        updateActionButton.setOnAction(controller::onUpdateActionButtonClick);
+//        deleteEventButton.setOnAction(controller::onDeleteEventButtonClick);
+//        deleteActionButton.setOnAction(controller::onDeleteActionButtonClick);
         drawingPane.setOnMouseDragged(controller::drawingPaneOnMouseDragged);
         controller.addOnGameStart(drawingPane);
 
