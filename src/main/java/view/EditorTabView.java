@@ -91,8 +91,11 @@ public class EditorTabView extends Tab {
         drawingPane.setOnMouseDragged(controller::drawingPaneOnMouseDragged);
         controller.addOnGameStart(drawingPane);
 
-        initEventComboBox();
-        initActionComboBox();
+        controller.initEventTypeComboBox();
+        controller.initActionTypeComboBox();
+        controller.initCardValueComboBoxes();
+        controller.initCardSuitComboBoxes();
+
         initEditorDrawingPane();
         initEditorScrollPane();
 
@@ -164,18 +167,6 @@ public class EditorTabView extends Tab {
         }
     }
 
-
-    public void initEventComboBox() {
-        getEventComboBox().getItems().addAll(controller.getEventList());
-        getEventComboBox().setPromptText("Select a Game Event");
-        getEventComboBox().setEditable(false);
-    }
-
-    public void initActionComboBox() {
-        getActionComboBox().getItems().addAll(controller.getActionList());
-        getActionComboBox().setPromptText("Select a Game Action");
-        getActionComboBox().setEditable(false);
-    }
 
     public void initEditorDrawingPane() {
         this.drawingPane.setPrefSize(800, 800);
@@ -353,11 +344,11 @@ public class EditorTabView extends Tab {
         return actionsPane;
     }
 
-    public ComboBox getEventComboBox() {
+    public ComboBox getEventTypeComboBox() {
         return (ComboBox) eventsGridElements.getValue2("type");
     }
 
-    public ComboBox getActionComboBox() {
+    public ComboBox getActionTypeComboBox() {
         return (ComboBox) actionsGridElements.getValue2("type");
     }
 

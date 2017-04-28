@@ -36,15 +36,10 @@ public class EditorTabController {
     }
 
 
-    /**
-     * Populates and returns an ArrayList of Game Events (strings) for use in drop-down menus.
-     * Populated based on the contents of the model/GameEvents directory.
-     *
-     * @return An ArrayList of Game Event names (strings).
-     */
-    public ArrayList<GameEvent> getEventList() {
-        ArrayList<GameEvent> gameEvents = new ArrayList<>();
+    public void initEventTypeComboBox() {
+        ComboBox eventTypeComboBox = view.getEventTypeComboBox();
 
+        ArrayList<GameEvent> gameEvents = new ArrayList<>();
         gameEvents.add(new OnCardDrawnEvent());
         gameEvents.add(new OnCardPlayedEvent());
         gameEvents.add(new OnGameEndEvent());
@@ -59,19 +54,16 @@ public class EditorTabController {
         gameEvents.add(new OnTurnEndEvent());
         gameEvents.add(new OnTurnStartEvent());
 
-        return gameEvents;
+        eventTypeComboBox.getItems().addAll(gameEvents);
+        eventTypeComboBox.setPromptText("Select a Game Event");
+        eventTypeComboBox.setEditable(false);
     }
 
 
-    /**
-     * Populates and returns an ArrayList of Game Actions (strings) for use in drop-down menus.
-     * Populated based on the contents of the model/GameActions directory.
-     *
-     * @return An ArrayList of Game Actions names (strings).
-     */
-    public ArrayList<GameAction> getActionList() {
-        ArrayList<GameAction> gameActions = new ArrayList<>();
+    public void initActionTypeComboBox() {
+        ComboBox actionTypeComboBox = view.getActionTypeComboBox();
 
+        ArrayList<GameAction> gameActions = new ArrayList<>();
         gameActions.add(new DealCardAction());
         gameActions.add(new DrawCardAction());
         gameActions.add(new EndGameAction());
@@ -82,7 +74,31 @@ public class EditorTabController {
         gameActions.add(new SkipTurnAction());
         gameActions.add(new StartTurnAction());
 
-        return gameActions;
+        actionTypeComboBox.getItems().addAll(gameActions);
+        actionTypeComboBox.setPromptText("Select a Game Action");
+        actionTypeComboBox.setEditable(false);
+    }
+
+
+    public void initCardValueComboBoxes() {
+        ComboBox eventCardValueComboBox = view.getEventCardValueComboBox();
+        ComboBox actionCardValueComboBox = view.getActionCardValueComboBox();
+
+        eventCardValueComboBox.getItems().add("Any");
+        eventCardValueComboBox.getItems().addAll(PlayingCard.values());
+        actionCardValueComboBox.getItems().add("Any");
+        actionCardValueComboBox.getItems().addAll(PlayingCard.values());
+    }
+
+
+    public void initCardSuitComboBoxes() {
+        ComboBox eventCardSuitComboBox = view.getEventCardSuitComboBox();
+        ComboBox actionCardSuitComboBox = view.getActionCardSuitComboBox();
+
+        eventCardSuitComboBox.getItems().add("Any");
+        eventCardSuitComboBox.getItems().addAll(Suit.values());
+        actionCardSuitComboBox.getItems().add("Any");
+        actionCardSuitComboBox.getItems().addAll(Suit.values());
     }
 
 
@@ -122,13 +138,13 @@ public class EditorTabController {
 
         switch (ruleType) {
             case EVENT:
-                comboBox = view.getEventComboBox();
+                comboBox = view.getEventTypeComboBox();
                 nameTextField = view.getEventNameTextField();
                 previousRuleTextField = view.getEventPreviousRuleTextField();
                 descriptionTextField = view.getEventDescriptionTextField();
                 break;
             case ACTION:
-                comboBox = view.getActionComboBox();
+                comboBox = view.getActionTypeComboBox();
                 nameTextField = view.getActionNameTextField();
                 previousRuleTextField = view.getActionPreviousRuleTextField();
                 descriptionTextField = view.getActionDescriptionTextField();
@@ -294,7 +310,7 @@ public class EditorTabController {
             view.getUpdateEventButton().setDisable(false);
             view.getDeleteEventButton().setDisable(false);
 
-            view.getEventComboBox().setValue(r.getGameRule());
+            view.getEventTypeComboBox().setValue(r.getGameRule());
             view.getEventNameTextField().setText(r.getText());
             view.getEventDescriptionTextField().setText(r.getGameRule().getDescription());
             view.getEventPreviousRuleTextField().setText(getPreviousRuleText(r));
@@ -306,7 +322,7 @@ public class EditorTabController {
             view.getUpdateActionButton().setDisable(false);
             view.getDeleteActionButton().setDisable(false);
 
-            view.getActionComboBox().setValue(r.getGameRule());
+            view.getActionTypeComboBox().setValue(r.getGameRule());
             view.getActionNameTextField().setText(r.getText());
             view.getActionDescriptionTextField().setText(r.getGameRule().getDescription());
             view.getActionPreviousRuleTextField().setText(getPreviousRuleText(r));
