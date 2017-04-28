@@ -91,8 +91,8 @@ public class EditorTabView extends Tab {
         addActionButton.setOnAction(controller::onAddActionButtonClick);
         updateEventButton.setOnAction(controller::onUpdateEventButtonClick);
         updateActionButton.setOnAction(controller::onUpdateActionButtonClick);
-//        deleteEventButton.setOnAction(controller::onDeleteEventButtonClick);
-//        deleteActionButton.setOnAction(controller::onDeleteActionButtonClick);
+        deleteEventButton.setOnAction(controller::onDeleteButtonClick);
+        deleteActionButton.setOnAction(controller::onDeleteButtonClick);
         drawingPane.setOnMouseDragged(controller::drawingPaneOnMouseDragged);
         controller.addOnGameStart(drawingPane);
 
@@ -215,6 +215,18 @@ public class EditorTabView extends Tab {
     public void clearEditorDrawingPane() {
         this.drawingPane.getChildren().clear();
         controller.addOnGameStart(this.drawingPane);
+    }
+
+    public void addToEditorDrawingPane(Node element) {
+        this.drawingPane.getChildren().add(element);
+    }
+
+    public void addAllToEditorDrawingPane(Node... elements) {
+        this.drawingPane.getChildren().addAll(elements);
+    }
+
+    public void removeFromEditorDrawingPane(Object element) {
+        this.drawingPane.getChildren().remove(element);
     }
 
     public void disableEventPileComboBox() {
