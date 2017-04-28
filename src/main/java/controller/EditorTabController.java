@@ -84,9 +84,11 @@ public class EditorTabController {
         ComboBox eventCardValueComboBox = view.getEventCardValueComboBox();
         ComboBox actionCardValueComboBox = view.getActionCardValueComboBox();
 
-        eventCardValueComboBox.getItems().add("Any");
+        eventCardValueComboBox.getItems().add("*Any*");
+        eventCardValueComboBox.getItems().add("*Match Pile*");
         eventCardValueComboBox.getItems().addAll(PlayingCard.values());
-        actionCardValueComboBox.getItems().add("Any");
+        actionCardValueComboBox.getItems().add("*Any*");
+        actionCardValueComboBox.getItems().add("*Match Pile*");
         actionCardValueComboBox.getItems().addAll(PlayingCard.values());
     }
 
@@ -95,9 +97,11 @@ public class EditorTabController {
         ComboBox eventCardSuitComboBox = view.getEventCardSuitComboBox();
         ComboBox actionCardSuitComboBox = view.getActionCardSuitComboBox();
 
-        eventCardSuitComboBox.getItems().add("Any");
+        eventCardSuitComboBox.getItems().add("*Any*");
+        eventCardSuitComboBox.getItems().add("*Match Pile*");
         eventCardSuitComboBox.getItems().addAll(Suit.values());
-        actionCardSuitComboBox.getItems().add("Any");
+        actionCardSuitComboBox.getItems().add("*Any*");
+        actionCardSuitComboBox.getItems().add("*Match Pile*");
         actionCardSuitComboBox.getItems().addAll(Suit.values());
     }
 
