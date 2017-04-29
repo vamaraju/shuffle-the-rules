@@ -10,7 +10,9 @@ import javafx.scene.layout.GridPane;
 
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import model.CardOrientation;
 import model.GameCreation;
+import model.Piles.Deck;
 import model.Piles.Pile;
 import model.TableGrid;
 import model.TableGridPosition;
@@ -28,6 +30,7 @@ public class TableGridView extends GridPane {
     public TableGridView() {
         this.setStyle(TableGridCSS.DEFAULT_GRID.getStyle());
         resetGrid();
+        addInitialPile();
     }
 
     public void resetGrid() {
@@ -68,6 +71,10 @@ public class TableGridView extends GridPane {
         for (Map.Entry<Pile, TableGridPosition> gridEntry : tableGrid.getPileMap().entrySet()) {
             set(gridEntry.getValue(), gridEntry.getKey());
         }
+    }
+
+    public void addInitialPile() {
+        updateElement(new TableGridPosition(3, 1), new Deck("Deck", 0, 52, 52, CardOrientation.DOWN, "None"));
     }
 
     public void enableGridLines() {
