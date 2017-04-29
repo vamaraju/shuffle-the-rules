@@ -6,7 +6,9 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.util.Pair;
 import view.Gameplay.GameplayView;
+import view.Gameplay.SortDialog;
 
 /* Think that separate elements should have separate controllers.
 *  For now, all controller functionality for Gameplay mode will be in this file.
@@ -30,6 +32,8 @@ public class GameplayController {
 
     public void onSortHandButtonClick(Event event){
         System.out.println("Sort Hand pressed - Gameplay View ");
+        SortDialog sortDialog = new SortDialog();
+        Pair<String, Boolean> result = sortDialog.getResult();
 
     }
 
