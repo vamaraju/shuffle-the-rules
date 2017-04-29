@@ -66,8 +66,8 @@ public class EditorTabView extends Tab {
         boldAllHeaders(eventsGridElements);
         boldAllHeaders(actionsGridElements);
 
-        setTextFieldPrompts(eventsGridElements);
-        setTextFieldPrompts(actionsGridElements);
+        setInputPrompts(eventsGridElements);
+        setInputPrompts(actionsGridElements);
 
         initGrid(eventsGrid, eventsGridElements, GameRuleType.EVENT);
         initGrid(actionsGrid, actionsGridElements, GameRuleType.ACTION);
@@ -87,14 +87,15 @@ public class EditorTabView extends Tab {
 
         this.selectedProperty().addListener(controller::onTabSelected);
         getEventTypeComboBox().valueProperty().addListener(controller::onEventTypeChanged);
-        addEventButton.setOnAction(controller::onAddEventButtonClick);
-        addActionButton.setOnAction(controller::onAddActionButtonClick);
-        updateEventButton.setOnAction(controller::onUpdateEventButtonClick);
-        updateActionButton.setOnAction(controller::onUpdateActionButtonClick);
+        getActionTypeComboBox().valueProperty().addListener(controller::onActionTypeChanged);
+        addEventButton.setOnAction(controller::onAddButtonClick);
+        addActionButton.setOnAction(controller::onAddButtonClick);
+        updateEventButton.setOnAction(controller::onUpdateButtonClick);
+        updateActionButton.setOnAction(controller::onUpdateButtonClick);
         deleteEventButton.setOnAction(controller::onDeleteButtonClick);
         deleteActionButton.setOnAction(controller::onDeleteButtonClick);
         drawingPane.setOnMouseDragged(controller::drawingPaneOnMouseDragged);
-        controller.addOnGameStart(drawingPane);
+        controller.addOnGameStart();
 
         controller.initEventTypeComboBox();
         controller.initActionTypeComboBox();
@@ -106,9 +107,11 @@ public class EditorTabView extends Tab {
 
         eventsPane.setText("Events");
         eventsPane.setContent(eventsGrid);
+        eventsPane.expandedProperty().addListener(controller::onEventsExpanded);
 
         actionsPane.setText("Actions");
         actionsPane.setContent(actionsGrid);
+        actionsPane.expandedProperty().addListener(controller::onActionsExpanded);
 
         accordion.getPanes().addAll(eventsPane, actionsPane);
 
@@ -140,11 +143,23 @@ public class EditorTabView extends Tab {
         }
     }
 
+    private void setInputPrompts(TripleHashMap<String, Node, Node> gridElements) {
+        setTextFieldPrompts(gridElements);
+//        setComboBoxPrompts(gridElements);
+    }
+
     private void setTextFieldPrompts(TripleHashMap<String, Node, Node> gridElements) {
         ((TextField) gridElements.getValue2("name")).setPromptText("Enter a Name");
         ((TextField) gridElements.getValue2("description")).setPromptText("Enter a Description");
         ((TextField) gridElements.getValue2("previous")).setPromptText("Enter the Previous Rule");
         ((TextField) gridElements.getValue2("numberOfCards")).setPromptText("Enter the Number of Cards");
+    }
+
+    private void setComboBoxPrompts(TripleHashMap<String, Node, Node> gridElements) {
+        ((ComboBox) gridElements.getValue2("pile")).setPromptText("Deck");
+        ((ComboBox) gridElements.getValue2("cardValue")).setPromptText("*Any*");
+        ((ComboBox) gridElements.getValue2("cardSuit")).setPromptText("*Any*");
+        ((ComboBox) gridElements.getValue2("player")).setPromptText("*All*");
     }
 
     private void initGrid(GridPane grid, TripleHashMap<String, Node, Node> gridElements, GameRuleType ruleType) {
@@ -214,7 +229,7 @@ public class EditorTabView extends Tab {
 
     public void clearEditorDrawingPane() {
         this.drawingPane.getChildren().clear();
-        controller.addOnGameStart(this.drawingPane);
+        controller.addOnGameStart();
     }
 
     public void addToEditorDrawingPane(Node element) {
@@ -341,12 +356,12 @@ public class EditorTabView extends Tab {
         enableActionPlayerComboBox();
     }
 
-    public TextField getEventNameTextField() {
-        return (TextField) eventsGridElements.getValue2("name");
+    public TripleHashMap<String, Node, Node> getEventsGridElements() {
+        return eventsGridElements;
     }
 
-    public TextField getActionNameTextField() {
-        return (TextField) actionsGridElements.getValue2("name");
+    public TripleHashMap<String, Node, Node> getActionsGridElements() {
+        return actionsGridElements;
     }
 
     public Accordion getAccordion() {
@@ -361,72 +376,116 @@ public class EditorTabView extends Tab {
         return actionsPane;
     }
 
-    public ComboBox getEventTypeComboBox() {
-        return (ComboBox) eventsGridElements.getValue2("type");
-    }
-
-    public ComboBox getActionTypeComboBox() {
-        return (ComboBox) actionsGridElements.getValue2("type");
-    }
-
     public GridPane getEventsGrid() {
         return this.eventsGrid;
     }
 
+    public TextField getNameTextField(TripleHashMap<String, Node, Node> gridElements) {
+        return (TextField) gridElements.getValue2("name");
+    }
+
+    public TextField getEventNameTextField() {
+        return getNameTextField(eventsGridElements);
+    }
+
+    public TextField getActionNameTextField() {
+        return getNameTextField(actionsGridElements);
+    }
+
+    public ComboBox getTypeComboBox(TripleHashMap<String, Node, Node> gridElements) {
+        return (ComboBox) gridElements.getValue2("type");
+    }
+
+    public ComboBox getEventTypeComboBox() {
+        return getTypeComboBox(eventsGridElements);
+    }
+
+    public ComboBox getActionTypeComboBox() {
+        return getTypeComboBox(actionsGridElements);
+    }
+
+    public TextField getPreviousRuleTextField(TripleHashMap<String, Node, Node> gridElements) {
+        return (TextField) gridElements.getValue2("previous");
+    }
+
     public TextField getEventPreviousRuleTextField() {
-        return (TextField) eventsGridElements.getValue2("previous");
+        return getPreviousRuleTextField(eventsGridElements);
     }
 
     public TextField getActionPreviousRuleTextField() {
-        return (TextField) actionsGridElements.getValue2("previous");
+        return getPreviousRuleTextField(actionsGridElements);
+    }
+
+    public TextField getDescriptionTextField(TripleHashMap<String, Node, Node> gridElements) {
+        return (TextField) gridElements.getValue2("description");
     }
 
     public TextField getEventDescriptionTextField() {
-        return (TextField) eventsGridElements.getValue2("description");
+        return getDescriptionTextField(eventsGridElements);
     }
 
     public TextField getActionDescriptionTextField() {
-        return (TextField) actionsGridElements.getValue2("description");
+        return getDescriptionTextField(actionsGridElements);
+    }
+
+    public ComboBox getPileComboBox(TripleHashMap<String, Node, Node> gridElements) {
+        return (ComboBox) gridElements.getValue2("pile");
+    }
+
+    public TextField getNumCardsTextField(TripleHashMap<String, Node, Node> gridElements) {
+        return (TextField) gridElements.getValue2("numberOfCards");
+    }
+
+    public ComboBox getCardValueComboBox(TripleHashMap<String, Node, Node> gridElements) {
+        return (ComboBox) gridElements.getValue2("cardValue");
+    }
+
+    public ComboBox getCardSuitComboBox(TripleHashMap<String, Node, Node> gridElements) {
+        return (ComboBox) gridElements.getValue2("cardSuit");
+    }
+
+    public ComboBox getPlayerComboBox(TripleHashMap<String, Node, Node> gridElements) {
+        return (ComboBox) gridElements.getValue2("player");
     }
 
     public ComboBox getEventPileComboBox() {
-        return (ComboBox) eventsGridElements.getValue2("pile");
+        return getPileComboBox(eventsGridElements);
     }
 
     public TextField getEventNumCardsTextField() {
-        return (TextField) eventsGridElements.getValue2("numberOfCards");
+        return getNumCardsTextField(eventsGridElements);
     }
 
     public ComboBox getEventCardValueComboBox() {
-        return (ComboBox) eventsGridElements.getValue2("cardValue");
+        return getCardValueComboBox(eventsGridElements);
     }
 
     public ComboBox getEventCardSuitComboBox() {
-        return (ComboBox) eventsGridElements.getValue2("cardSuit");
+        return getCardSuitComboBox(eventsGridElements);
     }
 
     public ComboBox getEventPlayerComboBox() {
-        return (ComboBox) eventsGridElements.getValue2("player");
+        return getPlayerComboBox(eventsGridElements);
     }
 
     public ComboBox getActionPileComboBox() {
-        return (ComboBox) actionsGridElements.getValue2("pile");
+        return getPileComboBox(actionsGridElements);
     }
 
     public TextField getActionNumCardsTextField() {
-        return (TextField) actionsGridElements.getValue2("numberOfCards");
+        return getNumCardsTextField(actionsGridElements);
     }
 
     public ComboBox getActionCardValueComboBox() {
-        return (ComboBox) actionsGridElements.getValue2("cardValue");
+        return getCardValueComboBox(actionsGridElements);
     }
 
     public ComboBox getActionCardSuitComboBox() {
-        return (ComboBox) actionsGridElements.getValue2("cardSuit");
+        return getCardSuitComboBox(actionsGridElements);
     }
 
     public ComboBox getActionPlayerComboBox() {
-        return (ComboBox) actionsGridElements.getValue2("player");
+        return getPlayerComboBox(actionsGridElements);
     }
 
     public Button getAddEventButton() {

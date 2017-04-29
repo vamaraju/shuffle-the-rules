@@ -7,6 +7,7 @@ package controller;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -22,6 +23,7 @@ import view.RuleElementLine;
 import view.RuleElementRectangle;
 import view.EditorTabView;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,6 +32,9 @@ public class EditorTabController {
     private EditorTabView view;
     private final double ROW_SEPARATION_DISTANCE = 70;
     private final double COL_SEPARATION_DISTANCE = 40;
+
+    private TripleHashMap<String, Node, Node> activeGridElements;
+    private GameRuleType currentRuleType;
 
     public EditorTabController(EditorTabView view) {
         this.view = view;
@@ -106,60 +111,49 @@ public class EditorTabController {
     }
 
 
+    public void onEventsExpanded(ObservableValue observable, Object oldExpandedValue, Object newExpandedValue) {
+        boolean expanded = (boolean) newExpandedValue;
+        if (expanded) {
+            activeGridElements = view.getEventsGridElements();
+            currentRuleType = GameRuleType.EVENT;
+        }
+    }
+
+
+    public void onActionsExpanded(ObservableValue observable, Object oldExpandedValue, Object newExpandedValue) {
+        boolean expanded = (boolean) newExpandedValue;
+        if (expanded) {
+            activeGridElements = view.getActionsGridElements();
+            currentRuleType = GameRuleType.ACTION;
+        }
+    }
+
+
     /**
      * Onclick listener for the "Add Event" button in the Editor tab, Events sub-tab.
      * Adds a rectangle with text to the drawing pane, as well as any connecting lines to other rectangles.
      *
      * @param e
      */
-    public void onAddEventButtonClick(Event e) {
+    public void onAddButtonClick(Event e) {
         Pane drawingPane = view.getEditorDrawingPane();
 
-        ComboBox typeComboBox = view.getEventTypeComboBox();
-        TextField nameTextField = view.getEventNameTextField();
-        TextField previousRuleTextField = view.getEventPreviousRuleTextField();
-        TextField descriptionTextField = view.getEventDescriptionTextField();
+        ComboBox typeComboBox = view.getTypeComboBox(activeGridElements);
+        TextField nameTextField = view.getNameTextField(activeGridElements);
+        TextField previousRuleTextField = view.getPreviousRuleTextField(activeGridElements);
+        TextField descriptionTextField = view.getDescriptionTextField(activeGridElements);
 
-        if (runAllValidations(GameRuleType.EVENT, typeComboBox, nameTextField.getText(), previousRuleTextField.getText(), descriptionTextField.getText())) {
-            GameRule gameRule = (GameEvent) typeComboBox.getValue();
-            String ruleDescription = descriptionTextField.getText();
-            if (!(ruleDescription == null || ruleDescription.isEmpty())) {
-                gameRule.setDescription(ruleDescription);
-            }
-
-            createAndAddRect(drawingPane, nameTextField.getText(), GameRuleType.EVENT, gameRule, findRectangleByName(previousRuleTextField.getText()));
+        if (runAllValidations()) {
+            GameRule gameRule = getGameRuleFromComboBox();
+            setRuleDescription(gameRule);
+            setRuleSpecificSettings(gameRule);
+            createAndAddRect(drawingPane, nameTextField.getText(), gameRule, findRectangleByName(previousRuleTextField.getText()));
         }
     }
 
 
-    /**
-     * Onclick listener for the "Add Action" button in the Editor tab, Actions sub-tab.
-     * Adds a rectangle with text to the drawing pane, as well as any connecting lines to other rectangles.
-     *
-     * @param e
-     */
-    public void onAddActionButtonClick(Event e) {
-        Pane drawingPane = view.getEditorDrawingPane();
-
-        ComboBox typeComboBox = view.getActionTypeComboBox();
-        TextField nameTextField = view.getActionNameTextField();
-        TextField previousRuleTextField = view.getActionPreviousRuleTextField();
-        TextField descriptionTextField = view.getActionDescriptionTextField();
-
-        if (runAllValidations(GameRuleType.ACTION, typeComboBox, nameTextField.getText(), previousRuleTextField.getText(), descriptionTextField.getText())) {
-            GameRule gameRule = (GameAction) typeComboBox.getValue();
-            String ruleDescription = descriptionTextField.getText();
-            if (!(ruleDescription == null || ruleDescription.isEmpty())) {
-                gameRule.setDescription(ruleDescription);
-            }
-
-            createAndAddRect(drawingPane, nameTextField.getText(), GameRuleType.ACTION, gameRule, findRectangleByName(previousRuleTextField.getText()));
-        }
-    }
-
-
-    public void createAndAddRect(Pane drawingPane, String ruleName, GameRuleType ruleType, GameRule gameRule, RuleElementRectangle previousRect) {
-        RuleElementRectangle r = new RuleElementRectangle(0, 0, ruleName, ruleType);
+    public void createAndAddRect(Pane drawingPane, String ruleName, GameRule gameRule, RuleElementRectangle previousRect) {
+        RuleElementRectangle r = new RuleElementRectangle(0, 0, ruleName, currentRuleType);
         r.setGameRule(gameRule);
         r.addPreRule(previousRect);
         previousRect.addPostRule(r);
@@ -181,34 +175,37 @@ public class EditorTabController {
         r.setOnMouseClicked(this::onRectangleClicked);
         r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
 
-        drawingPane.getChildren().addAll(r, r.getTextObj(), l, l.getArrowhead());
+        view.addAllToEditorDrawingPane(r, r.getTextObj(), l, l.getArrowhead());
     }
 
 
-    public void addOnGameStart(Pane drawingPane) {
+    public void addOnGameStart() {
         RuleElementRectangle r = new RuleElementRectangle(160, 50, "Game Start", GameRuleType.EVENT);
         r.setDefaultBorderColor(Color.BLACK);
         r.setStroke(Color.BLACK);
 
         r.setGameRule(new OnGameStartEvent());
 
-        drawingPane.getChildren().addAll(r, r.getTextObj());
+        view.addAllToEditorDrawingPane(r, r.getTextObj());
 
         r.setOnMouseClicked(this::onRectangleClicked);
         r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
     }
 
 
-    public void onUpdateEventButtonClick(Event e) {
+    public void onUpdateButtonClick(Event e) {
         RuleElementRectangle r = view.getClickedRectangle();
 
-        if (runAllValidations(GameRuleType.EVENT, view.getEventTypeComboBox(), view.getEventNameTextField().getText(), view.getEventPreviousRuleTextField().getText(), view.getEventDescriptionTextField().getText())) {
-            r.setGameRule((GameRule) view.getEventTypeComboBox().getValue());
-            r.setText(view.getEventNameTextField().getText());
-            r.getGameRule().setDescription(view.getEventDescriptionTextField().getText());
+        if (runAllValidations()) {
+            GameRule gameRule = getGameRuleFromComboBox();
+            r.setGameRule(gameRule);
+            r.setText(view.getNameTextField(activeGridElements).getText());
+            setRuleDescription(gameRule);
+            setRuleSpecificSettings(gameRule);
 
             deletePreLines(r);
-            RuleElementRectangle preRule = findRectangleByName(view.getEventPreviousRuleTextField().getText());
+            r.getPreRules().clear();
+            RuleElementRectangle preRule = findRectangleByName(view.getPreviousRuleTextField(activeGridElements).getText());
             RuleElementLine inLine = new RuleElementLine(preRule.getCenterX(), preRule.getEndY(), r.getCenterX(), r.getY());
 
             r.getPreRules().add(preRule);
@@ -217,30 +214,7 @@ public class EditorTabController {
             preRule.getOutLines().add(inLine);
             view.addAllToEditorDrawingPane(inLine, inLine.getArrowhead());
 
-            showUpdateSuccessfulAlert(GameRuleType.EVENT);
-        }
-    }
-
-
-    public void onUpdateActionButtonClick(Event e) {
-        RuleElementRectangle r = view.getClickedRectangle();
-
-        if (runAllValidations(GameRuleType.ACTION, view.getActionTypeComboBox(), view.getActionNameTextField().getText(), view.getActionPreviousRuleTextField().getText(), view.getActionDescriptionTextField().getText())) {
-            r.setGameRule((GameRule) view.getActionTypeComboBox().getValue());
-            r.setText(view.getActionNameTextField().getText());
-            r.getGameRule().setDescription(view.getActionDescriptionTextField().getText());
-
-            deletePreLines(r);
-            RuleElementRectangle preRule = findRectangleByName(view.getActionPreviousRuleTextField().getText());
-            RuleElementLine inLine = new RuleElementLine(preRule.getCenterX(), preRule.getEndY(), r.getCenterX(), r.getY());
-
-            r.getPreRules().add(preRule);
-            preRule.getPostRules().add(r);
-            r.getInLines().add(inLine);
-            preRule.getOutLines().add(inLine);
-            view.addAllToEditorDrawingPane(inLine, inLine.getArrowhead());
-
-            showUpdateSuccessfulAlert(GameRuleType.ACTION);
+            showUpdateSuccessfulAlert();
         }
     }
 
@@ -263,7 +237,6 @@ public class EditorTabController {
             view.removeFromEditorDrawingPane(preLine.getArrowhead());
         }
         r.getInLines().clear();
-        r.getPreRules().clear();
     }
 
 
@@ -277,7 +250,6 @@ public class EditorTabController {
             view.removeFromEditorDrawingPane(postLine.getArrowhead());
         }
         r.getOutLines().clear();
-        r.getPostRules().clear();
     }
 
 
@@ -287,6 +259,8 @@ public class EditorTabController {
             deletePostLines(postRule);
             deletePostRules(postRule);
         }
+        r.getPreRules().clear();
+        r.getPostRules().clear();
         view.removeFromEditorDrawingPane(r);
         view.removeFromEditorDrawingPane(r.getTextObj());
     }
@@ -316,18 +290,146 @@ public class EditorTabController {
         ComboBox actionPlayerComboBox = view.getActionPlayerComboBox();
 
         eventPlayerComboBox.getItems().clear();
-        eventPlayerComboBox.getItems().add("All");
+        eventPlayerComboBox.getItems().add("*All*");
+        eventPlayerComboBox.getItems().add("*Current*");
         eventPlayerComboBox.getItems().addAll(GameCreation.getInstance().getPlayers());
 
         actionPlayerComboBox.getItems().clear();
-        actionPlayerComboBox.getItems().add("All");
+        actionPlayerComboBox.getItems().add("*All*");
+        actionPlayerComboBox.getItems().add("*Current*");
         actionPlayerComboBox.getItems().addAll(GameCreation.getInstance().getPlayers());
     }
 
 
     public void onEventTypeChanged(ObservableValue observable, Object oldEventType, Object newEventType) {
         GameEvent selectedGameEvent = (GameEvent) newEventType;
-        System.out.println(selectedGameEvent);
+        if (selectedGameEvent instanceof OnCardDrawnEvent) {
+            view.getEventPileComboBox().setDisable(true);
+            view.getEventNumCardsTextField().setDisable(true);
+            view.getEventCardValueComboBox().setDisable(false);
+            view.getEventCardSuitComboBox().setDisable(false);
+            view.getEventPlayerComboBox().setDisable(true);
+        } else if (selectedGameEvent instanceof OnCardPlayedEvent) {
+            view.getEventPileComboBox().setDisable(false);
+            view.getEventNumCardsTextField().setDisable(true);
+            view.getEventCardValueComboBox().setDisable(false);
+            view.getEventCardSuitComboBox().setDisable(false);
+            view.getEventPlayerComboBox().setDisable(true);
+        } else if (selectedGameEvent instanceof OnGameStartEvent) {
+            view.getEventPileComboBox().setDisable(true);
+            view.getEventNumCardsTextField().setDisable(true);
+            view.getEventCardValueComboBox().setDisable(true);
+            view.getEventCardSuitComboBox().setDisable(true);
+            view.getEventPlayerComboBox().setDisable(true);
+        } else if (selectedGameEvent instanceof OnHandEmptyEvent || selectedGameEvent instanceof OnHandFullEvent ||
+                   selectedGameEvent instanceof OnPlayerClickEvent || selectedGameEvent instanceof OnPlayerTurnEvent ||
+                   selectedGameEvent instanceof OnTurnEndEvent || selectedGameEvent instanceof OnTurnStartEvent) {
+            view.getEventPileComboBox().setDisable(true);
+            view.getEventNumCardsTextField().setDisable(true);
+            view.getEventCardValueComboBox().setDisable(true);
+            view.getEventCardSuitComboBox().setDisable(true);
+            view.getEventPlayerComboBox().setDisable(false);
+        } else if (selectedGameEvent instanceof OnPileEmptyEvent || selectedGameEvent instanceof OnPileFullEvent) {
+            view.getEventPileComboBox().setDisable(false);
+            view.getEventNumCardsTextField().setDisable(true);
+            view.getEventCardValueComboBox().setDisable(true);
+            view.getEventCardSuitComboBox().setDisable(true);
+            view.getEventPlayerComboBox().setDisable(true);
+        }
+    }
+
+
+    public void onActionTypeChanged(ObservableValue observable, Object oldEventType, Object newActionType) {
+        GameAction selectedGameAction = (GameAction) newActionType;
+        if (selectedGameAction instanceof DealCardAction || selectedGameAction instanceof DrawCardAction) {
+            view.getActionPileComboBox().setDisable(false);
+            view.getActionNumCardsTextField().setDisable(false);
+            view.getActionCardValueComboBox().setDisable(false);
+            view.getActionCardSuitComboBox().setDisable(false);
+            view.getActionPlayerComboBox().setDisable(false);
+        } else if (selectedGameAction instanceof EndGameAction) {
+            view.getActionPileComboBox().setDisable(true);
+            view.getActionNumCardsTextField().setDisable(true);
+            view.getActionCardValueComboBox().setDisable(true);
+            view.getActionCardSuitComboBox().setDisable(true);
+            view.getActionPlayerComboBox().setDisable(true);
+        } else if (selectedGameAction instanceof EndTurnAction || selectedGameAction instanceof SkipTurnAction || selectedGameAction instanceof StartTurnAction) {
+            view.getActionPileComboBox().setDisable(true);
+            view.getActionNumCardsTextField().setDisable(true);
+            view.getActionCardValueComboBox().setDisable(true);
+            view.getActionCardSuitComboBox().setDisable(true);
+            view.getActionPlayerComboBox().setDisable(false);
+        } else if (selectedGameAction instanceof MoveCardAction || selectedGameAction instanceof PlaceCardAction) {
+            view.getActionPileComboBox().setDisable(false);
+            view.getActionNumCardsTextField().setDisable(true);
+            view.getActionCardValueComboBox().setDisable(false);
+            view.getActionCardSuitComboBox().setDisable(false);
+            view.getActionPlayerComboBox().setDisable(true);
+        } else if (selectedGameAction instanceof ShufflePileAction) {
+            view.getActionPileComboBox().setDisable(false);
+            view.getActionNumCardsTextField().setDisable(true);
+            view.getActionCardValueComboBox().setDisable(true);
+            view.getActionCardSuitComboBox().setDisable(true);
+            view.getActionPlayerComboBox().setDisable(true);
+        }
+    }
+
+
+    private void setRuleSpecificSettings(GameRule gameRule) {
+        ComboBox pileComboBox = view.getPileComboBox(activeGridElements);
+        TextField numCardsTextField = view.getNumCardsTextField(activeGridElements);
+        ComboBox cardValueComboBox = view.getCardValueComboBox(activeGridElements);
+        ComboBox cardSuitComboBox = view.getCardSuitComboBox(activeGridElements);
+        ComboBox playerComboBox = view.getPlayerComboBox(activeGridElements);
+
+        if (!pileComboBox.isDisabled()) {
+            gameRule.setPile((Pile) pileComboBox.getValue());
+        }
+        if (!numCardsTextField.isDisabled()) {
+            gameRule.setNumCards(Integer.parseInt(numCardsTextField.getText()));
+        }
+        if (!cardValueComboBox.isDisabled()) {
+            gameRule.setCardValue(cardValueComboBox.getValue().toString());
+        }
+        if (!cardSuitComboBox.isDisabled()) {
+            gameRule.setCardSuit(cardSuitComboBox.getValue().toString());
+        }
+        if (!playerComboBox.isDisabled()) {
+            gameRule.setPlayer(playerComboBox.getValue().toString());
+        }
+    }
+
+
+    private void setRuleSpecificInputs(GameRule gameRule) {
+        ComboBox pileComboBox = view.getPileComboBox(activeGridElements);
+        TextField numCardsTextField = view.getNumCardsTextField(activeGridElements);
+        ComboBox cardValueComboBox = view.getCardValueComboBox(activeGridElements);
+        ComboBox cardSuitComboBox = view.getCardSuitComboBox(activeGridElements);
+        ComboBox playerComboBox = view.getPlayerComboBox(activeGridElements);
+
+        if (!pileComboBox.isDisabled()) {
+            pileComboBox.setValue(gameRule.getPile());
+        }
+        if (!numCardsTextField.isDisabled()) {
+            numCardsTextField.setText(Integer.toString(gameRule.getNumCards()));
+        }
+        if (!cardValueComboBox.isDisabled()) {
+            cardValueComboBox.setValue(gameRule.getCardValue());
+        }
+        if (!cardSuitComboBox.isDisabled()) {
+            cardSuitComboBox.setValue(gameRule.getCardSuit());
+        }
+        if (!playerComboBox.isDisabled()) {
+            playerComboBox.setValue(gameRule.getPlayer());
+        }
+    }
+
+
+    private void setRuleDescription(GameRule gameRule) {
+        String ruleDescription = view.getDescriptionTextField(activeGridElements).getText();
+        if (!(ruleDescription == null || ruleDescription.isEmpty())) {
+            gameRule.setDescription(ruleDescription);
+        }
     }
 
 
@@ -395,6 +497,7 @@ public class EditorTabController {
             view.getActionDescriptionTextField().setText(r.getGameRule().getDescription());
             view.getActionPreviousRuleTextField().setText(getPreviousRuleText(r));
         }
+        setRuleSpecificInputs(r.getGameRule());
     }
 
 
@@ -438,6 +541,23 @@ public class EditorTabController {
                 }
             }
         }
+        return null;
+    }
+
+
+    private GameRule getGameRuleFromComboBox() {
+        GameRule gameRule = (GameRule) view.getTypeComboBox(activeGridElements).getValue();
+        String gameRuleName = gameRule.getFullClassName();
+
+        try {
+            Class gameRuleClass = Class.forName(gameRuleName);
+            Object gameRuleObject = gameRuleClass.getConstructor().newInstance();
+            GameRule gameRuleInstance = gameRule.getClass().cast(gameRuleObject);
+            return gameRuleInstance;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -503,7 +623,8 @@ public class EditorTabController {
     }
 
 
-    private boolean previousRuleNotFoundValidation(String previousRuleName) {
+    private boolean previousRuleNotFoundValidation() {
+        String previousRuleName = view.getPreviousRuleTextField(activeGridElements).getText();
         RuleElementRectangle previousRect = findRectangleByName(previousRuleName);
         if (previousRect == null) {
             showPreviousRuleNotFoundErrorAlert(previousRuleName);
@@ -513,16 +634,18 @@ public class EditorTabController {
     }
 
 
-    private boolean ruleTypeNotSelectedValidation(GameRuleType ruleType, ComboBox typeComboBox) {
+    private boolean ruleTypeNotSelectedValidation() {
+        ComboBox typeComboBox = view.getTypeComboBox(activeGridElements);
         if (typeComboBox.getValue() == null) {
-            showRuleTypeNotSelectedErrorAlert(ruleType);
+            showRuleTypeNotSelectedErrorAlert();
             return false;
         }
         return true;
     }
 
 
-    private boolean ruleTypeIsOnGameStartValidation(ComboBox typeComboBox) {
+    private boolean ruleTypeIsOnGameStartValidation() {
+        ComboBox typeComboBox = view.getTypeComboBox(activeGridElements);
         if (typeComboBox.getValue() instanceof OnGameStartEvent) {
             showRuleTypeIsOnGameStartErrorAlert();
             return false;
@@ -531,31 +654,110 @@ public class EditorTabController {
     }
 
 
-    private boolean ruleNameEmptyValidation(GameRuleType ruleType, String ruleName) {
+    private boolean ruleNameEmptyValidation() {
+        String ruleName = view.getNameTextField(activeGridElements).getText();
         if (ruleName == null || ruleName.isEmpty()) {
-            showRuleNameEmptyErrorAlert(ruleType);
+            showRuleNameEmptyErrorAlert();
             return false;
         }
         return true;
     }
 
 
-    private boolean ruleNameExistsValidation(GameRuleType ruleType, String ruleName) {
+    private boolean ruleNameExistsValidation() {
+        String ruleName = view.getNameTextField(activeGridElements).getText();
         RuleElementRectangle r = findRectangleByName(ruleName);
         if ((ruleName.equals("Game Start")) || (r != null && !r.isClicked())) {
-            showRuleNameExistsErrorAlert(ruleType, ruleName);
+            showRuleNameExistsErrorAlert(ruleName);
             return false;
         }
         return true;
     }
 
 
-    private boolean runAllValidations(GameRuleType ruleType, ComboBox typeComboBox, String ruleName, String previousRuleName, String ruleDescription) {
-        if (!previousRuleNotFoundValidation(previousRuleName)) {return false;}
-        if (!ruleTypeNotSelectedValidation(ruleType, typeComboBox)) {return false;}
-        if (!ruleTypeIsOnGameStartValidation(typeComboBox)) {return false;}
-        if (!ruleNameEmptyValidation(ruleType, ruleName)) {return false;}
-        if (!ruleNameExistsValidation(ruleType, ruleName)) {return false;}
+    private boolean pileEmptyValidation() {
+        ComboBox pileComboBox = view.getPileComboBox(activeGridElements);
+        if (!pileComboBox.isDisabled()) {
+            if (pileComboBox.getValue() == null || pileComboBox.getValue().equals("")) {
+                showSpecificSettingEmptyErrorAlert("Pile");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean numCardsEmptyValidation() {
+        TextField numCardsTextField = view.getNumCardsTextField(activeGridElements);
+        if (!numCardsTextField.isDisabled()) {
+            if (numCardsTextField.getText() == null || numCardsTextField.getText().isEmpty()) {
+                showSpecificSettingEmptyErrorAlert("Number of Cards");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean cardValueEmptyValidation() {
+        ComboBox cardValueComboBox = view.getCardValueComboBox(activeGridElements);
+        if (!cardValueComboBox.isDisabled()) {
+            if (cardValueComboBox.getValue() == null || cardValueComboBox.getValue().equals("")) {
+                showSpecificSettingEmptyErrorAlert("Card Value");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean cardSuitEmptyValidation() {
+        ComboBox cardSuitComboBox = view.getCardSuitComboBox(activeGridElements);
+        if (!cardSuitComboBox.isDisabled()) {
+            if (cardSuitComboBox.getValue() == null || cardSuitComboBox.getValue().equals("")) {
+                showSpecificSettingEmptyErrorAlert("Card Suit");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean playerEmptyValidation() {
+        ComboBox playerComboBox = view.getPlayerComboBox(activeGridElements);
+        if (!playerComboBox.isDisabled()) {
+            if (playerComboBox.getValue() == null || playerComboBox.getValue().equals("")) {
+                showSpecificSettingEmptyErrorAlert("Player(s)");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean runAllValidations() {
+        ComboBox ruleTypeComboBox = view.getTypeComboBox(activeGridElements);
+        TextField ruleNameTextField = view.getNameTextField(activeGridElements);
+        TextField ruleDescriptionTextField = view.getDescriptionTextField(activeGridElements);
+        TextField previousRuleNameTextField = view.getPreviousRuleTextField(activeGridElements);
+        ComboBox pileComboBox = view.getPileComboBox(activeGridElements);
+        TextField numCardsTextField = view.getNumCardsTextField(activeGridElements);
+        ComboBox cardValueComboBox = view.getCardValueComboBox(activeGridElements);
+        ComboBox cardSuitComboBox = view.getCardSuitComboBox(activeGridElements);
+        ComboBox playerComboBox = view.getPlayerComboBox(activeGridElements);
+
+        String ruleTypeName = ruleTypeComboBox.getValue().toString();
+        if (!previousRuleNotFoundValidation()) {return false;}
+        if (!ruleTypeNotSelectedValidation()) {return false;}
+        if (!ruleTypeIsOnGameStartValidation()) {return false;}
+        if (!ruleNameEmptyValidation()) {return false;}
+        if (!ruleNameExistsValidation()) {return false;}
+        if (!pileEmptyValidation()) {return false;}
+        if (!numCardsEmptyValidation()) {return false;}
+        if (!cardValueEmptyValidation()) {return false;}
+        if (!cardSuitEmptyValidation()) {return false;}
+        if (!playerEmptyValidation()) {return false;}
+
         return true;
     }
 
@@ -567,10 +769,10 @@ public class EditorTabController {
     }
 
 
-    private void showRuleTypeNotSelectedErrorAlert(GameRuleType ruleType) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a Game " + ruleType.getName() + " type from the drop-down box.");
-        alert.setTitle(ruleType.getName() + " Type Error");
-        alert.setHeaderText(ruleType.getName() + " Type Not Selected");
+    private void showRuleTypeNotSelectedErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a Game " + currentRuleType + " type from the drop-down box.");
+        alert.setTitle(currentRuleType + " Type Error");
+        alert.setHeaderText(currentRuleType + " Type Not Selected");
         alert.showAndWait();
     }
 
@@ -583,26 +785,35 @@ public class EditorTabController {
     }
 
 
-    private void showRuleNameEmptyErrorAlert(GameRuleType ruleType) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter an " + ruleType.getName() + " name in the text field.");
-        alert.setTitle(ruleType.getName() + " Name Error");
-        alert.setHeaderText(ruleType.getName() + " Name Is Missing");
+    private void showRuleNameEmptyErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter an " + currentRuleType + " name in the text field.");
+        alert.setTitle(currentRuleType + " Name Error");
+        alert.setHeaderText(currentRuleType + " Name Is Missing");
         alert.showAndWait();
     }
 
 
-    private void showRuleNameExistsErrorAlert(GameRuleType ruleType, String eventName) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter a unique " + ruleType.getName() + " name in the text field. The specified name already exists in the rule tree: \n" + eventName);
-        alert.setTitle(ruleType.getName() + " Name Error");
-        alert.setHeaderText(ruleType.getName() + " Name Is A Duplicate");
+    private void showRuleNameExistsErrorAlert(String eventName) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter a unique " + currentRuleType + " name in the text field. The specified name already exists in the rule tree: \n" + eventName);
+        alert.setTitle(currentRuleType + " Name Error");
+        alert.setHeaderText(currentRuleType + " Name Is A Duplicate");
         alert.showAndWait();
     }
 
 
-    private void showUpdateSuccessfulAlert(GameRuleType ruleType) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, ruleType.getName() + " updated successfully!");
-        alert.setTitle(ruleType.getName() + " Update Successful");
-        alert.setHeaderText(ruleType.getName() + " Update Successful");
+    private void showSpecificSettingEmptyErrorAlert(String settingName) {
+        String ruleName = view.getTypeComboBox(activeGridElements).getValue().toString();
+        Alert alert = new Alert(Alert.AlertType.WARNING, "An " + currentRuleType + "-Specific setting is unspecified.\nThe " + settingName + " setting is required for " + ruleName + ".");
+        alert.setTitle(currentRuleType + "-Specific Setting Error");
+        alert.setHeaderText("An " + currentRuleType + "-Specific Setting Is Empty");
+        alert.showAndWait();
+    }
+
+
+    private void showUpdateSuccessfulAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, currentRuleType + " updated successfully!");
+        alert.setTitle(currentRuleType + " Update Successful");
+        alert.setHeaderText(currentRuleType + " Update Successful");
         alert.showAndWait();
     }
 }
