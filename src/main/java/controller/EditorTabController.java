@@ -202,23 +202,93 @@ public class EditorTabController {
     public void onUpdateEventButtonClick(Event e) {
         RuleElementRectangle r = view.getClickedRectangle();
 
-        //validate before updating!!! runallvalidations()
+        if (runAllValidations(GameRuleType.EVENT, view.getEventTypeComboBox(), view.getEventNameTextField().getText(), view.getEventPreviousRuleTextField().getText(), view.getEventDescriptionTextField().getText())) {
+            r.setGameRule((GameRule) view.getEventTypeComboBox().getValue());
+            r.setText(view.getEventNameTextField().getText());
+            r.getGameRule().setDescription(view.getEventDescriptionTextField().getText());
 
-        r.setGameRule((GameRule) view.getEventTypeComboBox().getValue());
-        r.setText(view.getEventNameTextField().getText());
-        r.getGameRule().setDescription(view.getEventDescriptionTextField().getText());
-        // update previous rule.....??
-        showUpdateSuccessfulAlert(GameRuleType.EVENT);
+            deletePreLines(r);
+            RuleElementRectangle preRule = findRectangleByName(view.getEventPreviousRuleTextField().getText());
+            RuleElementLine inLine = new RuleElementLine(preRule.getCenterX(), preRule.getEndY(), r.getCenterX(), r.getY());
+
+            r.getPreRules().add(preRule);
+            preRule.getPostRules().add(r);
+            r.getInLines().add(inLine);
+            preRule.getOutLines().add(inLine);
+            view.addAllToEditorDrawingPane(inLine, inLine.getArrowhead());
+
+            showUpdateSuccessfulAlert(GameRuleType.EVENT);
+        }
     }
 
 
     public void onUpdateActionButtonClick(Event e) {
         RuleElementRectangle r = view.getClickedRectangle();
-        r.setGameRule((GameRule) view.getActionTypeComboBox().getValue());
-        r.setText(view.getActionNameTextField().getText());
-        r.getGameRule().setDescription(view.getActionDescriptionTextField().getText());
-        // update previous rule.....??
-        showUpdateSuccessfulAlert(GameRuleType.ACTION);
+
+        if (runAllValidations(GameRuleType.ACTION, view.getActionTypeComboBox(), view.getActionNameTextField().getText(), view.getActionPreviousRuleTextField().getText(), view.getActionDescriptionTextField().getText())) {
+            r.setGameRule((GameRule) view.getActionTypeComboBox().getValue());
+            r.setText(view.getActionNameTextField().getText());
+            r.getGameRule().setDescription(view.getActionDescriptionTextField().getText());
+
+            deletePreLines(r);
+            RuleElementRectangle preRule = findRectangleByName(view.getActionPreviousRuleTextField().getText());
+            RuleElementLine inLine = new RuleElementLine(preRule.getCenterX(), preRule.getEndY(), r.getCenterX(), r.getY());
+
+            r.getPreRules().add(preRule);
+            preRule.getPostRules().add(r);
+            r.getInLines().add(inLine);
+            preRule.getOutLines().add(inLine);
+            view.addAllToEditorDrawingPane(inLine, inLine.getArrowhead());
+
+            showUpdateSuccessfulAlert(GameRuleType.ACTION);
+        }
+    }
+
+
+    public void onDeleteButtonClick(Event e) {
+        RuleElementRectangle r = view.getClickedRectangle();
+        deletePreLines(r);
+        deletePostLines(r);
+        deletePostRules(r);
+    }
+
+
+    private void deletePreLines(RuleElementRectangle r) {
+        for (RuleElementLine preLine : r.getInLines()) {
+            for (RuleElementRectangle preRule : r.getPreRules()) {
+                preRule.getOutLines().remove(preLine);
+                preRule.getPostRules().remove(r);
+            }
+            view.removeFromEditorDrawingPane(preLine);
+            view.removeFromEditorDrawingPane(preLine.getArrowhead());
+        }
+        r.getInLines().clear();
+        r.getPreRules().clear();
+    }
+
+
+    private void deletePostLines(RuleElementRectangle r) {
+        for (RuleElementLine postLine : r.getOutLines()) {
+            for (RuleElementRectangle postRule : r.getPostRules()) {
+                postRule.getInLines().remove(postLine);
+                postRule.getPreRules().remove(r);
+            }
+            view.removeFromEditorDrawingPane(postLine);
+            view.removeFromEditorDrawingPane(postLine.getArrowhead());
+        }
+        r.getOutLines().clear();
+        r.getPostRules().clear();
+    }
+
+
+    private void deletePostRules(RuleElementRectangle r) {
+        for (RuleElementRectangle postRule : r.getPostRules()) {
+            deletePreLines(postRule);
+            deletePostLines(postRule);
+            deletePostRules(postRule);
+        }
+        view.removeFromEditorDrawingPane(r);
+        view.removeFromEditorDrawingPane(r.getTextObj());
     }
 
 
@@ -302,9 +372,11 @@ public class EditorTabController {
             view.getActionsPane().setExpanded(false);
             view.getEventsPane().setExpanded(true);
 
-            view.getAddEventButton().setDisable(true);
-            view.getUpdateEventButton().setDisable(false);
-            view.getDeleteEventButton().setDisable(false);
+            if (!r.getText().equals("Game Start")) {
+                view.getAddEventButton().setDisable(true);
+                view.getUpdateEventButton().setDisable(false);
+                view.getDeleteEventButton().setDisable(false);
+            }
 
             view.getEventTypeComboBox().setValue(r.getGameRule());
             view.getEventNameTextField().setText(r.getText());
@@ -469,7 +541,8 @@ public class EditorTabController {
 
 
     private boolean ruleNameExistsValidation(GameRuleType ruleType, String ruleName) {
-        if (findRectangleByName(ruleName) != null) {
+        RuleElementRectangle r = findRectangleByName(ruleName);
+        if ((ruleName.equals("Game Start")) || (r != null && !r.isClicked())) {
             showRuleNameExistsErrorAlert(ruleType, ruleName);
             return false;
         }
