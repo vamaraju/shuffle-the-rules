@@ -9,142 +9,149 @@ package view.TableTab;
 
 import controller.TableTab.CardRestrictionsMenuController;
 import javafx.collections.FXCollections;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import model.PlayingCard;
+import model.Suit;
+import model.TripleHashMap;
 
 
-public class CardRestrictionsMenuView extends TitledPane{
+public class CardRestrictionsMenuView extends TitledPane {
 
     private CardRestrictionsMenuController controller;
 
-    private ChoiceBox availableCards;
+    private GridPane cardRestrictionMenuContent;
+    private TripleHashMap<String, Node, Node> gridElements;
+
+    private Button updateButton = new Button("Update");
 
     public CardRestrictionsMenuView(){
         initialize();
     }
 
-    private Button updateButton;
-
-    private ImageView heartImageView = new ImageView(new Image("assets/playing_cards/suit/heart.png"));
-    private ImageView spadeImageView = new ImageView(new Image("assets/playing_cards/suit/spade.png"));
-    private ImageView clubImageView = new ImageView(new Image("assets/playing_cards/suit/club.png"));
-    private ImageView diamondImageView = new ImageView(new Image("assets/playing_cards/suit/diamond.png"));
-
-
-    private TextField heartCount;
-    private TextField spadeCount;
-    private TextField clubCount;
-    private TextField diamondCount;
-
-
     public void initialize(){
-
-        this.controller = new CardRestrictionsMenuController(this);
+        controller = new CardRestrictionsMenuController(this);
         this.setText("Card Restrictions");
 
-
-        GridPane cardRestrictionMenuContent = new GridPane();
+        cardRestrictionMenuContent = new GridPane();
         cardRestrictionMenuContent.setHgap(2);
         cardRestrictionMenuContent.setVgap(4);
 
-        Label selectCard = new Label("Select Card");
-        availableCards = new ChoiceBox(FXCollections.observableArrayList(PlayingCard.values()));
+        gridElements = new TripleHashMap<>();
 
-        cardRestrictionMenuContent.add(selectCard,1,1,2,1);
-        cardRestrictionMenuContent.add(availableCards,3,1,2,1);
+        gridElements.put("deckHeader", new Label("Deck Settings"), null);
+        gridElements.put("numDecks", new Label("Num Decks:"), new TextField());
 
-        /* suit count area */
+        gridElements.put("restrictionsHeader", new Label("Card Restrictions"), null);
+        gridElements.put("card", new Label("Card Value:"), new ComboBox<PlayingCard>());
+        gridElements.put("clubs", new ImageView(Suit.CLUB.getSuitAssetLocation()), new TextField());
+        gridElements.put("diamonds", new ImageView(Suit.DIAMOND.getSuitAssetLocation()), new TextField());
+        gridElements.put("hearts", new ImageView(Suit.HEART.getSuitAssetLocation()), new TextField());
+        gridElements.put("spades", new ImageView(Suit.SPADE.getSuitAssetLocation()), new TextField());
 
-        /* heart */
-        heartCount = new TextField();
-        heartCount.setMaxSize(50, 20);
-        heartImageView.setPreserveRatio(true);
-        heartImageView.setFitHeight(50);
-        heartImageView.setFitWidth(50);
+        initImageViews();
+        initGrid();
+        boldAllHeaders();
+        setTextFieldPrompts();
 
-        cardRestrictionMenuContent.add(heartImageView,1,2,1,1);
-        cardRestrictionMenuContent.add(heartCount,2,2,1,1);
+        updateButton.setOnAction(controller::onUpdateButtonClick);
+        controller.populateCardComboBox();
+        getCardComboBox().getSelectionModel().selectedItemProperty().addListener(controller::onCardSelected);
+        getNumDecksTextField().textProperty().addListener(controller::onNumDecksChanged);
 
-        /* spade */
-        spadeCount = new TextField();
-        spadeCount.setMaxSize(50, 20);
-        spadeImageView.setPreserveRatio(true);
-        spadeImageView.setFitHeight(50);
-        spadeImageView.setFitWidth(50);
-
-        cardRestrictionMenuContent.add(spadeImageView,1,3,1,1);
-        cardRestrictionMenuContent.add(spadeCount,2,3,1,1);
-
-        /* club */
-        clubCount = new TextField();
-        clubCount.setMaxSize(50, 20);
-        clubImageView.setPreserveRatio(true);
-        clubImageView.setFitHeight(50);
-        clubImageView.setFitWidth(50);
-
-        cardRestrictionMenuContent.add(clubImageView,1,4,1,1);
-        cardRestrictionMenuContent.add(clubCount,2,4,1,1);
-
-        /* diamond */
-        diamondCount = new TextField();
-        diamondCount.setMaxSize(50, 20);
-        diamondImageView.setPreserveRatio(true);
-        diamondImageView.setFitHeight(50);
-        diamondImageView.setFitWidth(50);
-
-        cardRestrictionMenuContent.add(diamondImageView,1,5,1,1);
-        cardRestrictionMenuContent.add(diamondCount,2,5,1,1);
-
-        updateButton = new Button("Update");
-        cardRestrictionMenuContent.add(updateButton,1,7,2,2);
         this.setContent(cardRestrictionMenuContent);
-
-        this.updateButton.setOnAction(controller::onUpdateButtonClick);
-
-        availableCards.getSelectionModel().selectedItemProperty().addListener(controller::changeDisplayedSuitCounts);
-
-
     }
 
-    public Button getUpdateButton() { return updateButton; }
-
-    public ChoiceBox getAvailableCards() {
-        return availableCards;
+    private void initImageViews() {
+        for (String key : gridElements.keySet()) {
+            if (gridElements.getValue1(key) instanceof ImageView) {
+                ImageView suitImageView = (ImageView) gridElements.getValue1(key);
+                suitImageView.setPreserveRatio(true);
+                suitImageView.setFitHeight(40);
+                suitImageView.setFitWidth(40);
+            }
+        }
     }
 
-    public String getHeartCount() {
-        return heartCount.getText();
+    private void initGrid() {
+        int row = 0;
+        for (String key : gridElements.keySet()) {
+            if (gridElements.getValue2(key) == null) {
+                if (row != 0) {
+                    cardRestrictionMenuContent.add(new Separator(), 0, row++);
+                }
+                cardRestrictionMenuContent.add(gridElements.getValue1(key), 0, row++);
+            } else {
+                cardRestrictionMenuContent.add(gridElements.getValue1(key), 0, row);
+                cardRestrictionMenuContent.add(gridElements.getValue2(key), 1, row++);
+            }
+        }
+
+        cardRestrictionMenuContent.add(updateButton, 0, row++);
     }
 
-    public void setHeartCount(String heartCount) {
-        this.heartCount.setText(heartCount);
+    private void boldAllHeaders() {
+        for (String key : gridElements.keySet()) {
+            if (key.contains("Header")) {
+                gridElements.getValue1(key).setStyle("-fx-font-weight: bold");
+            }
+        }
     }
 
-    public String getSpadeCount() {
-        return spadeCount.getText();
+    private void setTextFieldPrompts() {
+        getNumDecksTextField().setPromptText("Number of Decks");
+        getNumDecksTextField().setText("1");
+        getClubTextField().setPromptText("Number of Clubs");
+        getDiamondTextField().setPromptText("Number of Diamonds");
+        getHeartTextField().setPromptText("Number of Hearts");
+        getSpadeTextField().setPromptText("Number of Spades");
     }
 
-    public void setSpadeCount(String spadeCount) {
-        this.spadeCount.setText(spadeCount);
+    public TextField getNumDecksTextField() {
+        return (TextField) gridElements.getValue2("numDecks");
     }
 
-    public String getClubCount() {
-        return clubCount.getText();
+    public ComboBox<PlayingCard> getCardComboBox() {
+        return (ComboBox<PlayingCard>) gridElements.getValue2("card");
     }
 
-    public void setClubCount(String clubCount) {
-        this.clubCount.setText(clubCount);
+    public Button getUpdateButton() {
+        return updateButton;
     }
 
-    public String getDiamondCount() {
-        return diamondCount.getText();
+    public ImageView getClubImageView() {
+        return (ImageView) gridElements.getValue1("clubs");
     }
 
-    public void setDiamondCount(String diamondCount) {
-        this.diamondCount.setText(diamondCount);
+    public ImageView getDiamondImageView() {
+        return (ImageView) gridElements.getValue1("diamonds");
+    }
+
+    public ImageView getHeartImageView() {
+        return (ImageView) gridElements.getValue1("hearts");
+    }
+
+    public ImageView getSpadeImageView() {
+        return (ImageView) gridElements.getValue1("spades");
+    }
+
+    public TextField getClubTextField() {
+        return (TextField) gridElements.getValue2("clubs");
+    }
+
+    public TextField getDiamondTextField() {
+        return (TextField) gridElements.getValue2("diamonds");
+    }
+
+    public TextField getHeartTextField() {
+        return (TextField) gridElements.getValue2("hearts");
+    }
+
+    public TextField getSpadeTextField() {
+        return (TextField) gridElements.getValue2("spades");
     }
 }
 
