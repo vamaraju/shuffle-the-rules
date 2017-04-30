@@ -294,7 +294,11 @@ public class GameCreation implements Serializable {
     private void updateRectangleAssociations(ArrayList<RuleElementRectangle> rectangles, RuleElementRectangle currentRect) {
         for (int i = 0; i < currentRect.getPostRules().size(); i++) {
             for (RuleElementRectangle rect : rectangles) {
-                if (currentRect.getPostRules().get(i).equals(rect)) {currentRect.getPostRules().set(i, rect); break;}
+                if (currentRect.getPostRules().get(i).equals(rect)) {
+                    currentRect.getPostRules().set(i, rect);
+                    rect.getPreRules().add(currentRect);
+                    break;
+                }
             }
             RuleElementRectangle postRule = currentRect.getPostRules().get(i);
             updateLineAssociations(currentRect, postRule);
@@ -335,6 +339,8 @@ public class GameCreation implements Serializable {
             } else {
                 rectangles.add(r);
             }
+            r.getPreRules().clear(); // pre-rules are populated in updateRectangleAssociations() with the correct rects
+
             drawingPane.getChildren().add(r);
             drawingPane.getChildren().add(r.getTextObj());
             for (RuleElementLine l : r.getOutLines()) {
@@ -348,6 +354,8 @@ public class GameCreation implements Serializable {
 
         updateRectangleAssociations(rectangles);
         GameView.getInstance().getEditorTab().setEditorDrawingPane(drawingPane);
+        GameView.getInstance().getEditorTab().setClickedRectangle(null);
+        GameView.getInstance().getEditorTab().enableAddButtons();
     }
 
     private void loadGeneralSettings() {

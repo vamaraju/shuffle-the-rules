@@ -512,6 +512,15 @@ public class EditorTabView extends Tab {
         return deleteActionButton;
     }
 
+    public void enableAddButtons() {
+        getAddEventButton().setDisable(false);
+        getUpdateEventButton().setDisable(true);
+        getDeleteEventButton().setDisable(true);
+        getAddActionButton().setDisable(false);
+        getUpdateActionButton().setDisable(true);
+        getDeleteActionButton().setDisable(true);
+    }
+
     public RuleElementRectangle getClickedRectangle() {
         return clickedRectangle;
     }
