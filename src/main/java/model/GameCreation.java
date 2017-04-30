@@ -305,16 +305,13 @@ public class GameCreation implements Serializable {
     private void updateLineAssociations(RuleElementRectangle currentRect, RuleElementRectangle postRule) {
         for (RuleElementLine outLine : currentRect.getOutLines()) {
             for (int i = 0; i < postRule.getInLines().size(); i++) {
-                if (equalLines(outLine, postRule.getInLines().get(i))) {
+                if (outLine.equals(postRule.getInLines().get(i))) {
                     postRule.getInLines().set(i, outLine);
                 }
             }
         }
     }
 
-    private boolean equalLines(RuleElementLine l1, RuleElementLine l2) {
-        return (l1.getStartX() == l2.getStartX()) && (l1.getStartY() == l2.getStartY()) && (l1.getEndX() == l2.getEndX()) && (l1.getEndY() == l2.getEndY());
-    }
 
     private void saveDrawingPane() {
         this.rectangleBlueprints = new ArrayList<>();
@@ -338,7 +335,6 @@ public class GameCreation implements Serializable {
             } else {
                 rectangles.add(r);
             }
-
             drawingPane.getChildren().add(r);
             drawingPane.getChildren().add(r.getTextObj());
             for (RuleElementLine l : r.getOutLines()) {

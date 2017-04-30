@@ -52,4 +52,22 @@ public class RuleElementLine extends Line {
     public void setArrowhead(Polygon arrowhead) {
         this.arrowhead = arrowhead;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + arrowhead.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {return true;}
+        if (obj == null) {return false;}
+        if (!(obj instanceof RuleElementLine)) {return false;}
+
+        RuleElementLine otherLine = (RuleElementLine) obj;
+        return (this.getStartX() == otherLine.getStartX()) &&
+                (this.getStartY() == otherLine.getStartY()) &&
+                (this.getEndX() == otherLine.getEndX()) &&
+                (this.getEndY() == otherLine.getEndY());
+    }
 }
