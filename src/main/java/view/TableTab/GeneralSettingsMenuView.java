@@ -39,7 +39,7 @@ public class GeneralSettingsMenuView extends TitledPane {
         gridElements.put("minPlayers", new Label("Min:"), new TextField());
         gridElements.put("maxPlayers", new Label("Max:"), new TextField());
 
-        gridElements.put("handSizeHeader", new Label("Hand Size"), null);
+        gridElements.put("handSizeHeader", new Label("Hand Size (All Players)"), null);
         gridElements.put("minHandSize", new Label("Min:"), new TextField());
         gridElements.put("maxHandSize", new Label("Max:"), new TextField());
         gridElements.put("startingHandSize", new Label("Starting:"), new TextField());
