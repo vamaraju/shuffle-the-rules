@@ -14,6 +14,11 @@ public class GameSettings implements Serializable {
 
     }
 
+    public void reset() {
+        minPlayers = 0;
+        maxPlayers = 0;
+    }
+
     public int getMinPlayers() {
         return minPlayers;
     }

@@ -65,16 +65,14 @@ public class GameCreation implements Serializable {
      * Resets/Clears the current instance of GameCreation to a new copy. Re-instantiates GameCreation.
      */
     public static void resetInstance() {
-        instance = new GameCreation();
-        //instance.gameEvents.clear();
-        //instance.gameActions.clear();
-        //instance.piles = new HashMap<>();
-        //instance.players = new ArrayList<>();
-        //instance.cardSettings = new CardSettings();
-        //System.out.println(instance.cardSettings.getCardCount(PlayingCard.TWO));
-        //instance.gameSettings = new GameSettings();
-        //instance.rectangleBlueprints = new ArrayList<>();
-        //instance.tableGrid = new TableGrid();
+        instance.gameEvents.clear();
+        instance.gameActions.clear();
+        instance.piles.clear();
+        instance.players.clear();
+        instance.cardSettings.reset();
+        instance.gameSettings.reset();
+        instance.rectangleBlueprints.clear();
+        instance.tableGrid = new TableGrid();
     }
 
 
