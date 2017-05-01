@@ -33,7 +33,7 @@ public class GameCreation implements Serializable {
     private GameSettings gameSettings;
 
     private transient ArrayList<RuleElementRectangleBlueprint> rectangleBlueprints = new ArrayList<>();
-    private transient TableGrid tableGrid = new TableGrid();
+    private TableGrid tableGrid = new TableGrid();
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -391,13 +391,11 @@ public class GameCreation implements Serializable {
         out.defaultWriteObject();
         saveDrawingPane();
         out.writeObject(this.rectangleBlueprints);
-        out.writeObject(this.tableGrid);
     }
 
     private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
         in.defaultReadObject();
         this.rectangleBlueprints = (ArrayList<RuleElementRectangleBlueprint>) in.readObject();
-        this.tableGrid = (TableGrid) in.readObject();
         loadDrawingPane();
         loadGeneralSettings();
         loadTableGrid();
