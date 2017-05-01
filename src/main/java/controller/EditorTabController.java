@@ -75,6 +75,7 @@ public class EditorTabController {
         gameActions.add(new EndTurnAction());
         gameActions.add(new MoveCardAction());
         gameActions.add(new PlaceCardAction());
+        gameActions.add(new PlayerWinAction());
         gameActions.add(new ShufflePileAction());
         gameActions.add(new SkipTurnAction());
         gameActions.add(new StartTurnAction());
@@ -353,7 +354,7 @@ public class EditorTabController {
             view.getActionCardValueComboBox().setDisable(true);
             view.getActionCardSuitComboBox().setDisable(true);
             view.getActionPlayerComboBox().setDisable(true);
-        } else if (selectedGameAction instanceof EndTurnAction || selectedGameAction instanceof SkipTurnAction || selectedGameAction instanceof StartTurnAction) {
+        } else if (selectedGameAction instanceof EndTurnAction || selectedGameAction instanceof SkipTurnAction || selectedGameAction instanceof StartTurnAction || selectedGameAction instanceof PlayerWinAction) {
             view.getActionPileComboBox().setDisable(true);
             view.getActionNumCardsTextField().setDisable(true);
             view.getActionCardValueComboBox().setDisable(true);
