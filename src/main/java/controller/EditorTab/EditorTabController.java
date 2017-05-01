@@ -172,7 +172,7 @@ public class EditorTabController {
 
 
     public void addOnGameStart() {
-        RuleElementRectangle r = new RuleElementRectangle(160, 50, "Game Start", GameRuleType.EVENT);
+        RuleElementRectangle r = new RuleElementRectangle(160, 50, DrawingPane.ROOT_NAME, GameRuleType.EVENT);
         r.setDefaultBorderColor(Color.BLACK);
         r.setStroke(Color.BLACK);
 
@@ -466,9 +466,9 @@ public class EditorTabController {
             view.getActionsPane().setExpanded(false);
             view.getEventsPane().setExpanded(true);
 
-            if (!r.getName().equals("Game Start")) {
-                view.getAddEventButton().setDisable(true);
+            if (!view.getEditorDrawingPane().isRoot(r)) {
                 view.getUpdateEventButton().setDisable(false);
+                view.getAddEventButton().setDisable(true);
                 view.getDeleteEventButton().setDisable(false);
             }
 
@@ -480,8 +480,8 @@ public class EditorTabController {
             view.getEventsPane().setExpanded(false);
             view.getActionsPane().setExpanded(true);
 
-            view.getAddActionButton().setDisable(true);
             view.getUpdateActionButton().setDisable(false);
+            view.getAddActionButton().setDisable(true);
             view.getDeleteActionButton().setDisable(false);
 
             view.getActionTypeComboBox().setValue(r.getGameRule());
@@ -585,7 +585,11 @@ public class EditorTabController {
     private boolean ruleNameExistsValidation() {
         String ruleName = view.getNameTextField(activeGridElements).getText();
         RuleElementRectangle r = view.getEditorDrawingPane().getRectByName(ruleName);
-        if ((ruleName.equals("Game Start")) || (r != null && !r.isClicked())) {
+        // Need this extensive check due to Update.
+        // If trying to add/edit Game Start, show the error.
+        // If the rectangle exists but is clicked, proceed (return true). This means an update is being attempted.
+        // Updates are not allowed for Game Start, hence the immediate check.
+        if (ruleName.equals(DrawingPane.ROOT_NAME) || (r != null && !r.isClicked())) {
             showRuleNameExistsErrorAlert(ruleName);
             return false;
         }

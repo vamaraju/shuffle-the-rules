@@ -13,6 +13,7 @@ public class DrawingPane extends Pane {
 
     public static final double ROW_SEPARATION_DISTANCE = 70;
     public static final double COL_SEPARATION_DISTANCE = 40;
+    public static final String ROOT_NAME = "Game Start";
 
     public DrawingPane() {
         this.setPrefSize(800, 800);
@@ -92,6 +93,10 @@ public class DrawingPane extends Pane {
             }
         }
         return null;
+    }
+
+    public boolean isRoot(RuleElementRectangle r) {
+        return r.getName().equals(ROOT_NAME);
     }
 
     public RuleElementRectangle getRectByCoordinates(double x, double y) {
