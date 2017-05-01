@@ -51,19 +51,15 @@ public class GameplayView extends BorderPane {
         *
         * */
         /* centre pane will be the table */
-        /* TODO Could use loadTableGrid - would have to modify this method to take in a View or just get and set here */
+        /* TODO on clicks in Gameplay mode will be different than onclicks in GameCreation mode.
+        *  TODO either make another controller OR make the tableGridController an interface (with the onCLick needed to be implemented by each)? */
         table = new TableGridView(GameCreation.getInstance().getTableGrid());
 
-        //System.out.println("num cols " + GameCreation.getInstance().getTableGrid().getNumCols());
-        //System.out.println("num rows " + GameCreation.getInstance().getTableGrid().getNumRows());
-        //System.out.println("piles " + GameCreation.getInstance().getTableGrid().getPileMap().keySet());
         tableScrollPane = new ScrollPane(table);
         tableScrollPane.setFitToWidth(true);
         tableScrollPane.setFitToHeight(true);
         tableScrollPane.setStyle("-fx-focus-color: transparent;");
 
-
-//        table.setTableGrid(GameCreation.getInstance().getTableGrid());
         table.enableBackgroundImage();
         this.setCenter(table);
 
