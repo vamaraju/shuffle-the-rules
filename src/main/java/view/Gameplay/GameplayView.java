@@ -6,13 +6,16 @@
 package view.Gameplay;
 
 
-import controller.GameplayController;
+import controller.GameplayMode.GameplayController;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.*;
+import model.GameCreation;
+import model.GameView;
 import view.TableTab.TableGridView;
 
 
@@ -29,6 +32,8 @@ public class GameplayView extends BorderPane {
     private GameplayMessageView gameplayMessageView;
     private PileView selectedPileView;
 
+    ScrollPane tableScrollPane;
+
     private GameplayController gameplayController = new GameplayController(this);
 
 
@@ -38,9 +43,24 @@ public class GameplayView extends BorderPane {
 
     public void initialize(){
 
+        /*
+        * Things that need to be done
+        *       Create Card objects (based on CardSettings)
+        *       Distribute Card objects into Piles that are in TableGrid
+        *
+        *
+        * */
         /* centre pane will be the table */
-        /* TODO need to pass in TableGrid values*/
+        /* TODO Could use loadTableGrid - would have to modify this method to take in a View or just get and set here */
         table = new TableGridView();
+        //table.setTableGrid(GameView.getInstance().getTableTab().getTableGrid());
+        tableScrollPane = new ScrollPane(table);
+        tableScrollPane.setFitToWidth(true);
+        tableScrollPane.setFitToHeight(true);
+        tableScrollPane.setStyle("-fx-focus-color: transparent;");
+
+
+        //table.setTableGrid(GameCreation.getInstance().getTableGrid());
         table.enableBackgroundImage();
         this.setCenter(table);
 

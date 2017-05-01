@@ -33,6 +33,13 @@ public class TableGridView extends GridPane {
         addInitialPile();
     }
 
+    public TableGridView(TableGrid tableGrid){
+        this.setStyle(TableGridCSS.DEFAULT_GRID.getStyle());
+        setTableGrid(tableGrid);
+        drawGrid();
+    }
+
+
     public void resetGrid() {
         initGrid(TableGridDefaults.NUM_COLUMNS.toInt(), TableGridDefaults.NUM_ROWS.toInt(), TableGridDefaults.CELL_WIDTH.toDouble());
     }

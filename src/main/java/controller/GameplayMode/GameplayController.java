@@ -2,7 +2,7 @@
 * Requirements mandating inclusion:
 * */
 
-package controller;
+package controller.GameplayMode;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;

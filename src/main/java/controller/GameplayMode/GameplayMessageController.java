@@ -1,7 +1,7 @@
 /*
 * Requirements mandating inclusion:
 * */
-package controller;
+package controller.GameplayMode;
 
 import model.GameplayMessage;
 import view.Gameplay.GameplayMessageView;
