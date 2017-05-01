@@ -1,17 +1,15 @@
 /*
 * Requirements mandating inclusion:
 * */
-package view;
+package view.EditorTab;
 
 
-import controller.EditorTabController;
-import javafx.geometry.Insets;
+import controller.EditorTab.EditorTabController;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import model.GameRule;
 import model.GameRuleType;
 import model.TripleHashMap;
 

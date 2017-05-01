@@ -1,7 +1,7 @@
 /*
 * Requirements mandating inclusion:
 * */
-package view;
+package view.EditorTab;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;

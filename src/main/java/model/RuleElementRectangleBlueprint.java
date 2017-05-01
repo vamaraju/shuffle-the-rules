@@ -3,8 +3,8 @@
 * */
 package model;
 
-import view.RuleElementLine;
-import view.RuleElementRectangle;
+import view.EditorTab.RuleElementLine;
+import view.EditorTab.RuleElementRectangle;
 
 import java.io.Serializable;
 import java.util.ArrayList;

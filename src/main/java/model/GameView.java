@@ -3,7 +3,7 @@
 * */
 package model;
 
-import view.EditorTabView;
+import view.EditorTab.EditorTabView;
 import view.TableTab.TableTabView;
 
 /**

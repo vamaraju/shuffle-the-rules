@@ -2,7 +2,7 @@
 * Requirements mandating inclusion:
 * */
 
-package controller;
+package controller.EditorTab;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -19,11 +19,10 @@ import model.*;
 import model.GameActions.*;
 import model.GameEvents.*;
 import model.Piles.Pile;
-import view.RuleElementLine;
-import view.RuleElementRectangle;
-import view.EditorTabView;
+import view.EditorTab.RuleElementLine;
+import view.EditorTab.RuleElementRectangle;
+import view.EditorTab.EditorTabView;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Random;
 

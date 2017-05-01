@@ -6,8 +6,8 @@ import javafx.scene.layout.Pane;
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.Piles.Pile;
-import view.RuleElementLine;
-import view.RuleElementRectangle;
+import view.EditorTab.RuleElementLine;
+import view.EditorTab.RuleElementRectangle;
 import view.TableTab.GeneralSettingsMenuView;
 import view.TableTab.TableGridView;
 

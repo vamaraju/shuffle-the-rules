@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.GameView;
 import view.ApplicationMenuBarView;
-import view.EditorTabView;
+import view.EditorTab.EditorTabView;
 import view.TableTab.TableTabView;
 
 

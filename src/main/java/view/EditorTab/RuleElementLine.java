@@ -1,4 +1,4 @@
-package view;
+package view.EditorTab;
 
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;

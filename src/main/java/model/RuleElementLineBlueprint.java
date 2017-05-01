@@ -3,7 +3,7 @@
 * */
 package model;
 
-import view.RuleElementLine;
+import view.EditorTab.RuleElementLine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
