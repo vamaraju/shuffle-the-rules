@@ -21,7 +21,7 @@ import view.TableTab.CardRestrictionsMenuView;
 public class CardRestrictionsMenuController {
 
     private CardRestrictionsMenuView view;
-    private CardSettings cardSettings = GameCreation.getInstance().getCardSettings();
+
 
 
     public CardRestrictionsMenuController(CardRestrictionsMenuView view) {
@@ -44,6 +44,7 @@ public class CardRestrictionsMenuController {
 
 
     public void onNumDecksChanged(ObservableValue observable, Object oldNum, Object newNum) {
+        CardSettings cardSettings = GameCreation.getInstance().getCardSettings();
         if (((String) newNum).matches("[0-9]*")) {
             cardSettings.setNumDecks(Integer.parseInt((String) newNum));
             updateSuitTextFields(view.getCardComboBox().getValue());
@@ -52,6 +53,7 @@ public class CardRestrictionsMenuController {
 
 
     public void updateSuitTextFields(PlayingCard card) {
+        CardSettings cardSettings = GameCreation.getInstance().getCardSettings();
         view.getClubTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.CLUB)));
         view.getHeartTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.DIAMOND)));
         view.getDiamondTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.HEART)));
@@ -60,6 +62,7 @@ public class CardRestrictionsMenuController {
 
 
     public void updateCardSettings() {
+        CardSettings cardSettings = GameCreation.getInstance().getCardSettings();
         PlayingCard selectedCard = view.getCardComboBox().getValue();
         cardSettings.updateCount(selectedCard, Suit.CLUB, Integer.parseInt(view.getClubTextField().getText()));
         cardSettings.updateCount(selectedCard, Suit.DIAMOND, Integer.parseInt(view.getDiamondTextField().getText()));
@@ -101,6 +104,7 @@ public class CardRestrictionsMenuController {
 
 
     private boolean totalCardCountValidation() {
+        CardSettings cardSettings = GameCreation.getInstance().getCardSettings();
         int numDecks = Integer.parseInt(view.getNumDecksTextField().getText());
         int expectedNumCards = numDecks * 52;
         int actualNumCards = cardSettings.getTotalCount();
@@ -137,6 +141,7 @@ public class CardRestrictionsMenuController {
 
 
     private void showTotalCardCountErrorAlert() {
+        CardSettings cardSettings = GameCreation.getInstance().getCardSettings();
         int numDecks = Integer.parseInt(view.getNumDecksTextField().getText());
         int expectedNumCards = numDecks * 52;
         Alert alert = new Alert(Alert.AlertType.WARNING, "The number of decks is " + numDecks + " (" + expectedNumCards +
