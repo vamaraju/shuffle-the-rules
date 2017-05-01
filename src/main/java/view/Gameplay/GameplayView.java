@@ -22,13 +22,23 @@ import view.TableTab.TableGridView;
 
 public class GameplayView extends BorderPane {
 
+    /* Hand Options - Actions a user can perform */
 
-    private Button endTurnButton = new Button("End Turn");
     private Button sortHandButton = new Button("Sort Hand");
-    private Button endGameButton = new Button("End Game");
     private Button showHandButton = new Button("Show Hand");
 
-    private TableGridView table; /* TODO update in near future to use values from TableGrid in GameCreation*/
+    /* Moves - Actions a user can perform */
+    private Button swapCardsButtons = new Button("Swap Cards");
+    /* Currently a design decision. The user will select Cards and Piles and click "PLAY".  The interpreter will know what valid moves are and process the input from the user */
+    private Button playButton = new Button("PLAY");
+
+
+    /* Game Options - Actions a user can perform */
+    private Button endTurnButton = new Button("End Turn");
+    private Button endGameButton = new Button("End Game");
+    private Button becomeInactiveButton = new Button("Become inactive"); /* KS - think I'm going to change this. For now, a placeholder.*/
+
+    private TableGridView table;
     private GameplayMessageView gameplayMessageView;
     private PileView selectedPileView;
 
