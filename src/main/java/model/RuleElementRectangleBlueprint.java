@@ -19,7 +19,7 @@ public class RuleElementRectangleBlueprint implements Serializable {
     private double width;
     private double height;
 
-    private String text;
+    private String name;
     private GameRule gameRule;
     private GameRuleType ruleType;
     private String defaultBorderColor;
@@ -37,17 +37,17 @@ public class RuleElementRectangleBlueprint implements Serializable {
         this.setY(r.getY());
         this.setWidth(r.getWidth());
         this.setHeight(r.getHeight());
-        this.setText(r.getText());
+        this.setName(r.getName());
         this.setGameRule(r.getGameRule());
         this.setRuleType(r.getRuleType());
         this.setDefaultBorderColor(r.getDefaultBorderColor().toString());
 
         for (RuleElementRectangle preRule : r.getPreRules()) {
-            this.preRules.add(new RuleElementRectangleBlueprint(preRule.getX(), preRule.getY(), preRule.getWidth(), preRule.getHeight(), preRule.getText(), preRule.getGameRule(), preRule.getRuleType()));
+            this.preRules.add(new RuleElementRectangleBlueprint(preRule.getX(), preRule.getY(), preRule.getWidth(), preRule.getHeight(), preRule.getName(), preRule.getGameRule(), preRule.getRuleType()));
         }
 
         for (RuleElementRectangle postRule : r.getPostRules()) {
-            this.postRules.add(new RuleElementRectangleBlueprint(postRule.getX(), postRule.getY(), postRule.getWidth(), postRule.getHeight(), postRule.getText(), postRule.getGameRule(), postRule.getRuleType()));
+            this.postRules.add(new RuleElementRectangleBlueprint(postRule.getX(), postRule.getY(), postRule.getWidth(), postRule.getHeight(), postRule.getName(), postRule.getGameRule(), postRule.getRuleType()));
         }
 
         for (RuleElementLine inLine : r.getInLines()) {
@@ -59,12 +59,12 @@ public class RuleElementRectangleBlueprint implements Serializable {
         }
     }
 
-    public RuleElementRectangleBlueprint(double x, double y, double width, double height, String text, GameRule gameRule, GameRuleType ruleType) {
+    public RuleElementRectangleBlueprint(double x, double y, double width, double height, String name, GameRule gameRule, GameRuleType ruleType) {
         this.setX(x);
         this.setY(y);
         this.setWidth(width);
         this.setHeight(height);
-        this.setText(text);
+        this.setName(name);
         this.setGameRule(gameRule);
         this.setRuleType(ruleType);
         this.setDefaultBorderColor(ruleType.getColor());
@@ -102,12 +102,12 @@ public class RuleElementRectangleBlueprint implements Serializable {
         this.height = height;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public GameRule getGameRule() {
@@ -172,7 +172,7 @@ public class RuleElementRectangleBlueprint implements Serializable {
                 this.y +
                 this.width +
                 this.height +
-                this.text.hashCode() +
+                this.name.hashCode() +
                 this.ruleType.getName().hashCode() +
                 this.gameRule.getName().hashCode());
     }
@@ -189,7 +189,7 @@ public class RuleElementRectangleBlueprint implements Serializable {
                 (this.getY() == otherRect.getY()) &&
                 (this.getWidth() == otherRect.getWidth()) &&
                 (this.getHeight() == otherRect.getHeight()) &&
-                (this.getText().equals(otherRect.getText())) &&
+                (this.getName().equals(otherRect.getName())) &&
                 (this.getRuleType() == otherRect.getRuleType()) &&
                 (this.getGameRule().getName().equals(otherRect.getGameRule().getName()));
     }

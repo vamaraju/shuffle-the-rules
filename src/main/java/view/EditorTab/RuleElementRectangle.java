@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class RuleElementRectangle extends Rectangle {
 
-    private Text text = new Text("");
+    private Text name = new Text("");
     private GameRule gameRule;
     private Paint defaultBorderColor;
     private boolean clicked = false;
@@ -53,21 +53,21 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Dynamically center the given text (string) in the rectangle, based on the given rectangle width and height.
+     * Dynamically center the given name (string) in the rectangle, based on the given rectangle width and height.
      *
      * @param x Rectangle starting (top-left) x coordinate.
      * @param y Rectangle starting (top-left) y coordinate.
      * @param width Rectangle width.
      * @param height Rectangle height.
-     * @param text Text (string) that goes inside the rectangle.
+     * @param name Text (string) that goes inside the rectangle.
      */
-    public RuleElementRectangle(double x, double y, double width, double height, String text) {
+    public RuleElementRectangle(double x, double y, double width, double height, String name) {
         super(x, y, width, height);
 
-        Text t = new Text(text);
+        Text t = new Text(name);
         t.setFont(new Font(15));
         t.setWrappingWidth(width-20);
-        this.text = t;
+        this.name = t;
 
         double textWidth = t.getLayoutBounds().getWidth();
         t.setX(x+(width-textWidth)/2);
@@ -86,28 +86,28 @@ public class RuleElementRectangle extends Rectangle {
      * @param y Rectangle starting (top-left) y coordinate.
      * @param width Rectangle width.
      * @param height Rectangle height.
-     * @param text Text (JavaFX object) that goes inside the rectangle.
+     * @param name Text (JavaFX object) that goes inside the rectangle.
      */
-    public RuleElementRectangle(double x, double y, double width, double height, Text text) {
+    public RuleElementRectangle(double x, double y, double width, double height, Text name) {
         super(x, y, width, height);
-        this.text = text;
+        this.name = name;
         this.setListeners();
     }
 
 
     /**
-     * Dynamically generates the rectangle width and height based on (to fit) the given text.
+     * Dynamically generates the rectangle width and height based on (to fit) the given name.
      *
      * @param x Rectangle starting (top-left) x coordinate.
      * @param y Rectangle starting (top-left) y coordinate.
-     * @param text Text that goes inside the rectangle.
+     * @param name Text that goes inside the rectangle.
      */
-    public RuleElementRectangle(double x, double y, String text) {
+    public RuleElementRectangle(double x, double y, String name) {
         super(x, y, 150, 75);
 
-        Text t = new Text(text);
+        Text t = new Text(name);
         t.setFont(new Font(15));
-        this.text = t;
+        this.name = t;
 
         double rectWidth = calculateRectWidth();
         double rectHeight = calculateRectHeight();
@@ -124,16 +124,16 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Dynamically generates the rectangle width and height based on (to fit) the given text.
+     * Dynamically generates the rectangle width and height based on (to fit) the given name.
      * Accepts a ruleType parameter (an event or action), and sets the rectangle border accordingly.
      *
      * @param x Rectangle starting (top-left) x coordinate.
      * @param y Rectangle starting (top-left) y coordinate.
-     * @param text Text that goes inside the rectangle.
+     * @param name Text that goes inside the rectangle.
      * @param ruleType Either GameRuleType.EVENT or GameRuleType.ACTION. Used to set the rectangle border color.
      */
-    public RuleElementRectangle(double x, double y, String text, GameRuleType ruleType) {
-        this(x, y, text);
+    public RuleElementRectangle(double x, double y, String name, GameRuleType ruleType) {
+        this(x, y, name);
         this.ruleType = ruleType;
 
         this.setFill(Color.WHITE);
@@ -175,9 +175,9 @@ public class RuleElementRectangle extends Rectangle {
         this.setRuleType(blueprint.getRuleType());
         this.setDefaultBorderColor(Color.valueOf(blueprint.getDefaultBorderColor()));
 
-        Text t = new Text(blueprint.getText());
+        Text t = new Text(blueprint.getName());
         t.setFont(new Font(15));
-        this.text = t;
+        this.name = t;
         t.setWrappingWidth(blueprint.getWidth()-20);
 
         this.setX(blueprint.getX(), true);
@@ -216,57 +216,57 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Returns the expected/desired width of the rectangle, based on the text inside of it.
+     * Returns the expected/desired width of the rectangle, based on the name inside of it.
      *
      * @return The proper width of the rectangle.
      */
     public double calculateRectWidth() {
-        double textWidth = text.getLayoutBounds().getWidth();
+        double textWidth = name.getLayoutBounds().getWidth();
         return textWidth + 40;
     }
 
 
     /**
-     * Returns the expected/desired height of the rectangle, based on the text inside of it.
+     * Returns the expected/desired height of the rectangle, based on the name inside of it.
      *
      * @return The proper height of the rectangle.
      */
     public double calculateRectHeight() {
-        double textHeight = text.getLayoutBounds().getHeight();
+        double textHeight = name.getLayoutBounds().getHeight();
         return textHeight + 40;
     }
 
 
     /**
-     * Sets the x-coordinate of the Rectangle and sets its text accordingly, if setText is provided (true).
+     * Sets the x-coordinate of the Rectangle and sets its name accordingly, if setName is provided (true).
      *
-     * @param x The x-coordinate to which the Rectangle will be set and the text will be levelled with.
-     * @param setText Boolean that determines whether the Rectangle text position will be adjusted.
+     * @param x The x-coordinate to which the Rectangle will be set and the name will be levelled with.
+     * @param setText Boolean that determines whether the Rectangle name position will be adjusted.
      */
     public void setX(double x, boolean setText) {
         this.setX(x);
-        if (setText) {this.text.setX(x+20);}
+        if (setText) {this.name.setX(x+20);}
     }
 
 
     /**
-     * Sets the y-coordinate of the Rectangle and sets its text accordingly, if setText is provided (true).
+     * Sets the y-coordinate of the Rectangle and sets its name accordingly, if setName is provided (true).
      *
-     * @param y The y-coordinate to which the Rectangle will be set and the text will be levelled with.
-     * @param setText Boolean that determines whether the Rectangle text position will be adjusted.
+     * @param y The y-coordinate to which the Rectangle will be set and the name will be levelled with.
+     * @param setText Boolean that determines whether the Rectangle name position will be adjusted.
      */
     public void setY(double y, boolean setText) {
         this.setY(y);
-        if (setText) {this.text.setY(y+33);}
+        if (setText) {this.name.setY(y+33);}
     }
 
 
     /**
-     * Sets the x-coordinate of the Rectangle, its text, and lines, if setText and setLines are provided (true).
+     * Sets the x-coordinate of the Rectangle, its name, and lines, if setName and setLines are provided (true).
      *
-     * @param x The x-coordinate to which the Rectangle will be set. The text will be centered inside this Rectangle
+     * @param x The x-coordinate to which the Rectangle will be set. The name will be centered inside this Rectangle
      *          position, and the lines will be centered on its border.
-     * @param setText Boolean that determines whether the Rectangle text position will be adjusted.
+     * @param setText Boolean that determines whether the Rectangle name position will be adjusted.
      * @param setLines Boolean that determines whether the Rectangle line positions will be adjusted.
      */
     public void setX(double x, boolean setText, boolean setLines) {
@@ -287,11 +287,11 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Sets the y-coordinate of the Rectangle, its text, and lines, if setText and setLines are provided (true).
+     * Sets the y-coordinate of the Rectangle, its name, and lines, if setName and setLines are provided (true).
      *
-     * @param y The y-coordinate to which the Rectangle will be set. The text will be centered inside this Rectangle
+     * @param y The y-coordinate to which the Rectangle will be set. The name will be centered inside this Rectangle
      *          position, and the lines will be centered on its border.
-     * @param setText Boolean that determines whether the Rectangle text position will be adjusted.
+     * @param setText Boolean that determines whether the Rectangle name position will be adjusted.
      * @param setLines Boolean that determines whether the Rectangle line positions will be adjusted.
      */
     public void setY(double y, boolean setText, boolean setLines) {
@@ -392,27 +392,27 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Returns the text (string) within the rectangle.
+     * Returns the name (string) within the rectangle.
      *
-     * @return Rectangle text (string).
+     * @return Rectangle name (string).
      */
-    public String getText() {
-        return this.text.getText();
+    public String getName() {
+        return this.name.getText();
     }
 
 
     /**
-     * Sets the text (string) inside the rectangle. No resizing to the rectangle itself.
-     * The text will automatically wrap within the rectangle if necessary.
+     * Sets the name (string) inside the rectangle. No resizing to the rectangle itself.
+     * The name will automatically wrap within the rectangle if necessary.
      *
-     * @param text New text (string) to update within the rectangle.
+     * @param name New name (string) to update within the rectangle.
      */
-    public void setText(String text) {
-        this.text.setText(text);
-        this.text.setWrappingWidth(0.0);
+    public void setName(String name) {
+        this.name.setText(name);
+        this.name.setWrappingWidth(0.0);
         this.setWidth(calculateRectWidth());
         this.setHeight(calculateRectHeight());
-        this.text.setWrappingWidth(this.getWidth()-20);
+        this.name.setWrappingWidth(this.getWidth()-20);
 
         this.setX(this.getX(), true, true);
         this.setY(this.getY(), true, true);
@@ -425,7 +425,7 @@ public class RuleElementRectangle extends Rectangle {
      * @return Rectangle Text (JavaFX object).
      */
     public Text getTextObj() {
-        return this.text;
+        return this.name;
     }
 
 
@@ -435,7 +435,7 @@ public class RuleElementRectangle extends Rectangle {
      * @param text New Text (JavaFX object) to update within the rectangle.
      */
     public void setTextObj(Text text) {
-        this.text = text;
+        this.name = text;
     }
 
 
@@ -668,7 +668,7 @@ public class RuleElementRectangle extends Rectangle {
 
     /**
      * Listener for the mouse being dragged (pressed and moved) while on this rectangle.
-     * Moves the Rectangle, text, and lines according to the drag movement.
+     * Moves the Rectangle, name, and lines according to the drag movement.
      *
      * @param e MouseEvent
      */
@@ -698,7 +698,7 @@ public class RuleElementRectangle extends Rectangle {
 
     @Override
     public int hashCode() {
-        return super.hashCode() + this.text.hashCode();
+        return super.hashCode() + this.name.hashCode();
     }
 
 
@@ -713,7 +713,7 @@ public class RuleElementRectangle extends Rectangle {
                 (this.getY() == otherRect.getY()) &&
                 (this.getWidth() == otherRect.getWidth()) &&
                 (this.getHeight() == otherRect.getHeight()) &&
-                (this.getText().equals(otherRect.getText())) &&
+                (this.getName().equals(otherRect.getName())) &&
                 (this.getRuleType() == otherRect.getRuleType()) &&
                 (this.getGameRuleName().equals(otherRect.getGameRuleName()));
     }
@@ -727,9 +727,9 @@ public class RuleElementRectangle extends Rectangle {
         this.setOnMouseExited(this::onMouseExited);
         this.setOnMousePressed(this::onMousePressed);
         this.setOnMouseDragged(this::onMouseDragged);
-        this.text.setOnMouseEntered(this::onMouseEntered);
-        this.text.setOnMouseExited(this::onMouseExited);
-        this.text.setOnMousePressed(this::onMousePressed);
-        this.text.setOnMouseDragged(this::onMouseDragged);
+        this.name.setOnMouseEntered(this::onMouseEntered);
+        this.name.setOnMouseExited(this::onMouseExited);
+        this.name.setOnMousePressed(this::onMousePressed);
+        this.name.setOnMouseDragged(this::onMouseDragged);
     }
 }
