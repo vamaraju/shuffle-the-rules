@@ -18,7 +18,7 @@ public class EditorTabView extends Tab {
     private EditorTabController controller;
     private BorderPane window;
     private ScrollPane scrollPane;
-    private Pane drawingPane;
+    private DrawingPane drawingPane;
     private Accordion accordion;
 
     private TitledPane eventsPane;
@@ -44,7 +44,7 @@ public class EditorTabView extends Tab {
         this.setText("Editor");
         controller = new EditorTabController(this);
         window = new BorderPane(); // Represents entire contents of editor tab
-        drawingPane = new Pane(); // main portion in which rule elements will appear (and be stored)
+        drawingPane = new DrawingPane(); // main portion in which rule elements will appear (and be stored)
         scrollPane = new ScrollPane(this.drawingPane); // the drawing pane of the window will sit within this
         accordion = new Accordion(); // right portion of editor window with accordion with Events and Actions tabs
 
@@ -100,7 +100,6 @@ public class EditorTabView extends Tab {
         controller.initCardValueComboBoxes();
         controller.initCardSuitComboBoxes();
 
-        initEditorDrawingPane();
         initEditorScrollPane();
 
         eventsPane.setText("Events");
@@ -186,11 +185,6 @@ public class EditorTabView extends Tab {
     }
 
 
-    public void initEditorDrawingPane() {
-        this.drawingPane.setPrefSize(800, 800);
-        this.drawingPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-    }
-
     public void initEditorScrollPane() {
         this.scrollPane.setPrefSize(300, 300);
         this.scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -216,30 +210,30 @@ public class EditorTabView extends Tab {
         return this.scrollPane;
     }
 
-    public Pane getEditorDrawingPane() {
+    public DrawingPane getEditorDrawingPane() {
         return this.drawingPane;
     }
 
-    public void setEditorDrawingPane(Pane drawingPane) {
+    public void setEditorDrawingPane(DrawingPane drawingPane) {
         this.drawingPane = drawingPane;
         this.scrollPane.setContent(this.drawingPane);
     }
 
     public void clearEditorDrawingPane() {
-        this.drawingPane.getChildren().clear();
+        this.drawingPane.clear();
         controller.addOnGameStart();
     }
 
     public void addToEditorDrawingPane(Node element) {
-        this.drawingPane.getChildren().add(element);
+        this.drawingPane.add(element);
     }
 
     public void addAllToEditorDrawingPane(Node... elements) {
-        this.drawingPane.getChildren().addAll(elements);
+        this.drawingPane.addAll(elements);
     }
 
-    public void removeFromEditorDrawingPane(Object element) {
-        this.drawingPane.getChildren().remove(element);
+    public void removeFromEditorDrawingPane(Node element) {
+        this.drawingPane.remove(element);
     }
 
     public void disableEventPileComboBox() {

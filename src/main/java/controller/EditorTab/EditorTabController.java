@@ -19,18 +19,18 @@ import model.*;
 import model.GameActions.*;
 import model.GameEvents.*;
 import model.Piles.Pile;
+import view.EditorTab.DrawingPane;
 import view.EditorTab.RuleElementLine;
 import view.EditorTab.RuleElementRectangle;
 import view.EditorTab.EditorTabView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class EditorTabController {
 
     private EditorTabView view;
-    private final double ROW_SEPARATION_DISTANCE = 70;
-    private final double COL_SEPARATION_DISTANCE = 40;
 
     private TripleHashMap<String, Node, Node> activeGridElements;
     private GameRuleType currentRuleType;
@@ -136,8 +136,6 @@ public class EditorTabController {
      * @param e
      */
     public void onAddButtonClick(Event e) {
-        Pane drawingPane = view.getEditorDrawingPane();
-
         ComboBox typeComboBox = view.getTypeComboBox(activeGridElements);
         TextField nameTextField = view.getNameTextField(activeGridElements);
         TextField previousRuleTextField = view.getPreviousRuleTextField(activeGridElements);
@@ -147,35 +145,29 @@ public class EditorTabController {
             GameRule gameRule = getGameRuleFromComboBox();
             setRuleDescription(gameRule);
             setRuleSpecificSettings(gameRule);
-            createAndAddRect(drawingPane, nameTextField.getText(), gameRule, findRectangleByName(previousRuleTextField.getText()));
+            createAndAddRect(nameTextField.getText(), gameRule, view.getEditorDrawingPane().getRectByName(previousRuleTextField.getText()));
         }
     }
 
 
-    public void createAndAddRect(Pane drawingPane, String ruleName, GameRule gameRule, RuleElementRectangle previousRect) {
+    public void createAndAddRect(String ruleName, GameRule gameRule, RuleElementRectangle previousRect) {
+        DrawingPane drawingPane = view.getEditorDrawingPane();
+
         RuleElementRectangle r = new RuleElementRectangle(0, 0, ruleName, currentRuleType);
         r.setGameRule(gameRule);
         r.addPreRule(previousRect);
         previousRect.addPostRule(r);
-        setRectXPlacement(r, previousRect);
-        setRectYPlacement(r, previousRect);
+        drawingPane.setRelativePlacement(r, previousRect);
 
         RuleElementLine l = new RuleElementLine(previousRect.getCenterX(), previousRect.getEndY(), r.getCenterX(), r.getY());
         previousRect.getOutLines().add(l);
         r.getInLines().add(l);
 
-        if (r.getEndX() > drawingPane.getMinWidth()-100) {
-            drawingPane.setMinWidth(r.getEndX()+100);
-        }
-
-        if (r.getEndY() > drawingPane.getMinHeight()-100) {
-            drawingPane.setMinHeight(r.getEndY()+100);
-        }
-
         r.setOnMouseClicked(this::onRectangleClicked);
         r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
 
-        view.addAllToEditorDrawingPane(r, r.getTextObj(), l, l.getArrowhead());
+        drawingPane.addRuleAndLine(r, l);
+        drawingPane.extendToFit(r);
     }
 
 
@@ -186,7 +178,7 @@ public class EditorTabController {
 
         r.setGameRule(new OnGameStartEvent());
 
-        view.addAllToEditorDrawingPane(r, r.getTextObj());
+        view.getEditorDrawingPane().addRule(r);
 
         r.setOnMouseClicked(this::onRectangleClicked);
         r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
@@ -194,25 +186,27 @@ public class EditorTabController {
 
 
     public void onUpdateButtonClick(Event e) {
+        DrawingPane drawingPane = view.getEditorDrawingPane();
+
         RuleElementRectangle r = view.getClickedRectangle();
 
         if (runAllValidations()) {
             GameRule gameRule = getGameRuleFromComboBox();
             r.setGameRule(gameRule);
-            r.setText(view.getNameTextField(activeGridElements).getText());
+            r.setName(view.getNameTextField(activeGridElements).getText());
             setRuleDescription(gameRule);
             setRuleSpecificSettings(gameRule);
 
             deletePreLines(r);
             r.getPreRules().clear();
-            RuleElementRectangle preRule = findRectangleByName(view.getPreviousRuleTextField(activeGridElements).getText());
+            RuleElementRectangle preRule = drawingPane.getRectByName(view.getPreviousRuleTextField(activeGridElements).getText());
             RuleElementLine inLine = new RuleElementLine(preRule.getCenterX(), preRule.getEndY(), r.getCenterX(), r.getY());
 
             r.getPreRules().add(preRule);
             preRule.getPostRules().add(r);
             r.getInLines().add(inLine);
             preRule.getOutLines().add(inLine);
-            view.addAllToEditorDrawingPane(inLine, inLine.getArrowhead());
+            drawingPane.addLine(inLine);
 
             showUpdateSuccessfulAlert();
         }
@@ -233,8 +227,7 @@ public class EditorTabController {
                 preRule.getOutLines().remove(preLine);
                 preRule.getPostRules().remove(r);
             }
-            view.removeFromEditorDrawingPane(preLine);
-            view.removeFromEditorDrawingPane(preLine.getArrowhead());
+            view.getEditorDrawingPane().removeLine(preLine);
         }
         r.getInLines().clear();
     }
@@ -246,8 +239,7 @@ public class EditorTabController {
                 postRule.getInLines().remove(postLine);
                 postRule.getPreRules().remove(r);
             }
-            view.removeFromEditorDrawingPane(postLine);
-            view.removeFromEditorDrawingPane(postLine.getArrowhead());
+            view.getEditorDrawingPane().removeLine(postLine);
         }
         r.getOutLines().clear();
     }
@@ -261,8 +253,7 @@ public class EditorTabController {
         }
         r.getPreRules().clear();
         r.getPostRules().clear();
-        view.removeFromEditorDrawingPane(r);
-        view.removeFromEditorDrawingPane(r.getTextObj());
+        view.getEditorDrawingPane().removeRule(r);
     }
 
 
@@ -315,7 +306,8 @@ public class EditorTabController {
             view.getEventCardValueComboBox().setDisable(false);
             view.getEventCardSuitComboBox().setDisable(false);
             view.getEventPlayerComboBox().setDisable(true);
-        } else if (selectedGameEvent instanceof OnGameStartEvent) {
+        } else if (selectedGameEvent instanceof OnGameStartEvent || selectedGameEvent instanceof OnGameEndEvent ||
+                selectedGameEvent instanceof OnRoundStartEvent || selectedGameEvent instanceof OnRoundEndEvent) {
             view.getEventPileComboBox().setDisable(true);
             view.getEventNumCardsTextField().setDisable(true);
             view.getEventCardValueComboBox().setDisable(true);
@@ -451,7 +443,7 @@ public class EditorTabController {
 
 
     public void onRectangleClicked(MouseEvent e) {
-        RuleElementRectangle r = this.findClickedRectangle(e.getX(), e.getY());
+        RuleElementRectangle r = view.getEditorDrawingPane().getRectByCoordinates(e.getX(), e.getY());
 
         if (!r.isClicked()) { // the Rectangle has just been clicked. r.clicked needs to be set to true
             if (view.getClickedRectangle() != null) {
@@ -474,14 +466,14 @@ public class EditorTabController {
             view.getActionsPane().setExpanded(false);
             view.getEventsPane().setExpanded(true);
 
-            if (!r.getText().equals("Game Start")) {
+            if (!r.getName().equals("Game Start")) {
                 view.getAddEventButton().setDisable(true);
                 view.getUpdateEventButton().setDisable(false);
                 view.getDeleteEventButton().setDisable(false);
             }
 
             view.getEventTypeComboBox().setValue(r.getGameRule());
-            view.getEventNameTextField().setText(r.getText());
+            view.getEventNameTextField().setText(r.getName());
             view.getEventDescriptionTextField().setText(r.getGameRule().getDescription());
             view.getEventPreviousRuleTextField().setText(getPreviousRuleText(r));
         } else if (r.getRuleType() == GameRuleType.ACTION) { // rectangle is for an action
@@ -493,7 +485,7 @@ public class EditorTabController {
             view.getDeleteActionButton().setDisable(false);
 
             view.getActionTypeComboBox().setValue(r.getGameRule());
-            view.getActionNameTextField().setText(r.getText());
+            view.getActionNameTextField().setText(r.getName());
             view.getActionDescriptionTextField().setText(r.getGameRule().getDescription());
             view.getActionPreviousRuleTextField().setText(getPreviousRuleText(r));
         }
@@ -515,34 +507,7 @@ public class EditorTabController {
     }
 
 
-    private RuleElementRectangle findClickedRectangle(double x, double y) {
-        ObservableList drawingPaneChildren = view.getEditorDrawingPane().getChildren();
-        for (int i = drawingPaneChildren.size()-1; i >= 0; i--) {
-            Object o = drawingPaneChildren.get(i);
-            if (o instanceof Rectangle) {
-                RuleElementRectangle r = (RuleElementRectangle) o;
-                if (r.contains(x, y)) {
-                    return r;
-                }
-            }
-        }
-        return null;
-    }
 
-
-    private RuleElementRectangle findRectangleByName(String name) {
-        ObservableList drawingPaneChildren = view.getEditorDrawingPane().getChildren();
-        for (int i = drawingPaneChildren.size()-1; i >= 0; i--) {
-            Object o = drawingPaneChildren.get(i);
-            if (o instanceof Rectangle) {
-                RuleElementRectangle r = (RuleElementRectangle) o;
-                if (r.getText().equals(name)) {
-                    return r;
-                }
-            }
-        }
-        return null;
-    }
 
 
     private GameRule getGameRuleFromComboBox() {
@@ -566,7 +531,7 @@ public class EditorTabController {
         String previousRulesStr = "";
         if (r.getPreRules().size() > 0) {
             for (RuleElementRectangle preRule : r.getPreRules()) {
-                previousRulesStr += preRule.getText() + ", ";
+                previousRulesStr += preRule.getName() + "; ";
             }
             previousRulesStr = previousRulesStr.substring(0, previousRulesStr.length()-2);
         } else {
@@ -576,56 +541,9 @@ public class EditorTabController {
     }
 
 
-    private void setRectXPlacement(RuleElementRectangle currentRect, RuleElementRectangle previousRect) {
-        double currentRowY = previousRect.getEndY() + ROW_SEPARATION_DISTANCE;
-        ArrayList<RuleElementRectangle> currentRow = new ArrayList<>();
-
-        ObservableList drawingPaneChildren = view.getEditorDrawingPane().getChildren();
-        for (Object o : drawingPaneChildren) {
-            if (o instanceof Rectangle) {
-                RuleElementRectangle r = (RuleElementRectangle) o;
-                if (r.getY() == currentRowY) {
-                    currentRow.add(r);
-                }
-            }
-        }
-
-        double maxX = 0;
-        double minX = Double.POSITIVE_INFINITY;
-        RuleElementRectangle maxXRect = previousRect;
-        RuleElementRectangle minXRect = previousRect;
-        if (currentRow.size() > 0) {
-            for (RuleElementRectangle rect : currentRow) {
-                if (rect.getX() > maxX) {
-                    maxX = rect.getX();
-                    maxXRect = rect;
-                }
-                if (rect.getX() < minX) {
-                    minX = rect.getX();
-                    minXRect = rect;
-                }
-            }
-
-            if ((minXRect.getX() - currentRect.getWidth() - COL_SEPARATION_DISTANCE - 20 > 0) && (new Random().nextInt(10) < 5)) {
-                currentRect.setX(minXRect.getX() - currentRect.getWidth() - COL_SEPARATION_DISTANCE, true, true);
-            } else {
-                currentRect.setX(maxXRect.getEndX() + COL_SEPARATION_DISTANCE, true, true);
-            }
-
-        } else { // current row is empty
-            currentRect.setCenterX(previousRect.getCenterX());
-        }
-    }
-
-
-    private void setRectYPlacement(RuleElementRectangle currentRect, RuleElementRectangle previousRect) {
-        currentRect.setY(previousRect.getEndY() + ROW_SEPARATION_DISTANCE, true, true);
-    }
-
-
     private boolean previousRuleNotFoundValidation() {
         String previousRuleName = view.getPreviousRuleTextField(activeGridElements).getText();
-        RuleElementRectangle previousRect = findRectangleByName(previousRuleName);
+        RuleElementRectangle previousRect = view.getEditorDrawingPane().getRectByName(previousRuleName);
         if (previousRect == null) {
             showPreviousRuleNotFoundErrorAlert(previousRuleName);
             return false;
@@ -666,7 +584,7 @@ public class EditorTabController {
 
     private boolean ruleNameExistsValidation() {
         String ruleName = view.getNameTextField(activeGridElements).getText();
-        RuleElementRectangle r = findRectangleByName(ruleName);
+        RuleElementRectangle r = view.getEditorDrawingPane().getRectByName(ruleName);
         if ((ruleName.equals("Game Start")) || (r != null && !r.isClicked())) {
             showRuleNameExistsErrorAlert(ruleName);
             return false;
@@ -735,6 +653,18 @@ public class EditorTabController {
     }
 
 
+    private boolean numberFieldValidation() {
+        TextField numCardsTextField = view.getNumCardsTextField(activeGridElements);
+        if (!numCardsTextField.isDisabled()) {
+            if (!numCardsTextField.getText().matches("[0-9]*")) {
+                showNumberErrorAlert();
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     private boolean runAllValidations() {
         ComboBox ruleTypeComboBox = view.getTypeComboBox(activeGridElements);
         TextField ruleNameTextField = view.getNameTextField(activeGridElements);
@@ -757,8 +687,16 @@ public class EditorTabController {
         if (!cardValueEmptyValidation()) {return false;}
         if (!cardSuitEmptyValidation()) {return false;}
         if (!playerEmptyValidation()) {return false;}
+        if (!numberFieldValidation()) {return false;}
 
         return true;
+    }
+
+    private void showNumberErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "One or more number fields contain an invalid character (a non-number). Please enter a positive integer in all number fields.");
+        alert.setTitle("Number Field Error");
+        alert.setHeaderText("Number Field Contains A Non-Number");
+        alert.showAndWait();
     }
 
     private void showPreviousRuleNotFoundErrorAlert(String previousRuleName) {

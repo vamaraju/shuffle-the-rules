@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.Piles.Pile;
+import view.EditorTab.DrawingPane;
 import view.EditorTab.RuleElementLine;
 import view.EditorTab.RuleElementRectangle;
 import view.TableTab.GeneralSettingsMenuView;
@@ -319,7 +320,7 @@ public class GameCreation implements Serializable {
 
     private void saveDrawingPane() {
         this.rectangleBlueprints = new ArrayList<>();
-        Pane drawingPane = GameView.getInstance().getEditorTab().getEditorDrawingPane();
+        DrawingPane drawingPane = GameView.getInstance().getEditorTab().getEditorDrawingPane();
         for (Node child : drawingPane.getChildren()) {
             if (child instanceof RuleElementRectangle) {
                 this.rectangleBlueprints.add(new RuleElementRectangleBlueprint((RuleElementRectangle)child));
@@ -328,7 +329,7 @@ public class GameCreation implements Serializable {
     }
 
     private void loadDrawingPane() {
-        Pane drawingPane = new Pane();
+        DrawingPane drawingPane = new DrawingPane();
         drawingPane.setOnMouseDragged(GameView.getInstance().getEditorTab().getController()::drawingPaneOnMouseDragged);
 
         ArrayList<RuleElementRectangle> rectangles = new ArrayList<>();
