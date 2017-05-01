@@ -66,15 +66,7 @@ public class GameCreation implements Serializable {
      */
     public static void resetInstance() {
         instance = new GameCreation();
-        //instance.gameEvents.clear();
-        //instance.gameActions.clear();
-        //instance.piles = new HashMap<>();
-        //instance.players = new ArrayList<>();
-        //instance.cardSettings = new CardSettings();
-        //System.out.println(instance.cardSettings.getCardCount(PlayingCard.TWO));
-        //instance.gameSettings = new GameSettings();
-        //instance.rectangleBlueprints = new ArrayList<>();
-        //instance.tableGrid = new TableGrid();
+        /* TODO create a reset method for each major model stored in GameCreation to avoid pointer issues */
     }
 
 

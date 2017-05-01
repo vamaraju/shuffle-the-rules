@@ -53,4 +53,13 @@ public class GameplayController {
     public void onEndGameButtonClick(ActionEvent actionEvent) {
         System.out.println("End Game pressed - Gameplay View ");
     }
+
+    public void onplayButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void onSwapCardsButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void onBecomeInactiveButtonClick(ActionEvent actionEvent) {
+    }
 }
