@@ -52,10 +52,12 @@ public class CardRestrictionsMenuController {
 
 
     public void updateSuitTextFields(PlayingCard card) {
-        view.getClubTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.CLUB)));
-        view.getHeartTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.DIAMOND)));
-        view.getDiamondTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.HEART)));
-        view.getSpadeTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.SPADE)));
+        if (card != null) {
+            view.getClubTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.CLUB)));
+            view.getHeartTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.DIAMOND)));
+            view.getDiamondTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.HEART)));
+            view.getSpadeTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.SPADE)));
+        }
     }
 
 
