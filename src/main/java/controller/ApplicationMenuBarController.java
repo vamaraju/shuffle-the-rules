@@ -33,6 +33,7 @@ public class ApplicationMenuBarController {
         if (result.get() == ButtonType.YES){
             GameCreation.resetInstance();
             GameView.getInstance().getEditorTab().clearEditorDrawingPane();
+            GameView.getInstance().getTableTab().getTableGridView().resetGrid();
         }
     }
 

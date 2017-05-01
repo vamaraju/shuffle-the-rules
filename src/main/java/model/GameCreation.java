@@ -24,25 +24,30 @@ public class GameCreation implements Serializable {
 
     private static GameCreation instance = new GameCreation();
 
-    private ArrayList<GameEvent> gameEvents = new ArrayList<>();
-    private ArrayList<GameAction> gameActions = new ArrayList<>();
+    private ArrayList<GameEvent> gameEvents;
+    private ArrayList<GameAction> gameActions;
     //private ArrayList<Pile> piles = new ArrayList<>();
     private HashMap<String, Pile> piles;
-    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players;
     private CardSettings cardSettings;
     private GameSettings gameSettings;
 
-    private transient ArrayList<RuleElementRectangleBlueprint> rectangleBlueprints = new ArrayList<>();
-    private TableGrid tableGrid = new TableGrid();
+    private transient ArrayList<RuleElementRectangleBlueprint> rectangleBlueprints;
+    private TableGrid tableGrid;
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
      */
     private GameCreation() {
         /* initialize */
+        gameEvents = new ArrayList<>();
+        gameActions = new ArrayList<>();
+        piles = new HashMap<>();
+        players = new ArrayList<>();
         cardSettings = new CardSettings();
         gameSettings = new GameSettings();
-        piles = new HashMap<>();
+        rectangleBlueprints = new ArrayList<>();
+        tableGrid = new TableGrid();
     }
 
 
