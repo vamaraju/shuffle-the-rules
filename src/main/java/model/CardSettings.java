@@ -24,6 +24,10 @@ public class CardSettings implements Serializable {
         initialize(1);
     }
 
+    public void reset() {
+        cardRestrictions.clear();
+        initialize(1);
+    }
 
     private void initialize(int numDecks) {
         for (PlayingCard card: PlayingCard.values()) {
