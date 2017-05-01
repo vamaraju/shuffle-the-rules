@@ -28,31 +28,27 @@ public class TableGridView extends GridPane {
     private TableGridElement clickedElement;
 
     public TableGridView() {
+        controller = new TableGridViewController(this);
         this.setStyle(TableGridCSS.DEFAULT_GRID.getStyle());
         resetGrid();
         addInitialPile();
     }
 
-/*
-    public TableGridView(TableGrid tableGridInput){
+    public TableGridView(TableGrid tableGrid){
+        controller = new TableGridViewController(this);
+        this.tableGrid = tableGrid;
         this.setStyle(TableGridCSS.DEFAULT_GRID.getStyle());
-        setTableGrid(tableGridInput);
-        System.out.println("inside constructor " + tableGrid.getNumCols());
-        System.out.println("inside constructor " + tableGrid.getNumRows());
-        System.out.println("inside constructor " + tableGrid.getPileMap().keySet());
+        GameCreation.getInstance().setTableGrid(tableGrid);
         drawGrid();
     }
-*/
 
     public void resetGrid() {
         initGrid(TableGridDefaults.NUM_COLUMNS.toInt(), TableGridDefaults.NUM_ROWS.toInt(), TableGridDefaults.CELL_WIDTH.toDouble());
     }
 
     public void initGrid(int numCols, int numRows, double cellWidth) {
-        controller = new TableGridViewController(this);
         tableGrid = new TableGrid(numCols, numRows, cellWidth);
         GameCreation.getInstance().setTableGrid(tableGrid);
-
         drawGrid();
     }
 
