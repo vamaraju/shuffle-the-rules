@@ -52,7 +52,7 @@ public class GameplayView extends BorderPane {
         * */
         /* centre pane will be the table */
         /* TODO Could use loadTableGrid - would have to modify this method to take in a View or just get and set here */
-        table = new TableGridView();
+        table = new TableGridView(GameCreation.getInstance().getTableGrid());
 
         //System.out.println("num cols " + GameCreation.getInstance().getTableGrid().getNumCols());
         //System.out.println("num rows " + GameCreation.getInstance().getTableGrid().getNumRows());
@@ -63,7 +63,7 @@ public class GameplayView extends BorderPane {
         tableScrollPane.setStyle("-fx-focus-color: transparent;");
 
 
-        table.setTableGrid(GameCreation.getInstance().getTableGrid());
+//        table.setTableGrid(GameCreation.getInstance().getTableGrid());
         table.enableBackgroundImage();
         this.setCenter(table);
 
