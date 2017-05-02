@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
-public class RuleGraph {
+public class RuleGraph implements Serializable {
 
     private GameRule root;
     private GameRule roundStart;
