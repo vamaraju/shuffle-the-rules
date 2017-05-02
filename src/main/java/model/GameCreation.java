@@ -362,11 +362,9 @@ public class GameCreation implements Serializable {
             }
             r.getPreRules().clear(); // pre-rules are populated in updateRectangleAssociations() with the correct rects
 
-            drawingPane.getChildren().add(r);
-            drawingPane.getChildren().add(r.getTextObj());
+            drawingPane.addRule(r);
             for (RuleElementLine l : r.getOutLines()) {
-                drawingPane.getChildren().add(l);
-                drawingPane.getChildren().add(l.getArrowhead());
+                drawingPane.addLine(l);
             }
 
             r.setOnMouseClicked(GameView.getInstance().getEditorTab().getController()::onRectangleClicked);
