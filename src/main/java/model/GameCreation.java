@@ -372,6 +372,7 @@ public class GameCreation implements Serializable {
         }
 
         updateRectangleAssociations(rectangles);
+        drawingPane.extendToFit();
         GameView.getInstance().getEditorTab().setEditorDrawingPane(drawingPane);
         GameView.getInstance().getEditorTab().setClickedRectangle(null);
         GameView.getInstance().getEditorTab().enableAddButtons();

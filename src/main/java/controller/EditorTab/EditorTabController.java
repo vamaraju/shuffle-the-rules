@@ -426,19 +426,13 @@ public class EditorTabController {
 
 
     public void drawingPaneOnMouseDragged(MouseEvent e) {
-        Pane drawingPane = view.getEditorDrawingPane();
+        DrawingPane drawingPane = view.getEditorDrawingPane();
 
         if (!e.isPrimaryButtonDown()) {
             return;
         }
 
-        if (e.getX() > drawingPane.getMinWidth()-100) {
-            drawingPane.setMinWidth(e.getX()+100);
-        }
-
-        if (e.getY() > drawingPane.getMinHeight()-100) {
-            drawingPane.setMinHeight(e.getY()+100);
-        }
+        drawingPane.extendToFit(e.getX(), e.getY());
     }
 
 

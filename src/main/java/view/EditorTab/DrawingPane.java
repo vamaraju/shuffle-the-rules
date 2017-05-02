@@ -187,6 +187,25 @@ public class DrawingPane extends Pane {
         setRelativePlacement(currentRect, previousRect);
         addRule(currentRect);
     }
+
+    public void extendToFit() {
+        for (Object o : this.getChildren()) {
+            if (o instanceof RuleElementRectangle) {
+                RuleElementRectangle r = (RuleElementRectangle) o;
+                extendToFit(r.getEndX(), r.getEndY());
+            }
+        }
+    }
+
+    public void extendToFit(double x, double y) {
+        if (x > this.getMinWidth()-100) {
+            this.setMinWidth(x+100);
+        }
+
+        if (y > this.getMinHeight()-100) {
+            this.setMinHeight(y+100);
+        }
+    }
 }
 
 
