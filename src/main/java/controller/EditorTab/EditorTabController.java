@@ -143,6 +143,7 @@ public class EditorTabController {
 
         if (runAllValidations()) {
             GameRule gameRule = getGameRuleFromComboBox();
+            gameRule.setName(nameTextField.getText());
             setRuleDescription(gameRule);
             setRuleSpecificSettings(gameRule);
             createAndAddRect(nameTextField.getText(), gameRule, view.getEditorDrawingPane().getRectByName(previousRuleTextField.getText()));
@@ -194,6 +195,7 @@ public class EditorTabController {
             GameRule gameRule = getGameRuleFromComboBox();
             r.setGameRule(gameRule);
             r.setName(view.getNameTextField(activeGridElements).getText());
+            gameRule.setName(view.getNameTextField(activeGridElements).getText());
             setRuleDescription(gameRule);
             setRuleSpecificSettings(gameRule);
 

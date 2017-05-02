@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public abstract class GameRule implements Serializable {
 
+    protected String name;
     protected String className;
     protected String description;
     protected ArrayList<GameRule> postRules = new ArrayList<>();
@@ -23,11 +24,20 @@ public abstract class GameRule implements Serializable {
     protected String player;
 
     public GameRule() {
+        this.name = "Generic Game Rule.";
         this.className = "GameRule";
         this.description = "A generic game rule.";
     }
 
     public abstract void run(Object... args);
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getClassName() {
         return this.className;
