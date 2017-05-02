@@ -32,6 +32,7 @@ public class Pile implements Serializable, Iterable {
         this.maxSize = maxSize;
         this.startingSize = minSize;
         this.pileType = PileType.GENERAL;
+        this.cardOrientation = CardOrientation.EITHER;
     }
 
     public Pile(int minSize, int maxSize, int startingSize) {
@@ -39,6 +40,7 @@ public class Pile implements Serializable, Iterable {
         this.maxSize = maxSize;
         this.startingSize = startingSize;
         this.pileType = PileType.GENERAL;
+        this.cardOrientation = CardOrientation.EITHER;
     }
 
 
@@ -48,6 +50,7 @@ public class Pile implements Serializable, Iterable {
         this.maxSize = maxSize;
         this.startingSize = minSize;
         this.pileType = PileType.GENERAL;
+        this.cardOrientation = CardOrientation.EITHER;
     }
 
     public Pile(String name, int minSize, int maxSize, int startingSize) {
@@ -56,6 +59,7 @@ public class Pile implements Serializable, Iterable {
         this.maxSize = maxSize;
         this.startingSize = startingSize;
         this.pileType = PileType.GENERAL;
+        this.cardOrientation = CardOrientation.EITHER;
     }
 
     public Pile(String name, int minSize, int maxSize, int startingSize, CardOrientation cardOrientation) {
@@ -78,14 +82,17 @@ public class Pile implements Serializable, Iterable {
     }
 
     public void add(Card card){
+        card.setOrientation(this.cardOrientation);
         cards.add(card);
-    };
+    }
 
     public void addToTop(Card card) {
+        card.setOrientation(this.cardOrientation);
         cards.add(0, card);
     }
 
     public void addToBottom(Card card) {
+        card.setOrientation(this.cardOrientation);
         cards.add(card);
     }
 
