@@ -9,6 +9,7 @@ import model.Piles.Pile;
 import view.EditorTab.DrawingPane;
 import view.EditorTab.RuleElementLine;
 import view.EditorTab.RuleElementRectangle;
+import view.TableTab.CardRestrictionsMenuView;
 import view.TableTab.GeneralSettingsMenuView;
 import view.TableTab.TableGridView;
 
@@ -395,6 +396,13 @@ public class GameCreation implements Serializable {
         view.clearPlayerSettingsInputs();
     }
 
+    private void loadCardRestrictionSettings() {
+        CardRestrictionsMenuView view = GameView.getInstance().getTableTab().getCardRestrictionSettingsMenu();
+        view.getNumDecksTextField().setText(Integer.toString(cardSettings.getNumDecks()));
+        view.getController().setCardSettings(cardSettings);
+        view.clearCardRestrictionsInputs();
+    }
+
     private void loadTableGrid() {
         TableGridView view = GameView.getInstance().getTableTab().getTableGridView();
         view.setTableGrid(this.tableGrid);
@@ -412,6 +420,7 @@ public class GameCreation implements Serializable {
         this.rectangleBlueprints = (ArrayList<RuleElementRectangleBlueprint>) in.readObject();
         loadDrawingPane();
         loadGeneralSettings();
+        loadCardRestrictionSettings();
         loadTableGrid();
     }
 

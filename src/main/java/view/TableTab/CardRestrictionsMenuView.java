@@ -93,6 +93,14 @@ public class CardRestrictionsMenuView extends TitledPane {
         cardRestrictionMenuContent.add(updateButton, 0, row++);
     }
 
+    public void clearCardRestrictionsInputs() {
+        getCardComboBox().setValue(null);
+        getClubTextField().clear();
+        getDiamondTextField().clear();
+        getHeartTextField().clear();
+        getSpadeTextField().clear();
+    }
+
     private void boldAllHeaders() {
         for (String key : gridElements.keySet()) {
             if (key.contains("Header")) {
@@ -108,6 +116,10 @@ public class CardRestrictionsMenuView extends TitledPane {
         getDiamondTextField().setPromptText("Number of Diamonds");
         getHeartTextField().setPromptText("Number of Hearts");
         getSpadeTextField().setPromptText("Number of Spades");
+    }
+
+    public CardRestrictionsMenuController getController() {
+        return controller;
     }
 
     public TextField getNumDecksTextField() {

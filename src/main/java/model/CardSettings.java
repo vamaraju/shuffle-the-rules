@@ -17,8 +17,8 @@ public class CardSettings implements Serializable {
                spade: num_spades
                club: num_clubs
                diamond: num_diamonds*/
-    Map<PlayingCard, Map<Suit, Integer>> cardRestrictions = new LinkedHashMap<>();
-
+    private Map<PlayingCard, Map<Suit, Integer>> cardRestrictions = new LinkedHashMap<>();
+    private int numDecks;
 
     public CardSettings() {
         initialize(1);
@@ -30,6 +30,7 @@ public class CardSettings implements Serializable {
     }
 
     private void initialize(int numDecks) {
+        this.numDecks = numDecks;
         for (PlayingCard card: PlayingCard.values()) {
             cardRestrictions.put(card, new LinkedHashMap<>());
             for (Suit suit : Suit.values()) {
@@ -83,7 +84,13 @@ public class CardSettings implements Serializable {
     }
 
 
+    public int getNumDecks() {
+        return numDecks;
+    }
+
+
     public void setNumDecks(int numDecks) {
+        this.numDecks = numDecks;
         clear();
         initialize(numDecks);
     }
