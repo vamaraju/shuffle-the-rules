@@ -372,7 +372,6 @@ public class GameCreation implements Serializable {
 
     private void loadGeneralSettings() {
         GeneralSettingsMenuView view = GameView.getInstance().getTableTab().getGeneralSettingsMenu();
-        ArrayList<Player> playersBackup = new ArrayList<>(players);
 
         if (gameSettings.getMinPlayers() != 0) {
             view.getMinPlayersTextField().setText(Integer.toString(gameSettings.getMinPlayers()));
@@ -382,13 +381,12 @@ public class GameCreation implements Serializable {
             view.getMaxPlayersTextField().setText(Integer.toString(gameSettings.getMaxPlayers())); // this may overwrite this.players
         }
 
-        if (!(players.isEmpty())) {
+        if (!players.isEmpty() && players.get(0).getHand() != null) {
             view.getMinHandSizeTextField().setText(Integer.toString(players.get(0).getHand().getMinSize()));
             view.getMaxHandSizeTextField().setText(Integer.toString(players.get(0).getHand().getMaxSize()));
             view.getStartingHandSizeTextField().setText(Integer.toString(players.get(0).getHand().getStartingSize()));
         }
 
-        players = playersBackup; // restore backup in case this.players was overwritten from maxPlayers listener
         view.getPlayerComboBox().getItems().clear();
         view.getPlayerComboBox().getItems().addAll(players);
     }

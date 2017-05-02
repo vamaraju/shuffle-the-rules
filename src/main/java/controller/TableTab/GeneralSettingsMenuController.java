@@ -8,41 +8,42 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 import model.GameCreation;
+import model.GameSettings;
 import model.Piles.Hand;
 import model.Player;
 import view.TableTab.GeneralSettingsMenuView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class GeneralSettingsMenuController {
 
     private GeneralSettingsMenuView view;
+    private GameSettings gameSettings = GameCreation.getInstance().getGameSettings();
+    private List<Player> players = GameCreation.getInstance().getPlayers();
 
     public GeneralSettingsMenuController(GeneralSettingsMenuView view){
         this.view = view;
     }
 
-    public ArrayList<Player> getPlayerList() {
-        ArrayList<Player> players = new ArrayList<>();
-        return players;
-    }
-
-    public ArrayList<Player> getTurnNumbers() {
-        ArrayList<Player> players = new ArrayList<>();
-        return players;
-    }
-
-    public void onUpdateButtonClick(Event event) {
+    public void onUpdateButtonClick(Event e) {
         if (runValidationChecks()) {
-            GameCreation.getInstance().getGameSettings().setMinPlayers(Integer.parseInt(view.getMinPlayersTextFieldValue()));
-            GameCreation.getInstance().getGameSettings().setMaxPlayers(Integer.parseInt(view.getMaxPlayersTextFieldValue()));
+            Player selectedPlayer = view.getPlayerComboBoxValue();
+            if (selectedPlayer != null) {
+                selectedPlayer.setName(view.getPlayerNameTextFieldValue());
+            }
+            resetPlayers(Integer.parseInt(view.getMaxPlayersTextFieldValue()));
+            updatePlayersComboBox();
+
+            gameSettings.setMinPlayers(Integer.parseInt(view.getMinPlayersTextFieldValue()));
+            gameSettings.setMaxPlayers(Integer.parseInt(view.getMaxPlayersTextFieldValue()));
 
             int minHandSize = Integer.parseInt(view.getMinHandSizeTextFieldValue());
             int maxHandSize = Integer.parseInt(view.getMaxHandSizeTextFieldValue());
             int startingHandSize = Integer.parseInt(view.getStartingHandSizeTextFieldValue());
 
-            for (Player p : GameCreation.getInstance().getPlayers()) {
+            for (Player p : players) {
                 p.setHand(new Hand(minHandSize, maxHandSize, startingHandSize));
             }
 
@@ -52,8 +53,21 @@ public class GeneralSettingsMenuController {
 
     public void onMaxPlayersChanged(ObservableValue observable, Object oldMaxNumPlayers, Object newMaxNumPlayers) {
         if (((String) newMaxNumPlayers).matches("[0-9]*")) {
-            GameCreation.getInstance().resetPlayers(Integer.parseInt((String) newMaxNumPlayers));
+            resetPlayers(Integer.parseInt((String) newMaxNumPlayers));
             updatePlayersComboBox();
+        }
+    }
+
+    public void resetPlayers(int numPlayers) {
+        int initialSize =  players.size();
+        if (numPlayers < players.size()) {
+            for (int i = numPlayers; i < initialSize; i++) {
+                players.remove(numPlayers);
+            }
+        } else if (numPlayers > players.size()) {
+            for (int i = initialSize; i < numPlayers; i++) {
+                players.add(new Player(i+1));
+            }
         }
     }
 
@@ -67,7 +81,9 @@ public class GeneralSettingsMenuController {
 
     public void updatePlayersComboBox() {
         view.getPlayerComboBox().getItems().clear();
-        view.getPlayerComboBox().getItems().addAll(GameCreation.getInstance().getPlayers());
+        view.getPlayerComboBox().getItems().addAll(players);
+        view.getPlayerNameTextField().setText("");
+        view.getTurnNumberLabel().setText("");
     }
 
     public void onPlayerNameChanged(ObservableValue observable, Object oldPlayerName, Object newPlayerName) {
@@ -112,6 +128,13 @@ public class GeneralSettingsMenuController {
             return false;
         }
 
+        if (view.getPlayerComboBoxValue() != null) {
+            if (view.getPlayerNameTextFieldValue().isEmpty() || view.getPlayerNameTextFieldValue() == null) {
+                showEmptyPlayerNameErrorAlert();
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -119,6 +142,13 @@ public class GeneralSettingsMenuController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "One or more required fields above are empty. Please enter a value in each field in the 'Number of Players' and 'Hand Size' sections.");
         alert.setTitle("Empty Field Error");
         alert.setHeaderText("A Field Is Empty");
+        alert.showAndWait();
+    }
+
+    private void showEmptyPlayerNameErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "The Player Name is not specified. Please enter a value in the 'Player Name' field for the selected Player. Player Name cannot be empty.");
+        alert.setTitle("Player Name Empty Error");
+        alert.setHeaderText("Player Name Is Empty");
         alert.showAndWait();
     }
 

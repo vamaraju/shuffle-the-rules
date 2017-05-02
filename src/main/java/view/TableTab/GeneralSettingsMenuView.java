@@ -62,9 +62,9 @@ public class GeneralSettingsMenuView extends TitledPane {
         getMaxHandSizeTextField().setPromptText("Enter a Number");
         getStartingHandSizeTextField().setPromptText("Enter a Number");
 
-        getMaxPlayersTextField().textProperty().addListener(controller::onMaxPlayersChanged);
+//        getMaxPlayersTextField().textProperty().addListener(controller::onMaxPlayersChanged);
         getPlayerComboBox().valueProperty().addListener(controller::onPlayerSelected);
-        getPlayerNameTextField().textProperty().addListener(controller::onPlayerNameChanged);
+//        getPlayerNameTextField().textProperty().addListener(controller::onPlayerNameChanged);
 
         controller.updatePlayersComboBox();
 //        controller.updateTurnNumberComboBox();
