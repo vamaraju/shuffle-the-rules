@@ -73,6 +73,7 @@ public class GameCreation implements Serializable {
         instance.gameSettings.reset();
         instance.rectangleBlueprints.clear();
         instance.tableGrid = new TableGrid();
+
     }
 
 
