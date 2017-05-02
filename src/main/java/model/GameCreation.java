@@ -355,7 +355,7 @@ public class GameCreation implements Serializable {
         ArrayList<RuleElementRectangle> rectangles = new ArrayList<>();
         for (RuleElementRectangleBlueprint rectangleBlueprint : this.rectangleBlueprints) {
             RuleElementRectangle r = new RuleElementRectangle(rectangleBlueprint);
-            if (r.getGameRuleName().equals("OnGameStartEvent")) {
+            if (r.getGameRuleClassName().equals("OnGameStartEvent")) {
                 rectangles.add(0, r);
             } else {
                 rectangles.add(r);
