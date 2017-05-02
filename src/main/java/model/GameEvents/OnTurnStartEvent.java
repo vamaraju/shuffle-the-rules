@@ -10,7 +10,7 @@ import model.GameRule;
 public class OnTurnStartEvent extends GameEvent {
 
     public OnTurnStartEvent() {
-        this.name = "OnTurnStartEvent";
+        this.className = "OnTurnStartEvent";
         this.description = "The turn is starting.";
     }
 

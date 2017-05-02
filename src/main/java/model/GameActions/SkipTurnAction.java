@@ -12,7 +12,7 @@ public class SkipTurnAction extends GameAction {
     private Player player;
 
     public SkipTurnAction() {
-        this.name = "SkipTurnAction";
+        this.className = "SkipTurnAction";
         this.description = "A turn is skipped.";
     }
 

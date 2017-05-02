@@ -8,7 +8,7 @@ import model.GameRule;
 public class EndGameAction extends GameAction {
 
     public EndGameAction() {
-        this.name = "EndGameAction";
+        this.className = "EndGameAction";
         this.description = "The game ends.";
     }
 

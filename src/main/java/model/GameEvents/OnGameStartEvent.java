@@ -6,7 +6,7 @@ import model.GameRule;
 public class OnGameStartEvent extends GameEvent {
 
     public OnGameStartEvent() {
-        this.name = "OnGameStartEvent";
+        this.className = "OnGameStartEvent";
         this.description = "The game is starting.";
     }
 

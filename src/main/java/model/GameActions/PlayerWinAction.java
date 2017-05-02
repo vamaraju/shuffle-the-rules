@@ -3,7 +3,6 @@
 * */
 package model.GameActions;
 
-import model.GameRule;
 import model.Player;
 
 
@@ -12,7 +11,7 @@ public class PlayerWinAction extends GameAction {
     private Player player;
 
     public PlayerWinAction() {
-        this.name = "PlayerWinAction";
+        this.className = "PlayerWinAction";
         this.description = "A player wins.";
     }
 

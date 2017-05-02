@@ -230,7 +230,7 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Sets the x-coordinate of the Rectangle and sets its name accordingly, if setName is provided (true).
+     * Sets the x-coordinate of the Rectangle and sets its name accordingly, if setText is provided (true).
      *
      * @param x The x-coordinate to which the Rectangle will be set and the name will be levelled with.
      * @param setText Boolean that determines whether the Rectangle name position will be adjusted.
@@ -242,7 +242,7 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Sets the y-coordinate of the Rectangle and sets its name accordingly, if setName is provided (true).
+     * Sets the y-coordinate of the Rectangle and sets its name accordingly, if setText is provided (true).
      *
      * @param y The y-coordinate to which the Rectangle will be set and the name will be levelled with.
      * @param setText Boolean that determines whether the Rectangle name position will be adjusted.
@@ -254,7 +254,7 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Sets the x-coordinate of the Rectangle, its name, and lines, if setName and setLines are provided (true).
+     * Sets the x-coordinate of the Rectangle, its name, and lines, if setText and setLines are provided (true).
      *
      * @param x The x-coordinate to which the Rectangle will be set. The name will be centered inside this Rectangle
      *          position, and the lines will be centered on its border.
@@ -279,7 +279,7 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Sets the y-coordinate of the Rectangle, its name, and lines, if setName and setLines are provided (true).
+     * Sets the y-coordinate of the Rectangle, its name, and lines, if setText and setLines are provided (true).
      *
      * @param y The y-coordinate to which the Rectangle will be set. The name will be centered inside this Rectangle
      *          position, and the lines will be centered on its border.
@@ -442,12 +442,12 @@ public class RuleElementRectangle extends Rectangle {
 
 
     /**
-     * Returns the name of the Game Rule (GameEvent or GameAction) associated with this rectangle.
+     * Returns the class name of the Game Rule (GameEvent or GameAction) associated with this rectangle.
      *
      * @return Game Rule name.
      */
-    public String getGameRuleName() {
-        return this.gameRule.getName();
+    public String getGameRuleClassName() {
+        return this.gameRule.getClassName();
     }
 
 
@@ -707,7 +707,7 @@ public class RuleElementRectangle extends Rectangle {
                 (this.getHeight() == otherRect.getHeight()) &&
                 (this.getName().equals(otherRect.getName())) &&
                 (this.getRuleType() == otherRect.getRuleType()) &&
-                (this.getGameRuleName().equals(otherRect.getGameRuleName()));
+                (this.getGameRuleClassName().equals(otherRect.getGameRuleClassName()));
     }
 
 

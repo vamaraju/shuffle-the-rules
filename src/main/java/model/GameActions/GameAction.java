@@ -11,7 +11,7 @@ import java.io.Serializable;
 public abstract class GameAction extends GameRule implements Serializable {
 
     public GameAction() {
-        this.name = "GameAction";
+        this.className = "GameAction";
         this.description = "A generic game action.";
     }
 

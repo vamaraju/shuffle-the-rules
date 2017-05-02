@@ -12,7 +12,7 @@ import model.Player;
 public class OnPlayerClickEvent extends GameEvent {
 
     public OnPlayerClickEvent() {
-        this.name = "OnPlayerClickEvent";
+        this.className = "OnPlayerClickEvent";
         this.description = "A specific player is clicked.";
     }
 

@@ -15,7 +15,7 @@ public class DrawCardAction extends GameAction {
     private Player player;
 
     public DrawCardAction() {
-        this.name = "DrawCardAction";
+        this.className = "DrawCardAction";
         this.description = "A card (or cards) is drawn.";
     }
 

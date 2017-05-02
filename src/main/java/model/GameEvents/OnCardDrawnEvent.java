@@ -9,7 +9,7 @@ public class OnCardDrawnEvent extends GameEvent {
     private Card expectedCard;
 
     public OnCardDrawnEvent() {
-        this.name = "OnCardDrawnEvent";
+        this.className = "OnCardDrawnEvent";
         this.description = "A specific card is drawn.";
     }
 

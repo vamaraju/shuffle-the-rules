@@ -12,7 +12,7 @@ import model.Player;
 public class OnTurnEndEvent extends GameEvent {
 
     public OnTurnEndEvent() {
-        this.name = "OnTurnEndEvent";
+        this.className = "OnTurnEndEvent";
         this.description = "The turn is ending.";
     }
 

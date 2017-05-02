@@ -12,7 +12,7 @@ public class ShufflePileAction extends GameAction {
     private Pile pile;
 
     public ShufflePileAction() {
-        this.name = "ShufflePileAction";
+        this.className = "ShufflePileAction";
         this.description = "A pile is shuffled.";
     }
 

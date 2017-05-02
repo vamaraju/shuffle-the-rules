@@ -11,7 +11,7 @@ import model.GameRule;
 public class OnRoundEndEvent extends GameEvent {
 
     public OnRoundEndEvent() {
-        this.name = "OnRoundEndEvent";
+        this.className = "OnRoundEndEvent";
         this.description = "The round is ending.";
     }
 

@@ -9,7 +9,7 @@ public class OnCardPlayedEvent extends GameEvent {
     private Card expectedCard;
 
     public OnCardPlayedEvent() {
-        this.name = "OnCardPlayedEvent";
+        this.className = "OnCardPlayedEvent";
         this.description = "A specific card is played.";
     }
 

@@ -11,7 +11,7 @@ import model.Piles.Pile;
 public class OnPileFullEvent extends GameEvent {
 
     public OnPileFullEvent() {
-        this.name = "OnPileFullEvent";
+        this.className = "OnPileFullEvent";
         this.description = "A specific pile is full.";
     }
 

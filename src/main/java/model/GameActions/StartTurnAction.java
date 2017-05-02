@@ -8,7 +8,7 @@ import model.GameRule;
 public class StartTurnAction extends GameAction {
 
     public StartTurnAction() {
-        this.name = "StartTurnAction";
+        this.className = "StartTurnAction";
         this.description = "A turn is started.";
     }
 

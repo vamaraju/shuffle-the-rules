@@ -7,7 +7,7 @@ import model.Piles.Pile;
 public class OnHandFullEvent extends GameEvent {
 
     public OnHandFullEvent() {
-        this.name = "OnHandFullEvent";
+        this.className = "OnHandFullEvent";
         this.description = "A player's hand is full.";
     }
 

@@ -6,7 +6,7 @@ import model.GameRule;
 public class OnGameEndEvent extends GameEvent {
 
     public OnGameEndEvent() {
-        this.name = "OnGameEndEvent";
+        this.className = "OnGameEndEvent";
         this.description = "The game is ending.";
     }
 

@@ -14,7 +14,7 @@ public class MoveCardAction extends GameAction {
     private Card card;
 
     public MoveCardAction() {
-        this.name = "MoveCardAction";
+        this.className = "MoveCardAction";
         this.description = "A card (or cards) is moved.";
     }
 

@@ -17,7 +17,7 @@ public class DealCardAction extends GameAction {
     private ArrayList<Player> players = new ArrayList<>();
 
     public DealCardAction() {
-        this.name = "DealCardAction";
+        this.className = "DealCardAction";
         this.description = "A card (or cards) is dealt.";
     }
 

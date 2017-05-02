@@ -12,7 +12,7 @@ import model.GameRule;
 public class OnRoundStartEvent extends GameEvent {
 
     public OnRoundStartEvent() {
-        this.name = "OnRoundStartEvent";
+        this.className = "OnRoundStartEvent";
         this.description = "The round is starting.";
     }
 

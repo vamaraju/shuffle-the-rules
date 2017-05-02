@@ -13,7 +13,7 @@ import model.Player;
 public class OnPlayerTurnEvent extends GameEvent {
 
     public OnPlayerTurnEvent() {
-        this.name = "OnPlayerTurnEvent";
+        this.className = "OnPlayerTurnEvent";
         this.description = "A specific player's turn is starting.";
     }
 

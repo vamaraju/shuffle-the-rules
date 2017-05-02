@@ -8,7 +8,7 @@ import model.GameRule;
 public class EndTurnAction extends GameAction  {
 
     public EndTurnAction() {
-        this.name = "EndTurnAction";
+        this.className = "EndTurnAction";
         this.description = "The turn ends.";
     }
 

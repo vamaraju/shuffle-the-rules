@@ -15,7 +15,7 @@ public class PlaceCardAction extends GameAction {
     private Card card;
 
     public PlaceCardAction() {
-        this.name = "PlaceCardAction";
+        this.className = "PlaceCardAction";
         this.description = "A card (or cards) is placed.";
     }
 

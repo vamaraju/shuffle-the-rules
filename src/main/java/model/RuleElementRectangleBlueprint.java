@@ -174,7 +174,7 @@ public class RuleElementRectangleBlueprint implements Serializable {
                 this.height +
                 this.name.hashCode() +
                 this.ruleType.getName().hashCode() +
-                this.gameRule.getName().hashCode());
+                this.gameRule.getClassName().hashCode());
     }
 
 
@@ -191,6 +191,6 @@ public class RuleElementRectangleBlueprint implements Serializable {
                 (this.getHeight() == otherRect.getHeight()) &&
                 (this.getName().equals(otherRect.getName())) &&
                 (this.getRuleType() == otherRect.getRuleType()) &&
-                (this.getGameRule().getName().equals(otherRect.getGameRule().getName()));
+                (this.getGameRule().getClassName().equals(otherRect.getGameRule().getClassName()));
     }
 }

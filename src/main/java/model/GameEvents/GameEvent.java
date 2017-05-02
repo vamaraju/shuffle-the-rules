@@ -12,7 +12,7 @@ import java.io.Serializable;
 public abstract class GameEvent extends GameRule implements Serializable {
 
     public GameEvent() {
-        this.name = "GameEvent";
+        this.className = "GameEvent";
         this.description = "A generic game event.";
     }
 
