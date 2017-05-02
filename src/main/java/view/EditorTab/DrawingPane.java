@@ -2,6 +2,10 @@ package view.EditorTab;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import model.GameEvents.OnRoundStartEvent;
+import model.GameEvents.OnTurnStartEvent;
+import model.GameRule;
+import model.RuleGraph;
 import org.junit.Rule;
 
 import java.util.ArrayList;
@@ -125,6 +129,18 @@ public class DrawingPane extends Pane {
         return null;
     }
 
+    public RuleElementRectangle getRectByClass(Class<? extends Object> c) {
+        for (Object o : this.getChildren()) {
+            if (o instanceof RuleElementRectangle) {
+                RuleElementRectangle r = (RuleElementRectangle) o;
+                if (c.isInstance(r.getGameRule())) {
+                    return r;
+                }
+            }
+        }
+        return null;
+    }
+
     public List<RuleElementRectangle> getRow(double y) {
         List<RuleElementRectangle> row = new ArrayList<>();
 
@@ -205,6 +221,29 @@ public class DrawingPane extends Pane {
         if (y > this.getMinHeight()-100) {
             this.setMinHeight(y+100);
         }
+    }
+
+    private void addPostRules(RuleElementRectangle r) {
+        r.getGameRule().getPostRules().clear();
+        for (RuleElementRectangle postRule : r.getPostRules()) {
+            r.getGameRule().getPostRules().add(postRule.getGameRule());
+        }
+    }
+
+    public RuleGraph toRuleGraph() {
+        GameRule root = getRoot().getGameRule();
+        GameRule roundStart = getRectByClass(OnRoundStartEvent.class).getGameRule();
+        GameRule turnStart = getRectByClass(OnTurnStartEvent.class).getGameRule();
+
+        for (Object o : this.getChildren()) {
+            if (o instanceof RuleElementRectangle) {
+                RuleElementRectangle r = (RuleElementRectangle) o;
+                addPostRules(r);
+            }
+        }
+
+        RuleGraph graph = new RuleGraph(root, roundStart, turnStart);
+        return graph;
     }
 }
 
