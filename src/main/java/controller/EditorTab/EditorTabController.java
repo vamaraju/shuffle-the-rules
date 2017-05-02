@@ -552,6 +552,17 @@ public class EditorTabController {
     }
 
 
+    private boolean previousRuleIsSelectedRuleValidation() {
+        String previousRuleName = view.getPreviousRuleTextField(activeGridElements).getText();
+        RuleElementRectangle previousRect = view.getEditorDrawingPane().getRectByName(previousRuleName);
+        if (previousRect.isClicked() && !previousRect.getName().equals(DrawingPane.ROOT_NAME)) {
+            showPreviousRuleIsSelectedRuleErrorAlert(previousRuleName);
+            return false;
+        }
+        return true;
+    }
+
+
     private boolean ruleTypeNotSelectedValidation() {
         ComboBox typeComboBox = view.getTypeComboBox(activeGridElements);
         if (typeComboBox.getValue() == null) {
@@ -682,6 +693,7 @@ public class EditorTabController {
 
         String ruleTypeName = ruleTypeComboBox.getValue().toString();
         if (!previousRuleNotFoundValidation()) {return false;}
+        if (!previousRuleIsSelectedRuleValidation()) {return false;}
         if (!ruleTypeNotSelectedValidation()) {return false;}
         if (!ruleTypeIsOnGameStartValidation()) {return false;}
         if (!ruleNameEmptyValidation()) {return false;}
@@ -696,6 +708,7 @@ public class EditorTabController {
         return true;
     }
 
+
     private void showNumberErrorAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING, "One or more number fields contain an invalid character (a non-number). Please enter a positive integer in all number fields.");
         alert.setTitle("Number Field Error");
@@ -703,10 +716,19 @@ public class EditorTabController {
         alert.showAndWait();
     }
 
+
     private void showPreviousRuleNotFoundErrorAlert(String previousRuleName) {
         Alert alert = new Alert(Alert.AlertType.WARNING, "The specified previous rule name cannot be found in editor: \n" + previousRuleName + "\nPlease enter a previous rule name that already exists in the rule tree. Note that the names are case-sensitive.");
         alert.setTitle("Previous Rule Error");
         alert.setHeaderText("Previous Rule Not Found");
+        alert.showAndWait();
+    }
+
+
+    private void showPreviousRuleIsSelectedRuleErrorAlert(String previousRuleName) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "The specified previous rule name is already the selected rule: \n" + previousRuleName + "\nA rule cannot be a previous rule to itself. Please enter a different previous rule name to update to.");
+        alert.setTitle("Previous Rule Error");
+        alert.setHeaderText("Previous Rule Is Already Selected");
         alert.showAndWait();
     }
 
