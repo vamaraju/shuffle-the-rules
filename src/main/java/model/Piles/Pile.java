@@ -8,6 +8,7 @@ import model.CardOrientation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -113,16 +114,7 @@ public class Pile implements Serializable, Iterable {
     }
 
     public void shuffle() {
-        Random generator = new Random();
-        int size = cards.size();
-
-        for (int i = 0; i < size; i++) {
-            int index1 = generator.nextInt(size);
-            int index2 = generator.nextInt(size);
-            Card card1 = cards.get(index1);
-            cards.set(index1, cards.get(index2));
-            cards.set(index2, card1);
-        }
+        Collections.shuffle(cards);
     }
 
     public int getMinSize(){
