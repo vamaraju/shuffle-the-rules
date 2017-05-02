@@ -2,7 +2,6 @@ package model;
 
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.Pane;
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.Piles.Pile;
@@ -74,7 +73,15 @@ public class GameCreation implements Serializable {
         instance.gameSettings.reset();
         instance.rectangleBlueprints.clear();
         instance.tableGrid = new TableGrid();
+    }
 
+
+    public static void resetViews() {
+        GameView.getInstance().getEditorTab().clearAllInputs();
+        GameView.getInstance().getTableTab().getTableGridPropertiesView().resetInputsToDefaults();
+        GameView.getInstance().getTableTab().getGeneralSettingsMenu().clearAllInputs();
+        GameView.getInstance().getTableTab().getPileSettingsMenu().clearAllInputs();
+        GameView.getInstance().getTableTab().getCardRestrictionSettingsMenu().clearAllInputs();
     }
 
 
@@ -398,9 +405,9 @@ public class GameCreation implements Serializable {
 
     private void loadCardRestrictionSettings() {
         CardRestrictionsMenuView view = GameView.getInstance().getTableTab().getCardRestrictionSettingsMenu();
+        view.clearAllInputs();
         view.getNumDecksTextField().setText(Integer.toString(cardSettings.getNumDecks()));
         view.getController().setCardSettings(cardSettings);
-        view.clearCardRestrictionsInputs();
     }
 
     private void loadTableGrid() {

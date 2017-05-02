@@ -44,7 +44,8 @@ public class CardRestrictionsMenuController {
 
 
     public void onNumDecksChanged(ObservableValue observable, Object oldNum, Object newNum) {
-        if (((String) newNum).matches("[0-9]*")) {
+        String newNumStr = (String) newNum;
+        if (!newNumStr.equals("") && newNumStr.matches("[0-9]*")) {
             cardSettings.setNumDecks(Integer.parseInt((String) newNum));
             updateSuitTextFields(view.getCardComboBox().getValue());
         }

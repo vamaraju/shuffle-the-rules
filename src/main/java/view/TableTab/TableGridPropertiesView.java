@@ -51,6 +51,13 @@ public class TableGridPropertiesView extends GridPane {
     }
 
 
+    public void resetInputsToDefaults() {
+        getGridWidthTextField().setText(TableGridDefaults.WIDTH.toIntStr());
+        getGridHeightTextField().setText(TableGridDefaults.HEIGHT.toIntStr());
+        getGridCellWidthTextField().setText(TableGridDefaults.CELL_WIDTH.toIntStr());
+    }
+
+
     public Button getUpdateButton() {
         return updateButton;
     }

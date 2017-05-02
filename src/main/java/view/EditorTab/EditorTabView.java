@@ -131,6 +131,24 @@ public class EditorTabView extends Tab {
         gridElements.put("player", new Label("Player(s)"), new ComboBox());
     }
 
+    public void clearAllInputs() {
+        clearPaneInputs(eventsGridElements);
+        clearPaneInputs(actionsGridElements);
+    }
+
+    public void clearPaneInputs(TripleHashMap<String, Node, Node> gridElements) {
+        getTypeComboBox(gridElements).setValue(null);
+        getNameTextField(gridElements).clear();
+        getDescriptionTextField(gridElements).clear();
+        getPreviousRuleTextField(gridElements).clear();
+
+        getPileComboBox(gridElements).setValue(null);
+        getNumCardsTextField(gridElements);
+        getCardValueComboBox(gridElements).setValue(null);
+        getCardSuitComboBox(gridElements).setValue(null);
+        getPlayerComboBox(gridElements).setValue(null);
+    }
+
 
     private void boldAllHeaders(TripleHashMap<String, Node, Node> gridElements) {
         for (String key : gridElements.keySet()) {

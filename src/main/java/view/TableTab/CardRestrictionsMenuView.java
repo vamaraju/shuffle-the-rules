@@ -93,7 +93,8 @@ public class CardRestrictionsMenuView extends TitledPane {
         cardRestrictionMenuContent.add(updateButton, 0, row++);
     }
 
-    public void clearCardRestrictionsInputs() {
+    public void clearAllInputs() {
+        getNumDecksTextField().clear();
         getCardComboBox().setValue(null);
         getClubTextField().clear();
         getDiamondTextField().clear();

@@ -95,6 +95,15 @@ public class GeneralSettingsMenuView extends TitledPane {
         return controller;
     }
 
+    public void clearAllInputs() {
+        getMinPlayersTextField().clear();
+        getMaxPlayersTextField().clear();
+        getMinHandSizeTextField().clear();
+        getMaxHandSizeTextField().clear();
+        getStartingHandSizeTextField().clear();
+        clearPlayerSettingsInputs();
+    }
+
     public void clearPlayerSettingsInputs() {
         getPlayerComboBox().setValue(null);
         getPlayerNameTextField().clear();
