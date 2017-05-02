@@ -373,6 +373,8 @@ public class GameCreation implements Serializable {
 
     private void loadGeneralSettings() {
         GeneralSettingsMenuView view = GameView.getInstance().getTableTab().getGeneralSettingsMenu();
+        view.getController().setGameSettings(gameSettings);
+        view.getController().setPlayers(players);
 
         if (gameSettings.getMinPlayers() != 0) {
             view.getMinPlayersTextField().setText(Integer.toString(gameSettings.getMinPlayers()));
@@ -390,6 +392,7 @@ public class GameCreation implements Serializable {
 
         view.getPlayerComboBox().getItems().clear();
         view.getPlayerComboBox().getItems().addAll(players);
+        view.clearPlayerSettingsInputs();
     }
 
     private void loadTableGrid() {

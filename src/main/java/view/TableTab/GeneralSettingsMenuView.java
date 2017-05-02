@@ -91,6 +91,16 @@ public class GeneralSettingsMenuView extends TitledPane {
         generalMenuContent.add(updateButton, 0, row++);
     }
 
+    public GeneralSettingsMenuController getController() {
+        return controller;
+    }
+
+    public void clearPlayerSettingsInputs() {
+        getPlayerComboBox().setValue(null);
+        getPlayerNameTextField().clear();
+        getTurnNumberLabel().setText("");
+    }
+
     public Button getUpdateButton(){
         return updateButton;
     }

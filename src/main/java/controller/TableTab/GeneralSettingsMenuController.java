@@ -82,12 +82,19 @@ public class GeneralSettingsMenuController {
     public void updatePlayersComboBox() {
         view.getPlayerComboBox().getItems().clear();
         view.getPlayerComboBox().getItems().addAll(players);
-        view.getPlayerNameTextField().setText("");
-        view.getTurnNumberLabel().setText("");
+        view.clearPlayerSettingsInputs();
     }
 
     public void onPlayerNameChanged(ObservableValue observable, Object oldPlayerName, Object newPlayerName) {
         view.getPlayerComboBoxValue().setName((String) newPlayerName);
+    }
+
+    public void setGameSettings(GameSettings gameSettings) {
+        this.gameSettings = gameSettings;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
     private boolean runValidationChecks() {
