@@ -94,4 +94,18 @@ public class CardSettings implements Serializable {
         clear();
         initialize(numDecks);
     }
+
+
+    public List<Card> generateCardPool() {
+        List<Card> cardPool = new LinkedList<>();
+        for (PlayingCard c : cardRestrictions.keySet()) {
+            for (Suit s : cardRestrictions.get(c).keySet()) {
+                for (int i = 0; i < cardRestrictions.get(c).get(s); i++) {
+                    cardPool.add(new Card(c, s));
+                }
+            }
+        }
+        Collections.shuffle(cardPool);
+        return cardPool;
+    }
 }
