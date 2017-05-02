@@ -185,15 +185,7 @@ public class RuleElementRectangle extends Rectangle {
 
         this.setFill(Color.WHITE);
         this.setStrokeWidth(2);
-
-        switch (this.ruleType) {
-            case EVENT:
-                this.setStroke(Color.BLUE);
-                break;
-            case ACTION:
-                this.setStroke(Color.RED);
-                break;
-        }
+        this.setStroke(this.getDefaultBorderColor());
 
         for (RuleElementRectangleBlueprint preRuleBlueprint : blueprint.getPreRules()) {
             this.preRules.add(new RuleElementRectangle(preRuleBlueprint));
