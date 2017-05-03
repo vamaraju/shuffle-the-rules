@@ -7,12 +7,13 @@
 * 3.2.2.2.3.2 User can select Card(s) from Hand to discard.
 * 3.2.2.2.3.4 User can select Card(s) to swap between Piles.
 * */
-package model;
+package view.Gameplay;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import model.Card;
+import model.CardOrientation;
 
 
 /* referenced http://docs.oracle.com/javafx/2/ui_controls/list-view.htm */
