@@ -677,17 +677,6 @@ public class EditorTabController {
 
 
     private boolean runAllValidations() {
-        ComboBox ruleTypeComboBox = view.getTypeComboBox(activeGridElements);
-        TextField ruleNameTextField = view.getNameTextField(activeGridElements);
-        TextField ruleDescriptionTextField = view.getDescriptionTextField(activeGridElements);
-        TextField previousRuleNameTextField = view.getPreviousRuleTextField(activeGridElements);
-        ComboBox pileComboBox = view.getPileComboBox(activeGridElements);
-        TextField numCardsTextField = view.getNumCardsTextField(activeGridElements);
-        ComboBox cardValueComboBox = view.getCardValueComboBox(activeGridElements);
-        ComboBox cardSuitComboBox = view.getCardSuitComboBox(activeGridElements);
-        ComboBox playerComboBox = view.getPlayerComboBox(activeGridElements);
-
-        String ruleTypeName = ruleTypeComboBox.getValue().toString();
         if (!previousRuleNotFoundValidation()) {return false;}
         if (!previousRuleIsSelectedRuleValidation()) {return false;}
         if (!ruleTypeNotSelectedValidation()) {return false;}
