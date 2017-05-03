@@ -50,7 +50,7 @@ public class GameplayView extends BorderPane {
         /* bottom pane will be where hand and buttons are displayed */
         HBox displayedPileAndButtons = new HBox();
 
-        selectedPileView = new PileView(Orientation.HORIZONTAL);
+        selectedPileView = new PileView();
 
         VBox displayedPile = new VBox();
         Label pileWarningMessage = new Label("Control click to select and deselect multiple cards");

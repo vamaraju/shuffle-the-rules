@@ -23,17 +23,21 @@ public class PileView extends ListView<Card> {
 
     private PileViewController pileViewController = new PileViewController(this);
 
-    /* One input argument - orientaton of the PileView.
-     * horizontal - Orientation.HORIZONTAL
-     * vertical - Orientation.VERTICAL */
-    public PileView(Orientation orientation){
+    public PileView() {
+        initialize(Orientation.HORIZONTAL);
+    }
 
-        /* want user to be able to select multiple Cards (CardCells)*/
+    public PileView(Orientation orientation) {
+        initialize(orientation);
+    }
+
+    public void initialize(Orientation orientation) {
+        pileViewController = new PileViewController(this);
+
+        /* Allows user to be able to select multiple Cards (CardCells). Uses Ctrl-Click to select multiple items. */
         this.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
         this.setOrientation(orientation);
 
-        pileViewController = new PileViewController(this);
 
         this.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             @Override
@@ -41,7 +45,6 @@ public class PileView extends ListView<Card> {
                 return new CardCell();
             }
         });
-
     }
 
     public void updatePile(Pile pile){
