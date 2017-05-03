@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.GameCreation;
 import model.GameView;
+import model.GameplayMessageType;
 import model.Piles.Pile;
 import model.TableGrid;
 
@@ -39,7 +40,11 @@ public class GameplayView extends BorderPane {
 
 
         gameplayMessageView = new GameplayMessageView();
-
+        gameplayMessageView.addMessage(GameplayMessageType.INFO, "test info!");
+        gameplayMessageView.addMessage(GameplayMessageType.ALERT, "test alert!");
+        gameplayMessageView.addMessage(GameplayMessageType.ACTION, "test action!");
+        gameplayMessageView.addMessage(GameplayMessageType.EVENT, "test event!");
+        gameplayMessageView.addMessage(GameplayMessageType.TURN, "test turn!");
 
 
         /* bottom pane will be where hand and buttons are displayed */

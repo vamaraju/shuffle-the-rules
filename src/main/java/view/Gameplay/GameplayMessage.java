@@ -2,37 +2,40 @@ package view.Gameplay;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import model.GameplayMessageType;
 
 
 import java.io.Serializable;
 
-public class GameplayMessage extends HBox implements Serializable {
+public class GameplayMessage extends HBox {
 
-    private String type;
+    private GameplayMessageType type;
     private String message;
 
     private Label content = new Label();
 
-    public GameplayMessage(String type, String message){
-        setMessageContent(type,message);
+    public GameplayMessage(GameplayMessageType type, String message) {
+        setMessageContent(type, message);
         this.getChildren().addAll(content);
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return this.message;
     }
 
-    public String getType(){
+    public GameplayMessageType getType() {
         return this.type;
     }
 
-    public GameplayMessage getGameplayMessage(){
+    public GameplayMessage getGameplayMessage() {
         return this;
     }
 
-    public void setMessageContent(String type, String message){
+    public void setMessageContent(GameplayMessageType type, String message) {
         this.type = type;
         this.message = message;
         this.content.setText("[" + type + "]" + " - " + message);
+        this.content.setTextFill(Color.valueOf(type.getColor()));
     }
 }

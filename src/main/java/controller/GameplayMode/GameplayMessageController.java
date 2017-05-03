@@ -3,6 +3,7 @@
 * */
 package controller.GameplayMode;
 
+import model.GameplayMessageType;
 import view.Gameplay.GameplayMessage;
 import view.Gameplay.GameplayMessageView;
 
@@ -19,7 +20,7 @@ public class GameplayMessageController {
         gameplayMessageView.addMessage(gameplayMessage);
     }
 
-    public void addMessage(String type, String message){
+    public void addMessage(GameplayMessageType type, String message){
         GameplayMessage gameplayMessage = new GameplayMessage(type, message);
         this.addMessage(gameplayMessage);
     }
