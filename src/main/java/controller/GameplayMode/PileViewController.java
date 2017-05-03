@@ -2,7 +2,7 @@
 * Requirements mandating inclusion:
 * */
 
-package controller;
+package controller.GameplayMode;
 
 
 import model.Piles.Pile;

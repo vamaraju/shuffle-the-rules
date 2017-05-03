@@ -10,8 +10,7 @@
 package view.Gameplay;
 
 
-import controller.PileViewController;
-import javafx.collections.FXCollections;
+import controller.GameplayMode.PileViewController;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
