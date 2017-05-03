@@ -55,6 +55,7 @@ public class TableGridPropertiesView extends GridPane {
         getGridWidthTextField().setText(TableGridDefaults.WIDTH.toIntStr());
         getGridHeightTextField().setText(TableGridDefaults.HEIGHT.toIntStr());
         getGridCellWidthTextField().setText(TableGridDefaults.CELL_WIDTH.toIntStr());
+        getGridHideCheckBox().setSelected(false);
     }
 
 
