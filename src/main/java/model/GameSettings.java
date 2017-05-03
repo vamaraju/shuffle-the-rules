@@ -7,10 +7,10 @@ package model;
 import java.io.Serializable;
 
 public class GameSettings implements Serializable {
-    int minPlayers;
-    int maxPlayers;
+    private int minPlayers;
+    private int maxPlayers;
 
-    public GameSettings(){
+    public GameSettings() {
 
     }
 
