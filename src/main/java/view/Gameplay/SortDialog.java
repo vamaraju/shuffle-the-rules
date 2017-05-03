@@ -1,90 +1,91 @@
-package view.Gameplay;/*
+/*
 * Requirements mandating inclusion:
 *
 *
 * */
 
+package view.Gameplay;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
+import model.SortType;
 
-import java.util.Optional;
 
-/* Currently result will be a Pair<String, Boolean>.
-* String value will be (ASC/DESC) - used to determine whether to sort by ascending or descending value.
-* Boolean value will be True/False - used to determine whether or not to sort by suit.
-*
-* TODO Will change the ASC/DESC from strings to enums */
+public class SortDialog extends Dialog<ButtonType> {
 
-/* TODO BUG dialog window currently does not close */
-public class SortDialog extends Dialog<Pair<String, Boolean>> {
+    private GridPane dialogLayout = new GridPane();
 
-    private GridPane sortLayout = new GridPane();
-
-    private Label sortPrompt = new Label("Sort by:");
-
-    private Button submitSortCriteriaButton = new Button("SORT");
-
-    private Label value = new Label("Value");
-    private Label suit = new Label("Suit");
-
-    private ToggleGroup sortValueRadioGroup;
+    /* ToggleGroup is used to make radio button selection mutually exclusive */
+    private ToggleGroup sortValueRadioGroup = new ToggleGroup();
     private RadioButton valueAscendingRadioButton;
     private RadioButton valueDescendingRadioButton;
 
     private CheckBox suitCheckBox = new CheckBox("Suit");
 
-    private Optional<Pair<String, Boolean>> result;
-
-    public SortDialog(){
-        this.setTitle("Sort Hand");
-        //this.setOnCloseRequest();
-
+    public SortDialog() {
         initialize();
-
-        result = this.showAndWait();
     }
 
-    public void initialize(){
+    public void initialize() {
+        this.setTitle("Sort Hand");
 
-        initializeRadioButtons();
+        initRadioButtons();
+        initLayout();
+        initSubmitButtons();
 
-        sortLayout.setVgap(10);
-        sortLayout.setHgap(4);
-        sortLayout.add(sortPrompt,1,1);
-
-        sortLayout.add(value,2,2);
-        sortLayout.add(valueAscendingRadioButton,3,3);
-        sortLayout.add(valueDescendingRadioButton,3,4);
-
-        sortLayout.add(suitCheckBox,2,5);
-
-        sortLayout.add(submitSortCriteriaButton,2,8,2,2);
-
-
-        this.getDialogPane().setContent(sortLayout);
-
-        this.submitSortCriteriaButton.setOnAction(this::onSubmitSortCriteriaButtonClick);
+        this.getDialogPane().setContent(dialogLayout);
     }
 
-    private void onSubmitSortCriteriaButtonClick(ActionEvent actionEvent) {
+    private void initRadioButtons() {
+        valueAscendingRadioButton = new RadioButton(SortType.ASCENDING.getName());
+        valueDescendingRadioButton = new RadioButton(SortType.DESCENDING.getName());
+        valueAscendingRadioButton.setUserData(SortType.ASCENDING);
+        valueDescendingRadioButton.setUserData(SortType.DESCENDING);
 
+        sortValueRadioGroup.getToggles().add(valueAscendingRadioButton);
+        sortValueRadioGroup.getToggles().add(valueDescendingRadioButton);
     }
 
-    private void initializeRadioButtons() {
-        /* ToggleGroup used to make radio button selection mutually exclusive */
-        sortValueRadioGroup = new ToggleGroup();
+    private void initLayout() {
+        dialogLayout.setVgap(10);
+        dialogLayout.setHgap(4);
+        dialogLayout.add(new Label("Sort by:"), 1, 1);
 
-        valueAscendingRadioButton = new RadioButton("Ascending");
-        valueAscendingRadioButton.setToggleGroup(sortValueRadioGroup);
+        dialogLayout.add(new Label("Value"), 1, 2);
+        dialogLayout.add(valueAscendingRadioButton, 2, 3);
+        dialogLayout.add(valueDescendingRadioButton, 2, 4);
 
-        valueDescendingRadioButton = new RadioButton("Descending");
-        valueDescendingRadioButton.setToggleGroup(sortValueRadioGroup);
+        dialogLayout.add(suitCheckBox, 1, 5);
     }
 
+    private void initSubmitButtons() {
+        this.getDialogPane().getButtonTypes().add(ButtonType.APPLY);
+        this.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+    }
 
-    /* on click method will check get input values, then pass to Gameplay Controller */
-    /* the button will set the result of the dialog*/
+    public ToggleGroup getToggleGroup() {
+        return sortValueRadioGroup;
+    }
 
+    public Toggle getSelectedToggle() {
+        return sortValueRadioGroup.getSelectedToggle();
+    }
+
+    public CheckBox getSuitCheckBox() {
+        return suitCheckBox;
+    }
+
+    public boolean getSuitCheckBoxValue() {
+        return suitCheckBox.isSelected();
+    }
+
+    public RadioButton getAscendingRadioButton() {
+        return valueAscendingRadioButton;
+    }
+
+    public RadioButton getDescendingRadioButton() {
+        return valueDescendingRadioButton;
+    }
 }

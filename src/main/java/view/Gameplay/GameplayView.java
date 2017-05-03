@@ -9,10 +9,7 @@ package view.Gameplay;
 import controller.GameplayMode.GameplayController;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.GameCreation;
 import model.GameView;
@@ -21,22 +18,6 @@ import view.TableTab.TableGridView;
 
 
 public class GameplayView extends BorderPane {
-
-    /* Hand Options - Actions a user can perform */
-
-    private Button sortHandButton = new Button("Sort Hand");
-    private Button showHandButton = new Button("Show Hand");
-
-    /* Moves - Actions a user can perform */
-    private Button swapCardsButton = new Button("Swap Cards");
-    /* Currently a design decision. The user will select Cards and Piles and click "PLAY".  The interpreter will know what valid moves are and process the input from the user */
-    private Button playButton = new Button("PLAY");
-
-
-    /* Game Options - Actions a user can perform */
-    private Button endTurnButton = new Button("End Turn");
-    private Button endGameButton = new Button("End Game");
-    private Button becomeInactiveButton = new Button("Become inactive"); /* KS - think I'm going to change this. For now, a placeholder.*/
 
     private TableGridView table;
     private GameplayMessageView gameplayMessageView;
@@ -71,7 +52,7 @@ public class GameplayView extends BorderPane {
         tableScrollPane.setStyle("-fx-focus-color: transparent;");
 
         table.enableBackgroundImage();
-        this.setCenter(table);
+        this.setCenter(tableScrollPane);
 
 
         /* right pane will be where text is displayed for Events and Actions */
@@ -90,20 +71,14 @@ public class GameplayView extends BorderPane {
 
         displayedPile.getChildren().addAll(pileWarningMessage, new Separator(), selectedPileView);
 
-        VBox gameplayButtons = new VBox(15, showHandButton, sortHandButton, swapCardsButton, playButton,endTurnButton, endGameButton, becomeInactiveButton);
-        /* TODO Will change to GridPane for formatting */
-        //GridPane gameplayButtons = new GridPane();
-        gameplayButtons.setPadding(new Insets(10, 20, 10, 20));
-        showHandButton.setMaxWidth(Double.MAX_VALUE);
-        sortHandButton.setMaxWidth(Double.MAX_VALUE);
-        swapCardsButton.setMaxWidth(Double.MAX_VALUE);
-        playButton.setMaxWidth(Double.MAX_VALUE);
-        endTurnButton.setMaxWidth(Double.MAX_VALUE);
-        endGameButton.setMaxWidth(Double.MAX_VALUE);
-        becomeInactiveButton.setMaxWidth(Double.MAX_VALUE);
 
-        /* buttons will be disabled unless condition satisified */
-        gameplayController.disableEndTurnButton();
+//        VBox gameplayButtons = new VBox(15, showHandButton, sortHandButton, swapCardsButton, playButton,endTurnButton, endGameButton, becomeInactiveButton);
+        /* TODO Will change to GridPane for formatting */
+        GridPane gameplayButtons = new GameplayButtonView();
+//        gameplayButtons.setPadding(new Insets(10, 20, 10, 20));
+
+
+
 
         displayedPileAndButtons.setHgrow(displayedPile, Priority.ALWAYS);
         displayedPileAndButtons.setMaxHeight(300);
@@ -111,36 +86,17 @@ public class GameplayView extends BorderPane {
 
         this.setBottom(displayedPileAndButtons);
 
-        showHandButton.setOnAction(gameplayController::onShowHandButtonClick);
-        sortHandButton.setOnAction(gameplayController::onSortHandButtonClick);
 
-        endTurnButton.setOnAction(gameplayController::onEndTurnButtonClick);
-        endGameButton.setOnAction(gameplayController::onEndGameButtonClick);
-        becomeInactiveButton.setOnAction(gameplayController::onBecomeInactiveButtonClick);
-        swapCardsButton.setOnAction(gameplayController::onSwapCardsButtonClick);
-        playButton.setOnAction(gameplayController::onplayButtonClick);
 
     }
 
-    public Button getEndTurnButton() {
-        return endTurnButton;
-    }
 
-    public Button getSortHandButton() {
-        return sortHandButton;
-    }
-
-    public Button getEndGameButton() {
-        return endGameButton;
-    }
 
     public GameplayMessageView getGameplayMessageView(){
         return this.gameplayMessageView;
     }
 
-    public Button getShowHandButton() {
-        return showHandButton;
-    }
+
 
     public TableGridView getTable() {
         return table;
@@ -154,15 +110,5 @@ public class GameplayView extends BorderPane {
         return gameplayController;
     }
 
-    public Button getSwapCardsButtons() {
-        return swapCardsButton;
-    }
 
-    public Button getPlayButton() {
-        return playButton;
-    }
-
-    public Button getBecomeInactiveButton() {
-        return becomeInactiveButton;
-    }
 }

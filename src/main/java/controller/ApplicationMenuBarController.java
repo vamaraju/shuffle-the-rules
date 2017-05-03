@@ -97,7 +97,7 @@ public class ApplicationMenuBarController {
         GameplayView gameplayView = new GameplayView();
         /* controller should not be here TODO move the controller initialization */
         GameplayController gameplayController = new GameplayController(gameplayView);
-        gameplayStage.setScene(new Scene(gameplayView, 1000,600));
+        gameplayStage.setScene(new Scene(gameplayView, 1200, 800));
         gameplayStage.show();
 
     }

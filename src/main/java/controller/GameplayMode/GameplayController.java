@@ -33,17 +33,10 @@ public class GameplayController {
     public void onSortHandButtonClick(Event event){
         System.out.println("Sort Hand pressed - Gameplay View ");
         SortDialog sortDialog = new SortDialog();
-        Pair<String, Boolean> result = sortDialog.getResult();
 
     }
 
-    public void disableEndTurnButton(){
-        gameplayView.getEndTurnButton().setDisable(true);
-    }
 
-    public void enableEndTurnButton(){
-        gameplayView.getEndTurnButton().setDisable(false);
-    }
 
 
     public void onShowHandButtonClick(ActionEvent actionEvent) {

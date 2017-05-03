@@ -39,8 +39,8 @@ public class CardCell extends ListCell<Card> {
                 }
                 /* scale image */
                 cardImage.setPreserveRatio(true);
-                cardImage.setFitWidth(150);
-                cardImage.setFitHeight(350);
+                cardImage.setFitWidth(125);
+                cardImage.setFitHeight(250);
 
                 setGraphic(cardImage);
 
