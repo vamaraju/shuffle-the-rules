@@ -19,6 +19,7 @@ import model.GameCreation;
 import model.GameEvents.OnGameStartEvent;
 import model.GameEvents.OnRoundStartEvent;
 import model.GameEvents.OnTurnStartEvent;
+import model.GameValidator;
 import model.GameView;
 import view.ApplicationMenuBarView;
 import view.EditorTab.DrawingPane;
@@ -30,8 +31,6 @@ import java.util.Optional;
 public class ApplicationMenuBarController {
 
     private ApplicationMenuBarView view;
-
-    private DrawingPane drawingPane;
 
     public ApplicationMenuBarController(ApplicationMenuBarView view) {
         this.view = view;
@@ -94,11 +93,7 @@ public class ApplicationMenuBarController {
     }
 
     public void onValidateGameClick(ActionEvent e) {
-        drawingPane = GameView.getInstance().getEditorTab().getEditorDrawingPane();
-        if (runAllValidations()) {
-            GameCreation.getInstance().setRuleGraph(drawingPane.toRuleGraph());
-            showValidationSuccessfulAlert();
-        }
+        new GameValidator().validateCurrentGame();
     }
 
     public void exit(){
@@ -123,106 +118,4 @@ public class ApplicationMenuBarController {
         gameplayStage.show();
     }
 
-
-
-
-
-    private boolean gameStartExistsValidation() {
-        if (drawingPane.getRectByClass(OnGameStartEvent.class) == null) {
-            showRuleNotFoundErrorAlert("OnGameStartEvent");
-            return false;
-        }
-        return true;
-    }
-
-
-    private boolean roundStartExistsValidation() {
-        if (drawingPane.getRectByClass(OnRoundStartEvent.class) == null) {
-            showRuleNotFoundErrorAlert("OnRoundStartEvent");
-            return false;
-        }
-        return true;
-    }
-
-
-    private boolean turnStartExistsValidation() {
-        if (drawingPane.getRectByClass(OnTurnStartEvent.class) == null) {
-            showRuleNotFoundErrorAlert("OnTurnStartEvent");
-            return false;
-        }
-        return true;
-    }
-
-
-    private boolean playerWinExistsValidation() {
-        if (drawingPane.getRectByClass(PlayerWinAction.class) == null) {
-            showRuleNotFoundErrorAlert("PlayerWinAction");
-            return false;
-        }
-        return true;
-    }
-
-
-    private boolean singleGameStartValidation() {
-        if (drawingPane.getCountByClass(OnGameStartEvent.class) > 1) {
-            showExcessRuleErrorAlert("OnGameStartEvent");
-            return false;
-        }
-        return true;
-    }
-
-
-    private boolean singleRoundStartValidation() {
-        if (drawingPane.getCountByClass(OnRoundStartEvent.class) > 1) {
-            showExcessRuleErrorAlert("OnRoundStartEvent");
-            return false;
-        }
-        return true;
-    }
-
-
-    private boolean singleTurnStartValidation() {
-        if (drawingPane.getCountByClass(OnTurnStartEvent.class) > 1) {
-            showExcessRuleErrorAlert("OnTurnStartEvent");
-            return false;
-        }
-        return true;
-    }
-
-
-    private boolean runAllValidations() {
-        if (!gameStartExistsValidation()) {return false;}
-        if (!roundStartExistsValidation()) {return false;}
-        if (!turnStartExistsValidation()) {return false;}
-        if (!playerWinExistsValidation()) {return false;}
-        if (!singleGameStartValidation()) {return false;}
-        if (!singleRoundStartValidation()) {return false;}
-        if (!singleTurnStartValidation()) {return false;}
-
-        return true;
-    }
-
-
-    private void showRuleNotFoundErrorAlert(String ruleName) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "The following Game Rule was not found in the rule graph (Editor Tab): " + ruleName + ".\nEvery game needs exactly one of: OnGameStartEvent, OnRoundStartEvent, OnTurnStartEvent, and PlayerWinAction.");
-        alert.setTitle("Rule Not Found Error");
-        alert.setHeaderText(ruleName + " Not Found In Rule Graph");
-        alert.showAndWait();
-    }
-
-
-    private void showExcessRuleErrorAlert(String ruleName) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "The following Game Rule is present in the rule graph (Editor Tab) more than once: " + ruleName + ".\nEvery game needs exactly one of: OnGameStartEvent, OnRoundStartEvent, OnTurnStartEvent, and PlayerWinAction.");
-        alert.setTitle("Extra Rule Error");
-        alert.setHeaderText(ruleName + " In Rule Graph More Than Once");
-        alert.showAndWait();
-    }
-
-
-    private void showValidationSuccessfulAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Game validated successfully! The game (Rule Graph) currently defined in the Editor Tab is ready to be played!\nThe game can be tested in Play->Gameplay Testing.");
-        alert.setTitle("Validation Successful");
-        alert.setHeaderText("Game Validated Successfully");
-        alert.showAndWait();
-    }
 }
