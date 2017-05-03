@@ -78,19 +78,32 @@ public class Pile implements Serializable, Iterable {
         this.pileType = PileType.GENERAL;
     }
 
+    public void add(int index, Card card){
+        // If the pile already has a CardOrientation (UP or DOWN; not EITHER), make the card match it.
+        // If the pile has no CardOrientation (or it is EITHER), then refer to the card.
+        // If the card has no CardOrientation (or it is EITHER), default it to DOWN.
+        if (this.cardOrientation != null && this.cardOrientation != CardOrientation.EITHER) {
+            card.setOrientation(this.cardOrientation);
+        } else if (card.getOrientation() == null || card.getOrientation() == CardOrientation.EITHER) {
+            card.setOrientation(CardOrientation.DOWN);
+        }
+        if (index == -1) {
+            cards.add(card);
+        } else {
+            cards.add(index, card);
+        }
+    }
+
     public void add(Card card){
-        card.setOrientation(this.cardOrientation);
-        cards.add(card);
+        add(-1, card);
     }
 
     public void addToTop(Card card) {
-        card.setOrientation(this.cardOrientation);
-        cards.add(0, card);
+        add(0, card);
     }
 
     public void addToBottom(Card card) {
-        card.setOrientation(this.cardOrientation);
-        cards.add(card);
+        add(card);
     }
 
     public void view(){
