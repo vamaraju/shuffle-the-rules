@@ -3,7 +3,7 @@
 * */
 package controller.GameplayMode;
 
-import model.GameplayMessage;
+import view.Gameplay.GameplayMessage;
 import view.Gameplay.GameplayMessageView;
 
 

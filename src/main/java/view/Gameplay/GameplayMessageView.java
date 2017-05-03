@@ -6,7 +6,6 @@ package view.Gameplay;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-import model.GameplayMessage;
 
 
 public class GameplayMessageView extends ListView{

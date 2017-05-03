@@ -1,4 +1,4 @@
-package model;
+package view.Gameplay;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

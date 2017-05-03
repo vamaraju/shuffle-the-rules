@@ -38,12 +38,8 @@ public class GameplayView extends BorderPane {
         populatePiles();
 
 
-        this.setCenter(tableView);
-
-
-        /* right pane will be where text is displayed for Events and Actions */
         gameplayMessageView = new GameplayMessageView();
-        this.setRight(gameplayMessageView);
+
 
 
         /* bottom pane will be where hand and buttons are displayed */
@@ -70,6 +66,8 @@ public class GameplayView extends BorderPane {
         displayedPileAndButtons.setMaxHeight(300);
         displayedPileAndButtons.getChildren().addAll(displayedPile, new Separator(Orientation.VERTICAL), gameplayButtons);
 
+        this.setCenter(tableView);
+        this.setRight(gameplayMessageView);
         this.setBottom(displayedPileAndButtons);
 
 
