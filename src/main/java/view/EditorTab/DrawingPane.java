@@ -141,6 +141,19 @@ public class DrawingPane extends Pane {
         return null;
     }
 
+    public int getCountByClass(Class<? extends Object> c) {
+        int count = 0;
+        for (Object o : this.getChildren()) {
+            if (o instanceof RuleElementRectangle) {
+                RuleElementRectangle r = (RuleElementRectangle) o;
+                if (c.isInstance(r.getGameRule())) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     public List<RuleElementRectangle> getRow(double y) {
         List<RuleElementRectangle> row = new ArrayList<>();
 
