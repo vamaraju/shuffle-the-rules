@@ -4,6 +4,7 @@
 package model;
 
 import view.EditorTab.EditorTabView;
+import view.Gameplay.GameplayView;
 import view.TableTab.TableTabView;
 
 /**
@@ -15,6 +16,7 @@ public class GameView {
 
     private EditorTabView editorTab;
     private TableTabView tableTab;
+    private GameplayView gameplayView;
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -47,5 +49,13 @@ public class GameView {
 
     public void setTableTab(TableTabView tableTab) {
         this.tableTab = tableTab;
+    }
+
+    public GameplayView getGameplayView() {
+        return gameplayView;
+    }
+
+    public void setGameplayView(GameplayView gameplayView) {
+        this.gameplayView = gameplayView;
     }
 }
