@@ -11,6 +11,7 @@ public class GameState {
     private static GameState instance = new GameState();
 
     private Player activePlayer;
+    private TableGrid currentTableGrid;
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -38,4 +39,11 @@ public class GameState {
         this.activePlayer = activePlayer;
     }
 
+    public TableGrid getCurrentTableGrid() {
+        return currentTableGrid;
+    }
+
+    public void setCurrentTableGrid(TableGrid currentTableGrid) {
+        this.currentTableGrid = currentTableGrid;
+    }
 }
