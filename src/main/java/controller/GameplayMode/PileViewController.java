@@ -16,8 +16,4 @@ public class PileViewController {
         pileView = view;
     }
 
-
-    public void updateDisplayedPile(Pile pile){
-        pileView.updatePile(pile);
-    }
 }

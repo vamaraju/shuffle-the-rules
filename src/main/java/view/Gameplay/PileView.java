@@ -52,6 +52,10 @@ public class PileView extends ListView<Card> {
         this.getItems().setAll(pile.getCards());
     }
 
+    public void clearPile() {
+        this.getItems().clear();
+    }
+
     /* TODO change to List? */
     public ObservableList<Card> getSelectedCards(){
         return this.getSelectionModel().getSelectedItems();

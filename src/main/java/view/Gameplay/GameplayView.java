@@ -24,7 +24,10 @@ public class GameplayView extends BorderPane {
     private GameplayTableGridView tableView;
     private GameplayMessageView gameplayMessageView;
     private PileView selectedPileView;
-
+    private GameplayButtonView gameplayButtons;
+    private VBox selectedPileVBox;
+    private HBox selectedPileAndButtons;
+    private Label pileViewWarningMessage = new Label("Control-click to select and deselect multiple cards");
 
     public GameplayView() {
         initialize();
@@ -38,45 +41,24 @@ public class GameplayView extends BorderPane {
         tableView = new GameplayTableGridView((TableGrid) GameCreation.getInstance().getTableGrid().copy());
         populatePiles();
 
-
         gameplayMessageView = new GameplayMessageView();
-        gameplayMessageView.addMessage(GameplayMessageType.INFO, "test info!");
-        gameplayMessageView.addMessage(GameplayMessageType.ALERT, "test alert!");
-        gameplayMessageView.addMessage(GameplayMessageType.ACTION, "test action!");
-        gameplayMessageView.addMessage(GameplayMessageType.EVENT, "test event!");
-        gameplayMessageView.addMessage(GameplayMessageType.TURN, "test turn!");
-
-
-        /* bottom pane will be where hand and buttons are displayed */
-        HBox displayedPileAndButtons = new HBox();
 
         selectedPileView = new PileView();
+        gameplayButtons = new GameplayButtonView();
 
-        VBox displayedPile = new VBox();
-        Label pileWarningMessage = new Label("Control click to select and deselect multiple cards");
-        pileWarningMessage.setStyle("-fx-font-weight: bold");
+        selectedPileVBox = new VBox();
+        selectedPileVBox.getChildren().addAll(pileViewWarningMessage, new Separator(), selectedPileView);
+        pileViewWarningMessage.setStyle("-fx-font-weight: bold");
 
-        displayedPile.getChildren().addAll(pileWarningMessage, new Separator(), selectedPileView);
-
-
-//        VBox gameplayButtons = new VBox(15, showHandButton, sortHandButton, swapCardsButton, playButton,endTurnButton, endGameButton, becomeInactiveButton);
-        /* TODO Will change to GridPane for formatting */
-        GridPane gameplayButtons = new GameplayButtonView();
-//        gameplayButtons.setPadding(new Insets(10, 20, 10, 20));
-
-
-
-
-        displayedPileAndButtons.setHgrow(displayedPile, Priority.ALWAYS);
-        displayedPileAndButtons.setMaxHeight(300);
-        displayedPileAndButtons.getChildren().addAll(displayedPile, new Separator(Orientation.VERTICAL), gameplayButtons);
+        /* bottom pane will be where hand and buttons are displayed */
+        selectedPileAndButtons = new HBox();
+        selectedPileAndButtons.setHgrow(selectedPileVBox, Priority.ALWAYS);
+        selectedPileAndButtons.setMaxHeight(300);
+        selectedPileAndButtons.getChildren().addAll(selectedPileVBox, new Separator(Orientation.VERTICAL), gameplayButtons);
 
         this.setCenter(tableView);
         this.setRight(gameplayMessageView);
-        this.setBottom(displayedPileAndButtons);
-
-
-
+        this.setBottom(selectedPileAndButtons);
     }
 
 
@@ -87,6 +69,10 @@ public class GameplayView extends BorderPane {
         for (Pile p : tableView.getTableGrid().getPiles()) {
             p.populate(GameCreation.getInstance().getCardPool());
         }
+    }
+
+    public GameplayController getController() {
+        return controller;
     }
 
     public GameplayMessageView getGameplayMessageView(){
@@ -100,10 +86,4 @@ public class GameplayView extends BorderPane {
     public PileView getSelectedPileView() {
         return selectedPileView;
     }
-
-    public GameplayController getController() {
-        return controller;
-    }
-
-
 }

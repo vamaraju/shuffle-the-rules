@@ -20,7 +20,11 @@ public class GameplayTableGridController {
         TableGridElement clickedGridElement = (TableGridElement) e.getSource();
         view.setClickedElement(clickedGridElement);
         PileView pileView = GameView.getInstance().getGameplayView().getSelectedPileView();
-        pileView.updatePile(clickedGridElement.getPile());
+        if (clickedGridElement.getPile() != null) {
+            pileView.updatePile(clickedGridElement.getPile());
+        } else {
+            pileView.clearPile();
+        }
     }
 
 }
