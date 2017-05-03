@@ -8,6 +8,7 @@ import model.Piles.Pile;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class TableGrid implements Serializable, Copyable {
 
@@ -16,7 +17,7 @@ public class TableGrid implements Serializable, Copyable {
     private double cellWidth;
     private double cellHeight;
     private boolean hideGrid = false;
-    private HashMap<Pile, TableGridPosition> pileMap = new HashMap<>();
+    private Map<Pile, TableGridPosition> pileMap = new HashMap<>();
 
     public TableGrid() {
 
@@ -60,6 +61,10 @@ public class TableGrid implements Serializable, Copyable {
         pileMap.remove(p);
     }
 
+    public Set<Pile> getPiles() {
+        return pileMap.keySet();
+    }
+
     public int getNumRows() {
         return numRows;
     }
@@ -99,11 +104,11 @@ public class TableGrid implements Serializable, Copyable {
         this.cellHeight = cellHeight;
     }
 
-    public HashMap<Pile, TableGridPosition> getPileMap() {
+    public Map<Pile, TableGridPosition> getPileMap() {
         return pileMap;
     }
 
-    public void setPileMap(HashMap<Pile, TableGridPosition> pileMap) {
+    public void setPileMap(Map<Pile, TableGridPosition> pileMap) {
         this.pileMap = pileMap;
     }
 
