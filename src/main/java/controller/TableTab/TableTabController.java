@@ -24,8 +24,10 @@ public class TableTabController {
 
     public void onGridHideCheckboxClick(ActionEvent e) {
         if (view.getGridHideCheckBox().isSelected()) {
+            view.getTableGrid().setHideGrid(true);
             view.getTableGridView().disableGridLines();
         } else {
+            view.getTableGrid().setHideGrid(false);
             view.getTableGridView().enableGridLines();
         }
     }
@@ -47,6 +49,8 @@ public class TableTabController {
                 currentPiles.remove(pile);
             }
         }
+
+        view.getTableGridView().setGridLines(view.getTableGrid().isHideGrid());
     }
 
 }

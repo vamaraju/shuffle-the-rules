@@ -10,6 +10,7 @@ import view.EditorTab.RuleElementLine;
 import view.EditorTab.RuleElementRectangle;
 import view.TableTab.CardRestrictionsMenuView;
 import view.TableTab.GeneralSettingsMenuView;
+import view.TableTab.TableGridPropertiesView;
 import view.TableTab.TableGridView;
 
 import java.io.*;
@@ -355,6 +356,15 @@ public class GameCreation implements Serializable {
         TableGridView view = GameView.getInstance().getTableTab().getTableGridView();
         view.setTableGrid(this.tableGrid);
         view.drawGrid();
+        view.setGridLines(this.tableGrid.isHideGrid());
+    }
+
+    private void loadTableGridProperties() {
+        TableGridPropertiesView view = GameView.getInstance().getTableTab().getTableGridPropertiesView();
+        view.getGridWidthTextField().setText(Integer.toString(this.tableGrid.getNumCols()));
+        view.getGridHeightTextField().setText(Integer.toString(this.tableGrid.getNumRows()));
+        view.getGridCellWidthTextField().setText(Double.toString(this.tableGrid.getCellWidth()));
+        view.getGridHideCheckBox().setSelected(this.tableGrid.isHideGrid());
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
@@ -369,6 +379,7 @@ public class GameCreation implements Serializable {
         loadDrawingPane();
         loadGeneralSettings();
         loadCardRestrictionSettings();
+        loadTableGridProperties();
         loadTableGrid();
     }
 

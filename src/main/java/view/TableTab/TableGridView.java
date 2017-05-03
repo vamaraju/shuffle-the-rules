@@ -29,7 +29,9 @@ public class TableGridView extends GridPane {
 
     public TableGridView() {
         controller = new TableGridViewController(this);
+        this.tableGrid = new TableGrid();
         this.setStyle(TableGridCSS.DEFAULT_GRID.getStyle());
+        GameCreation.getInstance().setTableGrid(tableGrid);
         resetGrid();
         addInitialPile();
     }
@@ -47,8 +49,9 @@ public class TableGridView extends GridPane {
     }
 
     public void initGrid(int numCols, int numRows, double cellWidth) {
-        tableGrid = new TableGrid(numCols, numRows, cellWidth);
-        GameCreation.getInstance().setTableGrid(tableGrid);
+        tableGrid.setNumCols(numCols);
+        tableGrid.setNumRows(numRows);
+        tableGrid.setCellWidth(cellWidth, true);
         drawGrid();
     }
 
@@ -82,6 +85,11 @@ public class TableGridView extends GridPane {
 
     public void addInitialPile() {
         updateElement(new TableGridPosition(3, 1), new Deck("Deck", 0, 52, 52, CardOrientation.DOWN, "None"));
+    }
+
+    public void setGridLines(boolean disabled) {
+        if (disabled) {disableGridLines();}
+        else {enableGridLines();}
     }
 
     public void enableGridLines() {

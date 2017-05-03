@@ -15,6 +15,7 @@ public class TableGrid implements Serializable {
     private int numCols;
     private double cellWidth;
     private double cellHeight;
+    private boolean hideGrid = false;
     private HashMap<Pile, TableGridPosition> pileMap = new HashMap<>();
 
     public TableGrid() {
@@ -83,6 +84,13 @@ public class TableGrid implements Serializable {
         this.cellWidth = cellWidth;
     }
 
+    public void setCellWidth(double cellWidth, boolean setHeight) {
+        this.cellWidth = cellWidth;
+        if (setHeight) {
+            this.cellHeight = cellWidth*PlayingCard.ASPECT_RATIO;
+        }
+    }
+
     public double getCellHeight() {
         return cellHeight;
     }
@@ -97,5 +105,13 @@ public class TableGrid implements Serializable {
 
     public void setPileMap(HashMap<Pile, TableGridPosition> pileMap) {
         this.pileMap = pileMap;
+    }
+
+    public boolean isHideGrid() {
+        return hideGrid;
+    }
+
+    public void setHideGrid(boolean hideGrid) {
+        this.hideGrid = hideGrid;
     }
 }
