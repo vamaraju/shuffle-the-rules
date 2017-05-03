@@ -3,7 +3,9 @@ package model;
 public class RuleInterpreter {
 
     public static void execute(RuleGraph ruleGraph) {
-        ruleGraph.getRoot().run();
+        if (ruleGraph != null && ruleGraph.getRoot() != null) {
+            ruleGraph.getRoot().run();
+        }
     }
 
 }

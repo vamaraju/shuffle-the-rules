@@ -1,6 +1,10 @@
 package model.GameEvents;
 
 import model.GameRule;
+import model.GameView;
+import model.GameplayMessageType;
+import view.Gameplay.GameplayButtonView;
+import view.Gameplay.GameplayView;
 
 
 public class OnGameStartEvent extends GameEvent {
@@ -13,9 +17,7 @@ public class OnGameStartEvent extends GameEvent {
 
     @Override
     public void run(Object... args) {
-        for (int i = 0; i < args.length; i++) {
-            GameRule rule = (GameRule) args[i];
-            rule.run(args);
-        }
+        postGameplayMessage(GameplayMessageType.EVENT);
+        launchPostRules();
     }
 }

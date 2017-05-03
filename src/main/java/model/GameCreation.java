@@ -139,6 +139,15 @@ public class GameCreation implements Serializable {
         return null;
     }
 
+    public Player getPlayerFromPlayerName(String playerName) {
+        for (Player p : players) {
+            if (p.getName().equals(playerName)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
     public Player getNextPlayer(Player currentPlayer) {
         int nextPlayerIndex = players.indexOf(currentPlayer)+1 % players.size();
         return players.get(nextPlayerIndex);

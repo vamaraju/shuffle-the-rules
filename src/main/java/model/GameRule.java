@@ -3,6 +3,7 @@ package model;
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.Piles.Pile;
+import view.Gameplay.GameplayView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -113,6 +114,21 @@ public abstract class GameRule implements Serializable {
 
     public String getFullClassName() {
         return this.getClass().getCanonicalName();
+    }
+
+    public void launchPostRules() {
+        for (GameRule r : this.getPostRules()) {
+            r.run();
+        }
+    }
+
+    public void postGameplayMessage(GameplayMessageType type) {
+        postGameplayMessage(type, this.getName() + ": " + this.getDescription());
+    }
+
+    public void postGameplayMessage(GameplayMessageType type, String message) {
+        GameplayView game = GameView.getInstance().getGameplayView();
+        game.getGameplayMessageView().addMessage(type, message);
     }
 
     @Override

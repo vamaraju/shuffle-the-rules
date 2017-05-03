@@ -36,7 +36,7 @@ public class GameplayView extends BorderPane {
         controller = new GameplayController(this);
         GameView.getInstance().setGameplayView(this);
 
-        tableView = new GameplayTableGridView((TableGrid) GameCreation.getInstance().getTableGrid().copy());
+        tableView = new GameplayTableGridView(GameCreation.getInstance().getTableGrid());
         populatePiles();
 
         gameplayMessageView = new GameplayMessageView();
@@ -57,6 +57,8 @@ public class GameplayView extends BorderPane {
         this.setCenter(tableView);
         this.setRight(gameplayMessageView);
         this.setBottom(selectedPileAndButtons);
+
+        RuleInterpreter.execute(GameCreation.getInstance().getRuleGraph());
     }
 
 
