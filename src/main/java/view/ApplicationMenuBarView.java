@@ -18,7 +18,7 @@ public class ApplicationMenuBarView {
     public ApplicationMenuBarView(){
 
         menuBar = new MenuBar();
-        controller = new ApplicationMenuBarController();
+        controller = new ApplicationMenuBarController(this);
 
         /* Menu Bar - has two menus - File and Play. */
         final Menu fileMenu = new Menu("File");
@@ -47,6 +47,7 @@ public class ApplicationMenuBarView {
         newMenuItem.setOnAction(controller::onNewGameClick);
         saveMenuItem.setOnAction(controller::onSaveGameClick);
         loadMenuItem.setOnAction(controller::onLoadGameClick);
+        validateMenuItem.setOnAction(controller::onValidateGameClick);
 
         /* currently added for testing purposes. Will be removed */
         /* TODO delete */
