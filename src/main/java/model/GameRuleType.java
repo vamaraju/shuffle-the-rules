@@ -7,14 +7,17 @@ import java.io.Serializable;
 
 public enum GameRuleType implements Serializable {
 
-    EVENT("Event", "0x0000ffff"),
-    ACTION("Action", "0xff0000ff");
+    EVENT("Event", "0x0000ffff", "BLUE"),
+    ACTION("Action", "0xff0000ff", "RED");
 
     private final String name;
     private final String color;
-    private GameRuleType(String name, String color) {
+    private final String colorName;
+
+    private GameRuleType(String name, String color, String colorName) {
         this.name = name;
         this.color = color;
+        this.colorName = colorName;
     }
 
     public String getName() {
@@ -23,6 +26,10 @@ public enum GameRuleType implements Serializable {
 
     public String getColor() {
         return this.color;
+    }
+
+    public String getColorName() {
+        return this.colorName;
     }
 
     public String getClassName() {
