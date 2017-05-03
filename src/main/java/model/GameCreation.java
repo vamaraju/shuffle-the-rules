@@ -32,6 +32,7 @@ public class GameCreation implements Serializable {
 
     private transient ArrayList<RuleElementRectangleBlueprint> rectangleBlueprints;
     private TableGrid tableGrid;
+    private RuleGraph ruleGraph;
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -46,6 +47,7 @@ public class GameCreation implements Serializable {
         cardPool = getDefaultCardPool();
         rectangleBlueprints = new ArrayList<>();
         tableGrid = new TableGrid();
+        ruleGraph = null;
     }
 
 
@@ -81,54 +83,6 @@ public class GameCreation implements Serializable {
         GameView.getInstance().getTableTab().getCardRestrictionSettingsMenu().clearAllInputs();
     }
 
-
-    /**
-     * Static method to serialize (save) the current GameCreation instance to file.
-     *
-     * @param filename File name to which the current instance of GameCreation will be serialized.
-     */
-    public static void serializeToFile(String filename) {
-        try {
-            FileOutputStream fOut = new FileOutputStream(filename);
-            ObjectOutputStream oOut = new ObjectOutputStream(fOut);
-            oOut.writeObject(GameCreation.getInstance());
-            oOut.close();
-            fOut.close();
-        } catch(IOException e) {
-            System.out.println("Error while serializing GameCreation to file: " + filename);
-            e.printStackTrace();
-        }
-    }
-
-
-    /**
-     * Static method to de-serialize (load) an instance of GameCreation from file and store it as the current version.
-     * Note that the current instance of GameCreation will be lost and updated with the loaded version.
-     *
-     * @param filename File name from which the GameCreation instance will be de-serialized.
-     */
-    public static void deserializeFromFile(String filename) {
-        try {
-            FileInputStream fIn = new FileInputStream(filename);
-            ObjectInputStream oIn = new ObjectInputStream(fIn);
-            GameCreation g = (GameCreation) oIn.readObject();
-            GameCreation.instance = g;
-            oIn.close();
-            fIn.close();
-        } catch (StreamCorruptedException e) {
-            String errorMsg = "The selected file is not a valid Shuffle The Rules game file: \n" + filename + "\nLoad aborted.";
-            Alert alert = new Alert(Alert.AlertType.WARNING, errorMsg);
-            alert.setTitle("Load Game Error");
-            alert.setHeaderText("Invalid Game File");
-            alert.showAndWait();
-        } catch(IOException e) {
-            System.out.println("Error while de-serializing GameCreation from file: " + filename);
-            e.printStackTrace();
-        } catch(ClassNotFoundException e) {
-            System.out.println("GameCreation class not found - error while de-serializing from file: " + filename);
-            e.printStackTrace();
-        }
-    }
 
     /* ************************************************************************************************************
     *   Events
@@ -265,9 +219,71 @@ public class GameCreation implements Serializable {
 
 
     /* *************************************************************************************************************
+    *   RuleGraph
+    *
+    * ************************************************************************************************************* */
+
+    public RuleGraph getRuleGraph() {
+        return ruleGraph;
+    }
+
+    public void setRuleGraph(RuleGraph ruleGraph) {
+        this.ruleGraph = ruleGraph;
+    }
+
+    /* *************************************************************************************************************
     *   Serialization (Saving and Loading)
     *
     * ************************************************************************************************************* */
+
+
+    /**
+     * Static method to serialize (save) the current GameCreation instance to file.
+     *
+     * @param filename File name to which the current instance of GameCreation will be serialized.
+     */
+    public static void serializeToFile(String filename) {
+        try {
+            FileOutputStream fOut = new FileOutputStream(filename);
+            ObjectOutputStream oOut = new ObjectOutputStream(fOut);
+            oOut.writeObject(GameCreation.getInstance());
+            oOut.close();
+            fOut.close();
+        } catch(IOException e) {
+            System.out.println("Error while serializing GameCreation to file: " + filename);
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Static method to de-serialize (load) an instance of GameCreation from file and store it as the current version.
+     * Note that the current instance of GameCreation will be lost and updated with the loaded version.
+     *
+     * @param filename File name from which the GameCreation instance will be de-serialized.
+     */
+    public static void deserializeFromFile(String filename) {
+        try {
+            FileInputStream fIn = new FileInputStream(filename);
+            ObjectInputStream oIn = new ObjectInputStream(fIn);
+            GameCreation g = (GameCreation) oIn.readObject();
+            GameCreation.instance = g;
+            oIn.close();
+            fIn.close();
+        } catch (StreamCorruptedException e) {
+            String errorMsg = "The selected file is not a valid Shuffle The Rules game file: \n" + filename + "\nLoad aborted.";
+            Alert alert = new Alert(Alert.AlertType.WARNING, errorMsg);
+            alert.setTitle("Load Game Error");
+            alert.setHeaderText("Invalid Game File");
+            alert.showAndWait();
+        } catch(IOException e) {
+            System.out.println("Error while de-serializing GameCreation from file: " + filename);
+            e.printStackTrace();
+        } catch(ClassNotFoundException e) {
+            System.out.println("GameCreation class not found - error while de-serializing from file: " + filename);
+            e.printStackTrace();
+        }
+    }
 
 
     private void updateRectangleAssociations(ArrayList<RuleElementRectangle> rectangles) {
