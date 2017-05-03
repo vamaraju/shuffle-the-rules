@@ -66,7 +66,7 @@ public class GameplayTableGridView extends ScrollPane {
                 TableGridElement gridElement = new TableGridElement(i, j, tableGrid.getCellWidth(), tableGrid.getCellHeight());
                 gridElement.setStyle(TableGridCSS.ENABLE_GRID.getStyle());
                 grid.add(gridElement, i, j);
-                gridElement.setOnMouseClicked(controller::onGridElementClicked);
+                gridElement.setOnMouseClicked(controller::onPileClicked);
             }
         }
 

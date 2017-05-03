@@ -22,16 +22,12 @@ import model.Piles.Pile;
 
 public class PileView extends ListView<Card> {
 
-    private ObservableList<Card> cards;
-
     private PileViewController pileViewController = new PileViewController(this);
 
     /* One input argument - orientaton of the PileView.
      * horizontal - Orientation.HORIZONTAL
      * vertical - Orientation.VERTICAL */
     public PileView(Orientation orientation){
-        cards = FXCollections.observableArrayList();
-        this.setItems(cards);
 
         /* want user to be able to select multiple Cards (CardCells)*/
         this.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -39,23 +35,6 @@ public class PileView extends ListView<Card> {
         this.setOrientation(orientation);
 
         pileViewController = new PileViewController(this);
-
-//        /* for easy testing. Sorry, will be deleted! */
-
-        cards.add(new Card(PlayingCard.ACE, Suit.HEART, CardOrientation.UP));
-        cards.add(new Card(PlayingCard.ACE, Suit.SPADE));
-        cards.add(new Card(PlayingCard.FOUR, Suit.CLUB));
-        cards.add(new Card(PlayingCard.SEVEN, Suit.SPADE));
-        cards.add(new Card(PlayingCard.THREE, Suit.CLUB, CardOrientation.UP));
-        cards.add(new Card(PlayingCard.TEN, Suit.CLUB));
-        cards.add(new Card(PlayingCard.ACE, Suit.DIAMOND));
-        cards.add(new Card(PlayingCard.ACE, Suit.CLUB));
-        cards.add(new Card(PlayingCard.FOUR, Suit.HEART));
-        cards.add(new Card(PlayingCard.SEVEN, Suit.DIAMOND));
-        cards.add(new Card(PlayingCard.THREE, Suit.HEART));
-        cards.add(new Card(PlayingCard.TEN, Suit.SPADE));
-
-
 
         this.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             @Override
@@ -67,8 +46,8 @@ public class PileView extends ListView<Card> {
     }
 
     public void updatePile(Pile pile){
-        /* change the displayed Pile (Cards displayed) */
-        this.cards = FXCollections.observableArrayList(pile.getCards());
+        /* change the displayed Pile (Cards displayed in ListView) */
+        this.getItems().setAll(pile.getCards());
     }
 
     /* TODO change to List? */

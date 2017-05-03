@@ -78,6 +78,9 @@ public class GameplayView extends BorderPane {
 
 
     public void populatePiles() {
+        // Regenerate the card pool in GameCreation using the latest CardSettings.
+        // Then, populate all the piles using this card pool.
+        GameCreation.getInstance().setCardPool(GameCreation.getInstance().getCardSettings().generateCardPool());
         for (Pile p : tableView.getTableGrid().getPiles()) {
             p.populate(GameCreation.getInstance().getCardPool());
         }
