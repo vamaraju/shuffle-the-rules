@@ -7,10 +7,7 @@ import model.Card;
 import model.CardOrientation;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 public class Pile implements Serializable, Iterable {
 
@@ -196,9 +193,10 @@ public class Pile implements Serializable, Iterable {
         return this.cards.size() == this.maxSize;
     }
 
-    @Override
-    public Iterator<Card> iterator() {
-        return cards.iterator();
+    public void populate(List<Card> cardPool) {
+        for (int i = 0; i < startingSize; i++) {
+            cards.add(cardPool.remove(0));
+        }
     }
 
     public Card get(int index) {
@@ -211,6 +209,11 @@ public class Pile implements Serializable, Iterable {
 
     public Card getBottomCard() {
         return cards.get(cards.size()-1);
+    }
+
+    @Override
+    public Iterator<Card> iterator() {
+        return cards.iterator();
     }
 
     @Override
