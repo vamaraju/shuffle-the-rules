@@ -15,6 +15,7 @@ import model.TableGrid;
 import model.TableGridPosition;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class TableTabView extends Tab {
@@ -82,7 +83,7 @@ public class TableTabView extends Tab {
         return this.tableGridView.getChildren();
     }
 
-    public HashMap<Pile, TableGridPosition> getGridPileMap() {
+    public Map<Pile, TableGridPosition> getGridPileMap() {
         return this.tableGridView.getTableGrid().getPileMap();
     }
 

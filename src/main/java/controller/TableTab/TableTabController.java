@@ -12,6 +12,7 @@ import view.TableTab.TableGridView;
 import view.TableTab.TableTabView;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class TableTabController {
@@ -36,7 +37,7 @@ public class TableTabController {
         int gridWidth = view.getGridWidthSetting();
         int gridHeight = view.getGridHeightSetting();
         double gridCellWidth = view.getGridCellWidthSetting();
-        HashMap<Pile, TableGridPosition> currentPiles = view.getGridPileMap();
+        Map<Pile, TableGridPosition> currentPiles = view.getGridPileMap();
 
         TableGridView tableGridView = view.getTableGridView();
         tableGridView.initGrid(gridWidth, gridHeight, gridCellWidth);

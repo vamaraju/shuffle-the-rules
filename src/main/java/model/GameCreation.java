@@ -14,9 +14,7 @@ import view.TableTab.TableGridPropertiesView;
 import view.TableTab.TableGridView;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Singleton that stores information regarding creation of the current game.
@@ -45,6 +43,7 @@ public class GameCreation implements Serializable {
         players = new ArrayList<>();
         cardSettings = new CardSettings();
         gameSettings = new GameSettings();
+        cardPool = getDefaultCardPool();
         rectangleBlueprints = new ArrayList<>();
         tableGrid = new TableGrid();
     }
@@ -221,6 +220,17 @@ public class GameCreation implements Serializable {
 
     public void setCardPool(List<Card> cardPool) {
         this.cardPool = cardPool;
+    }
+
+    public List<Card> getDefaultCardPool() {
+        List<Card> cardPool = new LinkedList<>();
+        for (PlayingCard c : PlayingCard.values()) {
+            for (Suit s : Suit.values()) {
+                cardPool.add(new Card(c, s, CardOrientation.DOWN));
+            }
+        }
+        Collections.shuffle(cardPool);
+        return cardPool;
     }
 
     /* *************************************************************************************************************
