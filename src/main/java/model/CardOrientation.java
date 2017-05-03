@@ -4,7 +4,9 @@
 package model;
 
 
-public enum CardOrientation {
+import java.io.Serializable;
+
+public enum CardOrientation implements Serializable {
 
     DOWN(0, "Face Down", "assets/playing_cards/back/blue.png"),
     UP(1, "Face Up", "assets/playing_cards/front/front.png"),
