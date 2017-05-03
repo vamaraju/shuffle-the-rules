@@ -30,6 +30,7 @@ public class GameCreation implements Serializable {
     private ArrayList<Player> players;
     private CardSettings cardSettings;
     private GameSettings gameSettings;
+    private List<Card> cardPool;
 
     private transient ArrayList<RuleElementRectangleBlueprint> rectangleBlueprints;
     private TableGrid tableGrid;
@@ -212,6 +213,14 @@ public class GameCreation implements Serializable {
 
     public void setCardSettings(CardSettings cardSettings) {
         this.cardSettings = cardSettings;
+    }
+
+    public List<Card> getCardPool() {
+        return cardPool;
+    }
+
+    public void setCardPool(List<Card> cardPool) {
+        this.cardPool = cardPool;
     }
 
     /* *************************************************************************************************************

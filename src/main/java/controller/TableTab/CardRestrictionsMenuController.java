@@ -32,6 +32,7 @@ public class CardRestrictionsMenuController {
     public void onUpdateButtonClick(Event e) {
         if (runAllValidations()) {
             updateCardSettings();
+            updateCardPool();
             showUpdateSuccessfulAlert();
         }
     }
@@ -59,6 +60,11 @@ public class CardRestrictionsMenuController {
             view.getDiamondTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.HEART)));
             view.getSpadeTextField().setText(Integer.toString(cardSettings.getCount(card, Suit.SPADE)));
         }
+    }
+
+
+    public void updateCardPool() {
+        GameCreation.getInstance().setCardPool(cardSettings.generateCardPool());
     }
 
 
