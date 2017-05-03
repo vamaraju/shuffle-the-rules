@@ -37,14 +37,7 @@ public class PileView extends ListView<Card> {
         /* Allows user to be able to select multiple Cards (CardCells). Uses Ctrl-Click to select multiple items. */
         this.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         this.setOrientation(orientation);
-
-
-        this.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
-            @Override
-            public ListCell<Card> call(ListView<Card> list) {
-                return new CardCell();
-            }
-        });
+        this.setCellFactory((cell) -> new CardCell());
     }
 
     public void updatePile(Pile pile){

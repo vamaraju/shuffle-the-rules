@@ -21,22 +21,22 @@ import model.CardOrientation;
 *  object.  The grpahic displayed to the user is dependent on the orientation of the Card. */
 public class CardCell extends ListCell<Card> {
 
-    public CardCell(){
+    public CardCell() {
 
     }
 
     @Override
-    public void updateItem(Card item, boolean empty) {
-        super.updateItem(item, empty);
+    public void updateItem(Card card, boolean empty) {
+        super.updateItem(card, empty);
 
-        if (item != null) {
+        if (card != null) {
             try {
                 ImageView cardImage;
                 /* image displayed is dependent on orientation of Card (item) */
-                if (item.getOrientation() == CardOrientation.UP) {
-                    cardImage = new ImageView(new Image(item.getCardFaceAssetLocation()));
+                if (card.getOrientation() == CardOrientation.UP) {
+                    cardImage = new ImageView(new Image(card.getCardFaceAssetLocation()));
                 } else {
-                    cardImage = new ImageView(new Image(item.getCardBackAssetLocation()));
+                    cardImage = new ImageView(new Image(card.getCardBackAssetLocation()));
                 }
                 /* scale image */
                 cardImage.setPreserveRatio(true);
@@ -44,10 +44,10 @@ public class CardCell extends ListCell<Card> {
                 cardImage.setFitHeight(250);
 
                 setGraphic(cardImage);
-
-            }catch(Exception e){
+            } catch(Exception e){
                 /* if we can't display the image asset */
                 System.out.println("Could not display image for Card with Value: " + this.getItem().getValue() + " and Suit: " + this.getItem().getSuit());
+                e.printStackTrace();
             }
         }
     }
