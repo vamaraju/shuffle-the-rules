@@ -83,6 +83,6 @@ public class Player implements Serializable {
 
     @Override
     public String toString() {
-        return "Player " + playerNum;
+        return this.name;
     }
 }
