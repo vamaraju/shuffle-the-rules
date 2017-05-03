@@ -25,3 +25,7 @@ https://gist.github.com/james-d/a7202039b00170256293
 
 Custom serialization example:
 http://stackoverflow.com/questions/7290777/java-custom-serialization
+
+Copy/Clone an object using serialization:
+http://stackoverflow.com/questions/64036/how-do-you-make-a-deep-copy-of-an-object-in-java
+

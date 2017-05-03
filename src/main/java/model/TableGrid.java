@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TableGrid implements Serializable {
+public class TableGrid implements Serializable, Copyable {
 
     private int numRows;
     private int numCols;
