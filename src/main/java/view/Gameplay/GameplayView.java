@@ -7,52 +7,38 @@ package view.Gameplay;
 
 
 import controller.GameplayMode.GameplayController;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.GameCreation;
 import model.GameView;
-import view.TableTab.TableGridView;
-
+import model.Piles.Pile;
+import model.TableGrid;
 
 
 public class GameplayView extends BorderPane {
 
-    private TableGridView table;
+    private GameplayController controller;
+
+    private GameplayTableGridView tableView;
     private GameplayMessageView gameplayMessageView;
     private PileView selectedPileView;
 
-    ScrollPane tableScrollPane;
 
-    private GameplayController gameplayController = new GameplayController(this);
-
-
-    public GameplayView(){
+    public GameplayView() {
         initialize();
     }
 
-    public void initialize(){
 
-        /*
-        * Things that need to be done
-        *       Create Card objects (based on CardSettings)
-        *       Distribute Card objects into Piles that are in TableGrid
-        *
-        *
-        * */
-        /* centre pane will be the table */
-        /* TODO on clicks in Gameplay mode will be different than onclicks in GameCreation mode.
-        *  TODO either make another controller OR make the tableGridController an interface (with the onCLick needed to be implemented by each)? */
-        table = new TableGridView(GameCreation.getInstance().getTableGrid());
+    public void initialize() {
+        controller = new GameplayController(this);
+        GameView.getInstance().setGameplayView(this);
 
-        tableScrollPane = new ScrollPane(table);
-        tableScrollPane.setFitToWidth(true);
-        tableScrollPane.setFitToHeight(true);
-        tableScrollPane.setStyle("-fx-focus-color: transparent;");
+        tableView = new GameplayTableGridView((TableGrid) GameCreation.getInstance().getTableGrid().copy());
+        populatePiles();
 
-        table.enableBackgroundImage();
-        this.setCenter(tableScrollPane);
+
+        this.setCenter(tableView);
 
 
         /* right pane will be where text is displayed for Events and Actions */
@@ -91,23 +77,26 @@ public class GameplayView extends BorderPane {
     }
 
 
+    public void populatePiles() {
+        for (Pile p : tableView.getTableGrid().getPiles()) {
+            p.populate(GameCreation.getInstance().getCardPool());
+        }
+    }
 
     public GameplayMessageView getGameplayMessageView(){
         return this.gameplayMessageView;
     }
 
-
-
-    public TableGridView getTable() {
-        return table;
+    public GameplayTableGridView getTableView() {
+        return tableView;
     }
 
     public PileView getSelectedPileView() {
         return selectedPileView;
     }
 
-    public GameplayController getGameplayController() {
-        return gameplayController;
+    public GameplayController getController() {
+        return controller;
     }
 
 
