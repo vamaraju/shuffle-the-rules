@@ -10,11 +10,9 @@ import controller.GameplayMode.GameplayController;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import model.GameCreation;
-import model.GameView;
-import model.GameplayMessageType;
+import model.*;
+import model.Piles.Hand;
 import model.Piles.Pile;
-import model.TableGrid;
 
 
 public class GameplayView extends BorderPane {
@@ -68,6 +66,9 @@ public class GameplayView extends BorderPane {
         GameCreation.getInstance().setCardPool(GameCreation.getInstance().getCardSettings().generateCardPool());
         for (Pile p : tableView.getTableGrid().getPiles()) {
             p.populate(GameCreation.getInstance().getCardPool());
+        }
+        for (Player p : GameCreation.getInstance().getPlayers()) {
+            p.getHand().populate(GameCreation.getInstance().getCardPool());
         }
     }
 
