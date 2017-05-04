@@ -142,7 +142,24 @@ public class GameValidator {
     }
 
 
+    private boolean cardPoolSizeValidation() {
+        int cardPoolSize = GameCreation.getInstance().getCardPool().size();
+        int totalCardsNeeded = 0;
+
+        for (Pile p : GameView.getInstance().getTableTab().getTableGrid().getPileMap().keySet()) {
+            totalCardsNeeded += p.getStartingSize();
+        }
+
+        if (totalCardsNeeded > cardPoolSize) {
+            showCardPoolSizeErrorAlert(cardPoolSize, totalCardsNeeded);
+            return false;
+        }
+        return true;
+    }
+
+
     private boolean runAllValidations() {
+        if (!cardPoolSizeValidation()) {return false;}
         if (!gameStartExistsValidation()) {return false;}
         if (!roundStartExistsValidation()) {return false;}
         if (!turnStartExistsValidation()) {return false;}
@@ -153,6 +170,7 @@ public class GameValidator {
         if (!singleTurnStartValidation()) {return false;}
         if (!numPlayersValidation()) {return false;}
         if (!pileObjectMatchValidation()) {return false;}
+
 
         return true;
     }
@@ -189,6 +207,18 @@ public class GameValidator {
                 "', and anywhere else it being used.");
         alert.setTitle("Pile Object Mismatch Error");
         alert.setHeaderText("Pile Needs To Be Refreshed");
+        alert.showAndWait();
+    }
+
+
+    private void showCardPoolSizeErrorAlert(int cardPoolSize, int totalCardsNeeded) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "The card pool is smaller than the total number of " +
+                "starting cards over all piles. Please increase the number of decks in the card pool (in the " +
+                "Card Restrictions Menu), or lower the number of starting cards in the piles on the Table Grid.\n\n" +
+                "Current Size of Card Pool: " + cardPoolSize + "\n" +
+                "Required Number of Cards: " + totalCardsNeeded);
+        alert.setTitle("Card Pool Size Error");
+        alert.setHeaderText("Card Pool Too Small");
         alert.showAndWait();
     }
 
