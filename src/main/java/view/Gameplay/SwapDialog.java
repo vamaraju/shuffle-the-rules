@@ -50,6 +50,9 @@ public class SwapDialog extends Dialog<ButtonType> {
         /* VERY IMPORTANT WARNING MESSAGE */
         Label pileWarningMessage = new Label("Control click to select and deselect multiple cards");
         pileWarningMessage.setStyle("-fx-font-weight: bold");
+
+        dialogLayout.add(pileWarningMessage,1,1);
+
     }
 
     private void initPileViews(){
@@ -76,7 +79,7 @@ public class SwapDialog extends Dialog<ButtonType> {
     }
 
     public void updateDisplayedPile(ObservableValue observable, Object oldValue, Object newValue){
-        /* Wipe current selections. Add method in PileView */
+        /* Wipe current selections. Add method in PileView. Each pileView has a controller */
 
         /* Update pile */
 

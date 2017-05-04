@@ -1,6 +1,7 @@
 package model.Piles;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
@@ -33,7 +34,8 @@ public class PileTest {
         assert(pile2.getMinSize() == 2);
         assert(pile2.getMaxSize() == 6);
         assert(pile2.getStartingSize() == pile2.getMinSize());
-        assertNull(pile2.getCardOrientation());
+        assertNotNull(pile2.getCardOrientation());  //
+        assert(pile2.getCardOrientation() == CardOrientation.EITHER);  //
         assertNull(pile2.getViewablePlayers());
 
         assertNull(pile3.getName());
