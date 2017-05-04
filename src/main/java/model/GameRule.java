@@ -7,6 +7,7 @@ import view.Gameplay.GameplayView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GameRule implements Serializable {
 
@@ -117,8 +118,23 @@ public abstract class GameRule implements Serializable {
     }
 
     public void launchPostRules() {
+        List<GameRule> postActions = new ArrayList<>();
+        List<GameRule> postEvents = new ArrayList<>();
+
         for (GameRule r : this.getPostRules()) {
-            r.run();
+            if (r instanceof GameAction) {
+                postActions.add(r);
+            } else if (r instanceof GameEvent) {
+                postEvents.add(r);
+            }
+        }
+
+        for (GameRule postAction : postActions) {
+            postAction.run();
+        }
+
+        for (GameRule postEvent : postEvents) {
+            postEvent.run();
         }
     }
 
