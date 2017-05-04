@@ -1,7 +1,7 @@
 package view.Gameplay;/*
 * Requirements mandating inclusion:
 *
-*
+* 3.2.2.2.3.4 User can select Card(s) to swap between Piles.
 * */
 
 import javafx.beans.value.ObservableValue;
@@ -36,11 +36,12 @@ public class SwapDialog extends Dialog<ButtonType> {
     public void initialize(){
         this.setTitle("Swap Cards");
 
-
-        pile1Selection.getSelectionModel().selectedItemProperty().addListener(this::updateDisplayedPile);
-        pile2Selection.getSelectionModel().selectedItemProperty().addListener(this::updateDisplayedPile);
-
+        initPileViews();
+        initChoiceBoxes();
+        initLayout();
         initSubmitButtons();
+
+        this.getDialogPane().setContent(dialogLayout);
     }
 
 
@@ -58,7 +59,11 @@ public class SwapDialog extends Dialog<ButtonType> {
     }
 
     private void initChoiceBoxes(){
+        pile1Selection = new ChoiceBox();
+        pile2Selection = new ChoiceBox();
 
+        pile1Selection.getSelectionModel().selectedItemProperty().addListener(this::updateDisplayedPile);
+        pile2Selection.getSelectionModel().selectedItemProperty().addListener(this::updateDisplayedPile);
     }
 
     private void initSubmitButtons() {
@@ -68,7 +73,6 @@ public class SwapDialog extends Dialog<ButtonType> {
 
     public void updatePile(PileView pileViewToUpdate, Pile newPile){
         pileViewToUpdate.updatePile(newPile);
-
 
     }
 
