@@ -9,6 +9,7 @@ import model.*;
 import model.Piles.Hand;
 import view.Gameplay.GameplayButtonView;
 import view.Gameplay.SortDialog;
+import view.Gameplay.SwapDialog;
 
 import java.util.Optional;
 
@@ -54,6 +55,8 @@ public class GameplayButtonController {
 
 
     public void onSwapCardsButtonClick(ActionEvent e) {
+        SwapDialog swapDialog = new SwapDialog();
+        Optional<ButtonType> buttonClickResult = swapDialog.showAndWait();
 
     }
 
