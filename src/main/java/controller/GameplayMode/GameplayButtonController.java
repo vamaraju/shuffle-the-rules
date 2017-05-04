@@ -5,7 +5,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Toggle;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
-import model.SortType;
+import model.*;
 import view.Gameplay.GameplayButtonView;
 import view.Gameplay.SortDialog;
 
@@ -27,7 +27,11 @@ public class GameplayButtonController {
 
 
     public void onShowHandButtonClick(ActionEvent e) {
-
+        Player currentPlayer = GameState.getInstance().getActivePlayer();
+        if (GameState.getInstance().getActivePlayer() == null) {
+            return;
+        }
+        GameView.getInstance().getGameplayView().getSelectedPileView().updatePile(currentPlayer.getHand());
     }
 
 
