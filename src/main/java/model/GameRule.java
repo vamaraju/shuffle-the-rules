@@ -138,8 +138,12 @@ public abstract class GameRule implements Serializable {
         }
     }
 
+    public String defaultGameplayMessage() {
+        return this.getName() + ": " + this.getDescription();
+    }
+
     public void postGameplayMessage(GameplayMessageType type) {
-        postGameplayMessage(type, this.getName() + ": " + this.getDescription());
+        postGameplayMessage(type, defaultGameplayMessage());
     }
 
     public void postGameplayMessage(GameplayMessageType type, String message) {
