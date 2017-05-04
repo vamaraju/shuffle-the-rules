@@ -9,6 +9,7 @@
 package model.Piles;
 
 
+import model.CardOrientation;
 import model.Player;
 
 public class Hand extends Pile {
@@ -18,16 +19,19 @@ public class Hand extends Pile {
     public Hand() {
         super();
         setPileType(PileType.HAND);
+        setCardOrientation(CardOrientation.UP);
     }
 
     public Hand(int minSize, int maxSize) {
         super(minSize, maxSize);
         setPileType(PileType.HAND);
+        setCardOrientation(CardOrientation.UP);
     }
 
     public Hand(int minSize, int maxSize, int startingNumCards) {
         super(minSize, maxSize, startingNumCards);
         setPileType(PileType.HAND);
+        setCardOrientation(CardOrientation.UP);
     }
 
     public void sort(){
