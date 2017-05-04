@@ -1,13 +1,16 @@
 package model;
 
 
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import model.GameActions.PlayerWinAction;
 import model.GameEvents.OnGameStartEvent;
 import model.GameEvents.OnRoundStartEvent;
 import model.GameEvents.OnTurnEndEvent;
 import model.GameEvents.OnTurnStartEvent;
+import model.Piles.Pile;
 import view.EditorTab.DrawingPane;
+import view.EditorTab.RuleElementRectangle;
 
 public class GameValidator {
 
@@ -118,6 +121,27 @@ public class GameValidator {
     }
 
 
+    private boolean pileObjectMatchValidation() {
+        TableGrid currentTableGrid = GameView.getInstance().getTableTab().getTableGrid();
+        DrawingPane currentDrawingPane = GameView.getInstance().getEditorTab().getEditorDrawingPane();
+
+        for (Node n : currentDrawingPane.getChildren()) {
+            if (n instanceof RuleElementRectangle) {
+                RuleElementRectangle r = (RuleElementRectangle) n;
+                Pile p = r.getGameRule().getPile();
+                if (p == null) {
+                    continue;
+                }
+                if (!currentTableGrid.getPileMap().containsKey(p)) {
+                    showPileObjectMismatchErrorAlert(p, r.getGameRule());
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
     private boolean runAllValidations() {
         if (!gameStartExistsValidation()) {return false;}
         if (!roundStartExistsValidation()) {return false;}
@@ -128,6 +152,7 @@ public class GameValidator {
         if (!singleRoundStartValidation()) {return false;}
         if (!singleTurnStartValidation()) {return false;}
         if (!numPlayersValidation()) {return false;}
+        if (!pileObjectMatchValidation()) {return false;}
 
         return true;
     }
@@ -153,6 +178,17 @@ public class GameValidator {
         Alert alert = new Alert(Alert.AlertType.WARNING, "The min/max number of players (in General Settings) is set to 0. Please ensure that both the minimum and maximum number of players is greater than 0 in General Settings.");
         alert.setTitle("Number Of Players Error");
         alert.setHeaderText("Min or Max Number Of Players Is 0");
+        alert.showAndWait();
+    }
+
+
+    private void showPileObjectMismatchErrorAlert(Pile p, GameRule g) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "A pile has been updated in the Table Tab, but not in the " +
+                "Editor Tab. The same pile needs to be re-selected in the Editor Tab wherever it is being used. \n" +
+                "Please refresh (re-select) the pile named '" + p.getName() + "' in the game rule '" + g.getName() +
+                "', and anywhere else it being used.");
+        alert.setTitle("Pile Object Mismatch Error");
+        alert.setHeaderText("Pile Needs To Be Refreshed");
         alert.showAndWait();
     }
 
