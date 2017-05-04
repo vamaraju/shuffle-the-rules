@@ -12,6 +12,7 @@ package view.Gameplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import model.Card;
 import model.CardOrientation;
 
@@ -49,6 +50,8 @@ public class CardCell extends ListCell<Card> {
                 System.out.println("Could not display image for Card with Value: " + this.getItem().getValue() + " and Suit: " + this.getItem().getSuit());
                 e.printStackTrace();
             }
+        } else {
+            setGraphic(null);
         }
     }
 

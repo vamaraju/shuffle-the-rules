@@ -11,6 +11,7 @@ package view.Gameplay;
 
 
 import controller.GameplayMode.PileViewController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
@@ -21,7 +22,9 @@ import model.Piles.Pile;
 
 public class PileView extends ListView<Card> {
 
-    private PileViewController pileViewController = new PileViewController(this);
+    private PileViewController pileViewController;
+
+    private ObservableList<Card> cards;
 
     public PileView() {
         initialize(Orientation.HORIZONTAL);
@@ -33,6 +36,8 @@ public class PileView extends ListView<Card> {
 
     public void initialize(Orientation orientation) {
         pileViewController = new PileViewController(this);
+        cards = FXCollections.observableArrayList();
+        this.setItems(cards);
 
         /* Allows user to be able to select multiple Cards (CardCells). Uses Ctrl-Click to select multiple items. */
         this.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -42,11 +47,12 @@ public class PileView extends ListView<Card> {
 
     public void updatePile(Pile pile){
         /* change the displayed Pile (Cards displayed in ListView) */
-        this.getItems().setAll(pile.getCards());
+        clearPile();
+        cards.setAll(pile.getCards());
     }
 
     public void clearPile() {
-        this.getItems().clear();
+        cards.clear();
     }
 
     /* TODO change to List? */
