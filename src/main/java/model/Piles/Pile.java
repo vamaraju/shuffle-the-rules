@@ -207,6 +207,7 @@ public class Pile implements Serializable, Iterable {
     }
 
     public void populate(List<Card> cardPool) {
+        cards.clear();
         for (int i = 0; i < startingSize; i++) {
             add(cardPool.remove(0));
         }
