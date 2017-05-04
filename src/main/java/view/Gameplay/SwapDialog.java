@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import model.Piles.Pile;
 
 /*
@@ -19,6 +20,7 @@ import model.Piles.Pile;
 * */
 public class SwapDialog extends Dialog<ButtonType> {
 
+    private GridPane dialogLayout = new GridPane();
 
     private ChoiceBox pile1Selection;
     private ChoiceBox pile2Selection;
@@ -27,33 +29,35 @@ public class SwapDialog extends Dialog<ButtonType> {
     private PileView pile2_pileView;
 
     public SwapDialog(){
-        init();
-        initSubmitButtons();
+        initialize();
 
     }
 
-    public void init(){
+    public void initialize(){
         this.setTitle("Swap Cards");
-
-        /* VERY IMPORTANT WARNING MESSAGE */
-        Label pileWarningMessage = new Label("Control click to select and deselect multiple cards");
-        pileWarningMessage.setStyle("-fx-font-weight: bold");
-
-
-        pile1_PileView = new PileView(Orientation.VERTICAL);
-        pile2_pileView = new PileView(Orientation.VERTICAL);
-
 
 
         pile1Selection.getSelectionModel().selectedItemProperty().addListener(this::updateDisplayedPile);
         pile2Selection.getSelectionModel().selectedItemProperty().addListener(this::updateDisplayedPile);
 
+        initSubmitButtons();
     }
 
 
-    public void updateDisplayedPile(ObservableValue observable, Object oldValue, Object newValue){
-        /* Wipe current selections. */
-        /* Update pile */
+
+
+    private void initLayout() {
+        /* VERY IMPORTANT WARNING MESSAGE */
+        Label pileWarningMessage = new Label("Control click to select and deselect multiple cards");
+        pileWarningMessage.setStyle("-fx-font-weight: bold");
+    }
+
+    private void initPileViews(){
+        pile1_PileView = new PileView(Orientation.VERTICAL);
+        pile2_pileView = new PileView(Orientation.VERTICAL);
+    }
+
+    private void initChoiceBoxes(){
 
     }
 
@@ -65,6 +69,13 @@ public class SwapDialog extends Dialog<ButtonType> {
     public void updatePile(PileView pileViewToUpdate, Pile newPile){
         pileViewToUpdate.updatePile(newPile);
 
+
+    }
+
+    public void updateDisplayedPile(ObservableValue observable, Object oldValue, Object newValue){
+        /* Wipe current selections. */
+
+        /* Update pile */
 
     }
 }
