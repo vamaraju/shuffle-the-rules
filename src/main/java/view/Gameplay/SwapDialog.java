@@ -7,10 +7,7 @@ package view.Gameplay;/*
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import model.Piles.Pile;
 
 /*
@@ -20,7 +17,7 @@ import model.Piles.Pile;
 * A user may swap 0 or more Cards between two different Piles.
 *
 * */
-public class SwapDialog extends Dialog {
+public class SwapDialog extends Dialog<ButtonType> {
 
 
     private ChoiceBox pile1Selection;
@@ -29,14 +26,14 @@ public class SwapDialog extends Dialog {
     private PileView pile1_PileView;
     private PileView pile2_pileView;
 
-    private Button initiateSwapButton;
-
     public SwapDialog(){
-        initialize();
+        init();
+        initSubmitButtons();
 
     }
 
-    public void initialize(){
+    public void init(){
+        this.setTitle("Swap Cards");
 
         /* VERY IMPORTANT WARNING MESSAGE */
         Label pileWarningMessage = new Label("Control click to select and deselect multiple cards");
@@ -48,16 +45,11 @@ public class SwapDialog extends Dialog {
 
 
 
-        this.initiateSwapButton.setOnAction(this::onInitiateSwapButtonClick);
-
         pile1Selection.getSelectionModel().selectedItemProperty().addListener(this::updateDisplayedPile);
         pile2Selection.getSelectionModel().selectedItemProperty().addListener(this::updateDisplayedPile);
 
     }
 
-    private void onInitiateSwapButtonClick(ActionEvent actionEvent) {
-
-    }
 
     public void updateDisplayedPile(ObservableValue observable, Object oldValue, Object newValue){
         /* Wipe current selections. */
@@ -65,10 +57,14 @@ public class SwapDialog extends Dialog {
 
     }
 
-    public void updatePile(PileView viewToUpdate, Pile newPile){
-        viewToUpdate.updatePile(newPile);
+    private void initSubmitButtons() {
+        this.getDialogPane().getButtonTypes().add(ButtonType.APPLY);
+        this.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+    }
+
+    public void updatePile(PileView pileViewToUpdate, Pile newPile){
+        pileViewToUpdate.updatePile(newPile);
 
 
     }
-
 }
