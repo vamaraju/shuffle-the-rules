@@ -171,7 +171,6 @@ public class GameValidator {
         if (!numPlayersValidation()) {return false;}
         if (!pileObjectMatchValidation()) {return false;}
 
-
         return true;
     }
 

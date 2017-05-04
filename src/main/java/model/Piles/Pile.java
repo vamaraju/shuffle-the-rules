@@ -5,6 +5,8 @@ package model.Piles;
 
 import model.Card;
 import model.CardOrientation;
+import model.SortType;
+import model.Suit;
 
 import java.io.Serializable;
 import java.util.*;
@@ -122,6 +124,10 @@ public class Pile implements Serializable, Iterable {
         }
     }
 
+    public void empty() {
+        cards.clear();
+    }
+
     public boolean remove(Card card){
         return cards.remove(card);
     }
@@ -223,6 +229,55 @@ public class Pile implements Serializable, Iterable {
 
     public Card getBottomCard() {
         return cards.get(cards.size()-1);
+    }
+
+    public List<Card> getCardsBySuit(Suit suit) {
+        List<Card> cardList = new ArrayList<>();
+        for (Card c : cards) {
+            if (c.getSuit() == suit) {
+                cardList.add(c);
+            }
+        }
+        return cardList;
+    }
+
+    public void sort() {
+        sort(SortType.ASCENDING);
+    }
+
+    public void sort(SortType type) {
+        sortList(cards, type);
+    }
+
+    public void sort(SortType type, boolean bySuit) {
+        if (bySuit) {
+            // Split up the pile by suits into separate lists, and sort each list individually.
+            List<List<Card>> cardsBySuit = new ArrayList<>();
+            for (int i = 0; i < Suit.values().length; i++) {
+                cardsBySuit.add(getCardsBySuit(Suit.values()[i]));
+                sortList(cardsBySuit.get(i), type);
+            }
+
+            // Combine all the individual-suit lists.
+            cards.clear();
+            for (List<Card> cardsOfASuit : cardsBySuit) {
+                cards.addAll(cardsOfASuit);
+            }
+        } else {
+            sortList(cards, type);
+        }
+    }
+
+    private void sortList(List<Card> list, SortType type) {
+        if (type == null) {return;}
+        switch (type) {
+            case ASCENDING:
+                list.sort(Comparator.comparingInt((c) -> c.getValue().getValue()));
+                break;
+            case DESCENDING:
+                Collections.sort(list, (c1, c2) -> Integer.compare(c2.getValue().getValue(), c1.getValue().getValue()));
+                break;
+        }
     }
 
     @Override

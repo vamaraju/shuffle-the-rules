@@ -22,7 +22,7 @@ public class PlayerWinAction extends GameAction {
 
     @Override
     public void run(Object... args) {
-        player = (args[0] != null ? (Player) args[0] : player);
+
     }
 
     public void setPlayer(Player player) {
