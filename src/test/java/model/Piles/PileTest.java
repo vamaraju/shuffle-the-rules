@@ -34,29 +34,32 @@ public class PileTest {
         assert(pile2.getMinSize() == 2);
         assert(pile2.getMaxSize() == 6);
         assert(pile2.getStartingSize() == pile2.getMinSize());
-        assertNotNull(pile2.getCardOrientation());  //
-        assert(pile2.getCardOrientation() == CardOrientation.EITHER);  //
+        assertNotNull(pile2.getCardOrientation());
+        assert(pile2.getCardOrientation() == CardOrientation.EITHER);
         assertNull(pile2.getViewablePlayers());
 
         assertNull(pile3.getName());
         assert(pile3.getMinSize() == 10);
         assert(pile3.getMaxSize() == 52);
         assert(pile3.getStartingSize() == 11);
-        assertNull(pile3.getCardOrientation());
+        assertNotNull(pile3.getCardOrientation());
+        assert(pile3.getCardOrientation() == CardOrientation.EITHER);
         assertNull(pile3.getViewablePlayers());
 
         assert(pile4.getName().equals("deck"));
         assert(pile4.getMinSize() == 0);
         assert(pile4.getMaxSize() == 52);
         assert(pile4.getStartingSize() == 0);
-        assertNull(pile4.getCardOrientation());
+        assertNotNull(pile4.getCardOrientation());
+        assert(pile4.getCardOrientation() == CardOrientation.EITHER);
         assertNull(pile4.getViewablePlayers());
 
         assert(pile5.getName().equals("deck"));
         assert(pile5.getMinSize() == 0);
         assert(pile5.getMaxSize() == 52);
         assert(pile5.getStartingSize() == 52);
-        assertNull(pile5.getCardOrientation());
+        assertNotNull(pile5.getCardOrientation());
+        assert(pile5.getCardOrientation() == CardOrientation.EITHER);
         assertNull(pile5.getViewablePlayers());
 
         assert(pile6.getName().equals("smallpile"));
