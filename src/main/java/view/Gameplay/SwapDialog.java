@@ -1,11 +1,13 @@
-package view.Gameplay;/*
+/*
 * Requirements mandating inclusion:
 *
 * 3.2.2.2.3.4 User can select Card(s) to swap between Piles.
 * */
 
+package view.Gameplay;
+
+
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -44,9 +46,6 @@ public class SwapDialog extends Dialog<ButtonType> {
         this.getDialogPane().setContent(dialogLayout);
     }
 
-
-
-
     private void initLayout() {
         /* VERY IMPORTANT WARNING MESSAGE */
         Label pileWarningMessage = new Label("Control click to select and deselect multiple cards");
@@ -77,7 +76,7 @@ public class SwapDialog extends Dialog<ButtonType> {
     }
 
     public void updateDisplayedPile(ObservableValue observable, Object oldValue, Object newValue){
-        /* Wipe current selections. */
+        /* Wipe current selections. Add method in PileView */
 
         /* Update pile */
 

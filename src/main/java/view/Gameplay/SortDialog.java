@@ -1,7 +1,7 @@
 /*
 * Requirements mandating inclusion:
 *
-*
+* 3.2.2.1.3.2 User can sort their Hand.
 * */
 
 package view.Gameplay;

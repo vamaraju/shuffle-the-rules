@@ -65,6 +65,8 @@ public class GameplayButtonController {
 
     public void onSwapCardsButtonClick(ActionEvent e) {
         SwapDialog swapDialog = new SwapDialog();
+        Optional<ButtonType> buttonClickResult = swapDialog.showAndWait();
+
     }
 
 
