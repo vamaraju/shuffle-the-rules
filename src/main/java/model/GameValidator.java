@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import model.GameActions.PlayerWinAction;
 import model.GameEvents.OnGameStartEvent;
 import model.GameEvents.OnRoundStartEvent;
+import model.GameEvents.OnTurnEndEvent;
 import model.GameEvents.OnTurnStartEvent;
 import view.EditorTab.DrawingPane;
 
@@ -63,6 +64,15 @@ public class GameValidator {
     }
 
 
+    private boolean turnEndExistsValidation() {
+        if (drawingPane.getRectByClass(OnTurnEndEvent.class) == null) {
+            showRuleNotFoundErrorAlert("OnTurnEndEvent");
+            return false;
+        }
+        return true;
+    }
+
+
     private boolean playerWinExistsValidation() {
         if (drawingPane.getRectByClass(PlayerWinAction.class) == null) {
             showRuleNotFoundErrorAlert("PlayerWinAction");
@@ -112,6 +122,7 @@ public class GameValidator {
         if (!gameStartExistsValidation()) {return false;}
         if (!roundStartExistsValidation()) {return false;}
         if (!turnStartExistsValidation()) {return false;}
+        if (!turnEndExistsValidation()) {return false;}
         if (!playerWinExistsValidation()) {return false;}
         if (!singleGameStartValidation()) {return false;}
         if (!singleRoundStartValidation()) {return false;}
