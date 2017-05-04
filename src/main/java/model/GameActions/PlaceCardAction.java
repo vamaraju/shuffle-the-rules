@@ -28,17 +28,7 @@ public class PlaceCardAction extends GameAction {
 
     @Override
     public void run(Object... args) {
-        fromHand = (args[0] != null ? (Hand) args[0] : fromHand);
-        toPile = (args[1] != null ? (Pile) args[1] : toPile);
-        card = (args[2] != null ? (Card) args[2] : card);
 
-        fromHand.remove(card);
-        toPile.add(card);
-
-        for (int i = 3; i < args.length; i++) {
-            GameRule rule = (GameRule) args[i];
-            rule.run(args);
-        }
     }
 
     public Hand getFromHand() {

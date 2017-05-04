@@ -4,7 +4,7 @@
 package model.GameEvents;
 
 
-import model.GameRule;
+import model.*;
 
 
 public class OnTurnStartEvent extends GameEvent {
@@ -16,9 +16,13 @@ public class OnTurnStartEvent extends GameEvent {
 
     @Override
     public void run(Object... args) {
-        for (int i = 0; i < args.length; i++) {
-            GameRule rule = (GameRule) args[i];
-            rule.run(args);
+        Player currentPlayer = GameState.getInstance().getActivePlayer();
+        if (currentPlayer == null) { // This means that RoundStart was just run. It sets activePlayer to null.
+            currentPlayer = GameCreation.getInstance().getPlayers().get(0); // Get the first player.
+            GameState.getInstance().setActivePlayer(currentPlayer);
         }
+
+        postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Starting " + currentPlayer.getName() + "'s turn.");
+        launchPostRules();
     }
 }

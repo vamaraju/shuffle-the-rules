@@ -3,10 +3,7 @@
 * */
 package model.GameEvents;
 
-import model.GameCreation;
-import model.GameRule;
-import model.GameState;
-import model.Player;
+import model.*;
 
 
 public class OnTurnEndEvent extends GameEvent {
@@ -18,20 +15,20 @@ public class OnTurnEndEvent extends GameEvent {
 
     @Override
     public void run(Object... args) {
+        Player currentPlayer = GameState.getInstance().getActivePlayer();
+        postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Ending " + currentPlayer.getName() + "'s turn.");
+        launchPostRules();
 
-        Player activePlayer = GameState.getInstance().getActivePlayer();
-        Player nextPlayer = GameCreation.getInstance().getNextPlayer(activePlayer);
-
-        while (nextPlayer.isSkipFlag()) {
-            nextPlayer.setSkipFlag(false);
-            nextPlayer = GameCreation.getInstance().getNextPlayer(nextPlayer);
-        }
-
-        GameState.getInstance().setActivePlayer(nextPlayer);
-
-        for (int i = 0; i < args.length; i++) {
-            GameRule rule = (GameRule) args[i];
-            rule.run(args);
+        // If the current player is the last one in the round, restart the round.
+        // Otherwise, update the current player to the next one in the sequence. Note that the playerNum of the
+        // currentPlayer is always one higher than its index in getPlayers(). Also, the players in getPlayers() are
+        // stored in the sequence (in order of turns).
+        if (currentPlayer.getPlayerNum() == GameCreation.getInstance().getPlayers().size()) {
+            GameCreation.getInstance().getRuleGraph().getRoundStart().run();
+        } else {
+            currentPlayer = GameCreation.getInstance().getPlayers().get(currentPlayer.getPlayerNum());
+            GameState.getInstance().setActivePlayer(currentPlayer);
+            GameCreation.getInstance().getRuleGraph().getTurnStart().run();
         }
     }
 }
