@@ -309,15 +309,15 @@ public class EditorTabController {
             view.getEventCardSuitComboBox().setDisable(false);
             view.getEventPlayerComboBox().setDisable(true);
         } else if (selectedGameEvent instanceof OnGameStartEvent || selectedGameEvent instanceof OnGameEndEvent ||
-                selectedGameEvent instanceof OnRoundStartEvent || selectedGameEvent instanceof OnRoundEndEvent) {
+                selectedGameEvent instanceof OnRoundStartEvent || selectedGameEvent instanceof OnRoundEndEvent ||
+                selectedGameEvent instanceof OnTurnEndEvent || selectedGameEvent instanceof OnTurnStartEvent) {
             view.getEventPileComboBox().setDisable(true);
             view.getEventNumCardsTextField().setDisable(true);
             view.getEventCardValueComboBox().setDisable(true);
             view.getEventCardSuitComboBox().setDisable(true);
             view.getEventPlayerComboBox().setDisable(true);
         } else if (selectedGameEvent instanceof OnHandEmptyEvent || selectedGameEvent instanceof OnHandFullEvent ||
-                   selectedGameEvent instanceof OnPlayerClickEvent || selectedGameEvent instanceof OnPlayerTurnEvent ||
-                   selectedGameEvent instanceof OnTurnEndEvent || selectedGameEvent instanceof OnTurnStartEvent) {
+                   selectedGameEvent instanceof OnPlayerClickEvent || selectedGameEvent instanceof OnPlayerTurnEvent) {
             view.getEventPileComboBox().setDisable(true);
             view.getEventNumCardsTextField().setDisable(true);
             view.getEventCardValueComboBox().setDisable(true);
