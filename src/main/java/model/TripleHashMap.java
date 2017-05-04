@@ -1,3 +1,10 @@
+/*
+* Requirements mandating inclusion:
+*
+* This is a utility class used to store fields on the GameCreation mode interface.
+* It is indirectly needed by all requirements related to GameCreation mode.
+* */
+
 package model;
 
 
