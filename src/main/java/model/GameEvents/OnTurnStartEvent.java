@@ -17,15 +17,15 @@ public class OnTurnStartEvent extends GameEvent {
 
     @Override
     public void run() {
-        Player currentPlayer = GameState.getInstance().getActivePlayer();
+        Player currentPlayer = GameState.getInstance().getCurrentPlayer();
         if (currentPlayer == null) { // This means that RoundStart was just run. It sets activePlayer to null.
             currentPlayer = GameCreation.getInstance().getPlayers().get(0); // Get the first player.
-            GameState.getInstance().setActivePlayer(currentPlayer);
+            GameState.getInstance().setCurrentPlayer(currentPlayer);
         }
 
         if (currentPlayer.isInactive()) {
             GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Player '"
-                    + GameState.getInstance().getActivePlayer().getName() + "' has been set to inactive. Skipping turn.");
+                    + GameState.getInstance().getCurrentPlayer().getName() + "' has been set to inactive. Skipping turn.");
             GameCreation.getInstance().getRuleGraph().getRuleByClass(OnTurnEndEvent.class).run();
             return;
         }

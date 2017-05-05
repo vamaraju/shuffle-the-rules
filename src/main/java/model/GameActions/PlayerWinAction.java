@@ -20,7 +20,7 @@ public class PlayerWinAction extends GameAction {
 
     @Override
     public void run() {
-        Player currentPlayer = GameState.getInstance().getActivePlayer();
+        Player currentPlayer = GameState.getInstance().getCurrentPlayer();
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage() + " --- Player " + currentPlayer.getName() + " has won!");
         GameplayViewUpdater.showPlayerWinAlert(currentPlayer);
 

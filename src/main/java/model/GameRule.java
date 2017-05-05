@@ -4,7 +4,6 @@ import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.GameEvents.OnTurnEndEvent;
 import model.Piles.Pile;
-import view.Gameplay.GameplayView;
 import view.Gameplay.GameplayViewUpdater;
 
 import java.io.Serializable;
@@ -163,7 +162,7 @@ public abstract class GameRule implements Serializable, Runnable {
     }
 
     public boolean playerInactive() {
-        if (GameState.getInstance().getActivePlayer().isInactive()) {
+        if (GameState.getInstance().getCurrentPlayer().isInactive()) {
             GameCreation.getInstance().getRuleGraph().getRuleByClass(OnTurnEndEvent.class).run();
             return true;
         }

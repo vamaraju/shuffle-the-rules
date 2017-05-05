@@ -15,7 +15,7 @@ public class GameState {
 
     private static GameState instance = new GameState();
 
-    private Player activePlayer;
+    private Player currentPlayer;
     private TableGrid currentTableGrid;
     private GameLock lock = new GameLock();
     private Pile selectedPile;
@@ -40,12 +40,12 @@ public class GameState {
     }
 
 
-    public Player getActivePlayer() {
-        return activePlayer;
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
-    public void setActivePlayer(Player activePlayer) {
-        this.activePlayer = activePlayer;
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public TableGrid getCurrentTableGrid() {

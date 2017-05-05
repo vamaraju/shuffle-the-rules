@@ -19,7 +19,7 @@ public class OnRoundStartEvent extends GameEvent {
     public void run() {
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Resetting to first player.");
 
-        GameState.getInstance().setActivePlayer(null);
+        GameState.getInstance().setCurrentPlayer(null);
 
         // If there is an active player, continue the game. Otherwise, end the game.
         for (Player p : GameCreation.getInstance().getPlayers()) {

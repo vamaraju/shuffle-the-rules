@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonType;
 import model.*;
 import view.Gameplay.GameplayButtonView;
-import view.Gameplay.GameplayView;
 import view.Gameplay.SortDialog;
 import view.Gameplay.SwapDialog;
 
@@ -35,8 +34,8 @@ public class GameplayButtonController {
 
 
     public void onShowHandButtonClick(ActionEvent e) {
-        Player currentPlayer = GameState.getInstance().getActivePlayer();
-        if (GameState.getInstance().getActivePlayer() == null) {
+        Player currentPlayer = GameState.getInstance().getCurrentPlayer();
+        if (GameState.getInstance().getCurrentPlayer() == null) {
             return;
         }
         GameView.getInstance().getGameplayView().getSelectedPileView().updatePile(currentPlayer.getHand());
@@ -54,7 +53,7 @@ public class GameplayButtonController {
                 sortSelection = (SortType) sortDialog.getSelectedToggle().getUserData();
             }
 
-            Player currentPlayer = GameState.getInstance().getActivePlayer();
+            Player currentPlayer = GameState.getInstance().getCurrentPlayer();
             currentPlayer.getHand().sort(sortSelection, sortDialog.getSuitCheckBox().isSelected());
             GameView.getInstance().getGameplayView().getSelectedPileView().updatePile(currentPlayer.getHand());
         }
@@ -86,9 +85,9 @@ public class GameplayButtonController {
 
 
     public void onBecomeInactiveButtonClick(ActionEvent e) {
-        GameState.getInstance().getActivePlayer().setInactive(true);
+        GameState.getInstance().getCurrentPlayer().setInactive(true);
         GameView.getInstance().getGameplayView().getGameplayMessageView().addMessage(GameplayMessageType.INFO, "Player '"
-                + GameState.getInstance().getActivePlayer().getName() + "'has been set to inactive. Skipping turn.");
+                + GameState.getInstance().getCurrentPlayer().getName() + "'has been set to inactive. Skipping turn.");
 
         GameView.getInstance().getGameplayView().getGameplayButtonView().disableAllButtons();
         GameView.getInstance().getGameplayView().getGameplayButtonView().enableEndTurnButton();

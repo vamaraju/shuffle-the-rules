@@ -4,9 +4,7 @@
 package model.GameActions;
 
 import model.*;
-import model.Piles.Deck;
 import model.Piles.Pile;
-import view.Gameplay.GameplayView;
 import view.Gameplay.GameplayViewUpdater;
 
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class DealCardAction extends GameAction {
         if (getPlayer().equals("*All*")) {
             players = GameCreation.getInstance().getPlayers();
         } else if (getPlayer().equals("*Current*")) {
-            players.add(GameState.getInstance().getActivePlayer());
+            players.add(GameState.getInstance().getCurrentPlayer());
         } else {
             players.add(GameCreation.getInstance().getPlayerFromPlayerName(getPlayer()));
         }
