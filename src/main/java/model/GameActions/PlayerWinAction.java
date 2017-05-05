@@ -3,7 +3,10 @@
 * */
 package model.GameActions;
 
+import model.GameState;
+import model.GameplayMessageType;
 import model.Player;
+import view.Gameplay.GameplayViewUpdater;
 
 
 public class PlayerWinAction extends GameAction {
@@ -17,7 +20,9 @@ public class PlayerWinAction extends GameAction {
 
     @Override
     public void run() {
-
+        Player currentPlayer = GameState.getInstance().getActivePlayer();
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage() + " --- Player " + currentPlayer.getName() + " has won!");
+        GameplayViewUpdater.showPlayerWinAlert(currentPlayer);
     }
 
 }

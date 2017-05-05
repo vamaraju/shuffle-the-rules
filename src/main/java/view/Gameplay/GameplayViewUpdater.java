@@ -1,9 +1,12 @@
 package view.Gameplay;
 
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import model.GameState;
 import model.GameView;
 import model.GameplayMessageType;
 import model.Piles.Pile;
+import model.Player;
 
 /**
  * This class exists to safely update the GameplayView UI upon receiving gameplay events and actions.
@@ -20,5 +23,16 @@ public class GameplayViewUpdater {
     public static void postGameplayMessage(GameplayMessageType type, String message) {
         GameplayView game = GameView.getInstance().getGameplayView();
         Platform.runLater(() -> game.getGameplayMessageView().addMessage(type, message));
+    }
+
+    public static void showPlayerWinAlert(Player winner) {
+        Platform.runLater(() -> showPlayerWinAlertBox(winner));
+    }
+
+    private static void showPlayerWinAlertBox(Player winner) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Congratulations " + winner.getName() + "! You have won the game!");
+        alert.setTitle("Winner");
+        alert.setHeaderText(winner.getName() + " (Player " + winner.getPlayerNum() + ") has won!");
+        alert.showAndWait();
     }
 }

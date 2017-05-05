@@ -1,7 +1,8 @@
 package model.GameEvents;
 
-import model.GameRule;
+import model.*;
 import model.Piles.Pile;
+import view.Gameplay.GameplayViewUpdater;
 
 
 public class OnHandEmptyEvent extends GameEvent {
@@ -13,6 +14,11 @@ public class OnHandEmptyEvent extends GameEvent {
 
     @Override
     public void run() {
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage());
 
+        Player currentPlayer = GameState.getInstance().getActivePlayer();
+        if (currentPlayer.getHand().isEmpty()) {
+            launchPostRules();
+        }
     }
 }
