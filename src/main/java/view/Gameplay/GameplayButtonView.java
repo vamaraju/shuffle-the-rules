@@ -63,14 +63,6 @@ public class GameplayButtonView extends GridPane {
         getBecomeInactiveButton().setOnAction(controller::onBecomeInactiveButtonClick);
     }
 
-    public void disableEndTurnButton() {
-        getEndTurnButton().setDisable(true);
-    }
-
-    public void enableEndTurnButton() {
-        getEndTurnButton().setDisable(false);
-    }
-
     public void disablePlayButton() {
         getPlayButton().setDisable(true);
     }
@@ -85,6 +77,54 @@ public class GameplayButtonView extends GridPane {
 
     public void enableSkipActionButton() {
         getSkipActionButton().setDisable(false);
+    }
+
+    public void disableShowHandButton() {
+        getShowHandButton().setDisable(true);
+    }
+
+    public void enableShowHandButton() {
+        getShowHandButton().setDisable(false);
+    }
+
+    public void disableSortHandButton() {
+        getSortHandButton().setDisable(true);
+    }
+
+    public void enableSortHandButton() {
+        getSortHandButton().setDisable(false);
+    }
+
+    public void disableSwapCardsButton() {
+        getSwapCardsButton().setDisable(true);
+    }
+
+    public void enableSwapCardsButton() {
+        getSwapCardsButton().setDisable(false);
+    }
+
+    public void disableEndTurnButton() {
+        getEndTurnButton().setDisable(true);
+    }
+
+    public void enableEndTurnButton() {
+        getEndTurnButton().setDisable(false);
+    }
+
+    public void disableEndGameButton() {
+        getEndGameButton().setDisable(true);
+    }
+
+    public void enableEndGameButton() {
+        getEndGameButton().setDisable(false);
+    }
+
+    public void disableBecomeInactiveButton() {
+        getBecomeInactiveButton().setDisable(true);
+    }
+
+    public void enableBecomeInactiveButton() {
+        getBecomeInactiveButton().setDisable(false);
     }
 
     public Button getPlayButton() {

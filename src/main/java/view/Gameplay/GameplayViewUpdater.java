@@ -41,6 +41,54 @@ public class GameplayViewUpdater {
         Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableSkipActionButton());
     }
 
+    public static void disableShowHandButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disableShowHandButton());
+    }
+
+    public static void enableShowHandButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableShowHandButton());
+    }
+
+    public static void disableSortHandButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disableSortHandButton());
+    }
+
+    public static void enableSortHandButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableSortHandButton());
+    }
+
+    public static void disableSwapCardsButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disableSwapCardsButton());
+    }
+
+    public static void enableSwapCardsButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableSwapCardsButton());
+    }
+
+    public static void disableEndTurnButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disableEndTurnButton());
+    }
+
+    public static void enableEndTurnButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableEndTurnButton());
+    }
+
+    public static void disableEndGameButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disableEndGameButton());
+    }
+
+    public static void enableEndGameButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableEndGameButton());
+    }
+
+    public static void disableBecomeInactiveButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disableBecomeInactiveButton());
+    }
+
+    public static void enableBecomeInactiveButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableBecomeInactiveButton());
+    }
+
     public static void showPlayerWinAlert(Player winner) {
         Platform.runLater(() -> showPlayerWinAlertBox(winner));
     }
