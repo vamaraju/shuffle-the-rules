@@ -15,6 +15,7 @@ public class Player implements Serializable {
     private boolean status;
     private boolean clicked;
     private boolean skipFlag = false;
+    private boolean inactive = false;
 
     public Player() {
 
@@ -79,6 +80,14 @@ public class Player implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isInactive() {
+        return inactive;
+    }
+
+    public void setInactive(boolean inactive) {
+        this.inactive = inactive;
     }
 
     @Override
