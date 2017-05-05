@@ -23,7 +23,8 @@ public class ApplicationMenuBarView {
         /* Menu Bar - has two menus - File and Play. */
         final Menu fileMenu = new Menu("File");
         final Menu playMenu = new Menu("Play");
-        menuBar.getMenus().addAll(fileMenu, playMenu);
+        final Menu helpMenu = new Menu("Help");
+        menuBar.getMenus().addAll(fileMenu, playMenu, helpMenu);
 
         /* File menu items */
         MenuItem newMenuItem = new MenuItem("New Game");
@@ -44,10 +45,18 @@ public class ApplicationMenuBarView {
 
         playMenu.getItems().addAll(hostMenuItem, joinMenuItem, gameplayTesting);
 
+        /* Help menu items*/
+        MenuItem editorHelpItem = new MenuItem("Editor Instructions");
+        MenuItem tableHelpItem = new MenuItem("Table Instructions");
+
+        helpMenu.getItems().addAll(editorHelpItem, tableHelpItem);
+
         newMenuItem.setOnAction(controller::onNewGameClick);
         saveMenuItem.setOnAction(controller::onSaveGameClick);
         loadMenuItem.setOnAction(controller::onLoadGameClick);
         validateMenuItem.setOnAction(controller::onValidateGameClick);
+        editorHelpItem.setOnAction(controller::onEditorHelpClick);
+        tableHelpItem.setOnAction(controller::onTableHelpClick);
 
         /* currently added for testing purposes. Will be removed */
         /* TODO delete */

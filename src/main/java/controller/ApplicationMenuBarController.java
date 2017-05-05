@@ -22,9 +22,12 @@ import model.GameEvents.OnTurnStartEvent;
 import model.GameValidator;
 import model.GameView;
 import view.ApplicationMenuBarView;
+import view.EditorHelpView;
 import view.EditorTab.DrawingPane;
 import view.EditorTab.RuleElementRectangle;
 import view.Gameplay.GameplayView;
+import view.TableHelpView;
+
 import java.io.File;
 import java.util.Optional;
 
@@ -96,16 +99,20 @@ public class ApplicationMenuBarController {
         new GameValidator().validateCurrentGame();
     }
 
-    public void exit(){
-
+    public void onEditorHelpClick(ActionEvent e) {
+        Stage gameplayStage = new Stage();
+        gameplayStage.setTitle("Editor Instructions and Notes");
+        EditorHelpView view = new EditorHelpView();
+        gameplayStage.setScene(new Scene(view, 900, 600));
+        gameplayStage.show();
     }
 
-    public void hostGame(){
-
-    }
-
-    public void joinGame(){
-
+    public void onTableHelpClick(ActionEvent e) {
+        Stage gameplayStage = new Stage();
+        gameplayStage.setTitle("Table Instructions and Notes");
+        TableHelpView view = new TableHelpView();
+        gameplayStage.setScene(new Scene(view, 900, 600));
+        gameplayStage.show();
     }
 
     public void onGameplayTestingClick(Event e) {
