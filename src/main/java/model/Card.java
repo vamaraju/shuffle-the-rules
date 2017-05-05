@@ -85,7 +85,7 @@ public class Card implements Serializable, Comparable {
         if (!(obj instanceof Card)) {return false;}
 
         Card otherCard = (Card) obj;
-        return ((this.getValue() == otherCard.getValue()) && (this.getSuit().equals(otherCard.getSuit())));
+        return (this.getValue() == otherCard.getValue() && this.getSuit() == otherCard.getSuit());
     }
 
     @Override
