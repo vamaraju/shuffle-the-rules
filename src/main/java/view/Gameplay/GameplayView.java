@@ -61,6 +61,7 @@ public class GameplayView extends BorderPane {
         gameplayButtons.disableSwapCardsButton();
         gameplayButtons.disableEndTurnButton();
 
+        GameState.getInstance().getLock().unlock();
         GameState.getInstance().getLock().lock();
         RuleInterpreter.execute(GameCreation.getInstance().getRuleGraph());
     }
