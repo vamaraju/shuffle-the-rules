@@ -58,7 +58,7 @@ public class GameplayView extends BorderPane {
         this.setBottom(selectedPileAndButtons);
 
         gameplayButtons.disableSkipActionButton();
-        gameplayButtons.disableSwapCardsButton();
+//        gameplayButtons.disableSwapCardsButton();
         gameplayButtons.disableEndTurnButton();
 
         GameState.getInstance().getLock().unlock();

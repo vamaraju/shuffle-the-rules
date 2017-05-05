@@ -125,7 +125,7 @@ public abstract class GameRule implements Serializable, Runnable {
 
         GameplayViewUpdater.enableAllButtons();
         GameplayViewUpdater.disableSkipActionButton();
-        GameplayViewUpdater.disableSwapCardsButton();
+//        GameplayViewUpdater.disableSwapCardsButton();
         GameplayViewUpdater.disableEndTurnButton();
 
         // Populate postActions and postEvents using postRules.
