@@ -21,6 +21,13 @@ public class OnRoundStartEvent extends GameEvent {
 
         GameState.getInstance().setActivePlayer(null);
 
-        launchPostRules();
+        // If there is an active player, continue the game. Otherwise, end the game.
+        for (Player p : GameCreation.getInstance().getPlayers()) {
+            if (!p.isInactive()) {
+                launchPostRules();
+                return;
+            }
+        }
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, "All players are set to inactive. Ending game execution.");
     }
 }

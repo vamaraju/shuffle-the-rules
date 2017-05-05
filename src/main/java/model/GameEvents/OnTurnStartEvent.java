@@ -23,9 +23,17 @@ public class OnTurnStartEvent extends GameEvent {
             GameState.getInstance().setActivePlayer(currentPlayer);
         }
 
+        if (currentPlayer.isInactive()) {
+            GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Player '"
+                    + GameState.getInstance().getActivePlayer().getName() + "' has been set to inactive. Skipping turn.");
+            GameCreation.getInstance().getRuleGraph().getRuleByClass(OnTurnEndEvent.class).run();
+            return;
+        }
+
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Starting " + currentPlayer.getName() + "'s turn.");
         GameplayViewUpdater.updateSelectedPile(currentPlayer.getHand());
         GameState.getInstance().setSelectedPile(currentPlayer.getHand());
+
         launchPostRules();
     }
 }

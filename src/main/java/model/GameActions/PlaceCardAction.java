@@ -4,10 +4,8 @@
 package model.GameActions;
 
 import javafx.application.Platform;
-import model.Card;
-import model.GameState;
-import model.GameView;
-import model.GameplayMessageType;
+import model.*;
+import model.GameEvents.OnTurnEndEvent;
 import model.Piles.Hand;
 import model.Piles.Pile;
 import view.Gameplay.GameplayViewUpdater;
@@ -31,7 +29,13 @@ public class PlaceCardAction extends GameAction {
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "Please select " + getNumCards() + " cards from your hand to place in pile " + getPile().getName() + ". Then, click the PLAY button.");
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "The cards must be of suit '" + getCardSuit() + "' and of value '" + getCardValue() + "'. " +
                 "If you cannot play these cards, you can click the 'Skip Action' button to proceed to a different action.");
+
         GameState.getInstance().getLock().lock();
+
+        if (GameState.getInstance().getActivePlayer().isInactive()) {
+            GameCreation.getInstance().getRuleGraph().getRuleByClass(OnTurnEndEvent.class).run();
+            return;
+        }
 
         if (GameState.getInstance().isSkipActionClicked()) {
             GameState.getInstance().setSkipActionClicked(false);

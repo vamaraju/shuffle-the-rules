@@ -23,6 +23,9 @@ public class PlayerWinAction extends GameAction {
         Player currentPlayer = GameState.getInstance().getActivePlayer();
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage() + " --- Player " + currentPlayer.getName() + " has won!");
         GameplayViewUpdater.showPlayerWinAlert(currentPlayer);
+
+        currentPlayer.setInactive(true);
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Winning player has been set to inactive.");
     }
 
 }

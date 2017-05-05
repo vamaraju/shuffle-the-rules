@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonType;
 import model.*;
 import view.Gameplay.GameplayButtonView;
+import view.Gameplay.GameplayView;
 import view.Gameplay.SortDialog;
 import view.Gameplay.SwapDialog;
 
@@ -68,7 +69,7 @@ public class GameplayButtonController {
 
 
     public void onEndTurnButtonClick(ActionEvent e) {
-
+        GameState.getInstance().getLock().unlock();
     }
 
 
@@ -78,6 +79,17 @@ public class GameplayButtonController {
 
 
     public void onBecomeInactiveButtonClick(ActionEvent e) {
+        GameState.getInstance().getActivePlayer().setInactive(true);
+        GameView.getInstance().getGameplayView().getGameplayMessageView().addMessage(GameplayMessageType.INFO, "Player '"
+                + GameState.getInstance().getActivePlayer().getName() + "'has been set to inactive. Skipping turn.");
 
+        GameView.getInstance().getGameplayView().getGameplayButtonView().disablePlayButton();
+        GameView.getInstance().getGameplayView().getGameplayButtonView().disableSkipActionButton();
+        GameView.getInstance().getGameplayView().getGameplayButtonView().disableShowHandButton();
+        GameView.getInstance().getGameplayView().getGameplayButtonView().disableSortHandButton();
+        GameView.getInstance().getGameplayView().getGameplayButtonView().disableSwapCardsButton();
+        GameView.getInstance().getGameplayView().getGameplayButtonView().enableEndTurnButton();
+        GameView.getInstance().getGameplayView().getGameplayButtonView().disableEndGameButton();
+        GameView.getInstance().getGameplayView().getGameplayButtonView().disableBecomeInactiveButton();
     }
 }
