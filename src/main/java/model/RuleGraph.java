@@ -52,6 +52,23 @@ public class RuleGraph implements Serializable {
         this.currentRule = currentRule;
     }
 
+    public GameRule getRuleByClass(Class<? extends Object> c) {
+        return getRuleByClass(c, root);
+    }
+
+    private GameRule getRuleByClass(Class<? extends Object> c, GameRule rule) {
+        GameRule foundRule;
+        for (GameRule postRule : rule.getPostRules()) {
+            if (c.isInstance(postRule)) {
+                return postRule;
+            } else {
+                foundRule = getRuleByClass(c, postRule);
+                if (foundRule != null) {return foundRule;}
+            }
+        }
+        return null;
+    }
+
     public String prettyPrintout() {
         return printNodeAndAllChildren(root);
     }
