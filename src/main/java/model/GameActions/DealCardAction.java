@@ -40,6 +40,7 @@ public class DealCardAction extends GameAction {
             }
         }
 
+        postGameplayMessage(GameplayMessageType.INFO, "Finished dealing cards.");
         launchPostRules();
     }
 
