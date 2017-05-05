@@ -39,13 +39,13 @@ public class TableTabController {
         double gridCellWidth = view.getGridCellWidthSetting();
         Map<Pile, TableGridPosition> currentPiles = view.getGridPileMap();
 
-        TableGridView tableGridView = view.getTableGridView();
-        tableGridView.initGrid(gridWidth, gridHeight, gridCellWidth);
+        TableGridView tableGridView = view.getTableGridView(); // currentPiles is the pileMap of this view
+        tableGridView.initGrid(gridWidth, gridHeight, gridCellWidth); // currentPiles is the pileMap of this view
 
         for (Pile pile : currentPiles.keySet()) {
             TableGridPosition pilePosition = currentPiles.get(pile);
             if (pilePosition.containedWithin(new TableGridPosition(gridWidth-1, gridHeight-1))) {
-                tableGridView.updateElement(pilePosition, pile);
+                // tableGridView.updateElement(pilePosition, pile);
             } else {
                 currentPiles.remove(pile);
             }
