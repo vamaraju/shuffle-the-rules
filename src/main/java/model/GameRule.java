@@ -16,9 +16,6 @@ public abstract class GameRule implements Serializable, Runnable {
     protected String className;
     protected String description;
     protected ArrayList<GameRule> postRules = new ArrayList<>();
-    protected ArrayList<GameAction> postActions = new ArrayList<>();
-    protected ArrayList<GameEvent> postEvents = new ArrayList<>();
-    protected GameRuleProperties properties = new GameRuleProperties();
 
     protected Pile pile;
     protected int numCards;
@@ -56,18 +53,6 @@ public abstract class GameRule implements Serializable, Runnable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public ArrayList<GameAction> getPostActions() {
-        return this.postActions;
-    }
-
-    public ArrayList<GameEvent> getPostEvents() {
-        return this.postEvents;
-    }
-
-    public GameRuleProperties getProperties() {
-        return this.properties;
     }
 
     public ArrayList<GameRule> getPostRules() {
