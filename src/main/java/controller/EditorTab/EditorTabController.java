@@ -676,6 +676,18 @@ public class EditorTabController {
     }
 
 
+    private boolean numCardsNotZeroValidation() {
+        TextField numCardsTextField = view.getNumCardsTextField(activeGridElements);
+        if (!numCardsTextField.isDisabled()) {
+            if (Integer.parseInt(numCardsTextField.getText()) == 0) {
+                showFieldIsZeroErrorAlert("Number of Cards");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     private boolean runAllValidations() {
         if (!previousRuleNotFoundValidation()) {return false;}
         if (!previousRuleIsSelectedRuleValidation()) {return false;}
@@ -689,6 +701,7 @@ public class EditorTabController {
         if (!cardSuitEmptyValidation()) {return false;}
         if (!playerEmptyValidation()) {return false;}
         if (!numberFieldValidation()) {return false;}
+        if (!numCardsNotZeroValidation()) {return false;}
 
         return true;
     }
@@ -755,6 +768,14 @@ public class EditorTabController {
         Alert alert = new Alert(Alert.AlertType.WARNING, "An " + currentRuleType + "-Specific setting is unspecified.\nThe " + settingName + " setting is required for " + ruleName + ".");
         alert.setTitle(currentRuleType + "-Specific Setting Error");
         alert.setHeaderText("An " + currentRuleType + "-Specific Setting Is Empty");
+        alert.showAndWait();
+    }
+
+
+    private void showFieldIsZeroErrorAlert(String settingName) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "The " + settingName + " field cannot be set to 0 for this rule. Please enter a value greater than 0 in " + settingName + ".");
+        alert.setTitle("Field Set To 0 Error");
+        alert.setHeaderText(settingName + " Is Set To 0");
         alert.showAndWait();
     }
 
