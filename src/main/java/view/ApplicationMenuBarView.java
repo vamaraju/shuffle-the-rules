@@ -55,6 +55,7 @@ public class ApplicationMenuBarView {
         saveMenuItem.setOnAction(controller::onSaveGameClick);
         loadMenuItem.setOnAction(controller::onLoadGameClick);
         validateMenuItem.setOnAction(controller::onValidateGameClick);
+        exitMenuItem.setOnAction(controller::onExitClick);
         editorHelpItem.setOnAction(controller::onEditorHelpClick);
         tableHelpItem.setOnAction(controller::onTableHelpClick);
 

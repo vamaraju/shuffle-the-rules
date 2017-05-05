@@ -5,6 +5,7 @@ package controller;
 
 
 import controller.GameplayMode.GameplayController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -97,6 +98,11 @@ public class ApplicationMenuBarController {
 
     public void onValidateGameClick(ActionEvent e) {
         new GameValidator().validateCurrentGame();
+    }
+
+    public void onExitClick(ActionEvent e) {
+        Platform.exit();
+        System.exit(0);
     }
 
     public void onEditorHelpClick(ActionEvent e) {
