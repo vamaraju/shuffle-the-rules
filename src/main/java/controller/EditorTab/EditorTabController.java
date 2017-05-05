@@ -355,7 +355,7 @@ public class EditorTabController {
             view.getActionPlayerComboBox().setDisable(false);
         } else if (selectedGameAction instanceof MoveCardAction || selectedGameAction instanceof PlaceCardAction) {
             view.getActionPileComboBox().setDisable(false);
-            view.getActionNumCardsTextField().setDisable(true);
+            view.getActionNumCardsTextField().setDisable(false);
             view.getActionCardValueComboBox().setDisable(false);
             view.getActionCardSuitComboBox().setDisable(false);
             view.getActionPlayerComboBox().setDisable(true);
