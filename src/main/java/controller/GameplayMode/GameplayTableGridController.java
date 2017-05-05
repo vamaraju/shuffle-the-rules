@@ -1,6 +1,7 @@
 package controller.GameplayMode;
 
 import javafx.scene.input.MouseEvent;
+import model.GameState;
 import model.GameView;
 import view.Gameplay.GameplayTableGridView;
 import view.Gameplay.PileView;
@@ -22,8 +23,10 @@ public class GameplayTableGridController {
         PileView pileView = GameView.getInstance().getGameplayView().getSelectedPileView();
         if (clickedGridElement.getPile() != null) {
             pileView.updatePile(clickedGridElement.getPile());
+            GameState.getInstance().setSelectedPile(clickedGridElement.getPile());
         } else {
             pileView.clearPile();
+            GameState.getInstance().setSelectedPile(null);
         }
     }
 

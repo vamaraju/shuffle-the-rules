@@ -23,6 +23,7 @@ public class GameplayButtonView extends GridPane {
         controller = new GameplayButtonController(this);
 
         buttons.put("play", new Button("PLAY"));
+        buttons.put("skipAction", new Button("Skip Action"));
         buttons.put("showHand", new Button("Show Hand"));
         buttons.put("sortHand", new Button("Sort Hand"));
         buttons.put("swapCards", new Button("Swap Cards"));
@@ -30,7 +31,7 @@ public class GameplayButtonView extends GridPane {
         buttons.put("endGame", new Button("End Game"));
         buttons.put("becomeInactive", new Button("Become Inactive"));
 
-        setButtonSpacing(40);
+        setButtonSpacing(30);
         addButtonsToGrid();
         setListeners();
     }
@@ -53,6 +54,7 @@ public class GameplayButtonView extends GridPane {
 
     public void setListeners() {
         getPlayButton().setOnAction(controller::onPlayButtonClick);
+        getSkipActionButton().setOnAction(controller::onSkipActionButtonClick);
         getShowHandButton().setOnAction(controller::onShowHandButtonClick);
         getSortHandButton().setOnAction(controller::onSortHandButtonClick);
         getSwapCardsButton().setOnAction(controller::onSwapCardsButtonClick);
@@ -71,6 +73,10 @@ public class GameplayButtonView extends GridPane {
 
     public Button getPlayButton() {
         return buttons.get("play");
+    }
+
+    public Button getSkipActionButton() {
+        return buttons.get("skipAction");
     }
 
     public Button getShowHandButton() {

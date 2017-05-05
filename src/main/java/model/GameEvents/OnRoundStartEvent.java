@@ -5,6 +5,7 @@ package model.GameEvents;
 
 
 import model.*;
+import view.Gameplay.GameplayViewUpdater;
 
 
 public class OnRoundStartEvent extends GameEvent {
@@ -16,7 +17,7 @@ public class OnRoundStartEvent extends GameEvent {
 
     @Override
     public void run() {
-        postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Resetting to first player.");
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Resetting to first player.");
 
         GameState.getInstance().setActivePlayer(null);
 

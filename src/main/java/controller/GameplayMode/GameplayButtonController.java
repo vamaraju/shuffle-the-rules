@@ -7,6 +7,7 @@ import view.Gameplay.GameplayButtonView;
 import view.Gameplay.SortDialog;
 import view.Gameplay.SwapDialog;
 
+import java.util.List;
 import java.util.Optional;
 
 public class GameplayButtonController {
@@ -20,6 +21,14 @@ public class GameplayButtonController {
 
 
     public void onPlayButtonClick(ActionEvent e) {
+        List<Card> selectedCards = GameView.getInstance().getGameplayView().getSelectedPileView().getSelectedCards();
+        GameState.getInstance().updateClickedCards(selectedCards);
+        GameState.getInstance().getLock().unlock();
+    }
+
+
+    public void onSkipActionButtonClick(ActionEvent e) {
+        GameState.getInstance().setSkipActionClicked(true);
         GameState.getInstance().getLock().unlock();
     }
 
@@ -30,6 +39,7 @@ public class GameplayButtonController {
             return;
         }
         GameView.getInstance().getGameplayView().getSelectedPileView().updatePile(currentPlayer.getHand());
+        GameState.getInstance().setSelectedPile(currentPlayer.getHand());
     }
 
 

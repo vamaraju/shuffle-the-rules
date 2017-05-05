@@ -2,6 +2,7 @@ package model;
 
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
+import model.GameEvents.OnTurnEndEvent;
 import model.Piles.Pile;
 import view.Gameplay.GameplayView;
 
@@ -133,8 +134,19 @@ public abstract class GameRule implements Serializable, Runnable {
             postAction.run();
         }
 
+        GameRule onTurnEnd = null;
         for (GameRule postEvent : postEvents) {
-            postEvent.run();
+            // Run all events except for OnTurnEndEvent. It will be run last.
+            if (postEvent instanceof OnTurnEndEvent) {
+                onTurnEnd = postEvent;
+            } else {
+                postEvent.run();
+            }
+        }
+
+        // Run OnTurnEndEvent last.
+        if (onTurnEnd != null) {
+            onTurnEnd.run();
         }
     }
 
@@ -142,13 +154,8 @@ public abstract class GameRule implements Serializable, Runnable {
         return this.getName() + ": " + this.getDescription();
     }
 
-    public void postGameplayMessage(GameplayMessageType type) {
-        postGameplayMessage(type, defaultGameplayMessage());
-    }
-
-    public void postGameplayMessage(GameplayMessageType type, String message) {
-        GameplayView game = GameView.getInstance().getGameplayView();
-        game.getGameplayMessageView().addMessage(type, message);
+    public String finishedGameplayMessage() {
+        return "Finished executing: " + this.getName() + ".";
     }
 
     @Override

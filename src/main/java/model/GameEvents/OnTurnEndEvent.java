@@ -4,6 +4,7 @@
 package model.GameEvents;
 
 import model.*;
+import view.Gameplay.GameplayViewUpdater;
 
 
 public class OnTurnEndEvent extends GameEvent {
@@ -16,7 +17,7 @@ public class OnTurnEndEvent extends GameEvent {
     @Override
     public void run() {
         Player currentPlayer = GameState.getInstance().getActivePlayer();
-        postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Ending " + currentPlayer.getName() + "'s turn.");
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Ending " + currentPlayer.getName() + "'s turn.");
         launchPostRules();
 
         // If the current player is the last one in the round, restart the round.

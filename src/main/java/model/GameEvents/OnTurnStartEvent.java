@@ -5,6 +5,7 @@ package model.GameEvents;
 
 
 import model.*;
+import view.Gameplay.GameplayViewUpdater;
 
 
 public class OnTurnStartEvent extends GameEvent {
@@ -22,7 +23,9 @@ public class OnTurnStartEvent extends GameEvent {
             GameState.getInstance().setActivePlayer(currentPlayer);
         }
 
-        postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Starting " + currentPlayer.getName() + "'s turn.");
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Starting " + currentPlayer.getName() + "'s turn.");
+        GameplayViewUpdater.updateSelectedPile(currentPlayer.getHand());
+        GameState.getInstance().setSelectedPile(currentPlayer.getHand());
         launchPostRules();
     }
 }

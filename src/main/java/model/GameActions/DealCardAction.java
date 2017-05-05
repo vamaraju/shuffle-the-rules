@@ -7,6 +7,7 @@ import model.*;
 import model.Piles.Deck;
 import model.Piles.Pile;
 import view.Gameplay.GameplayView;
+import view.Gameplay.GameplayViewUpdater;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class DealCardAction extends GameAction {
 
     @Override
     public void run() {
-        postGameplayMessage(GameplayMessageType.ACTION);
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
 
         Pile dealingPile = this.getPile();
         ArrayList<Player> players = new ArrayList<>();
@@ -40,7 +41,7 @@ public class DealCardAction extends GameAction {
             }
         }
 
-        postGameplayMessage(GameplayMessageType.INFO, "Finished dealing cards.");
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, finishedGameplayMessage());
         launchPostRules();
     }
 
