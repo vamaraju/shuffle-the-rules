@@ -32,8 +32,14 @@ public class EditorHelpView extends TextFlow {
         Text text8 = new Text("---If actions and events are in the same level in the graph (i.e., they have the " +
                 "same previous rule, or immediately follow the same game rule), all of the actions will always run" +
                 "first, and then the events.\n\n");
+        Text text9 = new Text("Multiple actions can follow the same game rule. During gameplay, if an action cannot " +
+                "be taken (due to any restrictions placed on the action), the user can click the \"Skip Action\" " +
+                "button, and the next action in the same level will be attempted.\n\n");
+        Text text10 = new Text("Once an event or action is successfully taken, no other events or actions in the " +
+                "same level will be attempted. The graph will proceed depth-first through the successful rule, and " +
+                "ignore (it will not run) any other rules at the same depth level.");
 
-        this.getChildren().addAll(title, text1, text2, text3, text4, text5, text6, text7, text8);
+        this.getChildren().addAll(title, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10);
     }
 
 }
