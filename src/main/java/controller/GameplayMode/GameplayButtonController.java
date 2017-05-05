@@ -74,7 +74,14 @@ public class GameplayButtonController {
 
 
     public void onEndGameButtonClick(ActionEvent e) {
+        // End the game. Disable all buttons and set all players to inactive.
+        GameView.getInstance().getGameplayView().getGameplayButtonView().disableAllButtons();
 
+        for (Player p : GameCreation.getInstance().getPlayers()) {
+            p.setInactive(true);
+        }
+
+        GameView.getInstance().getGameplayView().getGameplayMessageView().addMessage(GameplayMessageType.ALERT, "Ending game. All players have been set to inactive.");
     }
 
 
