@@ -8,7 +8,8 @@ public enum GameplayMessageType implements Serializable {
     EVENT(1, "EVENT", "0x0000ffff", "BLUE"),
     ACTION(2, "ACTION", "0xff0000ff", "RED"),
     ALERT(3, "ALERT", "0xff8c00ff", "DARKORANGE"),
-    TURN(4, "TURN", "0x000000ff", "BLACK");
+    TURN(4, "TURN", "0x000000ff", "BLACK"),
+    INSTRUCTION(5, "INSTRUCTION", "0x000000ff", "BLACK");
 
     private final int value;
     private final String name;
