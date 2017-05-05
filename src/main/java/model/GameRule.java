@@ -162,6 +162,23 @@ public abstract class GameRule implements Serializable, Runnable {
         }
     }
 
+    public boolean playerInactive() {
+        if (GameState.getInstance().getActivePlayer().isInactive()) {
+            GameCreation.getInstance().getRuleGraph().getRuleByClass(OnTurnEndEvent.class).run();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean skipAction() {
+        if (GameState.getInstance().isSkipActionClicked()) {
+            GameState.getInstance().setSkipActionClicked(false);
+            GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Skipped Action: " + getName() + ".");
+            return true;
+        }
+        return false;
+    }
+
     public String defaultGameplayMessage() {
         return this.getName() + ": " + this.getDescription();
     }

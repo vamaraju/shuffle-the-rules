@@ -32,14 +32,7 @@ public class PlaceCardAction extends GameAction {
 
         GameState.getInstance().getLock().lock();
 
-        if (GameState.getInstance().getActivePlayer().isInactive()) {
-            GameCreation.getInstance().getRuleGraph().getRuleByClass(OnTurnEndEvent.class).run();
-            return;
-        }
-
-        if (GameState.getInstance().isSkipActionClicked()) {
-            GameState.getInstance().setSkipActionClicked(false);
-            GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Skipped Action: " + getName() + ".");
+        if (playerInactive() || skipAction()) {
             return;
         }
 
