@@ -17,14 +17,7 @@ public class OnPileEmptyEvent extends GameEvent {
     }
 
     @Override
-    public void run(Object... args) {
-        Pile pile = (Pile) args[0];
+    public void run() {
 
-        if (pile.isEmpty()) {
-            for (int i = 1; i < args.length; i++) {
-                GameRule rule = (GameRule) args[i];
-                rule.run(args);
-            }
-        }
     }
 }

@@ -12,14 +12,7 @@ public class OnHandFullEvent extends GameEvent {
     }
 
     @Override
-    public void run(Object... args) {
-        Pile hand = (Pile) args[0];
+    public void run() {
 
-        if (hand.isFull()) {
-            for (int i = 1; i < args.length; i++) {
-                GameRule rule = (GameRule) args[i];
-                rule.run(args);
-            }
-        }
     }
 }

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GameRule implements Serializable {
+public abstract class GameRule implements Serializable, Runnable {
 
     protected String name;
     protected String className;
@@ -31,7 +31,7 @@ public abstract class GameRule implements Serializable {
         this.description = "A generic game rule.";
     }
 
-    public abstract void run(Object... args);
+    public abstract void run();
 
     public String getName() {
         return name;

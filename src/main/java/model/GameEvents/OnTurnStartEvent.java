@@ -15,7 +15,7 @@ public class OnTurnStartEvent extends GameEvent {
     }
 
     @Override
-    public void run(Object... args) {
+    public void run() {
         Player currentPlayer = GameState.getInstance().getActivePlayer();
         if (currentPlayer == null) { // This means that RoundStart was just run. It sets activePlayer to null.
             currentPlayer = GameCreation.getInstance().getPlayers().get(0); // Get the first player.

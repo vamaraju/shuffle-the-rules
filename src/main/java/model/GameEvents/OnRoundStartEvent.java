@@ -15,7 +15,7 @@ public class OnRoundStartEvent extends GameEvent {
     }
 
     @Override
-    public void run(Object... args) {
+    public void run() {
         postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Resetting to first player.");
 
         GameState.getInstance().setActivePlayer(null);

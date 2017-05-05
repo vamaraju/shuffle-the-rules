@@ -14,7 +14,7 @@ public class OnTurnEndEvent extends GameEvent {
     }
 
     @Override
-    public void run(Object... args) {
+    public void run() {
         Player currentPlayer = GameState.getInstance().getActivePlayer();
         postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Ending " + currentPlayer.getName() + "'s turn.");
         launchPostRules();

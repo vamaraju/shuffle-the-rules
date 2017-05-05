@@ -18,7 +18,7 @@ public class DealCardAction extends GameAction {
     }
 
     @Override
-    public void run(Object... args) {
+    public void run() {
         postGameplayMessage(GameplayMessageType.ACTION);
 
         Pile dealingPile = this.getPile();

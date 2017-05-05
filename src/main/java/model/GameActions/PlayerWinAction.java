@@ -15,17 +15,9 @@ public class PlayerWinAction extends GameAction {
         this.description = "A player wins.";
     }
 
-    public PlayerWinAction(Player player) {
-        this();
-        this.player = player;
-    }
-
     @Override
-    public void run(Object... args) {
+    public void run() {
 
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
 }

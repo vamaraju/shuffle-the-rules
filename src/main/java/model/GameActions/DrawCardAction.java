@@ -19,51 +19,9 @@ public class DrawCardAction extends GameAction {
         this.description = "A card (or cards) is drawn.";
     }
 
-    public DrawCardAction(Pile drawingPile, int numCards, Player player) {
-        this();
-        this.drawingPile = drawingPile;
-        this.numCards = numCards;
-        this.player = player;
-    }
-
     @Override
-    public void run(Object... args) {
-        drawingPile = (args[0] != null ? (Pile) args[0] : drawingPile);
-        numCards = (args[1] != null ? (int) args[1] : numCards);
-        player = (args[2] != null ? (Player) args[2] : player);
+    public void run() {
 
-        for (int i = 0; i < numCards; i++) {
-            Card c = drawingPile.draw();
-            if (c != null) {
-                player.getHand().add(c);
-            } else {
-                break;
-            }
-        }
-
-        for (int i = 3; i < args.length; i++) {
-            GameRule rule = (GameRule) args[i];
-            rule.run(args);
-        }
     }
 
-    public Pile getDrawingPile() {
-        return drawingPile;
-    }
-
-    public void setDrawingPile(Pile drawingPile) {
-        this.drawingPile = drawingPile;
-    }
-
-    public int getNumCards() {
-        return numCards;
-    }
-
-    public void setNumCards(int numCards) {
-        this.numCards = numCards;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
 }

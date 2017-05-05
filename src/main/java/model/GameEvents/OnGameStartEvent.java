@@ -16,7 +16,7 @@ public class OnGameStartEvent extends GameEvent {
     }
 
     @Override
-    public void run(Object... args) {
+    public void run() {
         postGameplayMessage(GameplayMessageType.EVENT);
         launchPostRules();
     }

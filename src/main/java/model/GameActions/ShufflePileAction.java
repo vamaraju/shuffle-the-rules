@@ -16,28 +16,8 @@ public class ShufflePileAction extends GameAction {
         this.description = "A pile is shuffled.";
     }
 
-    public ShufflePileAction(Pile pile) {
-        this();
-        this.pile = pile;
-    }
-
     @Override
-    public void run(Object... args) {
-        pile = (args[0] != null ? (Pile) args[0] : pile);
-
-        pile.shuffle();
-
-        for (int i = 1; i < args.length; i++) {
-            GameRule rule = (GameRule) args[i];
-            rule.run(args);
-        }
+    public void run() {
     }
 
-    public Pile getPile() {
-        return pile;
-    }
-
-    public void setPile(Pile pile) {
-        this.pile = pile;
-    }
 }
