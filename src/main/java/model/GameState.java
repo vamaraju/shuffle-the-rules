@@ -12,6 +12,7 @@ public class GameState {
 
     private Player activePlayer;
     private TableGrid currentTableGrid;
+    private boolean playClicked = false;
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -45,5 +46,13 @@ public class GameState {
 
     public void setCurrentTableGrid(TableGrid currentTableGrid) {
         this.currentTableGrid = currentTableGrid;
+    }
+
+    public boolean isPlayClicked() {
+        return playClicked;
+    }
+
+    public void setPlayClicked(boolean playClicked) {
+        this.playClicked = playClicked;
     }
 }

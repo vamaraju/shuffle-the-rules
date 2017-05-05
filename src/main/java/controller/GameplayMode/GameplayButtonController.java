@@ -23,8 +23,8 @@ public class GameplayButtonController {
     }
 
 
-    public void onPlayButtonClick(ActionEvent e) {
-
+    public synchronized void onPlayButtonClick(ActionEvent e) {
+        GameState.getInstance().setPlayClicked(true);
     }
 
 

@@ -58,6 +58,7 @@ public class GameplayView extends BorderPane {
         this.setRight(gameplayMessageView);
         this.setBottom(selectedPileAndButtons);
 
+        GameState.getInstance().setPlayClicked(false);
         RuleInterpreter.execute(GameCreation.getInstance().getRuleGraph());
     }
 
