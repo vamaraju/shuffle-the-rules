@@ -5,6 +5,7 @@ import model.GameEvents.GameEvent;
 import model.GameEvents.OnTurnEndEvent;
 import model.Piles.Pile;
 import view.Gameplay.GameplayView;
+import view.Gameplay.GameplayViewUpdater;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -122,12 +123,27 @@ public abstract class GameRule implements Serializable, Runnable {
         List<GameRule> postActions = new ArrayList<>();
         List<GameRule> postEvents = new ArrayList<>();
 
+        GameplayViewUpdater.enablePlayButton();
+        GameplayViewUpdater.disableSkipActionButton();
+        GameplayViewUpdater.enableShowHandButton();
+        GameplayViewUpdater.enableSortHandButton();
+        GameplayViewUpdater.disableSwapCardsButton();
+        GameplayViewUpdater.disableEndTurnButton();
+        GameplayViewUpdater.enableEndGameButton();
+        GameplayViewUpdater.enableBecomeInactiveButton();
+
+        // Populate postActions and postEvents using postRules.
         for (GameRule r : this.getPostRules()) {
             if (r instanceof GameAction) {
                 postActions.add(r);
             } else if (r instanceof GameEvent) {
                 postEvents.add(r);
             }
+        }
+
+        // Enable 'Skip Action' button if there are sufficient actions/events.
+        if (postActions.size() > 1 || (postActions.size() == 1 && postEvents.size() > 0)) {
+            GameplayViewUpdater.enableSkipActionButton();
         }
 
         for (GameRule postAction : postActions) {
