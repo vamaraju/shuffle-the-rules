@@ -12,7 +12,7 @@ public class GameState {
 
     private Player activePlayer;
     private TableGrid currentTableGrid;
-    private boolean playClicked = false;
+    private GameLock lock = new GameLock();
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -48,11 +48,7 @@ public class GameState {
         this.currentTableGrid = currentTableGrid;
     }
 
-    public boolean isPlayClicked() {
-        return playClicked;
-    }
-
-    public void setPlayClicked(boolean playClicked) {
-        this.playClicked = playClicked;
+    public GameLock getLock() {
+        return lock;
     }
 }

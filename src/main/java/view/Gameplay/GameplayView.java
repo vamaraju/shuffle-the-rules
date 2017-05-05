@@ -11,7 +11,6 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.*;
-import model.Piles.Hand;
 import model.Piles.Pile;
 
 
@@ -58,7 +57,7 @@ public class GameplayView extends BorderPane {
         this.setRight(gameplayMessageView);
         this.setBottom(selectedPileAndButtons);
 
-        GameState.getInstance().setPlayClicked(false);
+        GameState.getInstance().getLock().lock();
         RuleInterpreter.execute(GameCreation.getInstance().getRuleGraph());
     }
 

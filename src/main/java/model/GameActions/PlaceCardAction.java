@@ -4,7 +4,6 @@
 package model.GameActions;
 
 import model.Card;
-import model.GameRule;
 import model.GameState;
 import model.Piles.Hand;
 import model.Piles.Pile;

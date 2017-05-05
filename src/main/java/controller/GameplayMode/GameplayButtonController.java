@@ -2,11 +2,7 @@ package controller.GameplayMode;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Toggle;
-import javafx.scene.layout.GridPane;
-import javafx.util.Pair;
 import model.*;
-import model.Piles.Hand;
 import view.Gameplay.GameplayButtonView;
 import view.Gameplay.SortDialog;
 import view.Gameplay.SwapDialog;
@@ -23,8 +19,8 @@ public class GameplayButtonController {
     }
 
 
-    public synchronized void onPlayButtonClick(ActionEvent e) {
-        GameState.getInstance().setPlayClicked(true);
+    public void onPlayButtonClick(ActionEvent e) {
+        GameState.getInstance().getLock().unlock();
     }
 
 
