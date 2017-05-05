@@ -123,14 +123,10 @@ public abstract class GameRule implements Serializable, Runnable {
         List<GameRule> postActions = new ArrayList<>();
         List<GameRule> postEvents = new ArrayList<>();
 
-        GameplayViewUpdater.enablePlayButton();
+        GameplayViewUpdater.enableAllButtons();
         GameplayViewUpdater.disableSkipActionButton();
-        GameplayViewUpdater.enableShowHandButton();
-        GameplayViewUpdater.enableSortHandButton();
         GameplayViewUpdater.disableSwapCardsButton();
         GameplayViewUpdater.disableEndTurnButton();
-        GameplayViewUpdater.enableEndGameButton();
-        GameplayViewUpdater.enableBecomeInactiveButton();
 
         // Populate postActions and postEvents using postRules.
         for (GameRule r : this.getPostRules()) {

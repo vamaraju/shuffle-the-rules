@@ -89,6 +89,14 @@ public class GameplayViewUpdater {
         Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableBecomeInactiveButton());
     }
 
+    public static void disableAllButtons() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disableAllButtons());
+    }
+
+    public static void enableAllButtons() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableAllButtons());
+    }
+
     public static void showPlayerWinAlert(Player winner) {
         Platform.runLater(() -> showPlayerWinAlertBox(winner));
     }

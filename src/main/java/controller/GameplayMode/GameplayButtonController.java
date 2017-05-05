@@ -83,13 +83,7 @@ public class GameplayButtonController {
         GameView.getInstance().getGameplayView().getGameplayMessageView().addMessage(GameplayMessageType.INFO, "Player '"
                 + GameState.getInstance().getActivePlayer().getName() + "'has been set to inactive. Skipping turn.");
 
-        GameView.getInstance().getGameplayView().getGameplayButtonView().disablePlayButton();
-        GameView.getInstance().getGameplayView().getGameplayButtonView().disableSkipActionButton();
-        GameView.getInstance().getGameplayView().getGameplayButtonView().disableShowHandButton();
-        GameView.getInstance().getGameplayView().getGameplayButtonView().disableSortHandButton();
-        GameView.getInstance().getGameplayView().getGameplayButtonView().disableSwapCardsButton();
+        GameView.getInstance().getGameplayView().getGameplayButtonView().disableAllButtons();
         GameView.getInstance().getGameplayView().getGameplayButtonView().enableEndTurnButton();
-        GameView.getInstance().getGameplayView().getGameplayButtonView().disableEndGameButton();
-        GameView.getInstance().getGameplayView().getGameplayButtonView().disableBecomeInactiveButton();
     }
 }

@@ -127,6 +127,18 @@ public class GameplayButtonView extends GridPane {
         getBecomeInactiveButton().setDisable(false);
     }
 
+    public void disableAllButtons() {
+        for (Button b : buttons.values()) {
+            b.setDisable(true);
+        }
+    }
+
+    public void enableAllButtons() {
+        for (Button b : buttons.values()) {
+            b.setDisable(false);
+        }
+    }
+
     public Button getPlayButton() {
         return buttons.get("play");
     }
