@@ -25,6 +25,22 @@ public class GameplayViewUpdater {
         Platform.runLater(() -> game.getGameplayMessageView().addMessage(type, message));
     }
 
+    public static void disablePlayButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disablePlayButton());
+    }
+
+    public static void enablePlayButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enablePlayButton());
+    }
+
+    public static void disableSkipActionButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disableSkipActionButton());
+    }
+
+    public static void enableSkipActionButton() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableSkipActionButton());
+    }
+
     public static void showPlayerWinAlert(Player winner) {
         Platform.runLater(() -> showPlayerWinAlertBox(winner));
     }

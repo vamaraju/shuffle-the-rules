@@ -71,6 +71,22 @@ public class GameplayButtonView extends GridPane {
         getEndTurnButton().setDisable(false);
     }
 
+    public void disablePlayButton() {
+        getPlayButton().setDisable(true);
+    }
+
+    public void enablePlayButton() {
+        getPlayButton().setDisable(false);
+    }
+
+    public void disableSkipActionButton() {
+        getSkipActionButton().setDisable(true);
+    }
+
+    public void enableSkipActionButton() {
+        getSkipActionButton().setDisable(false);
+    }
+
     public Button getPlayButton() {
         return buttons.get("play");
     }

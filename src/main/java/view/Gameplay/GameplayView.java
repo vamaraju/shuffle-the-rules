@@ -82,6 +82,10 @@ public class GameplayView extends BorderPane {
         return this.gameplayMessageView;
     }
 
+    public GameplayButtonView getGameplayButtonView() {
+        return this.gameplayButtons;
+    }
+
     public GameplayTableGridView getTableView() {
         return tableView;
     }
