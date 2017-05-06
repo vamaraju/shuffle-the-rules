@@ -188,7 +188,7 @@ public abstract class GameRule implements Serializable, Runnable {
 
     public boolean playerInactive() {
         if (GameState.getInstance().getCurrentPlayer().isInactive()) {
-            GameCreation.getInstance().getRuleGraph().getRuleByClass(OnTurnEndEvent.class).run();
+            GameCreation.getInstance().getRuleGraph().getTurnEnd().run();
             return true;
         }
         return false;
