@@ -38,8 +38,14 @@ public class EditorHelpView extends TextFlow {
         Text text10 = new Text("---Once an event or action is successfully taken, no other events or actions in the " +
                 "same level will be attempted. The graph will proceed depth-first through the successful rule, and " +
                 "ignore (it will not run) any other rules at the same depth level.\n\n");
+        Text text11 = new Text("---OnGameEndEvent closes the game window immediately upon being launched. This " +
+                "can be used after a PlayerWinAction rule to exit the game once a player wins.\n\n");
+        Text text12 = new Text("---Multiple previous rules can be specified by separating them with semicolons (;) " +
+                "in the Previous Rule text box. The selected rule will be automatically connected to all of the " +
+                "listed previous rules.");
 
-        this.getChildren().addAll(title, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10);
+
+        this.getChildren().addAll(title, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12);
     }
 
 }
