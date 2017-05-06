@@ -164,6 +164,10 @@ public class Pile implements Serializable, Iterable {
         this.cards = cards;
     }
 
+    public int size() {
+        return this.cards.size();
+    }
+
     public int getStartingSize() {
         return startingSize;
     }
