@@ -16,11 +16,12 @@ public class OnTurnEndEvent extends GameEvent {
 
     @Override
     public void run() {
-        if (gameCompleted()) {return;}
+        GameState.getInstance().setCurrentRule(this);
+        if (RuleInterpreter.gameCompleted()) {return;}
 
         Player currentPlayer = GameState.getInstance().getCurrentPlayer();
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Ending " + currentPlayer.getName() + "'s turn.");
-        launchPostRules();
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, RuleInterpreter.defaultGameplayMessage() + " -- Ending " + currentPlayer.getName() + "'s turn.");
+        RuleInterpreter.launchPostRules(this);
 
         // If the current player is the last one in the round, restart the round.
         // Otherwise, update the current player to the next one in the sequence. Note that the playerNum of the

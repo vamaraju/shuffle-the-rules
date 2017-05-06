@@ -18,9 +18,10 @@ public class DealCardAction extends GameAction {
 
     @Override
     public void run() {
-        if (gameCompleted()) {return;}
+        GameState.getInstance().setCurrentRule(this);
+        if (RuleInterpreter.gameCompleted()) {return;}
 
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, RuleInterpreter.defaultGameplayMessage());
 
         Pile dealingPile = this.getPile();
         ArrayList<Player> players = new ArrayList<>();
@@ -41,8 +42,8 @@ public class DealCardAction extends GameAction {
             }
         }
 
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, finishedGameplayMessage());
-        launchPostRules();
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, RuleInterpreter.finishedGameplayMessage());
+        RuleInterpreter.launchPostRules(this);
     }
 
 }

@@ -13,13 +13,14 @@ public class OnHandEmptyEvent extends GameEvent {
 
     @Override
     public void run() {
-        if (gameCompleted()) {return;}
+        GameState.getInstance().setCurrentRule(this);
+        if (RuleInterpreter.gameCompleted()) {return;}
 
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage());
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, RuleInterpreter.defaultGameplayMessage());
 
         Player currentPlayer = GameState.getInstance().getCurrentPlayer();
         if (currentPlayer.getHand().isEmpty()) {
-            launchPostRules();
+            RuleInterpreter.launchPostRules(this);
         }
     }
 }

@@ -17,7 +17,8 @@ public class OnTurnStartEvent extends GameEvent {
 
     @Override
     public void run() {
-        if (gameCompleted()) {return;}
+        GameState.getInstance().setCurrentRule(this);
+        if (RuleInterpreter.gameCompleted()) {return;}
 
         Player currentPlayer = GameState.getInstance().getCurrentPlayer();
         if (currentPlayer == null) { // This means that RoundStart was just run. It sets activePlayer to null.
@@ -32,10 +33,10 @@ public class OnTurnStartEvent extends GameEvent {
             return;
         }
 
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Starting " + currentPlayer.getName() + "'s turn.");
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, RuleInterpreter.defaultGameplayMessage() + " -- Starting " + currentPlayer.getName() + "'s turn.");
         GameplayViewUpdater.updateSelectedPile(currentPlayer.getHand());
         GameState.getInstance().setSelectedPile(currentPlayer.getHand());
 
-        launchPostRules();
+        RuleInterpreter.launchPostRules(this);
     }
 }

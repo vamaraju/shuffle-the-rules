@@ -6,6 +6,7 @@ package model.GameActions;
 import model.GameState;
 import model.GameplayMessageType;
 import model.Player;
+import model.RuleInterpreter;
 import view.Gameplay.GameplayViewUpdater;
 
 
@@ -20,14 +21,15 @@ public class PlayerWinAction extends GameAction {
 
     @Override
     public void run() {
+        GameState.getInstance().setCurrentRule(this);
         Player currentPlayer = GameState.getInstance().getCurrentPlayer();
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage() + " --- Player " + currentPlayer.getName() + " has won!");
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, RuleInterpreter.defaultGameplayMessage() + " --- Player " + currentPlayer.getName() + " has won!");
         GameplayViewUpdater.showPlayerWinAlert(currentPlayer);
 
         currentPlayer.setInactive(true);
         GameState.getInstance().setGameCompleted(true);
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Winning player has been set to inactive.");
-        launchPostRules();
+        RuleInterpreter.launchPostRules(this);
     }
 
 }

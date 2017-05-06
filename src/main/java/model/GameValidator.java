@@ -194,7 +194,8 @@ public class GameValidator {
 
 
     private void showExcessRuleErrorAlert(String ruleName) {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "The following Game Rule is present in the rule graph (Editor Tab) more than once: " + ruleName + ".\nEvery game needs exactly one of: OnGameStartEvent, OnRoundStartEvent, OnTurnStartEvent, and PlayerWinAction.");
+        Alert alert = new Alert(Alert.AlertType.WARNING, "The following Game Rule is present in the rule graph (Editor Tab) more than once: " + ruleName + ".\n" +
+                "This rule can only be present in the graph once.");
         alert.setTitle("Extra Rule Error");
         alert.setHeaderText(ruleName + " In Rule Graph More Than Once");
         alert.showAndWait();

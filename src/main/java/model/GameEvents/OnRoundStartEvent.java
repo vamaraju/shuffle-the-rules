@@ -17,16 +17,17 @@ public class OnRoundStartEvent extends GameEvent {
 
     @Override
     public void run() {
-        if (gameCompleted()) {return;}
+        GameState.getInstance().setCurrentRule(this);
+        if (RuleInterpreter.gameCompleted()) {return;}
 
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage() + " -- Resetting to first player.");
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, RuleInterpreter.defaultGameplayMessage() + " -- Resetting to first player.");
 
         GameState.getInstance().setCurrentPlayer(null);
 
         // If there is an active player, continue the game. Otherwise, end the game.
         for (Player p : GameCreation.getInstance().getPlayers()) {
             if (!p.isInactive()) {
-                launchPostRules();
+                RuleInterpreter.launchPostRules(this);
                 return;
             }
         }

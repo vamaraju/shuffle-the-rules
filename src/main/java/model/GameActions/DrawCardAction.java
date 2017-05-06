@@ -20,10 +20,11 @@ public class DrawCardAction extends GameAction {
 
     @Override
     public void run() {
-        if (gameCompleted()) {return;}
-        if (actionPhaseCompleted()) {return;}
+        GameState.getInstance().setCurrentRule(this);
+        if (RuleInterpreter.gameCompleted()) {return;}
+        if (RuleInterpreter.actionPhaseCompleted()) {return;}
 
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, RuleInterpreter.defaultGameplayMessage());
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "Please click the PLAY button to draw " + getNumCards() + " card(s) from pile " + getPile().getName() + ".");
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "The card(s) must be of suit '" + getCardSuit() + "' and of value '" + getCardValue() + "'. " +
                 "If the pile does not contain these cards, the draw will be unsuccessful.");
@@ -32,14 +33,14 @@ public class DrawCardAction extends GameAction {
         // Wait for user input and/or for the user to click the necessary objects in the GUI.
         GameState.getInstance().getLock().lock();
 
-        if (playerInactive()) {
+        if (RuleInterpreter.playerInactive()) {
             return;
         }
 
-        if (skipAction()) {
+        if (RuleInterpreter.skipAction()) {
             // The player needs to take an action this turn; restart the the action list if this is the last action in the list.
             if (isFinalAction()) {
-                getParentRule().launchPostRules();
+                RuleInterpreter.launchPostRules(getParentRule());
             }
             return;
         }
@@ -65,12 +66,12 @@ public class DrawCardAction extends GameAction {
         }
 
         GameplayViewUpdater.updateSelectedPile(currentPlayer.getHand());
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, finishedGameplayMessage());
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, RuleInterpreter.finishedGameplayMessage());
 
         GameState.getInstance().setActionPhaseCompleted(true);
         GameplayViewUpdater.disableAllButtonsExceptEndTurn();
         GameState.getInstance().getLock().lock();
-        launchPostRules();
+        RuleInterpreter.launchPostRules(this);
     }
 
 }

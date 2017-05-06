@@ -3,11 +3,8 @@
 * */
 package model.GameActions;
 
-import model.GameCreation;
+import model.*;
 import model.GameEvents.OnTurnEndEvent;
-import model.GameRule;
-import model.GameState;
-import model.GameplayMessageType;
 import view.Gameplay.GameplayViewUpdater;
 
 public class EndTurnAction extends GameAction  {
@@ -19,10 +16,11 @@ public class EndTurnAction extends GameAction  {
 
     @Override
     public void run() {
-        if (gameCompleted()) {return;}
-        if (actionPhaseCompleted()) {return;}
+        GameState.getInstance().setCurrentRule(this);
+        if (RuleInterpreter.gameCompleted()) {return;}
+        if (RuleInterpreter.actionPhaseCompleted()) {return;}
 
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, RuleInterpreter.defaultGameplayMessage());
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "EndTurnAction has been reached. This turn is ending.");
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "Please click the 'End Turn' button to proceed.");
 
@@ -30,7 +28,7 @@ public class EndTurnAction extends GameAction  {
         // Wait for user to click End Turn button.
         GameState.getInstance().getLock().lock();
 
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, finishedGameplayMessage() + " ---Player " +
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, RuleInterpreter.finishedGameplayMessage() + " ---Player " +
                 GameState.getInstance().getCurrentPlayer().getName() + "'s turn has ended.");
 
         GameState.getInstance().setActionPhaseCompleted(true);

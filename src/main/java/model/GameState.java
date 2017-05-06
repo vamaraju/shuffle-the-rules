@@ -23,6 +23,7 @@ public class GameState {
     private boolean skipActionClicked = false;
     private boolean actionPhaseCompleted = false;
     private boolean gameCompleted = false;
+    private GameRule currentRule;
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -103,5 +104,13 @@ public class GameState {
 
     public void setGameCompleted(boolean gameCompleted) {
         this.gameCompleted = gameCompleted;
+    }
+
+    public GameRule getCurrentRule() {
+        return currentRule;
+    }
+
+    public void setCurrentRule(GameRule currentRule) {
+        this.currentRule = currentRule;
     }
 }

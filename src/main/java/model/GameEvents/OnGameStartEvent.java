@@ -1,8 +1,6 @@
 package model.GameEvents;
 
-import model.GameRule;
-import model.GameView;
-import model.GameplayMessageType;
+import model.*;
 import view.Gameplay.GameplayButtonView;
 import view.Gameplay.GameplayView;
 import view.Gameplay.GameplayViewUpdater;
@@ -18,7 +16,8 @@ public class OnGameStartEvent extends GameEvent {
 
     @Override
     public void run() {
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage());
-        launchPostRules();
+        GameState.getInstance().setCurrentRule(this);
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, RuleInterpreter.defaultGameplayMessage());
+        RuleInterpreter.launchPostRules(this);
     }
 }
