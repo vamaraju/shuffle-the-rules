@@ -17,6 +17,8 @@ public abstract class GameRule implements Serializable, Runnable {
     protected String className;
     protected String description;
     protected ArrayList<GameRule> postRules = new ArrayList<>();
+    protected GameRule parentRule;
+    protected boolean finalAction = false;
 
     protected Pile pile;
     protected int numCards;
@@ -113,6 +115,22 @@ public abstract class GameRule implements Serializable, Runnable {
         this.priority = priority;
     }
 
+    public GameRule getParentRule() {
+        return parentRule;
+    }
+
+    public void setParentRule(GameRule parentRule) {
+        this.parentRule = parentRule;
+    }
+
+    public boolean isFinalAction() {
+        return finalAction;
+    }
+
+    public void setFinalAction(boolean finalAction) {
+        this.finalAction = finalAction;
+    }
+
     public void launchPostRules() {
         List<GameRule> postActions = new ArrayList<>();
         List<GameRule> postEvents = new ArrayList<>();
@@ -127,15 +145,25 @@ public abstract class GameRule implements Serializable, Runnable {
             } else if (r instanceof GameEvent) {
                 postEvents.add(r);
             }
+
+            // Set the parent of each postRule.
+            r.setParentRule(this);
         }
 
         // Sort the actions and events by priority. Lowest priority goes first.
         postActions.sort(Comparator.comparingInt((rule) -> rule.getPriority()));
         postEvents.sort(Comparator.comparingInt((rule) -> rule.getPriority()));
 
+        // Set the finalAction flag of the final action.
+        if (postActions.size() > 0) {
+            postActions.get(postActions.size()-1).setFinalAction(true);
+        }
+
         // Enable 'Skip Action' button if there are sufficient actions/events.
+        // Also, since there is a postAction, set actionPhaseCompleted flag to false (before they start executing).
         if (postActions.size() > 1 || (postActions.size() == 1 && postEvents.size() > 0)) {
             GameplayViewUpdater.enableSkipActionButton();
+            GameState.getInstance().setActionPhaseCompleted(false);
         }
 
         for (GameRule postAction : postActions) {
@@ -177,6 +205,10 @@ public abstract class GameRule implements Serializable, Runnable {
 
     public boolean gameCompleted() {
         return GameState.getInstance().isGameCompleted();
+    }
+
+    public boolean actionPhaseCompleted() {
+        return GameState.getInstance().isActionPhaseCompleted();
     }
 
     public String defaultGameplayMessage() {

@@ -21,6 +21,7 @@ public class DrawCardAction extends GameAction {
     @Override
     public void run() {
         if (gameCompleted()) {return;}
+        if (actionPhaseCompleted()) {return;}
 
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "Please click the PLAY button to draw " + getNumCards() + " card(s) from pile " + getPile().getName() + ".");
@@ -28,9 +29,18 @@ public class DrawCardAction extends GameAction {
                 "If the pile does not contain these cards, the draw will be unsuccessful.");
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "You can click the 'Skip Action' button to proceed to a different action. If you are unsure, click the PLAY button, and read the messages that proceed.");
 
+        // Wait for user input and/or for the user to click the necessary objects in the GUI.
         GameState.getInstance().getLock().lock();
 
-        if (playerInactive() || skipAction()) {
+        if (playerInactive()) {
+            return;
+        }
+
+        if (skipAction()) {
+            // The player needs to take an action this turn; restart the the action list if this is the last action in the list.
+            if (isFinalAction()) {
+                getParentRule().launchPostRules();
+            }
             return;
         }
 
@@ -57,6 +67,7 @@ public class DrawCardAction extends GameAction {
         GameplayViewUpdater.updateSelectedPile(currentPlayer.getHand());
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, finishedGameplayMessage());
 
+        GameState.getInstance().setActionPhaseCompleted(true);
         GameplayViewUpdater.disableAllButtonsExceptEndTurn();
         GameState.getInstance().getLock().lock();
         launchPostRules();

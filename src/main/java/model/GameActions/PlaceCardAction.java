@@ -28,15 +28,25 @@ public class PlaceCardAction extends GameAction {
     @Override
     public void run() {
         if (gameCompleted()) {return;}
+        if (actionPhaseCompleted()) {return;}
 
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "Please select " + getNumCards() + " card(s) from your hand to place in pile " + getPile().getName() + ". Then, click the PLAY button.");
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "The card(s) must be of suit '" + getCardSuit() + "' and of value '" + getCardValue() + "'. " +
                 "If you cannot play these cards, you can click the 'Skip Action' button to proceed to a different action.");
 
+        // Wait for user input and/or for the user to click the necessary objects in the GUI.
         GameState.getInstance().getLock().lock();
 
-        if (playerInactive() || skipAction()) {
+        if (playerInactive()) {
+            return;
+        }
+
+        if (skipAction()) {
+            // The player needs to take an action this turn; restart the the action list if this is the last action in the list.
+            if (isFinalAction()) {
+                getParentRule().launchPostRules();
+            }
             return;
         }
 
@@ -98,6 +108,7 @@ public class PlaceCardAction extends GameAction {
         GameplayViewUpdater.updateSelectedPile(currentHand);
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, finishedGameplayMessage());
 
+        GameState.getInstance().setActionPhaseCompleted(true);
         GameplayViewUpdater.disableAllButtonsExceptEndTurn();
         GameState.getInstance().getLock().lock();
         launchPostRules();
