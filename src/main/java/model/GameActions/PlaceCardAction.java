@@ -10,7 +10,9 @@ import model.Piles.Hand;
 import model.Piles.Pile;
 import view.Gameplay.GameplayViewUpdater;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PlaceCardAction extends GameAction {
 
@@ -52,11 +54,43 @@ public class PlaceCardAction extends GameAction {
         }
 
         Pile currentHand = GameState.getInstance().getSelectedPile();
-        if (getCardValue().equals("*Any*") && getCardSuit().equals("*Any*")) {
-            for (Card c : clickedCards) {
-                currentHand.remove(c);
-                getPile().add(c);
+        Card topCard = getPile().getTopCard();
+        String matchRequirementsStr = "Please select cards that match the requirements, or click the 'Skip Action' button if you do not have the necessary cards.";
+
+        // Check card value and suit conditions. Check if the clicked cards match the required value/suit.
+        // If there is any mismatch, post a message and re-run the action (exit).
+        for (Card c : clickedCards) {
+            if (getCardValue().equals("*Match Pile*") && c.getValue() != topCard.getValue()) {
+                GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, "Selected card value (" + c.getValue() +
+                        ") does not match the top card value (" + topCard.getValue() + ") of pile " + getPile().getName() + ".");
+                GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, matchRequirementsStr);
+                run();
+                return;
+            } else if (getCardSuit().equals("*Match Pile*") && c.getSuit() != topCard.getSuit()) {
+                GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, "Selected card suit (" + c.getSuit() +
+                        ") does not match the top card suit (" + topCard.getSuit() + ") of pile " + getPile().getName() + ".");
+                GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, matchRequirementsStr);
+                run();
+                return;
+            } else if (!getCardValue().equals("*Any*") && !getCardValue().equals("*Match Pile*") && c.getValue() != PlayingCard.valueOf(getCardValue().toUpperCase())) {
+                GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, "Selected card value (" + c.getValue() +
+                        ") does not match the required value (" + getCardValue() + ").");
+                GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, matchRequirementsStr);
+                run();
+                return;
+            } else if (!getCardSuit().equals("*Any*") && !getCardSuit().equals("*Match Pile*") && c.getSuit() != Suit.valueOf(getCardSuit().toUpperCase())) {
+                GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, "Selected card suit (" + c.getSuit() +
+                        ") does not match the required suit (" + getCardSuit() + ").");
+                GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, matchRequirementsStr);
+                run();
+                return;
             }
+        }
+
+        // All the requirements have been met. Remove clicked cards from hand and add them to pile.
+        for (Card c : clickedCards) {
+            currentHand.remove(c);
+            getPile().addToTop(c);
         }
 
         GameplayViewUpdater.updateSelectedPile(currentHand);
