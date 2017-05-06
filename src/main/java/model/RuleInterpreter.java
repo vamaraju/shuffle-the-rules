@@ -75,6 +75,21 @@ public class RuleInterpreter {
     }
 
 
+    public static void launchRoundStartEvent() {
+        GameCreation.getInstance().getRuleGraph().getRoundStart().run();
+    }
+
+
+    public static void launchTurnStartEvent() {
+        GameCreation.getInstance().getRuleGraph().getTurnStart().run();
+    }
+
+
+    public static void launchTurnEndEvent() {
+        GameCreation.getInstance().getRuleGraph().getTurnEnd().run();
+    }
+
+
     public static boolean playerInactive() {
         if (GameState.getInstance().getCurrentPlayer().isInactive()) {
             GameCreation.getInstance().getRuleGraph().getTurnEnd().run();

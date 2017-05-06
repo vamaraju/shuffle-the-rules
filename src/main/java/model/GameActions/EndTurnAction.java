@@ -32,6 +32,6 @@ public class EndTurnAction extends GameAction  {
                 GameState.getInstance().getCurrentPlayer().getName() + "'s turn has ended.");
 
         GameState.getInstance().setActionPhaseCompleted(true);
-        GameCreation.getInstance().getRuleGraph().getTurnEnd().run();
+        RuleInterpreter.launchTurnEndEvent();
     }
 }

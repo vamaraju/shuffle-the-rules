@@ -28,11 +28,11 @@ public class OnTurnEndEvent extends GameEvent {
         // currentPlayer is always one higher than its index in getPlayers(). Also, the players in getPlayers() are
         // stored in the sequence (in order of turns).
         if (currentPlayer.getPlayerNum() == GameCreation.getInstance().getPlayers().size()) {
-            GameCreation.getInstance().getRuleGraph().getRoundStart().run();
+            RuleInterpreter.launchRoundStartEvent();
         } else {
             currentPlayer = GameCreation.getInstance().getPlayers().get(currentPlayer.getPlayerNum());
             GameState.getInstance().setCurrentPlayer(currentPlayer);
-            GameCreation.getInstance().getRuleGraph().getTurnStart().run();
+            RuleInterpreter.launchTurnStartEvent();
         }
     }
 }

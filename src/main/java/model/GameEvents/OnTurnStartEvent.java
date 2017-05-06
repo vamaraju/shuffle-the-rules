@@ -29,7 +29,7 @@ public class OnTurnStartEvent extends GameEvent {
         if (currentPlayer.isInactive()) {
             GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Player '"
                     + GameState.getInstance().getCurrentPlayer().getName() + "' has been set to inactive. Skipping turn.");
-            GameCreation.getInstance().getRuleGraph().getTurnEnd().run();
+            RuleInterpreter.launchTurnEndEvent();
             return;
         }
 
