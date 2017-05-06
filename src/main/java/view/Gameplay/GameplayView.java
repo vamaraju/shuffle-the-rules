@@ -39,6 +39,7 @@ public class GameplayView extends BorderPane {
         populatePiles();
 
         gameplayMessageView = new GameplayMessageView();
+        gameplayMessageView.setMinWidth(420);
 
         selectedPileView = new PileView();
         gameplayButtons = new GameplayButtonView();
