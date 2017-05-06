@@ -48,9 +48,12 @@ public class RuleInterpreter {
         }
 
         // Enable 'Skip Action' button if there are sufficient actions/events.
-        // Also, since there is a postAction, set actionPhaseCompleted flag to false (before they start executing).
         if (postActions.size() > 1 || (postActions.size() == 1 && postEvents.size() > 0)) {
             GameplayViewUpdater.enableSkipActionButton();
+        }
+
+        // If there is a postAction, reset actionPhaseCompleted flag to false (before it starts executing).
+        if (postActions.size() > 0) {
             GameState.getInstance().setActionPhaseCompleted(false);
         }
 
@@ -103,6 +106,17 @@ public class RuleInterpreter {
         if (GameState.getInstance().isSkipActionClicked()) {
             GameState.getInstance().setSkipActionClicked(false);
             GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Skipped Action: " + GameState.getInstance().getCurrentRule().getName() + ".");
+            return true;
+        }
+        return false;
+    }
+
+
+    public static boolean skipTurn() {
+        if (GameState.getInstance().isSkipTurnClicked()) {
+            GameState.getInstance().setSkipTurnClicked(false);
+            GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Skipped turn for player: " + GameState.getInstance().getCurrentPlayer().getName() + ".");
+            GameCreation.getInstance().getRuleGraph().getTurnEnd().run();
             return true;
         }
         return false;

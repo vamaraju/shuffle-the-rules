@@ -37,6 +37,10 @@ public class DrawCardAction extends GameAction {
             return;
         }
 
+        if (RuleInterpreter.skipTurn()) {
+            return;
+        }
+
         if (RuleInterpreter.skipAction()) {
             // The player needs to take an action this turn; restart the the action list if this is the last action in the list.
             if (isFinalAction()) {

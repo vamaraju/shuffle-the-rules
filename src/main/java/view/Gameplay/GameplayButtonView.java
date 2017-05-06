@@ -27,6 +27,7 @@ public class GameplayButtonView extends GridPane {
         buttons.put("showHand", new Button("Show Hand"));
         buttons.put("sortHand", new Button("Sort Hand"));
         buttons.put("swapCards", new Button("Swap Cards"));
+        buttons.put("skipTurn", new Button("Skip Turn"));
         buttons.put("endTurn", new Button("End Turn"));
         buttons.put("endGame", new Button("End Game"));
         buttons.put("becomeInactive", new Button("Become Inactive"));
@@ -58,6 +59,7 @@ public class GameplayButtonView extends GridPane {
         getShowHandButton().setOnAction(controller::onShowHandButtonClick);
         getSortHandButton().setOnAction(controller::onSortHandButtonClick);
         getSwapCardsButton().setOnAction(controller::onSwapCardsButtonClick);
+        getSkipTurnButton().setOnAction(controller::onSkipTurnButtonClick);
         getEndTurnButton().setOnAction(controller::onEndTurnButtonClick);
         getEndGameButton().setOnAction(controller::onEndGameButtonClick);
         getBecomeInactiveButton().setOnAction(controller::onBecomeInactiveButtonClick);
@@ -101,6 +103,14 @@ public class GameplayButtonView extends GridPane {
 
     public void enableSwapCardsButton() {
         getSwapCardsButton().setDisable(false);
+    }
+
+    public void disableSkipTurnButton() {
+        getSkipTurnButton().setDisable(true);
+    }
+
+    public void enableSkipTurnButton() {
+        getSkipTurnButton().setDisable(false);
     }
 
     public void disableEndTurnButton() {
@@ -169,6 +179,10 @@ public class GameplayButtonView extends GridPane {
 
     public Button getSwapCardsButton() {
         return buttons.get("swapCards");
+    }
+
+    public Button getSkipTurnButton() {
+        return buttons.get("skipTurn");
     }
 
     public Button getEndTurnButton() {

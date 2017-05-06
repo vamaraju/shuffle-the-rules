@@ -21,6 +21,7 @@ public class GameState {
     private Pile selectedPile;
     private List<Card> clickedCards = new ArrayList<>();
     private boolean skipActionClicked = false;
+    private boolean skipTurnClicked = false;
     private boolean actionPhaseCompleted = false;
     private boolean gameCompleted = false;
     private GameRule currentRule;
@@ -88,6 +89,14 @@ public class GameState {
 
     public void setSkipActionClicked(boolean skipActionClicked) {
         this.skipActionClicked = skipActionClicked;
+    }
+
+    public boolean isSkipTurnClicked() {
+        return skipTurnClicked;
+    }
+
+    public void setSkipTurnClicked(boolean skipTurnClicked) {
+        this.skipTurnClicked = skipTurnClicked;
     }
 
     public boolean isActionPhaseCompleted() {

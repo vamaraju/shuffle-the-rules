@@ -67,6 +67,12 @@ public class GameplayButtonController {
     }
 
 
+    public void onSkipTurnButtonClick(ActionEvent e) {
+        GameState.getInstance().setSkipTurnClicked(true);
+        GameState.getInstance().getLock().unlock();
+    }
+
+
     public void onEndTurnButtonClick(ActionEvent e) {
         GameView.getInstance().getGameplayView().getGameplayButtonView().enableDefaultButtons();
         GameState.getInstance().getLock().unlock();
