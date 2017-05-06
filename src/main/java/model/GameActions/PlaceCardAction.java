@@ -27,6 +27,8 @@ public class PlaceCardAction extends GameAction {
 
     @Override
     public void run() {
+        if (gameCompleted()) {return;}
+
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "Please select " + getNumCards() + " card(s) from your hand to place in pile " + getPile().getName() + ". Then, click the PLAY button.");
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "The card(s) must be of suit '" + getCardSuit() + "' and of value '" + getCardValue() + "'. " +

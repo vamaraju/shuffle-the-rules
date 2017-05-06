@@ -21,6 +21,7 @@ public class GameState {
     private Pile selectedPile;
     private List<Card> clickedCards = new ArrayList<>();
     private boolean skipActionClicked = false;
+    private boolean gameCompleted = false;
 
     /**
      * Private constructor to block anyone from creating a new instance of this class.
@@ -85,5 +86,13 @@ public class GameState {
 
     public void setSkipActionClicked(boolean skipActionClicked) {
         this.skipActionClicked = skipActionClicked;
+    }
+
+    public boolean isGameCompleted() {
+        return gameCompleted;
+    }
+
+    public void setGameCompleted(boolean gameCompleted) {
+        this.gameCompleted = gameCompleted;
     }
 }

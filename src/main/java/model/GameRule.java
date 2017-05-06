@@ -161,6 +161,10 @@ public abstract class GameRule implements Serializable, Runnable {
         return false;
     }
 
+    public boolean gameCompleted() {
+        return GameState.getInstance().isGameCompleted();
+    }
+
     public String defaultGameplayMessage() {
         return this.getName() + ": " + this.getDescription();
     }

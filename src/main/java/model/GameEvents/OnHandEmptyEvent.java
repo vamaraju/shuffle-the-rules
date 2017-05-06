@@ -13,6 +13,8 @@ public class OnHandEmptyEvent extends GameEvent {
 
     @Override
     public void run() {
+        if (gameCompleted()) {return;}
+
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.EVENT, defaultGameplayMessage());
 
         Player currentPlayer = GameState.getInstance().getCurrentPlayer();

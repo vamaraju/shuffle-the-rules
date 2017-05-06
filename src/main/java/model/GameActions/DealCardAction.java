@@ -18,6 +18,8 @@ public class DealCardAction extends GameAction {
 
     @Override
     public void run() {
+        if (gameCompleted()) {return;}
+
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
 
         Pile dealingPile = this.getPile();

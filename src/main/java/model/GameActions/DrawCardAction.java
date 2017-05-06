@@ -20,6 +20,8 @@ public class DrawCardAction extends GameAction {
 
     @Override
     public void run() {
+        if (gameCompleted()) {return;}
+
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "Please click the PLAY button to draw " + getNumCards() + " card(s) from pile " + getPile().getName() + ".");
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "The card(s) must be of suit '" + getCardSuit() + "' and of value '" + getCardValue() + "'. " +
