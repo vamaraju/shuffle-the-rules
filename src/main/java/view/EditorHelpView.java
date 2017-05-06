@@ -42,10 +42,21 @@ public class EditorHelpView extends TextFlow {
                 "can be used after a PlayerWinAction rule to exit the game once a player wins.\n\n");
         Text text12 = new Text("---Multiple previous rules can be specified by separating them with semicolons (;) " +
                 "in the Previous Rule text box. The selected rule will be automatically connected to all of the " +
-                "listed previous rules.");
+                "listed previous rules.\n\n");
+        Text text13 = new Text("---The priority of an action or event in a particular level defines when the action " +
+                "or event will be executed (the sequence). Lowest priorities go first. For example, if in the same " +
+                "level there is a DrawCardAction with priority 1, PlaceCardAction with priority 0, and OnHandEmptyEvent" +
+                "with priority 0, the execution sequence will be: PlaceCardAction, DrawCardAction, and then OnHandEmptyEvent. " +
+                "Note that regardless of priority, actions are always executed before events, and OnTurnEndEvent is " +
+                "always executed last in a particular level.\n\n");
+        Text text14 = new Text("---A player can only take one action in a particular level. After taking an action, " +
+                "the 'action phase' will complete, and any other actions in the same level will be skipped. The game " +
+                "will proceed to execute the children rules of the taken action (if there are any), or the events that " +
+                "are on the same level as this action. If an action does not have any children, please ensure that " +
+                "there is an event on its level to avoid the game entering an incorrect state. \n\n");
 
-
-        this.getChildren().addAll(title, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12);
+        this.getChildren().addAll(title, text1, text2, text3, text4, text5, text6, text7,
+                text8, text9, text10, text11, text12, text13, text14);
     }
 
 }
