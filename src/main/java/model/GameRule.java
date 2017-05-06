@@ -8,6 +8,7 @@ import view.Gameplay.GameplayViewUpdater;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class GameRule implements Serializable, Runnable {
@@ -22,6 +23,7 @@ public abstract class GameRule implements Serializable, Runnable {
     protected String cardValue;
     protected String cardSuit;
     protected String player;
+    protected int priority;
 
     public GameRule() {
         this.name = "Generic Game Rule.";
@@ -103,6 +105,14 @@ public abstract class GameRule implements Serializable, Runnable {
         return this.getClass().getCanonicalName();
     }
 
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     public void launchPostRules() {
         List<GameRule> postActions = new ArrayList<>();
         List<GameRule> postEvents = new ArrayList<>();
@@ -118,6 +128,10 @@ public abstract class GameRule implements Serializable, Runnable {
                 postEvents.add(r);
             }
         }
+
+        // Sort the actions and events by priority. Lowest priority goes first.
+        postActions.sort(Comparator.comparingInt((rule) -> rule.getPriority()));
+        postEvents.sort(Comparator.comparingInt((rule) -> rule.getPriority()));
 
         // Enable 'Skip Action' button if there are sufficient actions/events.
         if (postActions.size() > 1 || (postActions.size() == 1 && postEvents.size() > 0)) {

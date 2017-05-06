@@ -312,12 +312,14 @@ public class EditorTabController {
             view.getEventCardValueComboBox().setDisable(false);
             view.getEventCardSuitComboBox().setDisable(false);
             view.getEventPlayerComboBox().setDisable(true);
+            view.getEventPriorityTextField().setDisable(false);
         } else if (selectedGameEvent instanceof OnCardPlayedEvent) {
             view.getEventPileComboBox().setDisable(false);
             view.getEventNumCardsTextField().setDisable(true);
             view.getEventCardValueComboBox().setDisable(false);
             view.getEventCardSuitComboBox().setDisable(false);
             view.getEventPlayerComboBox().setDisable(true);
+            view.getEventPriorityTextField().setDisable(false);
         } else if (selectedGameEvent instanceof OnGameStartEvent || selectedGameEvent instanceof OnGameEndEvent ||
                 selectedGameEvent instanceof OnRoundStartEvent || selectedGameEvent instanceof OnRoundEndEvent ||
                 selectedGameEvent instanceof OnTurnEndEvent || selectedGameEvent instanceof OnTurnStartEvent) {
@@ -326,6 +328,7 @@ public class EditorTabController {
             view.getEventCardValueComboBox().setDisable(true);
             view.getEventCardSuitComboBox().setDisable(true);
             view.getEventPlayerComboBox().setDisable(true);
+            view.getEventPriorityTextField().setDisable(false);
         } else if (selectedGameEvent instanceof OnHandEmptyEvent || selectedGameEvent instanceof OnHandFullEvent ||
                    selectedGameEvent instanceof OnPlayerClickEvent || selectedGameEvent instanceof OnPlayerTurnEvent) {
             view.getEventPileComboBox().setDisable(true);
@@ -333,12 +336,14 @@ public class EditorTabController {
             view.getEventCardValueComboBox().setDisable(true);
             view.getEventCardSuitComboBox().setDisable(true);
             view.getEventPlayerComboBox().setDisable(false);
+            view.getEventPriorityTextField().setDisable(false);
         } else if (selectedGameEvent instanceof OnPileEmptyEvent || selectedGameEvent instanceof OnPileFullEvent) {
             view.getEventPileComboBox().setDisable(false);
             view.getEventNumCardsTextField().setDisable(true);
             view.getEventCardValueComboBox().setDisable(true);
             view.getEventCardSuitComboBox().setDisable(true);
             view.getEventPlayerComboBox().setDisable(true);
+            view.getEventPriorityTextField().setDisable(false);
         }
     }
 
@@ -351,30 +356,35 @@ public class EditorTabController {
             view.getActionCardValueComboBox().setDisable(false);
             view.getActionCardSuitComboBox().setDisable(false);
             view.getActionPlayerComboBox().setDisable(false);
+            view.getActionPriorityTextField().setDisable(false);
         } else if (selectedGameAction instanceof EndGameAction) {
             view.getActionPileComboBox().setDisable(true);
             view.getActionNumCardsTextField().setDisable(true);
             view.getActionCardValueComboBox().setDisable(true);
             view.getActionCardSuitComboBox().setDisable(true);
             view.getActionPlayerComboBox().setDisable(true);
+            view.getActionPriorityTextField().setDisable(false);
         } else if (selectedGameAction instanceof EndTurnAction || selectedGameAction instanceof SkipTurnAction || selectedGameAction instanceof StartTurnAction || selectedGameAction instanceof PlayerWinAction) {
             view.getActionPileComboBox().setDisable(true);
             view.getActionNumCardsTextField().setDisable(true);
             view.getActionCardValueComboBox().setDisable(true);
             view.getActionCardSuitComboBox().setDisable(true);
             view.getActionPlayerComboBox().setDisable(false);
+            view.getActionPriorityTextField().setDisable(false);
         } else if (selectedGameAction instanceof MoveCardAction || selectedGameAction instanceof PlaceCardAction) {
             view.getActionPileComboBox().setDisable(false);
             view.getActionNumCardsTextField().setDisable(false);
             view.getActionCardValueComboBox().setDisable(false);
             view.getActionCardSuitComboBox().setDisable(false);
             view.getActionPlayerComboBox().setDisable(true);
+            view.getActionPriorityTextField().setDisable(false);
         } else if (selectedGameAction instanceof ShufflePileAction) {
             view.getActionPileComboBox().setDisable(false);
             view.getActionNumCardsTextField().setDisable(true);
             view.getActionCardValueComboBox().setDisable(true);
             view.getActionCardSuitComboBox().setDisable(true);
             view.getActionPlayerComboBox().setDisable(true);
+            view.getActionPriorityTextField().setDisable(false);
         }
     }
 
@@ -385,6 +395,7 @@ public class EditorTabController {
         ComboBox cardValueComboBox = view.getCardValueComboBox(activeGridElements);
         ComboBox cardSuitComboBox = view.getCardSuitComboBox(activeGridElements);
         ComboBox playerComboBox = view.getPlayerComboBox(activeGridElements);
+        TextField priorityTextField = view.getPriorityTextField(activeGridElements);
 
         if (!pileComboBox.isDisabled()) {
             gameRule.setPile((Pile) pileComboBox.getValue());
@@ -401,6 +412,13 @@ public class EditorTabController {
         if (!playerComboBox.isDisabled()) {
             gameRule.setPlayer(playerComboBox.getValue().toString());
         }
+        if (!priorityTextField.isDisabled()) {
+            if (priorityTextField.getText() == null || priorityTextField.getText().isEmpty()) {
+                gameRule.setPriority(0);
+            } else {
+                gameRule.setPriority(Integer.parseInt(priorityTextField.getText()));
+            }
+        }
     }
 
 
@@ -410,6 +428,7 @@ public class EditorTabController {
         ComboBox cardValueComboBox = view.getCardValueComboBox(activeGridElements);
         ComboBox cardSuitComboBox = view.getCardSuitComboBox(activeGridElements);
         ComboBox playerComboBox = view.getPlayerComboBox(activeGridElements);
+        TextField priorityTextField = view.getPriorityTextField(activeGridElements);
 
         if (!pileComboBox.isDisabled()) {
             pileComboBox.setValue(gameRule.getPile());
@@ -425,6 +444,9 @@ public class EditorTabController {
         }
         if (!playerComboBox.isDisabled()) {
             playerComboBox.setValue(gameRule.getPlayer());
+        }
+        if (!priorityTextField.isDisabled()) {
+            priorityTextField.setText(Integer.toString(gameRule.getPriority()));
         }
     }
 
@@ -693,8 +715,15 @@ public class EditorTabController {
 
     private boolean numberFieldValidation() {
         TextField numCardsTextField = view.getNumCardsTextField(activeGridElements);
+        TextField priorityTextField = view.getPriorityTextField(activeGridElements);
         if (!numCardsTextField.isDisabled()) {
             if (!numCardsTextField.getText().matches("[0-9]*")) {
+                showNumberErrorAlert();
+                return false;
+            }
+        }
+        if (!priorityTextField.isDisabled()) {
+            if (!priorityTextField.getText().matches("[0-9]*")) {
                 showNumberErrorAlert();
                 return false;
             }

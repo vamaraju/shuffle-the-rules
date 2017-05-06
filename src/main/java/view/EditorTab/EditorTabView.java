@@ -129,6 +129,7 @@ public class EditorTabView extends Tab {
         gridElements.put("cardValue", new Label("Card Value"), new ComboBox());
         gridElements.put("cardSuit", new Label("Card Suit"), new ComboBox());
         gridElements.put("player", new Label("Player(s)"), new ComboBox());
+        gridElements.put("priority", new Label("Priority"), new TextField());
     }
 
     public void clearAllInputs() {
@@ -143,10 +144,11 @@ public class EditorTabView extends Tab {
         getPreviousRuleTextField(gridElements).clear();
 
         getPileComboBox(gridElements).setValue(null);
-        getNumCardsTextField(gridElements);
+        getNumCardsTextField(gridElements).clear();
         getCardValueComboBox(gridElements).setValue(null);
         getCardSuitComboBox(gridElements).setValue(null);
         getPlayerComboBox(gridElements).setValue(null);
+        getPriorityTextField(gridElements).clear();
     }
 
 
@@ -168,6 +170,7 @@ public class EditorTabView extends Tab {
         ((TextField) gridElements.getValue2("description")).setPromptText("Enter a Description");
         ((TextField) gridElements.getValue2("previous")).setPromptText("Enter the Previous Rule");
         ((TextField) gridElements.getValue2("numberOfCards")).setPromptText("Enter the Number of Cards");
+        ((TextField) gridElements.getValue2("priority")).setPromptText("Enter the Priority (Number)");
     }
 
     private void setComboBoxPrompts(TripleHashMap<String, Node, Node> gridElements) {
@@ -274,6 +277,10 @@ public class EditorTabView extends Tab {
         getEventPlayerComboBox().setDisable(true);
     }
 
+    public void disableEventPriorityTextField() {
+        getEventPriorityTextField().setDisable(true);
+    }
+
     public void disableActionPileComboBox() {
         getActionPileComboBox().setDisable(true);
     }
@@ -292,6 +299,10 @@ public class EditorTabView extends Tab {
 
     public void disableActionPlayerComboBox() {
         getActionPlayerComboBox().setDisable(true);
+    }
+
+    public void disableActionPriorityTextField() {
+        getActionPriorityTextField().setDisable(true);
     }
 
     public void enableEventPileComboBox() {
@@ -314,6 +325,10 @@ public class EditorTabView extends Tab {
         getEventPlayerComboBox().setDisable(false);
     }
 
+    public void enableEventPriorityTextField() {
+        getEventPriorityTextField().setDisable(false);
+    }
+
     public void enableActionPileComboBox() {
         getActionPileComboBox().setDisable(false);
     }
@@ -334,12 +349,17 @@ public class EditorTabView extends Tab {
         getActionPlayerComboBox().setDisable(false);
     }
 
+    public void enableActionPriorityTextField() {
+        getActionPriorityTextField().setDisable(false);
+    }
+
     public void disableAllEventSpecificInputs() {
         disableEventPileComboBox();
         disableEventNumCardsTextField();
         disableEventCardValueComboBox();
         disableEventCardSuitComboBox();
         disableEventPlayerComboBox();
+        disableEventPriorityTextField();
     }
 
     public void disableAllActionSpecificInputs() {
@@ -348,6 +368,7 @@ public class EditorTabView extends Tab {
         disableActionCardValueComboBox();
         disableActionCardSuitComboBox();
         disableActionPlayerComboBox();
+        disableActionPriorityTextField();
     }
 
     public void enableAllEventSpecificInputs() {
@@ -356,6 +377,7 @@ public class EditorTabView extends Tab {
         enableEventCardValueComboBox();
         enableEventCardSuitComboBox();
         enableEventPlayerComboBox();
+        enableEventPriorityTextField();
     }
 
     public void enableAllActionSpecificInputs() {
@@ -364,6 +386,7 @@ public class EditorTabView extends Tab {
         enableActionCardValueComboBox();
         enableActionCardSuitComboBox();
         enableActionPlayerComboBox();
+        enableActionPriorityTextField();
     }
 
     public TripleHashMap<String, Node, Node> getEventsGridElements() {
@@ -458,6 +481,10 @@ public class EditorTabView extends Tab {
         return (ComboBox) gridElements.getValue2("player");
     }
 
+    public TextField getPriorityTextField(TripleHashMap<String, Node, Node> gridElements) {
+        return (TextField) gridElements.getValue2("priority");
+    }
+
     public ComboBox getEventPileComboBox() {
         return getPileComboBox(eventsGridElements);
     }
@@ -478,6 +505,10 @@ public class EditorTabView extends Tab {
         return getPlayerComboBox(eventsGridElements);
     }
 
+    public TextField getEventPriorityTextField() {
+        return getPriorityTextField(eventsGridElements);
+    }
+
     public ComboBox getActionPileComboBox() {
         return getPileComboBox(actionsGridElements);
     }
@@ -496,6 +527,10 @@ public class EditorTabView extends Tab {
 
     public ComboBox getActionPlayerComboBox() {
         return getPlayerComboBox(actionsGridElements);
+    }
+
+    public TextField getActionPriorityTextField() {
+        return getPriorityTextField(actionsGridElements);
     }
 
     public Button getAddEventButton() {
