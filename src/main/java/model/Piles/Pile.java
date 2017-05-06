@@ -212,6 +212,10 @@ public class Pile implements Serializable, Iterable {
         return this.cards.size() == this.maxSize;
     }
 
+    public boolean isMin() {
+        return this.cards.size() == this.minSize;
+    }
+
     public void populate(List<Card> cardPool) {
         cards.clear();
         for (int i = 0; i < startingSize; i++) {
