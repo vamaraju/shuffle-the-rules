@@ -25,6 +25,7 @@ import view.EditorTab.RuleElementRectangle;
 import view.EditorTab.EditorTabView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -146,28 +147,34 @@ public class EditorTabController {
             gameRule.setName(nameTextField.getText());
             setRuleDescription(gameRule);
             setRuleSpecificSettings(gameRule);
-            createAndAddRect(nameTextField.getText(), gameRule, view.getEditorDrawingPane().getRectByName(previousRuleTextField.getText()));
+            createAndAddRect(nameTextField.getText(), gameRule, splitPreviousRuleText(previousRuleTextField.getText()));
         }
     }
 
 
-    public void createAndAddRect(String ruleName, GameRule gameRule, RuleElementRectangle previousRect) {
+    public void createAndAddRect(String ruleName, GameRule gameRule, List<String> previousRuleNames) {
         DrawingPane drawingPane = view.getEditorDrawingPane();
 
         RuleElementRectangle r = new RuleElementRectangle(0, 0, ruleName, currentRuleType);
         r.setGameRule(gameRule);
-        r.addPreRule(previousRect);
-        previousRect.addPostRule(r);
-        drawingPane.setRelativePlacement(r, previousRect);
 
-        RuleElementLine l = new RuleElementLine(previousRect.getCenterX(), previousRect.getEndY(), r.getCenterX(), r.getY());
-        previousRect.getOutLines().add(l);
-        r.getInLines().add(l);
+        for (String previousRuleName : previousRuleNames) {
+            RuleElementRectangle previousRect = drawingPane.getRectByName(previousRuleName);
+            r.addPreRule(previousRect);
+            previousRect.addPostRule(r);
+            drawingPane.setRelativePlacement(r, previousRect);
+
+            RuleElementLine l = new RuleElementLine(previousRect.getCenterX(), previousRect.getEndY(), r.getCenterX(), r.getY());
+            previousRect.getOutLines().add(l);
+            r.getInLines().add(l);
+
+            drawingPane.addLine(l);
+        }
 
         r.setOnMouseClicked(this::onRectangleClicked);
         r.getTextObj().setOnMouseClicked(this::onRectangleClicked);
 
-        drawingPane.addRuleAndLine(r, l);
+        drawingPane.addRule(r);
         drawingPane.extendToFit(r);
     }
 
@@ -201,15 +208,18 @@ public class EditorTabController {
 
             deletePreLines(r);
             r.getPreRules().clear();
-            RuleElementRectangle preRule = drawingPane.getRectByName(view.getPreviousRuleTextField(activeGridElements).getText());
-            RuleElementLine inLine = new RuleElementLine(preRule.getCenterX(), preRule.getEndY(), r.getCenterX(), r.getY());
 
-            r.getPreRules().add(preRule);
-            preRule.getPostRules().add(r);
-            r.getInLines().add(inLine);
-            preRule.getOutLines().add(inLine);
-            drawingPane.addLine(inLine);
+            List<String> preRuleNames = splitPreviousRuleText(view.getPreviousRuleTextField(activeGridElements).getText());
+            for (String preRuleName : preRuleNames) {
+                RuleElementRectangle preRule = drawingPane.getRectByName(preRuleName);
+                RuleElementLine inLine = new RuleElementLine(preRule.getCenterX(), preRule.getEndY(), r.getCenterX(), r.getY());
 
+                r.getPreRules().add(preRule);
+                preRule.getPostRules().add(r);
+                r.getInLines().add(inLine);
+                preRule.getOutLines().add(inLine);
+                drawingPane.addLine(inLine);
+            }
             showUpdateSuccessfulAlert();
         }
     }
@@ -538,22 +548,39 @@ public class EditorTabController {
 
 
     private boolean previousRuleNotFoundValidation() {
-        String previousRuleName = view.getPreviousRuleTextField(activeGridElements).getText();
-        RuleElementRectangle previousRect = view.getEditorDrawingPane().getRectByName(previousRuleName);
-        if (previousRect == null) {
-            showPreviousRuleNotFoundErrorAlert(previousRuleName);
-            return false;
+        String previousRuleText = view.getPreviousRuleTextField(activeGridElements).getText();
+        List<String> previousRuleNames = splitPreviousRuleText(previousRuleText);
+
+        for (String previousRuleName : previousRuleNames) {
+            RuleElementRectangle previousRect = view.getEditorDrawingPane().getRectByName(previousRuleName);
+            if (previousRect == null) {
+                showPreviousRuleNotFoundErrorAlert(previousRuleName);
+                return false;
+            }
         }
         return true;
     }
 
 
+    private List<String> splitPreviousRuleText(String previousRuleText) {
+        List<String> separated = Arrays.asList(previousRuleText.split(";"));
+        for (int i = 0; i < separated.size(); i++) {
+            separated.set(i, separated.get(i).trim());
+        }
+        return separated;
+    }
+
+
     private boolean previousRuleIsSelectedRuleValidation() {
-        String previousRuleName = view.getPreviousRuleTextField(activeGridElements).getText();
-        RuleElementRectangle previousRect = view.getEditorDrawingPane().getRectByName(previousRuleName);
-        if (previousRect.isClicked() && !previousRect.getName().equals(DrawingPane.ROOT_NAME)) {
-            showPreviousRuleIsSelectedRuleErrorAlert(previousRuleName);
-            return false;
+        String previousRuleText = view.getPreviousRuleTextField(activeGridElements).getText();
+        List<String> previousRuleNames = splitPreviousRuleText(previousRuleText);
+
+        for (String previousRuleName : previousRuleNames) {
+            RuleElementRectangle previousRect = view.getEditorDrawingPane().getRectByName(previousRuleName);
+            if (previousRect.isClicked() && !previousRect.getName().equals(DrawingPane.ROOT_NAME)) {
+                showPreviousRuleIsSelectedRuleErrorAlert(previousRuleName);
+                return false;
+            }
         }
         return true;
     }
