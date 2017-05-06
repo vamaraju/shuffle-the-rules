@@ -26,8 +26,8 @@ public class PlaceCardAction extends GameAction {
     @Override
     public void run() {
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ACTION, defaultGameplayMessage());
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "Please select " + getNumCards() + " cards from your hand to place in pile " + getPile().getName() + ". Then, click the PLAY button.");
-        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "The cards must be of suit '" + getCardSuit() + "' and of value '" + getCardValue() + "'. " +
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "Please select " + getNumCards() + " card(s) from your hand to place in pile " + getPile().getName() + ". Then, click the PLAY button.");
+        GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INSTRUCTION, "The card(s) must be of suit '" + getCardSuit() + "' and of value '" + getCardValue() + "'. " +
                 "If you cannot play these cards, you can click the 'Skip Action' button to proceed to a different action.");
 
         GameState.getInstance().getLock().lock();
@@ -51,15 +51,15 @@ public class PlaceCardAction extends GameAction {
             return;
         }
 
+        Pile currentHand = GameState.getInstance().getSelectedPile();
         if (getCardValue().equals("*Any*") && getCardSuit().equals("*Any*")) {
-            Pile currentHand = GameState.getInstance().getSelectedPile();
             for (Card c : clickedCards) {
                 currentHand.remove(c);
                 getPile().add(c);
             }
-            GameplayViewUpdater.updateSelectedPile(currentHand);
         }
 
+        GameplayViewUpdater.updateSelectedPile(currentHand);
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, finishedGameplayMessage());
         launchPostRules();
     }
