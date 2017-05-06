@@ -112,6 +112,15 @@ public class GameValidator {
     }
 
 
+    private boolean singleTurnEndValidation() {
+        if (drawingPane.getCountByClass(OnTurnEndEvent.class) > 1) {
+            showExcessRuleErrorAlert("OnTurnEndEvent");
+            return false;
+        }
+        return true;
+    }
+
+
     private boolean numPlayersValidation() {
         if (gameSettings.getMinPlayers() <= 0 || gameSettings.getMaxPlayers() <= 0) {
             showNumPlayersErrorAlert();
@@ -159,7 +168,6 @@ public class GameValidator {
 
 
     private boolean runAllValidations() {
-        if (!cardPoolSizeValidation()) {return false;}
         if (!gameStartExistsValidation()) {return false;}
         if (!roundStartExistsValidation()) {return false;}
         if (!turnStartExistsValidation()) {return false;}
@@ -168,6 +176,8 @@ public class GameValidator {
         if (!singleGameStartValidation()) {return false;}
         if (!singleRoundStartValidation()) {return false;}
         if (!singleTurnStartValidation()) {return false;}
+        if (!singleTurnEndValidation()) {return false;}
+        if (!cardPoolSizeValidation()) {return false;}
         if (!numPlayersValidation()) {return false;}
         if (!pileObjectMatchValidation()) {return false;}
 

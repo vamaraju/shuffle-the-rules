@@ -3,6 +3,7 @@ package view.EditorTab;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import model.GameEvents.OnRoundStartEvent;
+import model.GameEvents.OnTurnEndEvent;
 import model.GameEvents.OnTurnStartEvent;
 import model.GameRule;
 import model.RuleGraph;
@@ -247,6 +248,7 @@ public class DrawingPane extends Pane {
         GameRule root = getRoot().getGameRule();
         GameRule roundStart = getRectByClass(OnRoundStartEvent.class).getGameRule();
         GameRule turnStart = getRectByClass(OnTurnStartEvent.class).getGameRule();
+        GameRule turnEnd = getRectByClass(OnTurnEndEvent.class).getGameRule();
 
         for (Object o : this.getChildren()) {
             if (o instanceof RuleElementRectangle) {
@@ -255,7 +257,7 @@ public class DrawingPane extends Pane {
             }
         }
 
-        RuleGraph graph = new RuleGraph(root, roundStart, turnStart);
+        RuleGraph graph = new RuleGraph(root, roundStart, turnStart, turnEnd);
         return graph;
     }
 }

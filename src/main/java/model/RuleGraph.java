@@ -8,16 +8,18 @@ public class RuleGraph implements Serializable {
     private GameRule root;
     private GameRule roundStart;
     private GameRule turnStart;
+    private GameRule turnEnd;
     private GameRule currentRule;
 
     public RuleGraph() {
 
     }
 
-    public RuleGraph(GameRule root, GameRule roundStart, GameRule turnStart) {
+    public RuleGraph(GameRule root, GameRule roundStart, GameRule turnStart, GameRule turnEnd) {
         this.root = root;
         this.roundStart = roundStart;
         this.turnStart = turnStart;
+        this.turnEnd = turnEnd;
     }
 
     public GameRule getRoot() {
@@ -42,6 +44,14 @@ public class RuleGraph implements Serializable {
 
     public void setTurnStart(GameRule turnStart) {
         this.turnStart = turnStart;
+    }
+
+    public GameRule getTurnEnd() {
+        return turnEnd;
+    }
+
+    public void setTurnEnd(GameRule turnEnd) {
+        this.turnEnd = turnEnd;
     }
 
     public GameRule getCurrentRule() {

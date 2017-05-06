@@ -13,8 +13,8 @@ public class EditorHelpView extends TextFlow {
         Text title = new Text("Editor Tab Instructions And Notes For Creating A Game\n\n\n\n");
 
         Text text1 = new Text("Notes:\n\n");
-        Text text2 = new Text("---Every game needs exactly one of the following game rules: OnGameStartEvent, OnRoundStartEvent, OnTurnStartEvent.\n\n");
-        Text text3 = new Text("---Every game needs at least one of the following game rules: OnTurnEndEvent, PlayerWinAction.\n\n");
+        Text text2 = new Text("---Every game needs exactly one of the following game rules: OnGameStartEvent, OnRoundStartEvent, OnTurnStartEvent, OnTurnEndEvent.\n\n");
+        Text text3 = new Text("---Every game needs at least one of the following game rules: PlayerWinAction.\n\n");
         Text text4 = new Text("---The role of OnRoundStartEvent is to reset the current player back to the first " +
                 "(starting) player. It is run automatically by OnTurnEndEvent when necessary. There should be no " +
                 "player-specific ('Current Player') game rules immediately proceeding OnRoundStartEvent. " +
