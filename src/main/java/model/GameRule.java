@@ -114,6 +114,7 @@ public abstract class GameRule implements Serializable, Runnable {
 
         // Populate postActions and postEvents using postRules.
         for (GameRule r : this.getPostRules()) {
+            GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Possible action/event for this turn: " + r.getName());
             if (r instanceof GameAction) {
                 postActions.add(r);
             } else if (r instanceof GameEvent) {
