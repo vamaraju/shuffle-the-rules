@@ -8,7 +8,7 @@ public class OnHandFullEvent extends GameEvent {
 
     public OnHandFullEvent() {
         this.className = "OnHandFullEvent";
-        this.description = "A player's hand is full.";
+        this.description = "Check if player's hand is full.";
     }
 
     @Override

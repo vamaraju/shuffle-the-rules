@@ -14,7 +14,7 @@ public class OnPlayerTurnEvent extends GameEvent {
 
     public OnPlayerTurnEvent() {
         this.className = "OnPlayerTurnEvent";
-        this.description = "A specific player's turn is starting.";
+        this.description = "Check if it a specific player's turn.";
     }
 
     @Override

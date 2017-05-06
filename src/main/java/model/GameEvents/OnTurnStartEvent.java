@@ -12,7 +12,7 @@ public class OnTurnStartEvent extends GameEvent {
 
     public OnTurnStartEvent() {
         this.className = "OnTurnStartEvent";
-        this.description = "The turn is starting.";
+        this.description = "The player's turn is starting.";
     }
 
     @Override

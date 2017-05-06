@@ -12,7 +12,7 @@ public class OnPileFullEvent extends GameEvent {
 
     public OnPileFullEvent() {
         this.className = "OnPileFullEvent";
-        this.description = "A specific pile is full.";
+        this.description = "Check if a specific pile is full.";
     }
 
     @Override

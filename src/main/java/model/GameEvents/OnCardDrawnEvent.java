@@ -10,7 +10,7 @@ public class OnCardDrawnEvent extends GameEvent {
 
     public OnCardDrawnEvent() {
         this.className = "OnCardDrawnEvent";
-        this.description = "A specific card is drawn.";
+        this.description = "Check if a specific card is drawn.";
     }
 
     @Override

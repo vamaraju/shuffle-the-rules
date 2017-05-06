@@ -10,7 +10,7 @@ public class OnCardPlayedEvent extends GameEvent {
 
     public OnCardPlayedEvent() {
         this.className = "OnCardPlayedEvent";
-        this.description = "A specific card is played.";
+        this.description = "Check if a specific card is played.";
     }
 
     @Override

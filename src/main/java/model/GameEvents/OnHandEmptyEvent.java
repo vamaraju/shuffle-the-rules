@@ -8,7 +8,7 @@ public class OnHandEmptyEvent extends GameEvent {
 
     public OnHandEmptyEvent() {
         this.className = "OnHandEmptyEvent";
-        this.description = "A player's hand is empty.";
+        this.description = "Check if player's hand is empty.";
     }
 
     @Override

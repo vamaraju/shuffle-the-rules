@@ -13,7 +13,7 @@ public class OnPlayerClickEvent extends GameEvent {
 
     public OnPlayerClickEvent() {
         this.className = "OnPlayerClickEvent";
-        this.description = "A specific player is clicked.";
+        this.description = "Check if a specific player is clicked.";
     }
 
     @Override

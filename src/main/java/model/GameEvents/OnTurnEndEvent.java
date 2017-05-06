@@ -11,7 +11,7 @@ public class OnTurnEndEvent extends GameEvent {
 
     public OnTurnEndEvent() {
         this.className = "OnTurnEndEvent";
-        this.description = "The turn is ending.";
+        this.description = "The player's turn is ending.";
     }
 
     @Override
