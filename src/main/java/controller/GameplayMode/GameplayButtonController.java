@@ -68,6 +68,7 @@ public class GameplayButtonController {
 
 
     public void onEndTurnButtonClick(ActionEvent e) {
+        GameView.getInstance().getGameplayView().getGameplayButtonView().enableDefaultButtons();
         GameState.getInstance().getLock().unlock();
     }
 

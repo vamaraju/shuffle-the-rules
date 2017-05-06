@@ -54,6 +54,9 @@ public class DrawCardAction extends GameAction {
 
         GameplayViewUpdater.updateSelectedPile(currentPlayer.getHand());
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, finishedGameplayMessage());
+
+        GameplayViewUpdater.disableAllButtonsExceptEndTurn();
+        GameState.getInstance().getLock().lock();
         launchPostRules();
     }
 

@@ -139,6 +139,18 @@ public class GameplayButtonView extends GridPane {
         }
     }
 
+    public void enableDefaultButtons() {
+        enableAllButtons();
+        disableSkipActionButton();
+//        disableSwapCardsButton();
+        disableEndTurnButton();
+    }
+
+    public void disableAllButtonsExceptEndTurn() {
+        disableAllButtons();
+        enableEndTurnButton();
+    }
+
     public Button getPlayButton() {
         return buttons.get("play");
     }

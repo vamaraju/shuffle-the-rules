@@ -95,6 +95,9 @@ public class PlaceCardAction extends GameAction {
 
         GameplayViewUpdater.updateSelectedPile(currentHand);
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, finishedGameplayMessage());
+
+        GameplayViewUpdater.disableAllButtonsExceptEndTurn();
+        GameState.getInstance().getLock().lock();
         launchPostRules();
     }
 

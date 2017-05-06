@@ -101,6 +101,14 @@ public class GameplayViewUpdater {
         Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableAllButtons());
     }
 
+    public static void enableDefaultButtons() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().enableDefaultButtons());
+    }
+
+    public static void disableAllButtonsExceptEndTurn() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disableAllButtonsExceptEndTurn());
+    }
+
     public static void showPlayerWinAlert(Player winner) {
         Platform.runLater(() -> showPlayerWinAlertBox(winner));
     }
