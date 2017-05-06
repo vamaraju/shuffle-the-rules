@@ -31,5 +31,6 @@ public class OnRoundStartEvent extends GameEvent {
             }
         }
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.ALERT, "All players are set to inactive. Ending game execution.");
+        GameplayViewUpdater.disableAllButtons();
     }
 }
