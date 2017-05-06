@@ -1,6 +1,7 @@
 package model.GameEvents;
 
 import model.GameRule;
+import view.Gameplay.GameplayViewUpdater;
 
 
 public class OnGameEndEvent extends GameEvent {
@@ -12,5 +13,6 @@ public class OnGameEndEvent extends GameEvent {
 
     @Override
     public void run() {
+        GameplayViewUpdater.closeGameplayWindow();
     }
 }

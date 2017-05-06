@@ -26,6 +26,7 @@ public class PlayerWinAction extends GameAction {
 
         currentPlayer.setInactive(true);
         GameplayViewUpdater.postGameplayMessage(GameplayMessageType.INFO, "Winning player has been set to inactive.");
+        launchPostRules();
     }
 
 }

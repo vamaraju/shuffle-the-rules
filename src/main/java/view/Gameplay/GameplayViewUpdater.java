@@ -25,6 +25,10 @@ public class GameplayViewUpdater {
         Platform.runLater(() -> game.getGameplayMessageView().addMessage(type, message));
     }
 
+    public static void closeGameplayWindow() {
+        Platform.runLater(() -> GameView.getInstance().getGameplayView().getScene().getWindow().hide());
+    }
+
     public static void disablePlayButton() {
         Platform.runLater(() -> GameView.getInstance().getGameplayView().getGameplayButtonView().disablePlayButton());
     }
