@@ -54,9 +54,17 @@ public class EditorHelpView extends TextFlow {
                 "will proceed to execute the children rules of the taken action (if there are any), or the events that " +
                 "are on the same level as this action. If an action does not have any children, please ensure that " +
                 "there is an event on its level to avoid the game entering an incorrect state. \n\n");
+        Text text15 = new Text("---EndTurnAction is functionally equivalent to OnTurnEndEvent, but the " +
+                "action version (rather than an event). It launches OnTurnEndEvent immediately upon execution, meaning " +
+                "that it ends the turn of the current player and starts the turn of the next player. Since it " +
+                "is an action, it can be paired together on the same graph level as other actions, and by " +
+                "manipulating priorities, EndTurnAction can be made to abruptly end a player's turn as needed. " +
+                "Note that EndTurnAction cannot be skipped, and it will end the current turn as soon it is reached, " +
+                "regardless of any other actions or events on the same level. No post-rules of EndTurnAction " +
+                "are ever launched.\n\n");
 
         this.getChildren().addAll(title, text1, text2, text3, text4, text5, text6, text7,
-                text8, text9, text10, text11, text12, text13, text14);
+                text8, text9, text10, text11, text12, text13, text14, text15);
     }
 
 }
