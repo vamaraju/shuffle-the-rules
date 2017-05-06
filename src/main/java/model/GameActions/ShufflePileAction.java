@@ -4,7 +4,9 @@
 package model.GameActions;
 
 import model.GameRule;
+import model.GameState;
 import model.Piles.Pile;
+import model.RuleInterpreter;
 
 
 public class ShufflePileAction extends GameAction {
@@ -18,6 +20,8 @@ public class ShufflePileAction extends GameAction {
 
     @Override
     public void run() {
+        GameState.getInstance().setCurrentRule(this);
+        RuleInterpreter.launchPostRules(this);
     }
 
 }

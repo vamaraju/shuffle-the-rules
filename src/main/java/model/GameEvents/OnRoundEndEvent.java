@@ -5,7 +5,8 @@ package model.GameEvents;
 
 
 import model.GameRule;
-
+import model.GameState;
+import model.RuleInterpreter;
 
 
 public class OnRoundEndEvent extends GameEvent {
@@ -17,6 +18,7 @@ public class OnRoundEndEvent extends GameEvent {
 
     @Override
     public void run() {
-
+        GameState.getInstance().setCurrentRule(this);
+        RuleInterpreter.launchPostRules(this);
     }
 }

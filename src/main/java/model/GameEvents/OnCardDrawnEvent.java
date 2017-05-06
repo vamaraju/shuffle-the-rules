@@ -2,6 +2,8 @@ package model.GameEvents;
 
 import model.Card;
 import model.GameRule;
+import model.GameState;
+import model.RuleInterpreter;
 
 
 public class OnCardDrawnEvent extends GameEvent {
@@ -15,6 +17,8 @@ public class OnCardDrawnEvent extends GameEvent {
 
     @Override
     public void run() {
+        GameState.getInstance().setCurrentRule(this);
+        RuleInterpreter.launchPostRules(this);
     }
 
 }

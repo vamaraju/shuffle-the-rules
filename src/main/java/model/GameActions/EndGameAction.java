@@ -4,6 +4,8 @@
 package model.GameActions;
 
 import model.GameRule;
+import model.GameState;
+import model.RuleInterpreter;
 
 public class EndGameAction extends GameAction {
 
@@ -14,5 +16,7 @@ public class EndGameAction extends GameAction {
 
     @Override
     public void run() {
+        GameState.getInstance().setCurrentRule(this);
+        RuleInterpreter.launchPostRules(this);
     }
 }

@@ -1,6 +1,8 @@
 package model.GameEvents;
 
 import model.GameRule;
+import model.GameState;
+import model.RuleInterpreter;
 import view.Gameplay.GameplayViewUpdater;
 
 
@@ -13,6 +15,7 @@ public class OnGameEndEvent extends GameEvent {
 
     @Override
     public void run() {
+        GameState.getInstance().setCurrentRule(this);
         GameplayViewUpdater.closeGameplayWindow();
     }
 }
