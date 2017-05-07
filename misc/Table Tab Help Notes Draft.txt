@@ -4,25 +4,40 @@ Table Tab Instructions And Notes For Creating A Game
 
 Notes:
 
+---The Table Tab is used to customize the table layout and add game objects(Piles, Cards, Players, Hands) and settings which will be used during the game.\n
+---Each time an object or setting is added or updated, a helpful message will be displayed informing user whether or not their update was successful.
+If an update was unsuccessful, the user will be told why.\n
+
+ table layout, cards
+available during gameplay, number of
+players
+
+Use menus to add Game
+Objects (Piles, Cards, Players)
+and customize their settings
+
 
 Overview
-- Add Game objects that will be used in game
-- create table layout
-- These objects
-- Each time a setting is added or updated, a helpful message informing user of success or error will be displayed
-Mention somewhere that a deck is added as a default
 
-Customizing the Table Layout (Play Area)
+
+
+Customizing the Table Layout (Play Area) \n\n
 Displayed 
 
-General Settings Menu
+General Settings Menu\n\n
+
 brief explanation of what it is
 mentions settings covered
 
 
-Piles Menu
+Piles Menu\n\n
+
+- Mention somewhere that a deck is added as a default
 
 
+The Play Area will automatically
+update when a Game Object is
+added or modified
 
-Card Restrictions Menu
+Card Restrictions Menu \n\n
 
