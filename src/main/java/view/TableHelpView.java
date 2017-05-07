@@ -12,7 +12,9 @@ public class TableHelpView extends TextFlow {
     public void initialize() {
         Text title = new Text("Table Tab Instructions And Notes For Creating A Game\n\n\n\n");
 
-        Text text1 = new Text("\n\n");
+        Text text1 = new Text("Notes:\n\n");
+
+
 
         this.getChildren().addAll(title, text1);
     }

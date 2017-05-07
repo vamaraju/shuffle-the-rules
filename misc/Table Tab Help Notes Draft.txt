@@ -1,0 +1,28 @@
+Table Tab Instructions And Notes For Creating A Game
+
+
+
+Notes:
+
+
+Overview
+- Add Game objects that will be used in game
+- create table layout
+- These objects
+- Each time a setting is added or updated, a helpful message informing user of success or error will be displayed
+Mention somewhere that a deck is added as a default
+
+Customizing the Table Layout (Play Area)
+Displayed 
+
+General Settings Menu
+brief explanation of what it is
+mentions settings covered
+
+
+Piles Menu
+
+
+
+Card Restrictions Menu
+
