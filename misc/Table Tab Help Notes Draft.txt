@@ -1,7 +1,6 @@
 Table Tab Instructions And Notes For Creating A Game
 
-brief explanation of what it is
-mentions settings covered
+
 
 Notes:
 
