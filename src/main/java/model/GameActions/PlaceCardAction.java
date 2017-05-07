@@ -104,6 +104,15 @@ public class PlaceCardAction extends GameAction {
             }
         }
 
+        // Launch the Place Card dialog and determine what Card Orientation to place the cards.
+        // Sets the CardOrientation for each card automatically according to the results of the dialog.
+        // The pile setting for CardOrientation will override anything set in this dialog.
+        // This will only work (have any effect) for piles the are set to CardOrientation.EITHER.
+        Platform.runLater(() -> RuleInterpreter.runPlaceCardDialog());
+
+        // Wait for the result of the dialog before continuing. The dialog will unlock.
+        GameState.getInstance().getLock().lock();
+
         // All the requirements have been met. Remove clicked cards from hand and add them to pile.
         for (Card c : clickedCards) {
             currentHand.remove(c);

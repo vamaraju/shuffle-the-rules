@@ -1,13 +1,16 @@
 package model;
 
+import javafx.scene.control.ButtonType;
 import model.GameActions.GameAction;
 import model.GameEvents.GameEvent;
 import model.GameEvents.OnTurnEndEvent;
 import view.Gameplay.GameplayViewUpdater;
+import view.Gameplay.PlaceCardDialog;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class RuleInterpreter {
 
@@ -137,5 +140,22 @@ public class RuleInterpreter {
 
     public static String finishedGameplayMessage() {
         return "Finished executing: " + GameState.getInstance().getCurrentRule().getName() + ".";
+    }
+
+    public static void runPlaceCardDialog() {
+        PlaceCardDialog placeCardDialog = new PlaceCardDialog();
+        Optional<ButtonType> buttonClickResult = placeCardDialog.showAndWait();
+
+        if (buttonClickResult.isPresent() && buttonClickResult.get() == ButtonType.APPLY) {
+            if (placeCardDialog.getSelectedToggle() != null) {
+                CardOrientation orientation = (CardOrientation) placeCardDialog.getSelectedToggle().getUserData();
+
+                List<Card> clickedCards = GameState.getInstance().getClickedCards();
+                for (Card c : clickedCards) {
+                    c.setOrientation(orientation);
+                }
+            }
+        }
+        GameState.getInstance().getLock().unlock();
     }
 }
