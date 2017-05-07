@@ -17,6 +17,7 @@ Customizing the Table Layout (Play Area) \n\n
 ---The table layout (play area) is represented as a grid.  Inside each grid block, 1 Pile can be placed.\n
 ---The height, width and size of grid blocks can be set.\n
 ---The table layout will automatically update if a Pile is added, moved or deleted.\n
+---Please Note: If you resize the grid to have smaller dimensions, any Piles outside of the new dimensions will be deleted without warning.
 
 General Settings Menu\n\n
 ---The General Settings Menu is responsible for general settings, such as the number of players(min, max), player hand size (min, max, starting),
@@ -25,13 +26,11 @@ and player turn order.\n
 ---If players in the game will not have hands, set all of the hand size fields to be 0.\n
 
 
-
 Piles Menu\n\n
-
-- Mention somewhere that a deck is added as a default
+---To add a Pile, all settings (General, Number of Cards, Coordinates, Player Association, Card Orientation) must be filled in.
 ---The table layout (play area) will automatically update when a Pile is added, moved or deleted.\n
-
----Please Note: The grid
+---To view or update a Pile's settings, click the Pile on the Grid.
+---Please Note: The grid is zero indexed, so when modifying a Pile's coordinates this must be taken into account.
 
 Card Restrictions Menu \n\n
 
