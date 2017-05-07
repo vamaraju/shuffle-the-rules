@@ -10,15 +10,18 @@ Overview\n\n
 ---The Table Tab is used to customize the table layout and game objects(Piles, Cards, Players, Hands) and settings which will be used during the game.\n
 ---Each time an object or setting is added or updated, a helpful message will be displayed informing user whether or not their update was successful.
 If an update was unsuccessful, the user will be told why.\n
+---Before playing a game, the game must be validated.  Checks will be run over all input settings to make sure there are no contradictions (ie. the number of cards in the game is not sufficient for pile constraints).
 ---On the left, what the current table layout looks like will is displayed.  On the right are three expandable menus which allow customization of settings and game objects. \n
+
 
 Customizing the Table Layout (Play Area) \n\n
 
-Displayed 
 
 General Settings Menu\n\n
----The General Settings Menu is responsible for settings such as the number of players(max, min),   
-
+---The General Settings Menu is responsible for general settings, such as the number of players(min, max), player hand size (min, max, starting),
+and player turn order.
+---The number of players and hand size settings must be set.  Player turn order is optional.
+---If players in the game will not have hands, set all of the hand size fields to be 0.
 
 
 
