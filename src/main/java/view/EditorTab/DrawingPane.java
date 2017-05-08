@@ -7,7 +7,6 @@ import model.GameEvents.OnTurnEndEvent;
 import model.GameEvents.OnTurnStartEvent;
 import model.GameRule;
 import model.RuleGraph;
-import org.junit.Rule;
 
 import java.util.ArrayList;
 import java.util.Comparator;
