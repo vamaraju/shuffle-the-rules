@@ -1,3 +1,12 @@
+/*
+* Requirements mandating inclusion:
+*
+* 3.2.2.4.3.1 Player can end game.
+* 3.2.2.3.3.2 Player’s Turn will be skipped if Player is inactive.
+* 3.2.2.2.3.4 User can select Card(s) to swap between Piles.
+* 3.2.2.1.3.1 User can view their Hand.
+* 3.2.2.1.3.2 User can sort their Hand.
+*/
 package controller.GameplayMode;
 
 import javafx.event.ActionEvent;

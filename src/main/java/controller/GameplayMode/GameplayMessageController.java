@@ -1,5 +1,11 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.2.3.3.1 Player will be notified when their Turn begins.
+* 3.2.2.3.3.2 Player will be notified when their Turn ends.
+* 3.2.2.3.3.2 Player’s Turn will be skipped if Player is inactive.
+*
+* Indirectly relates to requirements related to Card Actions, the interpreter and validation.
 * */
 package controller.GameplayMode;
 

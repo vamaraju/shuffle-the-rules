@@ -1,5 +1,7 @@
 /*
 * Requirements mandating inclusion:
+*
+* This has become a demo class.  The functionality provided has been moved elsewhere.
 * */
 
 package controller.GameplayMode;
@@ -10,10 +12,8 @@ import javafx.util.Pair;
 import view.Gameplay.GameplayView;
 import view.Gameplay.SortDialog;
 
-/* Think that separate elements should have separate controllers.
-*  For now, all controller functionality for Gameplay mode will be in this file.
- *
- * The table grid will have its own controller.
+/*
+ * This has become a demo class.  The functionality provided has been moved elsewhere.
  *  */
 public class GameplayController {
 
