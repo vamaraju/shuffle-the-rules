@@ -4,6 +4,7 @@
 package model;
 
 import model.Piles.Pile;
+import view.TableTab.TableGridDefaults;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -55,6 +56,19 @@ public class TableGrid implements Serializable, Copyable {
             clearPosition(gridPosition);
         }
         pileMap.put(p, gridPosition);
+    }
+
+    public void clear() {
+        pileMap.clear();
+    }
+
+    public void reset() {
+        numRows = TableGridDefaults.NUM_ROWS.toInt();
+        numCols = TableGridDefaults.NUM_COLUMNS.toInt();
+        cellWidth = TableGridDefaults.CELL_WIDTH.toInt();
+        cellHeight = TableGridDefaults.CELL_HEIGHT.toInt();
+        hideGrid = false;
+        pileMap.clear();
     }
 
     public void removePile(Pile p) {

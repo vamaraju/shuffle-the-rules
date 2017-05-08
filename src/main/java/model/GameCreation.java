@@ -71,13 +71,14 @@ public class GameCreation implements Serializable {
         instance.cardSettings.reset();
         instance.gameSettings.reset();
         instance.rectangleBlueprints.clear();
-        instance.tableGrid = new TableGrid();
+        instance.tableGrid.reset();
     }
 
 
     public static void resetViews() {
         GameView.getInstance().getEditorTab().clearAllInputs();
         GameView.getInstance().getTableTab().getTableGridPropertiesView().resetInputsToDefaults();
+        GameView.getInstance().getTableTab().getTableGridView().resetGrid();
         GameView.getInstance().getTableTab().getGeneralSettingsMenu().clearAllInputs();
         GameView.getInstance().getTableTab().getPileSettingsMenu().clearAllInputs();
         GameView.getInstance().getTableTab().getCardRestrictionSettingsMenu().clearAllInputs();
