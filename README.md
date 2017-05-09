@@ -8,14 +8,17 @@ Shuffle The Rules is a Java-based application that can be used to create customi
 
 ## Instructions
 To run the program, please download the latest release (shuffle-the-rules.jar) from:
+
 <https://github.com/vamaraju/shuffle-the-rules/releases/latest>
 
 In a command prompt, run the following command in the directory where shuffle-the-rules.jar is stored:
+
 `java -jar shuffle-the-rules.jar`
 
 This will open the program.
 
 Please note that Java 8 is required to run this program. You can download and install the Java 8 JDK for your operating system from here:
+
 <http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>
 
 
