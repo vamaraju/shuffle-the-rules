@@ -1,5 +1,16 @@
 /*
 * Requirements mandating inclusion:
+*
+* This class stores information about the current game/player state in Gameplay mode.
+* It is needed for various requirements relating to Gameplay mode.
+*
+* 3.2.2.2.3.5 User can draw Card(s) from a Pile.
+* 3.2.2.2.3.6 User can place Card(s) on a Pile.
+* 3.2.2.3.3.1 Player will be notified when their Turn begins.
+* 3.2.2.3.3.2 Player will be notified when their Turn ends.
+* 3.2.2.3.3.2 Player's Turn will be skipped if Player is inactive.
+* 3.2.2.4.3.1 Player can end game.
+* 3.2.2.5.3.1 Rule Interpreter will interpret and execute Game Rules for a Card Game.
 * */
 package model;
 

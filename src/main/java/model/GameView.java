@@ -1,5 +1,8 @@
 /*
 * Requirements mandating inclusion:
+*
+* This class is a singleton that stores the global views (GUI objects) for the application, and is necessary
+* for all requirements.
 * */
 package model;
 

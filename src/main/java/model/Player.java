@@ -1,6 +1,15 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.2.3.3.1 Player will be notified when their Turn begins.
+* 3.2.2.3.3.2 Player will be notified when their Turn ends.
+* 3.2.2.3.3.2 Player's Turn will be skipped if Player is inactive.
+* 3.2.2.4.3.1 Player can end game.
+* 3.2.1.5.3.1 Player Objects can be set to active or inactive.
+* 3.2.1.5.3.2 Player Objects can store player-specific information for gameplay.
+* 3.2.1.1.3.5 User can specify the Players that are allowed to view a Pile.
 * */
+
 package model;
 
 import model.Piles.Hand;

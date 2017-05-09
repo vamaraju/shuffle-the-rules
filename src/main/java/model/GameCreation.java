@@ -1,3 +1,10 @@
+/*
+* Requirements mandating inclusion:
+*
+* This class is a singleton that stores crucial game information, and is responsible for saving/loading games.
+* It is both directly and indirectly related to almost all of our requirements.
+* */
+
 package model;
 
 import javafx.scene.Node;

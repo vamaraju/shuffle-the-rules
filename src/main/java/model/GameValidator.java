@@ -1,3 +1,9 @@
+/*
+* Requirements mandating inclusion:
+*
+* 3.2.1.10.3.1 Check for contradictions in the game’s settings and the game’s flow.
+* */
+
 package model;
 
 

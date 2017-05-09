@@ -1,5 +1,7 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.1.9.3.1 User can set minimum and maximum number of Players in game.
 * */
 package model;
 
