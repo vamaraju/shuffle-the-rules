@@ -1,7 +1,18 @@
 /*
 * Requirements mandating inclusion:
 *
-* Need to update with anything Gameplay related that this class takes care of (showing)
+* 3.2.2.1.3.1 User can view their Hand.
+* 3.2.2.1.3.2 User can sort their Hand.
+* 3.2.2.2.3.1 User can select Card(s) from Hand to play.
+* 3.2.2.2.3.2 User can select Card(s) from Hand to discard.
+* 3.2.2.2.3.3 User can choose Card orientation (face up, face down).
+* 3.2.2.2.3.4 User can select Card(s) to swap between Piles.
+* 3.2.2.2.3.5 User can draw Card(s) from a Pile.
+* 3.2.2.2.3.6 User can place Card(s) on a Pile.
+* 3.2.2.3.3.1 Player will be notified when their Turn begins.
+* 3.2.2.3.3.2 Player will be notified when their Turn ends.
+* 3.2.2.3.3.2 Player's Turn will be skipped if Player is inactive.
+* 3.2.2.4.3.1 Player can end game.
 * */
 package view.Gameplay;
 

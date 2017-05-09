@@ -1,3 +1,10 @@
+/*
+* Requirements mandating inclusion:
+*
+* 3.2.1.8.3.4 User can show the grid.
+* 3.2.1.8.3.5 User can hide the grid.
+* */
+
 package view.TableTab;
 
 public enum TableGridCSS {

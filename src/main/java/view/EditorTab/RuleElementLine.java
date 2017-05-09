@@ -1,3 +1,14 @@
+/*
+* Requirements mandating inclusion:
+*
+* 3.2.1.6.3.1 User can specify Game Rules associated with particular Cards.
+* 3.2.1.6.3.2 User can create Game Rules by selecting Game Events and adding a Game Action to that event.
+* 3.2.1.6.3.3 User can create a Game Flow Sequence by linking Game Rules.
+* 3.2.1.3.7.1 Load Event settings.
+* 3.2.1.3.7.2 User can view Event actions and rules.
+* 3.2.1.3.7.3 User can edit Event actions and rules.
+* */
+
 package view.EditorTab;
 
 import javafx.scene.shape.Line;

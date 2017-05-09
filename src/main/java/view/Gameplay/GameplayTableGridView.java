@@ -1,5 +1,11 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.2.2.3.2 User can select Card(s) from Hand to discard.
+* 3.2.2.2.3.3 User can choose Card orientation (face up, face down).
+* 3.2.2.2.3.4 User can select Card(s) to swap between Piles.
+* 3.2.2.2.3.5 User can draw Card(s) from a Pile.
+* 3.2.2.2.3.6 User can place Card(s) on a Pile.
 * */
 package view.Gameplay;
 

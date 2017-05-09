@@ -1,5 +1,14 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.1.1.3.1 User can place Piles on Table.
+* 3.2.1.1.3.2 User can specify number of Cards in a Pile (max/min).
+* 3.2.1.1.3.3 User can specify the Player that a Pile is associated with.
+* 3.2.1.1.3.4 User can specify the type of a Pile. (Hand, Deck, Discard, Pile).
+* 3.2.1.1.3.5 User can specify the Players that are allowed to view a Pile.
+* 3.2.1.1.3.6 User can specify whether or not the Cards in the Pile are face down or face up or a combination of both.
+* 3.2.1.1.3.7 User can edit settings for a Pile in the associated Pile Settings Menu.
+* 3.2.1.1.3.8 User can specify a name for the Pile.
 * */
 package view.TableTab;
 

@@ -1,3 +1,10 @@
+/*
+* Requirements mandating inclusion:
+*
+* This class is a view that opens a help window for the Editor Tab with various notes and instructions.
+* It is indirectly related to all requirements of the editor tab, but essentially is just a helper class.
+* */
+
 package view;
 
 import javafx.scene.text.Text;
