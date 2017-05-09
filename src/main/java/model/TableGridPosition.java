@@ -1,3 +1,8 @@
+/*
+* Requirements mandating inclusion:
+* 3.2.1.8.3.3 User can place Pile Objects on the grid.
+* 3.2.1.1.3.1 User can place Piles on Table.
+*/
 package model;
 
 import java.io.Serializable;

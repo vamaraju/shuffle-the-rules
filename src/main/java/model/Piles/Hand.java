@@ -5,6 +5,7 @@
 * 3.2.2.1.3.2 User can sort their Hand.
 * 3.2.2.2.3.1 User can select Card(s) from Hand to play.
 * 3.2.2.2.3.2 User can select Card(s) from Hand to discard.
+* 3.2.1.1.3.2 User can specify number of Cards in a Pile (max/min).
 * */
 package model.Piles;
 

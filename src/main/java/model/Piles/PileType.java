@@ -1,5 +1,7 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.1.1.3.4 User can specify the type of a Pile. (Hand, Deck, Discard, Pile).
 * */
 package model.Piles;
 

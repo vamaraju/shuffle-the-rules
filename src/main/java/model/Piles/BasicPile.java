@@ -1,5 +1,8 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.1.1.3.2 User can specify number of Cards in a Pile (max/min).
+* 3.2.1.1.3.8 User can specify a name for the Pile.
 * */
 package model.Piles;
 

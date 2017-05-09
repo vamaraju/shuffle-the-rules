@@ -1,5 +1,8 @@
 /*
 * Requirements mandating inclusion:
+*
+* All requirements require this file.
+* Without this file, the application would not run.
 * */
 import javafx.application.Application;
 import javafx.geometry.Side;

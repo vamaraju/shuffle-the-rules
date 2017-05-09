@@ -1,5 +1,8 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.2.2.3.3 User can choose Card orientation (face up, face down).
+* 3.2.1.1.3.6 User can specify whether or not the Cards in the Pile are face down or face up or a combination of both.
 * */
 package model;
 

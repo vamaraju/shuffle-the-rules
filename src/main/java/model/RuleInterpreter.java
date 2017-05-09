@@ -1,3 +1,8 @@
+/*
+* Requirements mandating inclusion:
+*
+* 3.2.2.5.3.1 Rule Interpreter will interpret and execute Game Rules for a Card Game.
+*/
 package model;
 
 import javafx.scene.control.ButtonType;

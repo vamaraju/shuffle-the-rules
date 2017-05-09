@@ -1,5 +1,11 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.1.4.3.1 User can create a new game.
+* 3.2.1.4.3.2 User can save a game to file.
+* 3.2.1.4.3.3 User can load a game from file.
+* 3.2.1.4.3.4 User can edit a previously created game file.
+* 3.2.1.4.3.5 User can exit the Application.
 * */
 package view;
 
