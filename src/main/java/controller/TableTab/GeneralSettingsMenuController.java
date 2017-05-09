@@ -1,5 +1,10 @@
 /*
 * Requirements mandating inclusion:
+*
+* 3.2.1.9.3.1 User can set minimum and maximum number of Players in game.
+* 3.2.1.9.3.2 User can specify Player Turn order.
+* 3.2.1.5.3.1 Player Objects can be set to active or inactive.
+* 3.2.1.5.3.2 Player Objects can store player-specific information for gameplay.
 * */
 
 package controller.TableTab;

@@ -2,7 +2,6 @@
 * Requirements mandating inclusion:
 *
 * 3.2.1.2.3.1 User can specify number of each type and suit of Card(s).
-*
 * */
 
 package controller.TableTab;

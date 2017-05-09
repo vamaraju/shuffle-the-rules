@@ -1,3 +1,15 @@
+/*
+* Requirements mandating inclusion:
+*
+* This class is needed to provide functionality for user interaction with
+* Piles during a game.
+*
+* It causes the PileView to be updated and Cards to be displayed (viewed).
+*
+* 3.2.2.2.3.5 User can draw Card(s) from a Pile.
+* 3.2.2.2.3.6 User can place Card(s) on a Pile.
+* 3.2.1.1.3.5 User can specify the Players that are allowed to view a Pile.
+* */
 package controller.GameplayMode;
 
 import javafx.scene.input.MouseEvent;
